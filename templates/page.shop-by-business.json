@@ -1,0 +1,79 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */{
+  "sections": {
+    "cards": {
+      "type": "rsh-shop-by-business",
+      "settings": {
+        "heading": "Built around how you actually order",
+        "body": "<p>Six curated lists, each one pulled from the same catalog and sorted by what that kind of kitchen goes through fastest.</p>",
+        "show_images": true,
+        "section_width": "page-width",
+        "gap": 24,
+        "padding-block-start": 56,
+        "padding-block-end": 56
+      },
+      "blocks": {
+        "biz_0": {
+          "type": "card",
+          "settings": {
+            "title": "Cloud kitchens",
+            "text": "Packaging that survives the drive and still looks right at the door"
+          }
+        },
+        "biz_1": {
+          "type": "card",
+          "settings": {
+            "title": "Caterers",
+            "text": "Buy in bursts, stock for the season, keep the sizes consistent"
+          }
+        },
+        "biz_2": {
+          "type": "card",
+          "settings": {
+            "title": "Food trucks",
+            "text": "Small storage, tight margins, no room for the wrong order"
+          }
+        },
+        "biz_3": {
+          "type": "card",
+          "settings": {
+            "title": "Cafés and coffee shops",
+            "text": "Hot cups, cold cups and lids without the per-cup markup"
+          }
+        },
+        "biz_4": {
+          "type": "card",
+          "settings": {
+            "title": "Delis and supermarkets",
+            "text": "Grab-and-go packaging that sells the food inside it"
+          }
+        },
+        "biz_5": {
+          "type": "card",
+          "settings": {
+            "title": "Full-service restaurants",
+            "text": "One supplier for the whole back of house"
+          }
+        }
+      },
+      "block_order": [
+        "biz_0",
+        "biz_1",
+        "biz_2",
+        "biz_3",
+        "biz_4",
+        "biz_5"
+      ]
+    }
+  },
+  "order": [
+    "cards"
+  ]
+}

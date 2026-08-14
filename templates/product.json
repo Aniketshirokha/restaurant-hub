@@ -112,25 +112,9 @@
               },
               "blocks": {}
             },
-            "reviews": {
-              "type": "review",
+            "rsh_item_number": {
+              "type": "sku",
               "settings": {
-                "stars_style": "shaded",
-                "show_number": true,
-                "text_color": "",
-                "type_preset": "paragraph",
-                "width": "100%",
-                "alignment": "left"
-              },
-              "blocks": {}
-            },
-            "price_a7krng": {
-              "type": "price",
-              "settings": {
-                "show_sale_price_first": true,
-                "show_installments": true,
-                "show_tax_info": true,
-                "type_preset": "h4",
                 "width": "100%",
                 "alignment": "left",
                 "font": "var(--font-body--family)",
@@ -138,13 +122,37 @@
                 "line_height": "normal",
                 "letter_spacing": "normal",
                 "case": "none",
-                "text_color": "",
                 "padding-block-start": 0,
-                "padding-block-end": 17,
+                "padding-block-end": 0,
                 "padding-inline-start": 0,
                 "padding-inline-end": 0
-              },
-              "blocks": {}
+              }
+            },
+            "rsh_price": {
+              "type": "rsh-price-per-piece",
+              "settings": {
+                "case_label": "per case",
+                "show_missing_note": false,
+                "padding-block-start": 0,
+                "padding-block-end": 0,
+                "padding-inline-start": 0,
+                "padding-inline-end": 0
+              }
+            },
+            "rsh_tier": {
+              "type": "rsh-tier-table",
+              "settings": {
+                "heading": "Volume pricing",
+                "show_nudge": true,
+                "nudge_window": 2,
+                "show_annual": true,
+                "annual_cases_per_week": 2,
+                "annual_tier": 4,
+                "padding-block-start": 8,
+                "padding-block-end": 8,
+                "padding-inline-start": 0,
+                "padding-inline-end": 0
+              }
             },
             "variant_picker_R3rGDr": {
               "type": "variant-picker",
@@ -167,6 +175,22 @@
                 "padding-inline-end": 0
               },
               "blocks": {}
+            },
+            "rsh_inventory": {
+              "type": "rsh-inventory",
+              "settings": {
+                "show_count": true,
+                "count_ceiling": 500,
+                "low_threshold": 10,
+                "unit_noun": "cases",
+                "unit_noun_singular": "case",
+                "backorder_text": "Available to order",
+                "cutoff_text": "Ships today if ordered before 2pm Pacific.",
+                "padding-block-start": 0,
+                "padding-block-end": 0,
+                "padding-inline-start": 0,
+                "padding-inline-end": 0
+              }
             },
             "buy_buttons_eYQEYi": {
               "type": "buy-buttons",
@@ -227,6 +251,27 @@
                 }
               },
               "block_order": []
+            },
+            "rsh_paired": {
+              "type": "rsh-paired-product",
+              "settings": {
+                "kicker": "Matching lid",
+                "show_add_button": true,
+                "padding-block-start": 0,
+                "padding-block-end": 0,
+                "padding-inline-start": 0,
+                "padding-inline-end": 0
+              }
+            },
+            "rsh_specs": {
+              "type": "rsh-spec-table",
+              "settings": {
+                "heading": "Specifications",
+                "padding-block-start": 0,
+                "padding-block-end": 0,
+                "padding-inline-start": 0,
+                "padding-inline-end": 0
+              }
             },
             "product_description_LfDYCg": {
               "type": "product-description",
@@ -825,10 +870,14 @@
           },
           "block_order": [
             "text_GnyQiN",
-            "reviews",
-            "price_a7krng",
+            "rsh_item_number",
+            "rsh_price",
+            "rsh_tier",
             "variant_picker_R3rGDr",
+            "rsh_inventory",
             "buy_buttons_eYQEYi",
+            "rsh_paired",
+            "rsh_specs",
             "product_description_LfDYCg",
             "group_X39hBc",
             "accordion_g8EVVp"

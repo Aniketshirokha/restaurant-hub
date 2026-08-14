@@ -301,9 +301,20 @@
         "padding-block-start": 60,
         "padding-block-end": 72
       }
+    },
+    "rsh_shipping": {
+      "type": "rsh-shipping-progress",
+      "settings": {
+        "away_text": "You're [amount] from free shipping.",
+        "met_text": "Your order ships free.",
+        "section_width": "page-width",
+        "padding-block-start": 12,
+        "padding-block-end": 12
+      }
     }
   },
   "order": [
+    "rsh_shipping",
     "cart-section",
     "product_list_eDfjeW"
   ]

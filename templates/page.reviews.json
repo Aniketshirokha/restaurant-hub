@@ -1,0 +1,178 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */{
+  "sections": {
+    "intro": {
+      "type": "section",
+      "settings": {
+        "content_direction": "column",
+        "vertical_on_mobile": true,
+        "horizontal_alignment": "flex-start",
+        "vertical_alignment": "center",
+        "align_baseline": false,
+        "horizontal_alignment_flex_direction_column": "flex-start",
+        "vertical_alignment_flex_direction_column": "center",
+        "gap": 12,
+        "section_width": "page-width",
+        "section_height": "",
+        "section_height_custom": 50,
+        "background_media": "none",
+        "video_position": "cover",
+        "background_image_position": "cover",
+        "overlay_color": "#00000026",
+        "overlay_style": "solid",
+        "gradient_direction": "to top",
+        "border": "none",
+        "border_width": 1,
+        "border_opacity": 100,
+        "border_radius": 0,
+        "padding-block-start": 56,
+        "padding-block-end": 8,
+        "background_color": ""
+      },
+      "blocks": {
+        "rev_g": {
+          "type": "group",
+          "settings": {
+            "content_direction": "column",
+            "vertical_on_mobile": true,
+            "horizontal_alignment": "flex-start",
+            "vertical_alignment": "center",
+            "align_baseline": false,
+            "horizontal_alignment_flex_direction_column": "flex-start",
+            "vertical_alignment_flex_direction_column": "center",
+            "gap": 16,
+            "width": "fill",
+            "custom_width": 100,
+            "width_mobile": "fill",
+            "custom_width_mobile": 100,
+            "height": "fit",
+            "custom_height": 100,
+            "background_media": "none",
+            "video_position": "cover",
+            "background_image_position": "cover",
+            "overlay_color": "#00000026",
+            "overlay_style": "solid",
+            "gradient_direction": "to top",
+            "border": "none",
+            "border_width": 1,
+            "border_opacity": 100,
+            "border_radius": 0,
+            "open_in_new_tab": false,
+            "padding-block-start": 0,
+            "padding-block-end": 0,
+            "padding-inline-start": 0,
+            "padding-inline-end": 0
+          },
+          "blocks": {
+            "rev_0": {
+              "type": "text",
+              "settings": {
+                "width": "100%",
+                "max_width": "normal",
+                "alignment": "left",
+                "type_preset": "h1",
+                "font": "var(--font-body--family)",
+                "font_size": "1rem",
+                "line_height": "normal",
+                "letter_spacing": "normal",
+                "case": "none",
+                "background": false,
+                "background_color": "#00000026",
+                "corner_radius": 0,
+                "padding-block-start": 0,
+                "padding-block-end": 0,
+                "padding-inline-start": 0,
+                "padding-inline-end": 0,
+                "text": "<h1>What operators said after switching</h1>"
+              }
+            },
+            "rev_1": {
+              "type": "text",
+              "settings": {
+                "width": "100%",
+                "max_width": "normal",
+                "alignment": "left",
+                "type_preset": "rte",
+                "font": "var(--font-body--family)",
+                "font_size": "1rem",
+                "line_height": "normal",
+                "letter_spacing": "normal",
+                "case": "none",
+                "background": false,
+                "background_color": "#00000026",
+                "corner_radius": 0,
+                "padding-block-start": 0,
+                "padding-block-end": 0,
+                "padding-inline-start": 0,
+                "padding-inline-end": 0,
+                "text": "<p>These are illustrative while the store is new. Once real reviews come in through the review app they replace this page, with the ratings and verified badges that come with them.</p>"
+              }
+            }
+          },
+          "block_order": [
+            "rev_0",
+            "rev_1"
+          ]
+        }
+      },
+      "block_order": [
+        "rev_g"
+      ]
+    },
+    "quotes": {
+      "type": "rsh-testimonials",
+      "settings": {
+        "heading": "",
+        "section_width": "page-width",
+        "gap": 24,
+        "padding-block-start": 0,
+        "padding-block-end": 56
+      },
+      "blocks": {
+        "q_0": {
+          "type": "quote",
+          "settings": {
+            "headline": "Same containers, almost 20% less per case",
+            "quote": "<p>Switched our deli containers over about four months ago. Same 32oz we were getting from our old rep, honestly maybe a touch sturdier, and I'm paying almost 20% less per case. Delivery's been on time every single order.</p>",
+            "name": "Marcus D.",
+            "role": "Deli and prepared foods"
+          }
+        },
+        "q_1": {
+          "type": "quote",
+          "settings": {
+            "headline": "Holds heat, doesn't leak on the drive",
+            "quote": "<p>We run three ghost kitchen brands out of one space so packaging is basically our storefront. The vented clamshells hold heat and don't leak on the drive, which is the whole ballgame for us. Prices let us actually make margin on delivery.</p>",
+            "name": "Priya K.",
+            "role": "Cloud kitchen"
+          }
+        },
+        "q_2": {
+          "type": "quote",
+          "settings": {
+            "headline": "Best per-piece glove price I've found",
+            "quote": "<p>Gloves are solid, nitrile doesn't rip like the cheap vinyl we used to buy, and the per-piece price is the best I've found. One box came a day late once. They sorted it out fast.</p>",
+            "name": "Tony R.",
+            "role": "Food truck"
+          }
+        }
+      },
+      "block_order": [
+        "q_0",
+        "q_1",
+        "q_2"
+      ]
+    }
+  },
+  "order": [
+    "intro",
+    "quotes"
+  ]
+}

@@ -1,0 +1,227 @@
+{%- doc -%}
+  Stock status with a real case count.
+
+  "Usually ships in 3 to 5 days" is not an answer when a kitchen runs out of
+  clamshells on a Friday. Publishing the actual count is uncomfortable, which is
+  exactly why it is a differentiator: almost nobody in this category does it.
+
+  The theme's own inventory block caps its threshold at 100 units, so it goes
+  quiet on anything well stocked. This one keeps counting, with a ceiling above
+  which it stops quoting a number rather than advertising the size of the
+  warehouse.
+{%- enddoc -%}
+
+{%- liquid
+  assign block_settings = block.settings
+  assign variant = closest.product.selected_or_first_available_variant
+
+  assign noun = block_settings.unit_noun | default: 'cases'
+  assign noun_singular = block_settings.unit_noun_singular | default: 'case'
+
+  assign tracked = false
+  if variant.inventory_management == 'shopify'
+    assign tracked = true
+  endif
+
+  assign quantity = variant.inventory_quantity | plus: 0
+  assign ceiling = block_settings.count_ceiling | plus: 0
+  assign low_threshold = block_settings.low_threshold | plus: 0
+
+  assign status = 'in_stock'
+  assign show_count = false
+
+  if variant == blank
+    assign status = 'out_of_stock'
+  elsif tracked == false
+    assign status = 'in_stock'
+  elsif quantity > 0
+    if quantity <= low_threshold
+      assign status = 'low'
+    else
+      assign status = 'in_stock'
+    endif
+    if block_settings.show_count and quantity <= ceiling
+      assign show_count = true
+    endif
+  elsif variant.inventory_policy == 'continue'
+    assign status = 'backorder'
+  else
+    assign status = 'out_of_stock'
+  endif
+
+  assign unit = noun
+  if quantity == 1
+    assign unit = noun_singular
+  endif
+-%}
+
+<div
+  class="product-inventory spacing-style"
+  style="{% render 'spacing-style', settings: block_settings %}"
+  {{ block.shopify_attributes }}
+>
+  <span class="product-inventory__status">
+    <span class="svg-wrapper product-inventory__icon product-inventory__icon-{% if status == 'low' %}low{% elsif status == 'out_of_stock' %}out_of_stock{% else %}in_stock{% endif %}">
+      {{- 'icon-inventory.svg' | inline_asset_content -}}
+    </span>
+    <span class="product-inventory__text" role="status">
+      {%- case status -%}
+        {%- when 'low' -%}
+          {%- if show_count -%}
+            Low stock, {{ quantity }} {{ unit }} left
+          {%- else -%}
+            Low stock
+          {%- endif -%}
+        {%- when 'backorder' -%}
+          {{ block_settings.backorder_text | default: 'Available to order' }}
+        {%- when 'out_of_stock' -%}
+          Out of stock
+        {%- else -%}
+          {%- if show_count -%}
+            In stock, {{ quantity }} {{ unit }}
+          {%- else -%}
+            In stock
+          {%- endif -%}
+      {%- endcase -%}
+    </span>
+  </span>
+
+  {%- if status == 'in_stock' or status == 'low' -%}
+    {%- liquid
+      # The free shipping half of this line is read from theme settings so it can
+      # never quote a different threshold to the announcement bar or the cart.
+      assign threshold = settings.rsh_free_shipping_threshold | default: 0 | plus: 0
+      assign shipping_line = ''
+      if block_settings.show_free_shipping and threshold > 0
+        assign threshold_money = threshold | times: 100 | money_without_decimals
+        assign shipping_line = 'Free over ' | append: threshold_money | append: '.'
+      endif
+    -%}
+    {%- if block_settings.cutoff_text != blank or shipping_line != blank -%}
+      <p class="rsh-price__meta">
+        {{- block_settings.cutoff_text }} {{ shipping_line -}}
+      </p>
+    {%- endif -%}
+  {%- endif -%}
+</div>
+
+{% schema %}
+{
+  "name": "Stock status",
+  "tag": null,
+  "settings": [
+    {
+      "type": "paragraph",
+      "content": "Shows a real case count rather than a vague promise. Requires inventory tracking on the variant."
+    },
+    {
+      "type": "checkbox",
+      "id": "show_count",
+      "label": "Show the exact count",
+      "default": true
+    },
+    {
+      "type": "range",
+      "id": "count_ceiling",
+      "label": "Stop showing counts above",
+      "min": 50,
+      "max": 2000,
+      "step": 25,
+      "unit": "cs",
+      "default": 500,
+      "info": "Above this the status reads simply \"In stock\"."
+    },
+    {
+      "type": "range",
+      "id": "low_threshold",
+      "label": "Call it low stock at or under",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "cs",
+      "default": 10
+    },
+    {
+      "type": "text",
+      "id": "unit_noun",
+      "label": "Unit, plural",
+      "default": "cases"
+    },
+    {
+      "type": "text",
+      "id": "unit_noun_singular",
+      "label": "Unit, singular",
+      "default": "case"
+    },
+    {
+      "type": "text",
+      "id": "backorder_text",
+      "label": "When backordered",
+      "default": "Available to order"
+    },
+    {
+      "type": "text",
+      "id": "cutoff_text",
+      "label": "Cut-off line",
+      "default": "Ships today if ordered before 2pm Pacific."
+    },
+    {
+      "type": "checkbox",
+      "id": "show_free_shipping",
+      "label": "Add the free shipping threshold",
+      "default": true,
+      "info": "Reads the amount from Theme settings so it stays in step with the cart."
+    },
+    {
+      "type": "header",
+      "content": "Padding"
+    },
+    {
+      "type": "range",
+      "id": "padding-block-start",
+      "label": "Top",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "padding-block-end",
+      "label": "Bottom",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "padding-inline-start",
+      "label": "Left",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "padding-inline-end",
+      "label": "Right",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "default": 0
+    }
+  ],
+  "presets": [
+    {
+      "name": "Stock status",
+      "category": "Product"
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,5 @@
+# Repository files that are not part of the theme upload.
+README.md
+.shopifyignore
+*.md
+!locales/*.md

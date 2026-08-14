@@ -6,18 +6,41 @@
  * or related systems. Please exercise caution as any changes
  * made to this file may be overwritten.
  * ------------------------------------------------------------
- */
-{
+ */{
   "type": "header",
   "name": "t:names.header",
   "sections": {
     "header_announcements_WbCTVz": {
       "type": "header-announcements",
       "blocks": {
-        "announcement_mxxhta": {
+        "announcement_rsh0": {
           "type": "_announcement",
           "settings": {
-            "text": "Uplevel your office with new decor",
+            "text": "Free shipping over $149",
+            "link": "shopify://pages/shipping",
+            "font": "var(--font-body--family)",
+            "font_size": "1rem",
+            "letter_spacing": "normal",
+            "case": "none"
+          },
+          "blocks": {}
+        },
+        "announcement_rsh1": {
+          "type": "_announcement",
+          "settings": {
+            "text": "Volume pricing on every case",
+            "link": "shopify://pages/wholesale",
+            "font": "var(--font-body--family)",
+            "font_size": "1rem",
+            "letter_spacing": "normal",
+            "case": "none"
+          },
+          "blocks": {}
+        },
+        "announcement_rsh2": {
+          "type": "_announcement",
+          "settings": {
+            "text": "In stock, ships nationwide",
             "link": "shopify://collections/all",
             "font": "var(--font-body--family)",
             "font_size": "1rem",
@@ -28,7 +51,9 @@
         }
       },
       "block_order": [
-        "announcement_mxxhta"
+        "announcement_rsh0",
+        "announcement_rsh1",
+        "announcement_rsh2"
       ],
       "name": "t:names.announcement_bar",
       "settings": {

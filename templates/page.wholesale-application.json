@@ -1,0 +1,31 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */{
+  "sections": {
+    "form": {
+      "type": "rsh-wholesale-form",
+      "settings": {
+        "heading": "Apply for a wholesale account",
+        "body": "<p>One screen, reviewed within one business day. If you only need volume pricing, you do not need this. The published tiers apply to everyone.</p>",
+        "business_types": "Cloud kitchen\nCaterer\nFood truck\nCafé or coffee shop\nDeli or supermarket\nFull-service restaurant\nOther",
+        "items_placeholder": "Deli containers, nitrile gloves, kraft bags",
+        "button_label": "Apply for a wholesale account",
+        "form_note": "Applications are reviewed within one business day.",
+        "success_message": "Thanks. We review applications within one business day and will email you from there.",
+        "section_width": "page-width",
+        "gap": 24,
+        "padding-block-start": 56,
+        "padding-block-end": 56
+      }
+    }
+  },
+  "order": [
+    "form"
+  ]
+}

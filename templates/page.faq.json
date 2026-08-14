@@ -1,0 +1,647 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */{
+  "sections": {
+    "head": {
+      "type": "section",
+      "settings": {
+        "content_direction": "column",
+        "vertical_on_mobile": true,
+        "horizontal_alignment": "flex-start",
+        "vertical_alignment": "center",
+        "align_baseline": false,
+        "horizontal_alignment_flex_direction_column": "flex-start",
+        "vertical_alignment_flex_direction_column": "center",
+        "gap": 12,
+        "section_width": "page-width",
+        "section_height": "",
+        "section_height_custom": 50,
+        "background_media": "none",
+        "video_position": "cover",
+        "background_image_position": "cover",
+        "overlay_color": "#00000026",
+        "overlay_style": "solid",
+        "gradient_direction": "to top",
+        "border": "none",
+        "border_width": 1,
+        "border_opacity": 100,
+        "border_radius": 0,
+        "padding-block-start": 56,
+        "padding-block-end": 8,
+        "background_color": ""
+      },
+      "blocks": {
+        "faqh_g": {
+          "type": "group",
+          "settings": {
+            "content_direction": "column",
+            "vertical_on_mobile": true,
+            "horizontal_alignment": "flex-start",
+            "vertical_alignment": "center",
+            "align_baseline": false,
+            "horizontal_alignment_flex_direction_column": "flex-start",
+            "vertical_alignment_flex_direction_column": "center",
+            "gap": 16,
+            "width": "fill",
+            "custom_width": 100,
+            "width_mobile": "fill",
+            "custom_width_mobile": 100,
+            "height": "fit",
+            "custom_height": 100,
+            "background_media": "none",
+            "video_position": "cover",
+            "background_image_position": "cover",
+            "overlay_color": "#00000026",
+            "overlay_style": "solid",
+            "gradient_direction": "to top",
+            "border": "none",
+            "border_width": 1,
+            "border_opacity": 100,
+            "border_radius": 0,
+            "open_in_new_tab": false,
+            "padding-block-start": 0,
+            "padding-block-end": 0,
+            "padding-inline-start": 0,
+            "padding-inline-end": 0
+          },
+          "blocks": {
+            "faqh_0": {
+              "type": "text",
+              "settings": {
+                "width": "100%",
+                "max_width": "normal",
+                "alignment": "left",
+                "type_preset": "h1",
+                "font": "var(--font-body--family)",
+                "font_size": "1rem",
+                "line_height": "normal",
+                "letter_spacing": "normal",
+                "case": "none",
+                "background": false,
+                "background_color": "#00000026",
+                "corner_radius": 0,
+                "padding-block-start": 0,
+                "padding-block-end": 0,
+                "padding-inline-start": 0,
+                "padding-inline-end": 0,
+                "text": "<h1>Questions we actually get asked</h1>"
+              }
+            }
+          },
+          "block_order": [
+            "faqh_0"
+          ]
+        }
+      },
+      "block_order": [
+        "faqh_g"
+      ]
+    },
+    "list": {
+      "type": "section",
+      "settings": {
+        "content_direction": "column",
+        "vertical_on_mobile": true,
+        "horizontal_alignment": "flex-start",
+        "vertical_alignment": "center",
+        "align_baseline": false,
+        "horizontal_alignment_flex_direction_column": "flex-start",
+        "vertical_alignment_flex_direction_column": "center",
+        "gap": 12,
+        "section_width": "page-width",
+        "section_height": "",
+        "section_height_custom": 50,
+        "background_media": "none",
+        "video_position": "cover",
+        "background_image_position": "cover",
+        "overlay_color": "#00000026",
+        "overlay_style": "solid",
+        "gradient_direction": "to top",
+        "border": "none",
+        "border_width": 1,
+        "border_opacity": 100,
+        "border_radius": 0,
+        "padding-block-start": 48,
+        "padding-block-end": 48
+      },
+      "blocks": {
+        "faqs_g": {
+          "type": "group",
+          "settings": {
+            "content_direction": "column",
+            "vertical_on_mobile": true,
+            "horizontal_alignment": "flex-start",
+            "vertical_alignment": "center",
+            "align_baseline": false,
+            "horizontal_alignment_flex_direction_column": "flex-start",
+            "vertical_alignment_flex_direction_column": "center",
+            "gap": 12,
+            "width": "fill",
+            "custom_width": 100,
+            "width_mobile": "fill",
+            "custom_width_mobile": 100,
+            "height": "fit",
+            "custom_height": 100,
+            "background_media": "none",
+            "video_position": "cover",
+            "background_image_position": "cover",
+            "overlay_color": "#00000026",
+            "overlay_style": "solid",
+            "gradient_direction": "to top",
+            "border": "none",
+            "border_width": 1,
+            "border_opacity": 100,
+            "border_radius": 0,
+            "open_in_new_tab": false,
+            "padding-block-start": 0,
+            "padding-block-end": 0,
+            "padding-inline-start": 0,
+            "padding-inline-end": 0
+          },
+          "blocks": {
+            "faqs_acc": {
+              "type": "accordion",
+              "settings": {
+                "icon": "caret",
+                "dividers": true,
+                "type_preset": "h6",
+                "border": "none",
+                "border_width": 1,
+                "border_opacity": 100,
+                "border_radius": 0,
+                "padding-block-start": 0,
+                "padding-block-end": 0,
+                "padding-inline-start": 0,
+                "padding-inline-end": 0
+              },
+              "blocks": {
+                "faqs_r0": {
+                  "type": "_accordion-row",
+                  "settings": {
+                    "heading": "Do I need a business account to buy?",
+                    "open_by_default": false,
+                    "icon": "none",
+                    "width": 20
+                  },
+                  "blocks": {
+                    "faqs_a0_t": {
+                      "type": "text",
+                      "settings": {
+                        "width": "100%",
+                        "max_width": "normal",
+                        "alignment": "left",
+                        "type_preset": "rte",
+                        "font": "var(--font-body--family)",
+                        "font_size": "1rem",
+                        "line_height": "normal",
+                        "letter_spacing": "normal",
+                        "case": "none",
+                        "background": false,
+                        "background_color": "#00000026",
+                        "corner_radius": 0,
+                        "padding-block-start": 0,
+                        "padding-block-end": 0,
+                        "padding-inline-start": 0,
+                        "padding-inline-end": 0,
+                        "text": "<p>No. Anyone can create an account and check out at the published price. A wholesale account is only worth applying for once you are ordering the same list every week or moving more than 50 cases at a time.</p>"
+                      }
+                    }
+                  },
+                  "block_order": [
+                    "faqs_a0_t"
+                  ]
+                },
+                "faqs_r1": {
+                  "type": "_accordion-row",
+                  "settings": {
+                    "heading": "Is there a minimum order?",
+                    "open_by_default": false,
+                    "icon": "none",
+                    "width": 20
+                  },
+                  "blocks": {
+                    "faqs_a1_t": {
+                      "type": "text",
+                      "settings": {
+                        "width": "100%",
+                        "max_width": "normal",
+                        "alignment": "left",
+                        "type_preset": "rte",
+                        "font": "var(--font-body--family)",
+                        "font_size": "1rem",
+                        "line_height": "normal",
+                        "letter_spacing": "normal",
+                        "case": "none",
+                        "background": false,
+                        "background_color": "#00000026",
+                        "corner_radius": 0,
+                        "padding-block-start": 0,
+                        "padding-block-end": 0,
+                        "padding-inline-start": 0,
+                        "padding-inline-end": 0,
+                        "text": "<p>No minimum and no membership. Today's two-case buyer is next year's twenty-case account.</p>"
+                      }
+                    }
+                  },
+                  "block_order": [
+                    "faqs_a1_t"
+                  ]
+                },
+                "faqs_r2": {
+                  "type": "_accordion-row",
+                  "settings": {
+                    "heading": "How do volume discounts work?",
+                    "open_by_default": false,
+                    "icon": "none",
+                    "width": 20
+                  },
+                  "blocks": {
+                    "faqs_a2_t": {
+                      "type": "text",
+                      "settings": {
+                        "width": "100%",
+                        "max_width": "normal",
+                        "alignment": "left",
+                        "type_preset": "rte",
+                        "font": "var(--font-body--family)",
+                        "font_size": "1rem",
+                        "line_height": "normal",
+                        "letter_spacing": "normal",
+                        "case": "none",
+                        "background": false,
+                        "background_color": "#00000026",
+                        "corner_radius": 0,
+                        "padding-block-start": 0,
+                        "padding-block-end": 0,
+                        "padding-inline-start": 0,
+                        "padding-inline-end": 0,
+                        "text": "<p>Discounts start at three cases and deepen at 6, 12 and 25. The tier counts every case in your cart, not cases of one product, so four cases of containers, three of gloves and five of liners is twelve cases and all of it gets the twelve-case price. The discount applies on its own at checkout. There is no code to enter.</p>"
+                      }
+                    }
+                  },
+                  "block_order": [
+                    "faqs_a2_t"
+                  ]
+                },
+                "faqs_r3": {
+                  "type": "_accordion-row",
+                  "settings": {
+                    "heading": "Do you price match?",
+                    "open_by_default": false,
+                    "icon": "none",
+                    "width": 20
+                  },
+                  "blocks": {
+                    "faqs_a3_t": {
+                      "type": "text",
+                      "settings": {
+                        "width": "100%",
+                        "max_width": "normal",
+                        "alignment": "left",
+                        "type_preset": "rte",
+                        "font": "var(--font-body--family)",
+                        "font_size": "1rem",
+                        "line_height": "normal",
+                        "letter_spacing": "normal",
+                        "case": "none",
+                        "background": false,
+                        "background_color": "#00000026",
+                        "corner_radius": 0,
+                        "padding-block-start": 0,
+                        "padding-block-end": 0,
+                        "padding-inline-start": 0,
+                        "padding-inline-end": 0,
+                        "text": "<p>[DECIDE]</p>"
+                      }
+                    }
+                  },
+                  "block_order": [
+                    "faqs_a3_t"
+                  ]
+                },
+                "faqs_r4": {
+                  "type": "_accordion-row",
+                  "settings": {
+                    "heading": "Can I get a sample before ordering a case?",
+                    "open_by_default": false,
+                    "icon": "none",
+                    "width": 20
+                  },
+                  "blocks": {
+                    "faqs_a4_t": {
+                      "type": "text",
+                      "settings": {
+                        "width": "100%",
+                        "max_width": "normal",
+                        "alignment": "left",
+                        "type_preset": "rte",
+                        "font": "var(--font-body--family)",
+                        "font_size": "1rem",
+                        "line_height": "normal",
+                        "letter_spacing": "normal",
+                        "case": "none",
+                        "background": false,
+                        "background_color": "#00000026",
+                        "corner_radius": 0,
+                        "padding-block-start": 0,
+                        "padding-block-end": 0,
+                        "padding-inline-start": 0,
+                        "padding-inline-end": 0,
+                        "text": "<p>Yes. Tell us the three items you buy most and we will send a sample case so you can put it through a shift.</p>"
+                      }
+                    }
+                  },
+                  "block_order": [
+                    "faqs_a4_t"
+                  ]
+                },
+                "faqs_r5": {
+                  "type": "_accordion-row",
+                  "settings": {
+                    "heading": "Do you break cases or sell single units?",
+                    "open_by_default": false,
+                    "icon": "none",
+                    "width": 20
+                  },
+                  "blocks": {
+                    "faqs_a5_t": {
+                      "type": "text",
+                      "settings": {
+                        "width": "100%",
+                        "max_width": "normal",
+                        "alignment": "left",
+                        "type_preset": "rte",
+                        "font": "var(--font-body--family)",
+                        "font_size": "1rem",
+                        "line_height": "normal",
+                        "letter_spacing": "normal",
+                        "case": "none",
+                        "background": false,
+                        "background_color": "#00000026",
+                        "corner_radius": 0,
+                        "padding-block-start": 0,
+                        "padding-block-end": 0,
+                        "padding-inline-start": 0,
+                        "padding-inline-end": 0,
+                        "text": "<p>[DECIDE. Affects whether retail buyers can transact at all.]</p>"
+                      }
+                    }
+                  },
+                  "block_order": [
+                    "faqs_a5_t"
+                  ]
+                },
+                "faqs_r6": {
+                  "type": "_accordion-row",
+                  "settings": {
+                    "heading": "Are your containers microwave safe?",
+                    "open_by_default": false,
+                    "icon": "none",
+                    "width": 20
+                  },
+                  "blocks": {
+                    "faqs_a6_t": {
+                      "type": "text",
+                      "settings": {
+                        "width": "100%",
+                        "max_width": "normal",
+                        "alignment": "left",
+                        "type_preset": "rte",
+                        "font": "var(--font-body--family)",
+                        "font_size": "1rem",
+                        "line_height": "normal",
+                        "letter_spacing": "normal",
+                        "case": "none",
+                        "background": false,
+                        "background_color": "#00000026",
+                        "corner_radius": 0,
+                        "padding-block-start": 0,
+                        "padding-block-end": 0,
+                        "padding-inline-start": 0,
+                        "padding-inline-end": 0,
+                        "text": "<p>It depends on the item, so every product page carries a spec table that says yes or no rather than leaving you to guess from the material.</p>"
+                      }
+                    }
+                  },
+                  "block_order": [
+                    "faqs_a6_t"
+                  ]
+                },
+                "faqs_r7": {
+                  "type": "_accordion-row",
+                  "settings": {
+                    "heading": "Which products are compostable, and are they PFAS compliant?",
+                    "open_by_default": false,
+                    "icon": "none",
+                    "width": 20
+                  },
+                  "blocks": {
+                    "faqs_a7_t": {
+                      "type": "text",
+                      "settings": {
+                        "width": "100%",
+                        "max_width": "normal",
+                        "alignment": "left",
+                        "type_preset": "rte",
+                        "font": "var(--font-body--family)",
+                        "font_size": "1rem",
+                        "line_height": "normal",
+                        "letter_spacing": "normal",
+                        "case": "none",
+                        "background": false,
+                        "background_color": "#00000026",
+                        "corner_radius": 0,
+                        "padding-block-start": 0,
+                        "padding-block-end": 0,
+                        "padding-inline-start": 0,
+                        "padding-inline-end": 0,
+                        "text": "<p>The compostable collection is filtered by material rather than by marketing language. [PFAS COMPLIANCE STATEMENT AND CERT NUMBERS GO HERE ONCE SUPPLIER DOCS ARE IN HAND]</p>"
+                      }
+                    }
+                  },
+                  "block_order": [
+                    "faqs_a7_t"
+                  ]
+                },
+                "faqs_r8": {
+                  "type": "_accordion-row",
+                  "settings": {
+                    "heading": "Do you take purchase orders or offer net terms?",
+                    "open_by_default": false,
+                    "icon": "none",
+                    "width": 20
+                  },
+                  "blocks": {
+                    "faqs_a8_t": {
+                      "type": "text",
+                      "settings": {
+                        "width": "100%",
+                        "max_width": "normal",
+                        "alignment": "left",
+                        "type_preset": "rte",
+                        "font": "var(--font-body--family)",
+                        "font_size": "1rem",
+                        "line_height": "normal",
+                        "letter_spacing": "normal",
+                        "case": "none",
+                        "background": false,
+                        "background_color": "#00000026",
+                        "corner_radius": 0,
+                        "padding-block-start": 0,
+                        "padding-block-end": 0,
+                        "padding-inline-start": 0,
+                        "padding-inline-end": 0,
+                        "text": "<p>Not currently. Payment is by card at checkout.</p>"
+                      }
+                    }
+                  },
+                  "block_order": [
+                    "faqs_a8_t"
+                  ]
+                },
+                "faqs_r9": {
+                  "type": "_accordion-row",
+                  "settings": {
+                    "heading": "Can I set up a standing weekly order?",
+                    "open_by_default": false,
+                    "icon": "none",
+                    "width": 20
+                  },
+                  "blocks": {
+                    "faqs_a9_t": {
+                      "type": "text",
+                      "settings": {
+                        "width": "100%",
+                        "max_width": "normal",
+                        "alignment": "left",
+                        "type_preset": "rte",
+                        "font": "var(--font-body--family)",
+                        "font_size": "1rem",
+                        "line_height": "normal",
+                        "letter_spacing": "normal",
+                        "case": "none",
+                        "background": false,
+                        "background_color": "#00000026",
+                        "corner_radius": 0,
+                        "padding-block-start": 0,
+                        "padding-block-end": 0,
+                        "padding-inline-start": 0,
+                        "padding-inline-end": 0,
+                        "text": "<p>Yes. Sign in, open your order history and reorder, or ask us to set up a standing order and we will hold the pricing against it.</p>"
+                      }
+                    }
+                  },
+                  "block_order": [
+                    "faqs_a9_t"
+                  ]
+                },
+                "faqs_r10": {
+                  "type": "_accordion-row",
+                  "settings": {
+                    "heading": "Do you deliver locally?",
+                    "open_by_default": false,
+                    "icon": "none",
+                    "width": 20
+                  },
+                  "blocks": {
+                    "faqs_a10_t": {
+                      "type": "text",
+                      "settings": {
+                        "width": "100%",
+                        "max_width": "normal",
+                        "alignment": "left",
+                        "type_preset": "rte",
+                        "font": "var(--font-body--family)",
+                        "font_size": "1rem",
+                        "line_height": "normal",
+                        "letter_spacing": "normal",
+                        "case": "none",
+                        "background": false,
+                        "background_color": "#00000026",
+                        "corner_radius": 0,
+                        "padding-block-start": 0,
+                        "padding-block-end": 0,
+                        "padding-inline-start": 0,
+                        "padding-inline-end": 0,
+                        "text": "<p>[CONFIRM SUNNYVALE PICKUP AND LOCAL DELIVERY BEFORE LAUNCH]</p>"
+                      }
+                    }
+                  },
+                  "block_order": [
+                    "faqs_a10_t"
+                  ]
+                },
+                "faqs_r11": {
+                  "type": "_accordion-row",
+                  "settings": {
+                    "heading": "What is your resale certificate process for tax exemption?",
+                    "open_by_default": false,
+                    "icon": "none",
+                    "width": 20
+                  },
+                  "blocks": {
+                    "faqs_a11_t": {
+                      "type": "text",
+                      "settings": {
+                        "width": "100%",
+                        "max_width": "normal",
+                        "alignment": "left",
+                        "type_preset": "rte",
+                        "font": "var(--font-body--family)",
+                        "font_size": "1rem",
+                        "line_height": "normal",
+                        "letter_spacing": "normal",
+                        "case": "none",
+                        "background": false,
+                        "background_color": "#00000026",
+                        "corner_radius": 0,
+                        "padding-block-start": 0,
+                        "padding-block-end": 0,
+                        "padding-inline-start": 0,
+                        "padding-inline-end": 0,
+                        "text": "<p>[DOCUMENT THE PROCESS. California restaurants buy packaging for resale and will expect to give you a resale certificate on day one.]</p>"
+                      }
+                    }
+                  },
+                  "block_order": [
+                    "faqs_a11_t"
+                  ]
+                }
+              },
+              "block_order": [
+                "faqs_r0",
+                "faqs_r1",
+                "faqs_r2",
+                "faqs_r3",
+                "faqs_r4",
+                "faqs_r5",
+                "faqs_r6",
+                "faqs_r7",
+                "faqs_r8",
+                "faqs_r9",
+                "faqs_r10",
+                "faqs_r11"
+              ]
+            }
+          },
+          "block_order": [
+            "faqs_acc"
+          ]
+        }
+      },
+      "block_order": [
+        "faqs_g"
+      ]
+    }
+  },
+  "order": [
+    "head",
+    "list"
+  ]
+}
