@@ -1,0 +1,234 @@
+{%- doc -%}
+  The volume ladder on the product page: every tier, the case price and the
+  per-piece price at each one, with the buyer's current tier marked as they
+  change quantity.
+
+  Deliberately always visible. Competitors bury this behind a tab, a popover or a
+  rep phone call, and being the one that does not is the reason a buyer stays on
+  the page.
+{%- enddoc -%}
+
+<script
+  src="{{ 'rsh-tier-table.js' | asset_url }}"
+  type="module"
+  fetchpriority="low"
+></script>
+
+{%- liquid
+  assign block_settings = block.settings
+  assign product_resource = closest.product
+  assign variant = product_resource.selected_or_first_available_variant
+
+  assign namespace = settings.rsh_metafield_namespace | default: 'custom'
+  assign fields = product_resource.metafields[namespace]
+
+  assign pieces = fields.pieces_per_case.value | plus: 0
+  assign noun = fields.piece_noun.value | default: settings.rsh_piece_noun | default: 'piece'
+
+  capture tier_list
+    render 'rsh-tier-list'
+  endcapture
+  assign tiers = tier_list | strip | split: ','
+
+  capture tiers_json
+    echo '['
+    for tier in tiers
+      assign parts = tier | split: ':'
+      if forloop.index0 > 0
+        echo ','
+      endif
+      echo '{"min":'
+      echo parts[0]
+      echo ',"discount":'
+      echo parts[1]
+      echo '}'
+    endfor
+    echo ']'
+  endcapture
+
+  # The annual line converts an abstract percentage into money the owner
+  # recognises. It only renders when a real case price is in place, because the
+  # whole point is that the number is checkable.
+  assign show_annual = false
+  if block_settings.show_annual and variant.price > 0
+    assign target_index = block_settings.annual_tier | default: 4 | minus: 1
+    assign target = tiers[target_index]
+
+    if target != blank
+      assign target_parts = target | split: ':'
+      assign target_min = target_parts[0] | plus: 0
+      assign target_discount = target_parts[1] | plus: 0
+
+      if target_discount > 0
+        assign multiplier = 100 | minus: target_discount
+        assign target_price = variant.price | times: multiplier | plus: 50 | divided_by: 100
+        assign saving_per_case = variant.price | minus: target_price
+        assign cases_per_year = block_settings.annual_cases_per_week | default: 2 | times: 52
+        assign annual_saving = saving_per_case | times: cases_per_year
+        assign show_annual = true
+      endif
+    endif
+  endif
+-%}
+
+<rsh-tier-table
+  class="rsh-block spacing-style"
+  style="{% render 'spacing-style', settings: block_settings %}"
+  data-base-price="{{ variant.price }}"
+  data-money-format="{{ shop.money_format | escape }}"
+  data-currency="{{ cart.currency.iso_code | default: shop.currency }}"
+  data-tiers="{{ tiers_json | strip | escape }}"
+  data-quote-min="{{ settings.rsh_quote_min | default: 50 }}"
+  data-cart-wide="{% if settings.rsh_tiers_cart_wide %}true{% else %}false{% endif %}"
+  data-nudge-window="{{ block_settings.nudge_window | default: 2 }}"
+  {{ block.shopify_attributes }}
+>
+  {%- if block_settings.heading != blank -%}
+    <h3 class="rsh-eyebrow">{{ block_settings.heading }}</h3>
+  {%- endif -%}
+
+  {% render 'rsh-tier-table',
+    variant: variant,
+    pieces: pieces,
+    piece_noun: noun,
+    current_quantity: 1
+  %}
+
+  <div class="rsh-tier-extras">
+    {%- if block_settings.show_nudge -%}
+      <p class="rsh-nudge" ref="nudge" hidden>
+        <span class="rsh-nudge__icon" aria-hidden="true">
+          {{- 'icon-arrow.svg' | inline_asset_content -}}
+        </span>
+        <span ref="nudgeText"></span>
+      </p>
+    {%- endif -%}
+
+    {%- if show_annual -%}
+      <p class="rsh-annual">
+        Using {{ block_settings.annual_cases_per_week }} cases a week? Reaching the
+        {{ target_min }} case tier saves you
+        <strong>{{ annual_saving | money_without_decimals }}</strong> a year on this item.
+      </p>
+    {%- endif -%}
+  </div>
+</rsh-tier-table>
+
+{% schema %}
+{
+  "name": "Volume tier ladder",
+  "tag": null,
+  "settings": [
+    {
+      "type": "paragraph",
+      "content": "Shows every volume tier with the case and per-piece price at each one. Edit the ladder itself in Theme settings under Case and per-piece pricing."
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Volume pricing"
+    },
+    {
+      "type": "header",
+      "content": "Next tier nudge"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_nudge",
+      "label": "Show the next tier nudge",
+      "default": true
+    },
+    {
+      "type": "range",
+      "id": "nudge_window",
+      "label": "Show when within",
+      "min": 1,
+      "max": 6,
+      "step": 1,
+      "unit": "cs",
+      "default": 2,
+      "info": "\"Add 23 more cases\" is not a nudge. Keep this small."
+    },
+    {
+      "type": "header",
+      "content": "Annual saving line"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_annual",
+      "label": "Show what a tier saves per year",
+      "default": true
+    },
+    {
+      "type": "range",
+      "id": "annual_cases_per_week",
+      "label": "Cases a week",
+      "min": 1,
+      "max": 20,
+      "step": 1,
+      "unit": "cs",
+      "default": 2
+    },
+    {
+      "type": "range",
+      "id": "annual_tier",
+      "label": "Compare against tier",
+      "min": 2,
+      "max": 5,
+      "step": 1,
+      "default": 4
+    },
+    {
+      "type": "header",
+      "content": "Padding"
+    },
+    {
+      "type": "range",
+      "id": "padding-block-start",
+      "label": "Top",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "default": 8
+    },
+    {
+      "type": "range",
+      "id": "padding-block-end",
+      "label": "Bottom",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "default": 8
+    },
+    {
+      "type": "range",
+      "id": "padding-inline-start",
+      "label": "Left",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "padding-inline-end",
+      "label": "Right",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "default": 0
+    }
+  ],
+  "presets": [
+    {
+      "name": "Volume tier ladder",
+      "category": "Product"
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,147 @@
+{%- doc -%}
+  Free shipping progress bar for the cart.
+
+  The threshold lives in theme settings so this and the announcement bar can
+  never quote different numbers. Set it to zero there to switch the bar off
+  everywhere at once.
+{%- enddoc -%}
+
+<script
+  src="{{ 'rsh-shipping-progress.js' | asset_url }}"
+  type="module"
+  fetchpriority="low"
+></script>
+
+{%- liquid
+  assign threshold_dollars = settings.rsh_free_shipping_threshold | default: 0 | plus: 0
+  assign threshold = threshold_dollars | times: 100
+  assign total = cart.total_price | plus: 0
+  assign remaining = threshold | minus: total
+  assign met = false
+  if remaining <= 0
+    assign met = true
+    assign remaining = 0
+  endif
+
+  assign percent = 0
+  if threshold > 0
+    assign percent = total | times: 100 | divided_by: threshold
+    if percent > 100
+      assign percent = 100
+    endif
+  endif
+
+  assign away_text = section.settings.away_text | default: "You're [amount] from free shipping."
+  assign met_text = section.settings.met_text | default: 'Your order ships free.'
+-%}
+
+{%- if threshold > 0 -%}
+  <div
+    class="
+      section
+      section--{{ section.settings.section_width }}
+      spacing-style
+    "
+    style="{% render 'spacing-style', settings: section.settings %}"
+  >
+    <rsh-shipping-progress
+      class="rsh-ship{% if met %} rsh-ship--met{% endif %}"
+      data-threshold="{{ threshold }}"
+      data-money-format="{{ shop.money_format | escape }}"
+      data-currency="{{ cart.currency.iso_code | default: shop.currency }}"
+      data-away-text="{{ away_text | escape }}"
+      data-met-text="{{ met_text | escape }}"
+    >
+      <p class="rsh-ship__text" ref="text" role="status" aria-live="polite">
+        {%- if met -%}
+          {{ met_text }}
+        {%- else -%}
+          {%- assign parts = away_text | split: '[amount]' -%}
+          {{- parts[0] -}}<strong>{{ remaining | money }}</strong>{{- parts[1] -}}
+        {%- endif -%}
+      </p>
+
+      <div
+        class="rsh-ship__track"
+        role="progressbar"
+        aria-valuemin="0"
+        aria-valuemax="100"
+        aria-valuenow="{{ percent }}"
+        aria-label="Progress towards free shipping"
+      >
+        <div class="rsh-ship__fill" ref="fill" style="width: {{ percent }}%"></div>
+      </div>
+    </rsh-shipping-progress>
+  </div>
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "Free shipping progress",
+  "enabled_on": {
+    "templates": ["cart", "index", "product", "collection"]
+  },
+  "settings": [
+    {
+      "type": "paragraph",
+      "content": "The threshold is set in Theme settings under Case and per-piece pricing. Make sure it matches your Shopify shipping rate."
+    },
+    {
+      "type": "text",
+      "id": "away_text",
+      "label": "Below the threshold",
+      "default": "You're [amount] from free shipping.",
+      "info": "[amount] is replaced with what is left to spend."
+    },
+    {
+      "type": "text",
+      "id": "met_text",
+      "label": "At or above the threshold",
+      "default": "Your order ships free."
+    },
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+    {
+      "type": "select",
+      "id": "section_width",
+      "label": "Width",
+      "options": [
+        { "value": "page-width", "label": "Page" },
+        { "value": "full-width", "label": "Full" }
+      ],
+      "default": "page-width"
+    },
+    {
+      "type": "header",
+      "content": "Padding"
+    },
+    {
+      "type": "range",
+      "id": "padding-block-start",
+      "label": "Top",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "default": 12
+    },
+    {
+      "type": "range",
+      "id": "padding-block-end",
+      "label": "Bottom",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "default": 12
+    }
+  ],
+  "presets": [
+    {
+      "name": "Free shipping progress"
+    }
+  ]
+}
+{% endschema %}

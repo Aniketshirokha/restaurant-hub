@@ -1,0 +1,942 @@
+/*
+ * Restaurant Supply Hub — shared styles for the custom sections and blocks.
+ *
+ * Everything here builds on Horizon's own tokens (--color-foreground,
+ * --padding-*, --font-size--*) so the sections inherit whatever colour scheme
+ * they are dropped into instead of hard coding a palette that breaks the moment
+ * someone changes the theme colours.
+ */
+
+:root {
+  --rsh-hairline: rgb(var(--color-foreground-rgb) / 0.14);
+  --rsh-hairline-strong: rgb(var(--color-foreground-rgb) / 0.28);
+  --rsh-muted: rgb(var(--color-foreground-rgb) / 0.66);
+  --rsh-wash: rgb(var(--color-foreground-rgb) / 0.04);
+  --rsh-wash-strong: rgb(var(--color-foreground-rgb) / 0.07);
+  --rsh-radius: var(--border-radius-sm, 8px);
+  --rsh-radius-lg: calc(var(--border-radius-sm, 8px) * 2);
+  --rsh-accent: var(--color-success, #1a7f4b);
+  --rsh-accent-wash: color-mix(in srgb, var(--rsh-accent) 12%, transparent);
+}
+
+.rsh-visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  clip-path: inset(50%);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* ---------------------------------------------------------------- Shared bones */
+
+.rsh-block {
+  display: grid;
+  gap: var(--gap-sm, 12px);
+}
+
+.rsh-eyebrow {
+  margin: 0;
+  font-size: var(--font-size--xs, 0.8125rem);
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--rsh-muted);
+}
+
+.rsh-heading {
+  margin: 0;
+  text-wrap: balance;
+}
+
+.rsh-lede {
+  margin: 0;
+  max-width: 62ch;
+  color: var(--rsh-muted);
+}
+
+.rsh-lede > :first-child {
+  margin-block-start: 0;
+}
+
+.rsh-lede > :last-child {
+  margin-block-end: 0;
+}
+
+.rsh-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--gap-xs, 8px);
+  margin-block-start: var(--padding-xs, 8px);
+}
+
+/* ------------------------------------------------------------- Per-piece price */
+
+.rsh-price {
+  display: grid;
+  gap: 0.25rem;
+}
+
+.rsh-price__case {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0.4rem;
+  font-size: clamp(1.75rem, 1.3rem + 1.6vw, 2.5rem);
+  font-weight: 600;
+  line-height: 1.1;
+  font-variant-numeric: tabular-nums;
+}
+
+.rsh-price__unit {
+  font-size: 0.42em;
+  font-weight: 500;
+  color: var(--rsh-muted);
+}
+
+.rsh-price__compare {
+  font-size: 0.42em;
+  font-weight: 500;
+  text-decoration: line-through;
+  color: var(--rsh-muted);
+}
+
+/*
+ * The per-piece line sits at roughly 70% of the case price and keeps the same
+ * colour. Greying it out would read as fine print, and this is the opposite of
+ * fine print — it is the number the buyer came to compare.
+ */
+.rsh-price__piece {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0.35rem;
+  font-size: clamp(1.05rem, 0.9rem + 0.7vw, 1.35rem);
+  font-weight: 600;
+  line-height: 1.2;
+  color: inherit;
+  font-variant-numeric: tabular-nums;
+}
+
+.rsh-price__pack {
+  font-size: 0.8em;
+  font-weight: 400;
+  color: var(--rsh-muted);
+}
+
+.rsh-price__pack::before {
+  content: '·';
+  margin-inline-end: 0.35rem;
+}
+
+.rsh-price__meta {
+  margin: 0;
+  font-size: var(--font-size--sm, 0.875rem);
+  color: var(--rsh-muted);
+}
+
+/* ------------------------------------------------------------- Tier ladder */
+
+.rsh-tier {
+  display: grid;
+  gap: var(--gap-2xs, 6px);
+  container-type: inline-size;
+}
+
+.rsh-tier__table {
+  width: 100%;
+  border-collapse: collapse;
+  font-variant-numeric: tabular-nums;
+  font-size: var(--font-size--sm, 0.875rem);
+  text-align: start;
+}
+
+.rsh-tier__table th,
+.rsh-tier__table td {
+  padding: 0.55rem 0.5rem;
+  text-align: start;
+  border-block-end: 1px solid var(--rsh-hairline);
+}
+
+.rsh-tier__table thead th {
+  padding-block: 0.35rem;
+  font-size: var(--font-size--2xs, 0.75rem);
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--rsh-muted);
+  border-block-end-color: var(--rsh-hairline-strong);
+}
+
+.rsh-tier__table th:first-child,
+.rsh-tier__table td:first-child {
+  padding-inline-start: 0;
+}
+
+.rsh-tier__table th:last-child,
+.rsh-tier__table td:last-child {
+  padding-inline-end: 0;
+  text-align: end;
+}
+
+.rsh-tier__table tbody tr:last-child th,
+.rsh-tier__table tbody tr:last-child td {
+  border-block-end: 0;
+}
+
+.rsh-tier__cases {
+  font-weight: 500;
+  white-space: nowrap;
+}
+
+.rsh-tier__price {
+  font-weight: 600;
+}
+
+.rsh-tier__per-piece {
+  font-weight: 600;
+}
+
+.rsh-tier__standard {
+  color: var(--rsh-muted);
+}
+
+.rsh-tier__badge {
+  display: inline-block;
+  padding: 0.1rem 0.45rem;
+  font-size: var(--font-size--2xs, 0.75rem);
+  font-weight: 600;
+  white-space: nowrap;
+  color: var(--rsh-accent);
+  background: var(--rsh-accent-wash);
+  border-radius: calc(var(--rsh-radius) / 1.5);
+}
+
+/*
+ * The live row is the one interaction on the page that does real selling, so it
+ * gets a solid marker rather than a subtle tint that a buyer can miss.
+ */
+.rsh-tier__row {
+  transition: background-color 0.15s ease;
+}
+
+.rsh-tier__row--active > * {
+  background: var(--rsh-wash-strong);
+}
+
+.rsh-tier__row--active .rsh-tier__cases {
+  position: relative;
+  font-weight: 700;
+  box-shadow: inset 3px 0 0 0 var(--rsh-accent);
+  padding-inline-start: 0.5rem;
+}
+
+.rsh-tier__row--quote .rsh-tier__quote {
+  color: var(--rsh-muted);
+}
+
+.rsh-tier__note {
+  margin: 0;
+  font-size: var(--font-size--xs, 0.8125rem);
+  color: var(--rsh-muted);
+}
+
+@container (max-width: 26rem) {
+  .rsh-tier__table {
+    font-size: var(--font-size--xs, 0.8125rem);
+  }
+
+  .rsh-tier__table th,
+  .rsh-tier__table td {
+    padding-inline: 0.3rem;
+  }
+
+  .rsh-tier__badge {
+    padding-inline: 0.3rem;
+  }
+}
+
+/* The nudge and the annual line that sit under the ladder. */
+
+.rsh-tier-extras {
+  display: grid;
+  gap: var(--gap-2xs, 6px);
+  margin-block-start: var(--padding-xs, 8px);
+}
+
+.rsh-nudge {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.5rem;
+  padding: 0.6rem 0.75rem;
+  font-size: var(--font-size--sm, 0.875rem);
+  line-height: 1.4;
+  background: var(--rsh-accent-wash);
+  border-radius: var(--rsh-radius);
+}
+
+.rsh-nudge[hidden] {
+  display: none;
+}
+
+.rsh-nudge__icon {
+  flex: none;
+  margin-block-start: 0.15em;
+  color: var(--rsh-accent);
+}
+
+.rsh-annual {
+  margin: 0;
+  font-size: var(--font-size--sm, 0.875rem);
+  color: var(--rsh-muted);
+}
+
+.rsh-annual[hidden] {
+  display: none;
+}
+
+.rsh-annual strong {
+  color: var(--color-foreground);
+}
+
+/* ------------------------------------------------------------- Spec table */
+
+.rsh-spec {
+  container-type: inline-size;
+}
+
+.rsh-spec__table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: var(--font-size--sm, 0.875rem);
+}
+
+.rsh-spec__table th,
+.rsh-spec__table td {
+  padding: 0.6rem 0;
+  text-align: start;
+  vertical-align: top;
+  border-block-end: 1px solid var(--rsh-hairline);
+}
+
+.rsh-spec__table tr:last-child th,
+.rsh-spec__table tr:last-child td {
+  border-block-end: 0;
+}
+
+.rsh-spec__label {
+  width: 45%;
+  font-weight: 500;
+  color: var(--rsh-muted);
+}
+
+.rsh-spec__value {
+  font-weight: 500;
+  font-variant-numeric: tabular-nums;
+}
+
+.rsh-spec__yes,
+.rsh-spec__no {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+}
+
+.rsh-spec__yes {
+  color: var(--rsh-accent);
+}
+
+.rsh-spec__no {
+  color: var(--rsh-muted);
+}
+
+/* --------------------------------------------------------- Paired lid / base */
+
+.rsh-paired {
+  display: flex;
+  align-items: center;
+  gap: var(--gap-xs, 10px);
+  padding: 0.75rem;
+  border: 1px solid var(--rsh-hairline);
+  border-radius: var(--rsh-radius);
+}
+
+.rsh-paired__media {
+  flex: none;
+  width: 3.5rem;
+  height: 3.5rem;
+  overflow: hidden;
+  background: var(--rsh-wash);
+  border-radius: calc(var(--rsh-radius) / 1.5);
+}
+
+.rsh-paired__media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.rsh-paired__body {
+  flex: 1 1 auto;
+  min-width: 0;
+  display: grid;
+  gap: 0.15rem;
+}
+
+.rsh-paired__kicker {
+  font-size: var(--font-size--2xs, 0.75rem);
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--rsh-muted);
+}
+
+.rsh-paired__title {
+  font-size: var(--font-size--sm, 0.875rem);
+  font-weight: 600;
+  line-height: 1.3;
+}
+
+.rsh-paired__title a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.rsh-paired__title a:hover {
+  text-decoration: underline;
+}
+
+.rsh-paired__price {
+  font-size: var(--font-size--sm, 0.875rem);
+  color: var(--rsh-muted);
+  font-variant-numeric: tabular-nums;
+}
+
+.rsh-paired__action {
+  flex: none;
+}
+
+@media (max-width: 30rem) {
+  .rsh-paired {
+    flex-wrap: wrap;
+  }
+
+  .rsh-paired__action {
+    width: 100%;
+  }
+
+  .rsh-paired__action .button {
+    width: 100%;
+  }
+}
+
+/* ------------------------------------------------------------- Trust strip */
+
+.rsh-trust {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: var(--gap-xs, 10px) var(--gap-lg, 28px);
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.rsh-trust__item {
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+  font-size: var(--font-size--sm, 0.875rem);
+  font-weight: 500;
+}
+
+.rsh-trust__icon {
+  flex: none;
+  display: inline-flex;
+  color: var(--rsh-accent);
+}
+
+.rsh-trust__icon svg {
+  width: var(--icon-size-sm, 1rem);
+  height: var(--icon-size-sm, 1rem);
+}
+
+.rsh-trust--start {
+  justify-content: flex-start;
+}
+
+@media (max-width: 40rem) {
+  .rsh-trust {
+    justify-content: flex-start;
+    column-gap: var(--gap-md, 20px);
+  }
+}
+
+/* --------------------------------------------------- Per-piece explainer */
+
+.rsh-explainer {
+  display: grid;
+  gap: var(--gap-lg, 28px);
+  align-items: center;
+  width: 100%;
+  grid-template-columns: 1fr;
+}
+
+@media (min-width: 50rem) {
+  .rsh-explainer--media-right {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  }
+
+  .rsh-explainer--media-left {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  }
+
+  .rsh-explainer--media-left .rsh-explainer__media {
+    order: -1;
+  }
+}
+
+.rsh-explainer__body {
+  display: grid;
+  gap: var(--gap-sm, 12px);
+}
+
+.rsh-explainer__media {
+  min-width: 0;
+}
+
+.rsh-explainer__figure {
+  margin: 0;
+}
+
+.rsh-explainer__figure img {
+  width: 100%;
+  height: auto;
+  border-radius: var(--rsh-radius-lg);
+}
+
+.rsh-example__title a {
+  color: inherit;
+}
+
+/* The worked-example card, when no screenshot has been uploaded yet. */
+
+.rsh-example {
+  display: grid;
+  gap: 0.75rem;
+  padding: clamp(1.25rem, 0.8rem + 2vw, 2rem);
+  background: var(--rsh-wash);
+  border: 1px solid var(--rsh-hairline);
+  border-radius: var(--rsh-radius-lg);
+}
+
+.rsh-example__title {
+  margin: 0;
+  font-size: var(--font-size--sm, 0.875rem);
+  font-weight: 600;
+  line-height: 1.35;
+}
+
+.rsh-example__price {
+  display: grid;
+  gap: 0.15rem;
+}
+
+.rsh-example__case {
+  font-size: clamp(1.6rem, 1.2rem + 1.5vw, 2.25rem);
+  font-weight: 600;
+  line-height: 1.1;
+  font-variant-numeric: tabular-nums;
+}
+
+.rsh-example__case span {
+  font-size: 0.42em;
+  font-weight: 500;
+  color: var(--rsh-muted);
+}
+
+.rsh-example__piece {
+  font-size: clamp(1rem, 0.9rem + 0.5vw, 1.25rem);
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+}
+
+.rsh-example__piece span {
+  font-size: 0.78em;
+  font-weight: 400;
+  color: var(--rsh-muted);
+}
+
+/* --------------------------------------------------------- Shop by business */
+
+.rsh-cards {
+  display: grid;
+  gap: var(--gap-md, 20px);
+  width: 100%;
+  grid-template-columns: repeat(auto-fit, minmax(min(17rem, 100%), 1fr));
+}
+
+.rsh-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  background: var(--rsh-wash);
+  border: 1px solid var(--rsh-hairline);
+  border-radius: var(--rsh-radius-lg);
+  transition: border-color 0.2s ease, transform 0.2s ease;
+}
+
+@media (hover: hover) {
+  .rsh-card:hover {
+    border-color: var(--rsh-hairline-strong);
+    transform: translateY(-2px);
+  }
+}
+
+.rsh-card__media {
+  aspect-ratio: 3 / 2;
+  overflow: hidden;
+  background: var(--rsh-wash-strong);
+}
+
+.rsh-card__media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.rsh-card__body {
+  display: grid;
+  gap: 0.35rem;
+  padding: var(--padding-md, 20px);
+}
+
+.rsh-card__title {
+  margin: 0;
+  font-size: var(--font-size--lg, 1.125rem);
+  font-weight: 600;
+  line-height: 1.25;
+}
+
+/*
+ * The whole card is the click target, with the anchor stretched over it. The
+ * link text stays in the title so screen readers and the tab order still get a
+ * sensible, named destination.
+ */
+.rsh-card__title a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.rsh-card__title a::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+}
+
+.rsh-card__text {
+  margin: 0;
+  font-size: var(--font-size--sm, 0.875rem);
+  line-height: 1.5;
+  color: var(--rsh-muted);
+}
+
+/* ------------------------------------------------------------- Testimonials */
+
+.rsh-quotes {
+  display: grid;
+  gap: var(--gap-md, 20px);
+  width: 100%;
+  grid-template-columns: repeat(auto-fit, minmax(min(18rem, 100%), 1fr));
+}
+
+.rsh-quote {
+  display: grid;
+  gap: 0.6rem;
+  align-content: start;
+  padding: var(--padding-md, 20px);
+  background: var(--rsh-wash);
+  border-radius: var(--rsh-radius-lg);
+}
+
+.rsh-quote__headline {
+  margin: 0;
+  font-size: var(--font-size--md, 1rem);
+  font-weight: 600;
+  line-height: 1.35;
+}
+
+.rsh-quote__body {
+  margin: 0;
+  font-size: var(--font-size--sm, 0.9375rem);
+  line-height: 1.55;
+}
+
+.rsh-quote__body p {
+  margin: 0;
+}
+
+.rsh-quote__attribution {
+  display: block;
+  font-size: var(--font-size--sm, 0.875rem);
+  color: var(--rsh-muted);
+  font-style: normal;
+}
+
+.rsh-quote__role::before {
+  content: '·';
+  margin-inline: 0.35rem;
+}
+
+/* ------------------------------------------------------------- Quick order */
+
+.rsh-quick {
+  display: grid;
+  gap: var(--gap-md, 20px);
+  width: 100%;
+}
+
+@media (min-width: 56rem) {
+  .rsh-quick--with-aside {
+    grid-template-columns: minmax(0, 1.6fr) minmax(0, 1fr);
+    align-items: start;
+  }
+}
+
+.rsh-quick__panel {
+  display: grid;
+  gap: var(--gap-sm, 12px);
+  padding: var(--padding-md, 20px);
+  border: 1px solid var(--rsh-hairline);
+  border-radius: var(--rsh-radius-lg);
+}
+
+.rsh-quick__label {
+  display: grid;
+  gap: 0.35rem;
+  font-size: var(--font-size--sm, 0.875rem);
+  font-weight: 600;
+}
+
+.rsh-quick__hint {
+  font-weight: 400;
+  color: var(--rsh-muted);
+}
+
+.rsh-quick__input {
+  width: 100%;
+  min-height: 9rem;
+  padding: 0.75rem;
+  font-family: var(--font-body--family);
+  font-size: var(--font-size--sm, 0.9375rem);
+  line-height: 1.6;
+  color: var(--color-input-text, inherit);
+  background: var(--color-input-background, transparent);
+  border: 1px solid var(--color-input-border, var(--rsh-hairline-strong));
+  border-radius: var(--rsh-radius);
+  resize: vertical;
+  field-sizing: content;
+}
+
+.rsh-quick__input:focus-visible {
+  outline: 2px solid var(--color-foreground);
+  outline-offset: 1px;
+}
+
+.rsh-quick__results {
+  display: grid;
+  gap: 0.4rem;
+}
+
+.rsh-quick__results:empty {
+  display: none;
+}
+
+.rsh-quick__line {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0.4rem;
+  padding: 0.5rem 0.65rem;
+  font-size: var(--font-size--sm, 0.875rem);
+  background: var(--rsh-wash);
+  border-radius: var(--rsh-radius);
+}
+
+.rsh-quick__line--error {
+  background: color-mix(in srgb, var(--color-error, #b3261e) 10%, transparent);
+}
+
+.rsh-quick__code {
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+}
+
+.rsh-quick__detail {
+  color: var(--rsh-muted);
+}
+
+.rsh-quick__status {
+  margin: 0;
+  font-size: var(--font-size--sm, 0.875rem);
+  color: var(--rsh-muted);
+}
+
+.rsh-quick__aside {
+  display: grid;
+  gap: 0.5rem;
+  padding: var(--padding-md, 20px);
+  background: var(--rsh-wash);
+  border-radius: var(--rsh-radius-lg);
+  font-size: var(--font-size--sm, 0.875rem);
+}
+
+.rsh-quick__aside h3 {
+  margin: 0;
+  font-size: var(--font-size--md, 1rem);
+}
+
+.rsh-quick__aside ol,
+.rsh-quick__aside ul {
+  margin: 0;
+  padding-inline-start: 1.1rem;
+  display: grid;
+  gap: 0.35rem;
+  color: var(--rsh-muted);
+}
+
+/* ------------------------------------------------- Free shipping progress */
+
+.rsh-ship {
+  display: grid;
+  gap: 0.5rem;
+  width: 100%;
+  padding: var(--padding-sm, 14px);
+  background: var(--rsh-wash);
+  border-radius: var(--rsh-radius);
+}
+
+.rsh-ship__text {
+  margin: 0;
+  font-size: var(--font-size--sm, 0.875rem);
+  font-weight: 500;
+}
+
+.rsh-ship__text strong {
+  font-weight: 700;
+}
+
+.rsh-ship__track {
+  position: relative;
+  height: 0.4rem;
+  overflow: hidden;
+  background: rgb(var(--color-foreground-rgb) / 0.12);
+  border-radius: 999px;
+}
+
+.rsh-ship__fill {
+  height: 100%;
+  background: var(--rsh-accent);
+  border-radius: inherit;
+  transform-origin: left center;
+  transition: width 0.35s ease;
+}
+
+.rsh-ship--met .rsh-ship__text {
+  color: var(--rsh-accent);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .rsh-card,
+  .rsh-tier__row,
+  .rsh-ship__fill {
+    transition: none;
+  }
+}
+
+/* ------------------------------------------------------------- Application form */
+
+.rsh-form {
+  display: grid;
+  gap: var(--gap-sm, 12px);
+  width: 100%;
+  max-width: 44rem;
+}
+
+.rsh-form__grid {
+  display: grid;
+  gap: var(--gap-sm, 12px);
+  grid-template-columns: repeat(auto-fit, minmax(min(15rem, 100%), 1fr));
+}
+
+.rsh-form__field {
+  display: grid;
+  gap: 0.3rem;
+}
+
+.rsh-form__field--full {
+  grid-column: 1 / -1;
+}
+
+.rsh-form__label {
+  font-size: var(--font-size--sm, 0.875rem);
+  font-weight: 600;
+}
+
+.rsh-form__optional {
+  font-weight: 400;
+  color: var(--rsh-muted);
+}
+
+.rsh-form input,
+.rsh-form select,
+.rsh-form textarea {
+  width: 100%;
+  padding: 0.65rem 0.75rem;
+  font-family: inherit;
+  font-size: var(--font-size--sm, 0.9375rem);
+  color: var(--color-input-text, inherit);
+  background: var(--color-input-background, transparent);
+  border: 1px solid var(--color-input-border, var(--rsh-hairline-strong));
+  border-radius: var(--rsh-radius);
+}
+
+.rsh-form textarea {
+  min-height: 6rem;
+  resize: vertical;
+}
+
+.rsh-form input:focus-visible,
+.rsh-form select:focus-visible,
+.rsh-form textarea:focus-visible {
+  outline: 2px solid var(--color-foreground);
+  outline-offset: 1px;
+}
+
+.rsh-form__note {
+  margin: 0;
+  font-size: var(--font-size--xs, 0.8125rem);
+  color: var(--rsh-muted);
+}
+
+.rsh-form__success {
+  padding: var(--padding-sm, 14px);
+  font-size: var(--font-size--sm, 0.9375rem);
+  background: var(--rsh-accent-wash);
+  border-radius: var(--rsh-radius);
+}
+
+.rsh-form__error {
+  margin: 0;
+  padding: var(--padding-sm, 14px);
+  font-size: var(--font-size--sm, 0.9375rem);
+  color: var(--color-error, #b3261e);
+  background: color-mix(in srgb, var(--color-error, #b3261e) 10%, transparent);
+  border-radius: var(--rsh-radius);
+}

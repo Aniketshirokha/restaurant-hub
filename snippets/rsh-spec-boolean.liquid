@@ -1,0 +1,17 @@
+{%- doc -%}
+  Renders a boolean metafield as a marked Yes or No for the spec table.
+
+  @param {boolean} value - The metafield value.
+
+  @example
+  {% render 'rsh-spec-boolean', value: product.metafields.custom.microwave_safe.value %}
+{%- enddoc -%}
+
+{%- if value -%}
+  <span class="rsh-spec__yes">
+    <span class="svg-wrapper" aria-hidden="true">{{ 'icon-checkmark.svg' | inline_asset_content }}</span>
+    Yes
+  </span>
+{%- else -%}
+  <span class="rsh-spec__no">No</span>
+{%- endif -%}

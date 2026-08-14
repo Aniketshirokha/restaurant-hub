@@ -1,0 +1,145 @@
+{%- doc -%}
+  A row of short, checkable promises. Sits directly under the hero.
+
+  Every item should be a fact a buyer could verify on the next click. Adjectives
+  belong somewhere else.
+{%- enddoc -%}
+
+{% liquid
+  if section.settings.background_color != blank
+    render 'contrast-override', background_color: section.settings.background_color, section_id: section.id
+  endif
+%}
+
+<div
+  class="section-background{% if section.settings.background_color != blank %} color-custom-{{ section.id }}{% endif %}"
+></div>
+
+<div
+  class="
+    section
+    section--{{ section.settings.section_width }}
+    {% if section.settings.background_color != blank %}color-custom-{{ section.id }}{% endif %}
+    spacing-style
+  "
+  style="{% render 'spacing-style', settings: section.settings %}"
+>
+  <ul class="rsh-trust rsh-trust--{{ section.settings.alignment }}" role="list">
+    {%- for block in section.blocks -%}
+      <li class="rsh-trust__item" {{ block.shopify_attributes }}>
+        {%- if block.settings.icon != 'none' -%}
+          <span class="rsh-trust__icon svg-wrapper" aria-hidden="true">
+            {{- block.settings.icon | append: '.svg' | inline_asset_content -}}
+          </span>
+        {%- endif -%}
+        {{ block.settings.text }}
+      </li>
+    {%- endfor -%}
+  </ul>
+</div>
+
+{% schema %}
+{
+  "name": "Trust strip",
+  "disabled_on": {
+    "groups": ["header", "footer"]
+  },
+  "blocks": [
+    {
+      "type": "item",
+      "name": "Promise",
+      "settings": [
+        {
+          "type": "text",
+          "id": "text",
+          "label": "Text",
+          "default": "In stock now"
+        },
+        {
+          "type": "select",
+          "id": "icon",
+          "label": "Icon",
+          "options": [
+            { "value": "none", "label": "None" },
+            { "value": "icon-checkmark", "label": "Checkmark" },
+            { "value": "icon-available", "label": "Available" },
+            { "value": "icon-inventory", "label": "Inventory" },
+            { "value": "icon-discount", "label": "Discount" },
+            { "value": "icon-orders", "label": "Orders" },
+            { "value": "icon-cart", "label": "Cart" },
+            { "value": "icon-info", "label": "Info" }
+          ],
+          "default": "icon-checkmark"
+        }
+      ]
+    }
+  ],
+  "settings": [
+    {
+      "type": "select",
+      "id": "alignment",
+      "label": "Alignment",
+      "options": [
+        { "value": "center", "label": "Center" },
+        { "value": "start", "label": "Left" }
+      ],
+      "default": "center"
+    },
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+    {
+      "type": "select",
+      "id": "section_width",
+      "label": "Width",
+      "options": [
+        { "value": "page-width", "label": "Page" },
+        { "value": "full-width", "label": "Full" }
+      ],
+      "default": "page-width"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background",
+      "placeholder": "Default"
+    },
+    {
+      "type": "header",
+      "content": "Padding"
+    },
+    {
+      "type": "range",
+      "id": "padding-block-start",
+      "label": "Top",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "default": 16
+    },
+    {
+      "type": "range",
+      "id": "padding-block-end",
+      "label": "Bottom",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "default": 16
+    }
+  ],
+  "presets": [
+    {
+      "name": "Trust strip",
+      "blocks": [
+        { "type": "item", "settings": { "text": "In stock now", "icon": "icon-inventory" } },
+        { "type": "item", "settings": { "text": "Ships nationwide", "icon": "icon-orders" } },
+        { "type": "item", "settings": { "text": "Per-piece pricing on everything", "icon": "icon-discount" } },
+        { "type": "item", "settings": { "text": "No membership, no minimum", "icon": "icon-checkmark" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

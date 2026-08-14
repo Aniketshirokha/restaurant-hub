@@ -1,0 +1,174 @@
+{%- doc -%}
+  Case price with the per-piece price directly underneath.
+
+  This is the position of the whole store, so it gets more visual weight than
+  anything on the page except the title. The per-piece line keeps the same colour
+  as the case price rather than being greyed out, because greying it out reads as
+  fine print and this is the opposite of fine print.
+
+  Falls back to the case price alone when a product has no pieces-per-case value,
+  which is the honest behaviour while the catalogue is still being filled in.
+{%- enddoc -%}
+
+<script
+  src="{{ 'rsh-price-per-piece.js' | asset_url }}"
+  type="module"
+  fetchpriority="low"
+></script>
+
+{%- liquid
+  assign block_settings = block.settings
+  assign product_resource = closest.product
+  assign variant = product_resource.selected_or_first_available_variant
+
+  assign namespace = settings.rsh_metafield_namespace | default: 'custom'
+  assign fields = product_resource.metafields[namespace]
+
+  assign pieces = fields.pieces_per_case.value | plus: 0
+  assign noun = fields.piece_noun.value | default: settings.rsh_piece_noun | default: 'piece'
+  assign noun_plural = fields.piece_noun_plural.value
+  if noun_plural == blank
+    assign noun_plural = noun | append: 's'
+  endif
+
+  assign decimals = settings.rsh_per_piece_decimals | default: 3
+  assign has_pieces = false
+  if pieces > 0 and variant.price > 0
+    assign has_pieces = true
+  endif
+
+  capture tier_list
+    render 'rsh-tier-list'
+  endcapture
+  assign tiers = tier_list | strip | split: ','
+
+  capture tiers_json
+    echo '['
+    for tier in tiers
+      assign parts = tier | split: ':'
+      if forloop.index0 > 0
+        echo ','
+      endif
+      echo '{"min":'
+      echo parts[0]
+      echo ',"discount":'
+      echo parts[1]
+      echo '}'
+    endfor
+    echo ']'
+  endcapture
+-%}
+
+<rsh-price-per-piece
+  class="rsh-price spacing-style"
+  style="{% render 'spacing-style', settings: block_settings %}"
+  data-base-price="{{ variant.price }}"
+  data-pieces="{{ pieces }}"
+  data-decimals="{{ decimals }}"
+  data-symbol="{{ cart.currency.symbol | default: '$' }}"
+  data-money-format="{{ shop.money_format | escape }}"
+  data-currency="{{ cart.currency.iso_code | default: shop.currency }}"
+  data-tiers="{{ tiers_json | strip | escape }}"
+  data-quote-min="{{ settings.rsh_quote_min | default: 50 }}"
+  data-cart-wide="{% if settings.rsh_tiers_cart_wide %}true{% else %}false{% endif %}"
+  {{ block.shopify_attributes }}
+>
+  <div class="rsh-price__case">
+    <span ref="casePrice">{{ variant.price | money }}</span>
+    <span class="rsh-price__unit">{{ block_settings.case_label | default: 'per case' }}</span>
+    <s class="rsh-price__compare" ref="comparePrice" hidden></s>
+  </div>
+
+  {%- if has_pieces -%}
+    <div class="rsh-price__piece">
+      <span ref="piecePrice">
+        {%- render 'rsh-per-piece', cents: variant.price, pieces: pieces, decimals: decimals -%}
+      </span>
+      <span class="rsh-price__pack">
+        per {{ noun }} · {{ pieces }} {{ noun_plural }} per case
+      </span>
+    </div>
+  {%- elsif block_settings.show_missing_note -%}
+    <p class="rsh-price__meta">
+      Per-piece pricing for this item is being added.
+    </p>
+  {%- endif -%}
+
+  <p class="rsh-price__meta" ref="tierNote" hidden></p>
+</rsh-price-per-piece>
+
+{% schema %}
+{
+  "name": "Case and per-piece price",
+  "tag": null,
+  "settings": [
+    {
+      "type": "paragraph",
+      "content": "Shows the case price with the per-piece price beneath it. Both re-price as the quantity changes. Reads pieces_per_case from the product metafields."
+    },
+    {
+      "type": "text",
+      "id": "case_label",
+      "label": "Case label",
+      "default": "per case"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_missing_note",
+      "label": "Note when pieces per case is missing",
+      "default": false,
+      "info": "Useful while importing. Turn off before launch."
+    },
+    {
+      "type": "header",
+      "content": "Padding"
+    },
+    {
+      "type": "range",
+      "id": "padding-block-start",
+      "label": "Top",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "padding-block-end",
+      "label": "Bottom",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "padding-inline-start",
+      "label": "Left",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "padding-inline-end",
+      "label": "Right",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "default": 0
+    }
+  ],
+  "presets": [
+    {
+      "name": "Case and per-piece price",
+      "category": "Product"
+    }
+  ]
+}
+{% endschema %}

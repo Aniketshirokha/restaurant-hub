@@ -1,0 +1,216 @@
+{%- doc -%}
+  The specification table, built straight from product metafields.
+
+  Rows with no value are skipped rather than rendered empty, so a half-imported
+  product degrades to a short table instead of a wall of blanks. The field order
+  follows how a buyer reads a spec sheet: what it is, how big, how many, what it
+  survives.
+{%- enddoc -%}
+
+{%- liquid
+  assign block_settings = block.settings
+  assign product_resource = closest.product
+  assign variant = product_resource.selected_or_first_available_variant
+
+  assign namespace = settings.rsh_metafield_namespace | default: 'custom'
+  assign fields = product_resource.metafields[namespace]
+
+  assign item_number = fields.item_number.value | default: variant.sku
+  assign pieces = fields.pieces_per_case.value
+  assign compartments = fields.compartments.value
+
+  assign material_list = fields.material.value
+  capture material
+    if material_list.size > 0 and material_list.first != null
+      for entry in material_list
+        if forloop.index0 > 0
+          echo ', '
+        endif
+        echo entry.label | default: entry.name | default: entry.value | default: entry
+      endfor
+    else
+      echo material_list
+    endif
+  endcapture
+  assign material = material | strip
+-%}
+
+<div
+  class="rsh-spec spacing-style"
+  style="{% render 'spacing-style', settings: block_settings %}"
+  {{ block.shopify_attributes }}
+>
+  {%- if block_settings.heading != blank -%}
+    <h3 class="rsh-eyebrow">{{ block_settings.heading }}</h3>
+  {%- endif -%}
+
+  <table class="rsh-spec__table">
+    <tbody>
+      {%- if item_number != blank -%}
+        <tr>
+          <th scope="row" class="rsh-spec__label">Item number</th>
+          <td class="rsh-spec__value">{{ item_number }}</td>
+        </tr>
+      {%- endif -%}
+
+      {%- if fields.capacity.value != blank -%}
+        <tr>
+          <th scope="row" class="rsh-spec__label">Capacity</th>
+          <td class="rsh-spec__value">{{ fields.capacity.value }}</td>
+        </tr>
+      {%- endif -%}
+
+      {%- if fields.product_dimensions.value != blank -%}
+        <tr>
+          <th scope="row" class="rsh-spec__label">Dimensions</th>
+          <td class="rsh-spec__value">{{ fields.product_dimensions.value }}</td>
+        </tr>
+      {%- endif -%}
+
+      {%- if fields.case_pack.value != blank -%}
+        <tr>
+          <th scope="row" class="rsh-spec__label">Case pack</th>
+          <td class="rsh-spec__value">{{ fields.case_pack.value }}</td>
+        </tr>
+      {%- endif -%}
+
+      {%- if pieces != blank and pieces > 0 -%}
+        <tr>
+          <th scope="row" class="rsh-spec__label">Pieces per case</th>
+          <td class="rsh-spec__value">{{ pieces }}</td>
+        </tr>
+      {%- endif -%}
+
+      {%- if material != blank -%}
+        <tr>
+          <th scope="row" class="rsh-spec__label">Material</th>
+          <td class="rsh-spec__value">{{ material }}</td>
+        </tr>
+      {%- endif -%}
+
+      {%- if compartments != blank and compartments > 0 -%}
+        <tr>
+          <th scope="row" class="rsh-spec__label">Compartments</th>
+          <td class="rsh-spec__value">{{ compartments }}</td>
+        </tr>
+      {%- endif -%}
+
+      {%- if fields.microwave_safe != null -%}
+        <tr>
+          <th scope="row" class="rsh-spec__label">Microwave safe</th>
+          <td class="rsh-spec__value">
+            {%- render 'rsh-spec-boolean', value: fields.microwave_safe.value -%}
+          </td>
+        </tr>
+      {%- endif -%}
+
+      {%- if fields.freezer_safe != null -%}
+        <tr>
+          <th scope="row" class="rsh-spec__label">Freezer safe</th>
+          <td class="rsh-spec__value">
+            {%- render 'rsh-spec-boolean', value: fields.freezer_safe.value -%}
+          </td>
+        </tr>
+      {%- endif -%}
+
+      {%- if fields.compostable != null -%}
+        <tr>
+          <th scope="row" class="rsh-spec__label">Compostable</th>
+          <td class="rsh-spec__value">
+            {%- render 'rsh-spec-boolean', value: fields.compostable.value -%}
+          </td>
+        </tr>
+      {%- endif -%}
+
+      {%- if fields.pfas_status.value != blank -%}
+        <tr>
+          <th scope="row" class="rsh-spec__label">PFAS status</th>
+          <td class="rsh-spec__value">{{ fields.pfas_status.value }}</td>
+        </tr>
+      {%- endif -%}
+
+      {%- if fields.ti_hi.value != blank -%}
+        <tr>
+          <th scope="row" class="rsh-spec__label">TI / HI</th>
+          <td class="rsh-spec__value">{{ fields.ti_hi.value }}</td>
+        </tr>
+      {%- endif -%}
+
+      {%- if fields.case_weight_lbs.value != blank -%}
+        <tr>
+          <th scope="row" class="rsh-spec__label">Case weight</th>
+          <td class="rsh-spec__value">{{ fields.case_weight_lbs.value }} lb</td>
+        </tr>
+      {%- endif -%}
+    </tbody>
+  </table>
+</div>
+
+{% schema %}
+{
+  "name": "Product spec table",
+  "tag": null,
+  "settings": [
+    {
+      "type": "paragraph",
+      "content": "Builds a spec table from the product metafields. Rows with no value are left out."
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Specifications"
+    },
+    {
+      "type": "header",
+      "content": "Padding"
+    },
+    {
+      "type": "range",
+      "id": "padding-block-start",
+      "label": "Top",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "padding-block-end",
+      "label": "Bottom",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "padding-inline-start",
+      "label": "Left",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "padding-inline-end",
+      "label": "Right",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "default": 0
+    }
+  ],
+  "presets": [
+    {
+      "name": "Product spec table",
+      "category": "Product"
+    }
+  ]
+}
+{% endschema %}

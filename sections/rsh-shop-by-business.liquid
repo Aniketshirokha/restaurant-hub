@@ -1,0 +1,267 @@
+{%- doc -%}
+  Cards for the six kinds of kitchen this catalogue is curated for.
+
+  Each card can point at a collection or any URL. Picking a collection pulls the
+  image and title from it, so the card stays right when the collection is
+  renamed.
+{%- enddoc -%}
+
+{% liquid
+  if section.settings.background_color != blank
+    render 'contrast-override', background_color: section.settings.background_color, section_id: section.id
+  endif
+%}
+
+<div
+  class="section-background{% if section.settings.background_color != blank %} color-custom-{{ section.id }}{% endif %}"
+></div>
+
+<div
+  class="
+    section
+    section--{{ section.settings.section_width }}
+    {% if section.settings.background_color != blank %}color-custom-{{ section.id }}{% endif %}
+    spacing-style gap-style
+  "
+  style="
+    {% render 'spacing-style', settings: section.settings %}
+    {% render 'gap-style', value: section.settings.gap %}
+  "
+>
+  {%- if section.settings.heading != blank or section.settings.body != blank -%}
+    <div class="rsh-block">
+      {%- if section.settings.eyebrow != blank -%}
+        <p class="rsh-eyebrow">{{ section.settings.eyebrow }}</p>
+      {%- endif -%}
+      {%- if section.settings.heading != blank -%}
+        <h2 class="rsh-heading h2">{{ section.settings.heading }}</h2>
+      {%- endif -%}
+      {%- if section.settings.body != blank -%}
+        <div class="rsh-lede rte">{{ section.settings.body }}</div>
+      {%- endif -%}
+    </div>
+  {%- endif -%}
+
+  <div class="rsh-cards">
+    {%- for block in section.blocks -%}
+      {%- liquid
+        assign linked_collection = block.settings.collection
+        assign card_title = block.settings.title
+        if card_title == blank and linked_collection != blank
+          assign card_title = linked_collection.title
+        endif
+
+        assign card_url = block.settings.link
+        if card_url == blank and linked_collection != blank
+          assign card_url = linked_collection.url
+        endif
+
+        assign card_image = block.settings.image
+        if card_image == blank and linked_collection != blank
+          assign card_image = linked_collection.featured_image
+        endif
+      -%}
+      <article class="rsh-card" {{ block.shopify_attributes }}>
+        {%- if card_image != blank and section.settings.show_images -%}
+          <div class="rsh-card__media">
+            {{
+              card_image
+              | image_url: width: 800
+              | image_tag:
+                loading: 'lazy',
+                sizes: '(min-width: 990px) 30vw, (min-width: 750px) 45vw, 100vw',
+                widths: '300, 500, 800'
+            }}
+          </div>
+        {%- endif -%}
+
+        <div class="rsh-card__body">
+          <h3 class="rsh-card__title">
+            {%- if card_url != blank -%}
+              <a href="{{ card_url }}">{{ card_title }}</a>
+            {%- else -%}
+              {{ card_title }}
+            {%- endif -%}
+          </h3>
+          {%- if block.settings.text != blank -%}
+            <p class="rsh-card__text">{{ block.settings.text }}</p>
+          {%- endif -%}
+        </div>
+      </article>
+    {%- endfor -%}
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Shop by business",
+  "disabled_on": {
+    "groups": ["header", "footer"]
+  },
+  "max_blocks": 8,
+  "blocks": [
+    {
+      "type": "card",
+      "name": "Business type",
+      "settings": [
+        {
+          "type": "collection",
+          "id": "collection",
+          "label": "Collection"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title",
+          "info": "Defaults to the collection title."
+        },
+        {
+          "type": "text",
+          "id": "text",
+          "label": "Subtitle"
+        },
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image",
+          "info": "Defaults to the collection image."
+        },
+        {
+          "type": "url",
+          "id": "link",
+          "label": "Link",
+          "info": "Defaults to the collection."
+        }
+      ]
+    }
+  ],
+  "settings": [
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Eyebrow"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Built around how you actually order"
+    },
+    {
+      "type": "richtext",
+      "id": "body",
+      "label": "Body",
+      "default": "<p>Six curated lists, each one pulled from the same catalog and sorted by what that kind of kitchen goes through fastest.</p>"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_images",
+      "label": "Show images",
+      "default": true
+    },
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+    {
+      "type": "select",
+      "id": "section_width",
+      "label": "Width",
+      "options": [
+        { "value": "page-width", "label": "Page" },
+        { "value": "full-width", "label": "Full" }
+      ],
+      "default": "page-width"
+    },
+    {
+      "type": "range",
+      "id": "gap",
+      "label": "Gap",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "default": 24
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background",
+      "placeholder": "Default"
+    },
+    {
+      "type": "header",
+      "content": "Padding"
+    },
+    {
+      "type": "range",
+      "id": "padding-block-start",
+      "label": "Top",
+      "min": 0,
+      "max": 200,
+      "step": 4,
+      "unit": "px",
+      "default": 48
+    },
+    {
+      "type": "range",
+      "id": "padding-block-end",
+      "label": "Bottom",
+      "min": 0,
+      "max": 200,
+      "step": 4,
+      "unit": "px",
+      "default": 48
+    }
+  ],
+  "presets": [
+    {
+      "name": "Shop by business",
+      "blocks": [
+        {
+          "type": "card",
+          "settings": {
+            "title": "Cloud kitchens",
+            "text": "Packaging that survives the drive and still looks right at the door"
+          }
+        },
+        {
+          "type": "card",
+          "settings": {
+            "title": "Caterers",
+            "text": "Buy in bursts, stock for the season, keep the sizes consistent"
+          }
+        },
+        {
+          "type": "card",
+          "settings": {
+            "title": "Food trucks",
+            "text": "Small storage, tight margins, no room for the wrong order"
+          }
+        },
+        {
+          "type": "card",
+          "settings": {
+            "title": "Cafés and coffee shops",
+            "text": "Hot cups, cold cups and lids without the per-cup markup"
+          }
+        },
+        {
+          "type": "card",
+          "settings": {
+            "title": "Delis and supermarkets",
+            "text": "Grab-and-go packaging that sells the food inside it"
+          }
+        },
+        {
+          "type": "card",
+          "settings": {
+            "title": "Full-service restaurants",
+            "text": "One supplier for the whole back of house"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

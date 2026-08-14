@@ -1,0 +1,278 @@
+{%- doc -%}
+  The block that explains why per-piece pricing is the number worth comparing.
+
+  Pick a real product and the worked example prices itself from that product's
+  own case price and pieces-per-case, so the example on the home page can never
+  drift away from the catalogue. The manual fields are only a fallback for before
+  real prices are loaded.
+{%- enddoc -%}
+
+{% liquid
+  if section.settings.background_color != blank
+    render 'contrast-override', background_color: section.settings.background_color, section_id: section.id
+  endif
+
+  assign namespace = settings.rsh_metafield_namespace | default: 'custom'
+  assign example = section.settings.example_product
+
+  if example != blank
+    assign example_variant = example.selected_or_first_available_variant
+    assign example_cents = example_variant.price
+    assign example_pieces = example.metafields[namespace].pieces_per_case.value | plus: 0
+    assign example_noun = example.metafields[namespace].piece_noun.value | default: settings.rsh_piece_noun | default: 'piece'
+    assign example_title = example.title
+    assign example_url = example.url
+  else
+    # Fall back to the typed figures. Shopify number settings are integers only,
+    # so the price arrives as text and is parsed into cents here.
+    assign price_parts = section.settings.example_price | default: '32.99' | split: '.'
+    assign whole_dollars = price_parts[0] | plus: 0
+    assign fraction = price_parts[1] | default: '0' | append: '00' | slice: 0, 2 | plus: 0
+    assign example_cents = whole_dollars | times: 100 | plus: fraction
+    assign example_pieces = section.settings.example_pieces | plus: 0
+    assign example_noun = section.settings.example_noun | default: 'bowl'
+    assign example_title = section.settings.example_title
+    assign example_url = section.settings.button_link
+  endif
+
+  assign example_plural = example_noun | append: 's'
+%}
+
+<div
+  class="section-background{% if section.settings.background_color != blank %} color-custom-{{ section.id }}{% endif %}"
+></div>
+
+<div
+  class="
+    section
+    section--{{ section.settings.section_width }}
+    {% if section.settings.background_color != blank %}color-custom-{{ section.id }}{% endif %}
+    spacing-style
+  "
+  style="{% render 'spacing-style', settings: section.settings %}"
+>
+  <div class="rsh-explainer rsh-explainer--media-{{ section.settings.media_position }}">
+    <div class="rsh-explainer__body">
+      {%- if section.settings.eyebrow != blank -%}
+        <p class="rsh-eyebrow">{{ section.settings.eyebrow }}</p>
+      {%- endif -%}
+
+      {%- if section.settings.heading != blank -%}
+        <h2 class="rsh-heading h2">{{ section.settings.heading }}</h2>
+      {%- endif -%}
+
+      {%- if section.settings.body != blank -%}
+        <div class="rsh-lede rte">{{ section.settings.body }}</div>
+      {%- endif -%}
+
+      {%- if section.settings.button_label != blank -%}
+        <div class="rsh-actions">
+          <a
+            href="{{ section.settings.button_link | default: routes.all_products_collection_url }}"
+            class="button"
+          >
+            {{ section.settings.button_label }}
+          </a>
+        </div>
+      {%- endif -%}
+    </div>
+
+    <div class="rsh-explainer__media">
+      {%- if section.settings.image != blank -%}
+        <figure class="rsh-explainer__figure">
+          {{
+            section.settings.image
+            | image_url: width: 1200
+            | image_tag: loading: 'lazy', sizes: '(min-width: 800px) 50vw, 100vw', widths: '400, 600, 800, 1200'
+          }}
+        </figure>
+      {%- elsif example_cents > 0 -%}
+        <div class="rsh-example">
+          {%- if example_title != blank -%}
+            <p class="rsh-example__title">
+              {%- if example_url != blank -%}
+                <a href="{{ example_url }}">{{ example_title }}</a>
+              {%- else -%}
+                {{ example_title }}
+              {%- endif -%}
+            </p>
+          {%- endif -%}
+
+          <div class="rsh-example__price">
+            <span class="rsh-example__case">
+              {{ example_cents | money }} <span>per case</span>
+            </span>
+            {%- if example_pieces > 0 -%}
+              <span class="rsh-example__piece">
+                {%- render 'rsh-per-piece', cents: example_cents, pieces: example_pieces -%}
+                <span>per {{ example_noun }} · {{ example_pieces }} {{ example_plural }} per case</span>
+              </span>
+            {%- endif -%}
+          </div>
+
+          {%- if section.settings.show_example_ladder -%}
+            {% render 'rsh-tier-table',
+              variant: example_variant,
+              pieces: example_pieces,
+              piece_noun: example_noun
+            %}
+          {%- endif -%}
+        </div>
+      {%- endif -%}
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Per-piece explainer",
+  "disabled_on": {
+    "groups": ["header", "footer"]
+  },
+  "settings": [
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Eyebrow"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "The number that actually matters"
+    },
+    {
+      "type": "richtext",
+      "id": "body",
+      "label": "Body",
+      "default": "<p>A case of 24 oz microwavable bowls at $32.99 is 22 cents a bowl. The same case at $36.50 is 24 cents. Two cents does not sound like much until you are packing 900 orders a week, at which point it is about $940 a year on one item.</p><p>We put the per-piece price on every product page, next to the case price, at every quantity break. Check it against your last invoice.</p>"
+    },
+    {
+      "type": "text",
+      "id": "button_label",
+      "label": "Button label",
+      "default": "Shop containers"
+    },
+    {
+      "type": "url",
+      "id": "button_link",
+      "label": "Button link"
+    },
+    {
+      "type": "header",
+      "content": "Worked example"
+    },
+    {
+      "type": "paragraph",
+      "content": "Pick a product and the example prices itself from that product. An uploaded image replaces the example card entirely."
+    },
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Screenshot"
+    },
+    {
+      "type": "product",
+      "id": "example_product",
+      "label": "Example product"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_example_ladder",
+      "label": "Show the tier ladder in the example",
+      "default": false
+    },
+    {
+      "type": "header",
+      "content": "Manual example"
+    },
+    {
+      "type": "paragraph",
+      "content": "Used only when no product is picked above."
+    },
+    {
+      "type": "text",
+      "id": "example_title",
+      "label": "Product name",
+      "default": "24 oz Black Round Microwavable Bowl with Clear Lid"
+    },
+    {
+      "type": "text",
+      "id": "example_price",
+      "label": "Case price",
+      "default": "32.99"
+    },
+    {
+      "type": "number",
+      "id": "example_pieces",
+      "label": "Pieces per case",
+      "default": 150
+    },
+    {
+      "type": "text",
+      "id": "example_noun",
+      "label": "Piece noun",
+      "default": "bowl"
+    },
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+    {
+      "type": "select",
+      "id": "media_position",
+      "label": "Example position",
+      "options": [
+        { "value": "right", "label": "Right" },
+        { "value": "left", "label": "Left" }
+      ],
+      "default": "right"
+    },
+    {
+      "type": "select",
+      "id": "section_width",
+      "label": "Width",
+      "options": [
+        { "value": "page-width", "label": "Page" },
+        { "value": "full-width", "label": "Full" }
+      ],
+      "default": "page-width"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background",
+      "placeholder": "Default"
+    },
+    {
+      "type": "header",
+      "content": "Padding"
+    },
+    {
+      "type": "range",
+      "id": "padding-block-start",
+      "label": "Top",
+      "min": 0,
+      "max": 200,
+      "step": 4,
+      "unit": "px",
+      "default": 48
+    },
+    {
+      "type": "range",
+      "id": "padding-block-end",
+      "label": "Bottom",
+      "min": 0,
+      "max": 200,
+      "step": 4,
+      "unit": "px",
+      "default": 48
+    }
+  ],
+  "presets": [
+    {
+      "name": "Per-piece explainer"
+    }
+  ]
+}
+{% endschema %}

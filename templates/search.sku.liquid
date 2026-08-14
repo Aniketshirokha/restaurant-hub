@@ -1,0 +1,40 @@
+{%- comment -%}
+  JSON endpoint for the quick order pad: exact SKU to variant lookup.
+
+  Reached as /search?q=TFRDB24&view=sku&type=product. The storefront has no SKU
+  lookup API, so this runs the ordinary search and then keeps only variants whose
+  SKU matches the query exactly. Fuzzy matches are dropped on purpose. A buyer
+  pasting a reorder list wants the item they typed or a clear miss, never a
+  near-miss quietly added to their cart.
+{%- endcomment -%}
+{%- layout none -%}
+{%- liquid
+  assign needle = search.terms | strip | downcase
+  assign matches = ''
+-%}
+{
+  "query": {{ search.terms | json }},
+  "items": [
+    {%- assign separator = '' -%}
+    {%- for item in search.results -%}
+      {%- if item.object_type == 'product' -%}
+        {%- for variant in item.variants -%}
+          {%- assign variant_sku = variant.sku | strip | downcase -%}
+          {%- if variant_sku != blank and variant_sku == needle -%}
+            {{ separator }}
+            {
+              "id": {{ variant.id }},
+              "sku": {{ variant.sku | json }},
+              "title": {{ item.title | json }},
+              "variantTitle": {{ variant.title | json }},
+              "url": {{ variant.url | default: item.url | json }},
+              "price": {{ variant.price }},
+              "available": {{ variant.available }}
+            }
+            {%- assign separator = ',' -%}
+          {%- endif -%}
+        {%- endfor -%}
+      {%- endif -%}
+    {%- endfor -%}
+  ]
+}

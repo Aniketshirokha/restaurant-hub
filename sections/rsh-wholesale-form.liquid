@@ -1,0 +1,281 @@
+{%- doc -%}
+  Wholesale account application.
+
+  Posts through Shopify's contact form, so submissions arrive as email with no
+  app required. Kept to one screen on purpose: every extra field costs
+  applications, and the published tiers already cover most orders without one.
+{%- enddoc -%}
+
+{% liquid
+  if section.settings.background_color != blank
+    render 'contrast-override', background_color: section.settings.background_color, section_id: section.id
+  endif
+%}
+
+<div
+  class="section-background{% if section.settings.background_color != blank %} color-custom-{{ section.id }}{% endif %}"
+></div>
+
+<div
+  class="
+    section
+    section--{{ section.settings.section_width }}
+    {% if section.settings.background_color != blank %}color-custom-{{ section.id }}{% endif %}
+    spacing-style gap-style
+  "
+  style="
+    {% render 'spacing-style', settings: section.settings %}
+    {% render 'gap-style', value: section.settings.gap %}
+  "
+>
+  {%- if section.settings.heading != blank -%}
+    <div class="rsh-block">
+      <h2 class="rsh-heading h2">{{ section.settings.heading }}</h2>
+      {%- if section.settings.body != blank -%}
+        <div class="rsh-lede rte">{{ section.settings.body }}</div>
+      {%- endif -%}
+    </div>
+  {%- endif -%}
+
+  {%- form 'contact', class: 'rsh-form', id: 'rsh-wholesale-form' -%}
+    {%- if form.posted_successfully? -%}
+      <div class="rsh-form__success" role="status">
+        {{ section.settings.success_message | default: 'Thanks. We review applications within one business day and will email you from there.' }}
+      </div>
+    {%- else -%}
+      {%- if form.errors -%}
+        <p class="rsh-form__error" role="alert">
+          {{ form.errors | default_errors }}
+        </p>
+      {%- endif -%}
+
+      <input type="hidden" name="contact[Form]" value="Wholesale application">
+
+      <div class="rsh-form__grid">
+        <div class="rsh-form__field">
+          <label class="rsh-form__label" for="rsh-wholesale-business">Business name</label>
+          <input
+            id="rsh-wholesale-business"
+            type="text"
+            name="contact[Business name]"
+            autocomplete="organization"
+            required
+          >
+        </div>
+
+        <div class="rsh-form__field">
+          <label class="rsh-form__label" for="rsh-wholesale-name">Contact name</label>
+          <input
+            id="rsh-wholesale-name"
+            type="text"
+            name="contact[Contact name]"
+            autocomplete="name"
+            required
+          >
+        </div>
+
+        <div class="rsh-form__field">
+          <label class="rsh-form__label" for="rsh-wholesale-email">Email</label>
+          <input
+            id="rsh-wholesale-email"
+            type="email"
+            name="contact[email]"
+            autocomplete="email"
+            spellcheck="false"
+            required
+          >
+        </div>
+
+        <div class="rsh-form__field">
+          <label class="rsh-form__label" for="rsh-wholesale-phone">Phone</label>
+          <input
+            id="rsh-wholesale-phone"
+            type="tel"
+            name="contact[Phone]"
+            autocomplete="tel"
+            required
+          >
+        </div>
+
+        <div class="rsh-form__field">
+          <label class="rsh-form__label" for="rsh-wholesale-type">Business type</label>
+          <select id="rsh-wholesale-type" name="contact[Business type]" required>
+            <option value="">Choose one</option>
+            {%- assign business_types = section.settings.business_types | newline_to_br | split: '<br />' -%}
+            {%- for type in business_types -%}
+              {%- assign clean_type = type | strip -%}
+              {%- if clean_type != blank -%}
+                <option value="{{ clean_type | escape }}">{{ clean_type }}</option>
+              {%- endif -%}
+            {%- endfor -%}
+          </select>
+        </div>
+
+        <div class="rsh-form__field">
+          <label class="rsh-form__label" for="rsh-wholesale-volume">
+            Estimated cases a month
+          </label>
+          <input
+            id="rsh-wholesale-volume"
+            type="number"
+            inputmode="numeric"
+            min="1"
+            name="contact[Estimated cases a month]"
+            required
+          >
+        </div>
+
+        <div class="rsh-form__field rsh-form__field--full">
+          <label class="rsh-form__label" for="rsh-wholesale-resale">
+            Resale certificate number
+            <span class="rsh-form__optional">optional</span>
+          </label>
+          <input
+            id="rsh-wholesale-resale"
+            type="text"
+            name="contact[Resale certificate number]"
+          >
+        </div>
+
+        <div class="rsh-form__field rsh-form__field--full">
+          <label class="rsh-form__label" for="rsh-wholesale-items">
+            What do you buy most?
+          </label>
+          <textarea
+            id="rsh-wholesale-items"
+            name="contact[Items of most interest]"
+            rows="3"
+            placeholder="{{ section.settings.items_placeholder | escape }}"
+          ></textarea>
+        </div>
+      </div>
+
+      <div class="rsh-actions">
+        <button type="submit" class="button">
+          {{ section.settings.button_label | default: 'Apply for a wholesale account' }}
+        </button>
+      </div>
+
+      {%- if section.settings.form_note != blank -%}
+        <p class="rsh-form__note">{{ section.settings.form_note }}</p>
+      {%- endif -%}
+    {%- endif -%}
+  {%- endform -%}
+</div>
+
+{% schema %}
+{
+  "name": "Wholesale application",
+  "disabled_on": {
+    "groups": ["header", "footer"]
+  },
+  "settings": [
+    {
+      "type": "paragraph",
+      "content": "Submissions arrive as email through Shopify's contact form. Check the notification address under Settings, Notifications."
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Apply for a wholesale account"
+    },
+    {
+      "type": "richtext",
+      "id": "body",
+      "label": "Body",
+      "default": "<p>Published tiers cover most orders. Apply if you are ordering the same items every week, moving more than 50 cases at a time, or you need pricing held for a season so you can quote catering jobs against it.</p>"
+    },
+    {
+      "type": "textarea",
+      "id": "business_types",
+      "label": "Business types",
+      "default": "Cloud kitchen\nCaterer\nFood truck\nCafé or coffee shop\nDeli or supermarket\nFull-service restaurant\nOther",
+      "info": "One per line."
+    },
+    {
+      "type": "text",
+      "id": "items_placeholder",
+      "label": "Items field placeholder",
+      "default": "Deli containers, nitrile gloves, kraft bags"
+    },
+    {
+      "type": "text",
+      "id": "button_label",
+      "label": "Button label",
+      "default": "Apply for a wholesale account"
+    },
+    {
+      "type": "text",
+      "id": "form_note",
+      "label": "Note under the form",
+      "default": "Applications are reviewed within one business day."
+    },
+    {
+      "type": "textarea",
+      "id": "success_message",
+      "label": "Success message",
+      "default": "Thanks. We review applications within one business day and will email you from there."
+    },
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+    {
+      "type": "select",
+      "id": "section_width",
+      "label": "Width",
+      "options": [
+        { "value": "page-width", "label": "Page" },
+        { "value": "full-width", "label": "Full" }
+      ],
+      "default": "page-width"
+    },
+    {
+      "type": "range",
+      "id": "gap",
+      "label": "Gap",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "default": 24
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background",
+      "placeholder": "Default"
+    },
+    {
+      "type": "header",
+      "content": "Padding"
+    },
+    {
+      "type": "range",
+      "id": "padding-block-start",
+      "label": "Top",
+      "min": 0,
+      "max": 200,
+      "step": 4,
+      "unit": "px",
+      "default": 48
+    },
+    {
+      "type": "range",
+      "id": "padding-block-end",
+      "label": "Bottom",
+      "min": 0,
+      "max": 200,
+      "step": 4,
+      "unit": "px",
+      "default": 48
+    }
+  ],
+  "presets": [
+    {
+      "name": "Wholesale application"
+    }
+  ]
+}
+{% endschema %}

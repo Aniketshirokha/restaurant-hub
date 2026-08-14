@@ -1,0 +1,63 @@
+{%- doc -%}
+  Renders a single per-piece price to a fixed number of decimal places.
+
+  Shopify's `money` filter always rounds to the currency's minor unit, which
+  collapses $0.208 and $0.220 into the same "$0.21". Foodservice buyers compare
+  suppliers on exactly that difference, so the fraction is built by hand here
+  from integer maths and zero padded rather than rounded away.
+
+  The arithmetic is mirrored in assets/rsh-pricing.js. Change one and change the
+  other, or the price will visibly twitch the first time a buyer touches the
+  quantity stepper.
+
+  @param {number} cents - Case price in cents.
+  @param {number} pieces - Pieces in the case. Nothing renders when this is missing or zero.
+  @param {number} [decimals] - Decimal places, clamped to 2-4. Defaults to the theme setting.
+  @param {string} [currency_symbol] - Overrides the symbol taken from the cart currency.
+
+  @example
+  {% render 'rsh-per-piece', cents: 3299, pieces: 150 %}
+  {%- comment -%} $0.220 {%- endcomment -%}
+{%- enddoc -%}
+
+{%- liquid
+  assign piece_count = pieces | plus: 0
+
+  if piece_count > 0
+    assign places = decimals | default: settings.rsh_per_piece_decimals | default: 3 | plus: 0
+
+    # `cents` is hundredths of a unit, so scaling to `places` decimals of a whole
+    # unit means multiplying by 10^(places - 2).
+    case places
+      when 2
+        assign multiplier = 1
+        assign divisor = 100
+      when 4
+        assign multiplier = 100
+        assign divisor = 10000
+      else
+        assign places = 3
+        assign multiplier = 10
+        assign divisor = 1000
+    endcase
+
+    # Half the divisor is added before the integer division so the result rounds
+    # to nearest rather than always truncating downwards.
+    assign rounding_offset = piece_count | divided_by: 2
+    assign scaled = cents | times: multiplier | plus: rounding_offset | divided_by: piece_count
+
+    assign whole = scaled | divided_by: divisor
+    assign fraction = scaled | modulo: divisor
+
+    # Left pad so 20 thousandths renders as .020 rather than .20.
+    assign pad_from_end = 0 | minus: places
+    assign fraction_padded = fraction | prepend: '0000' | slice: pad_from_end, places
+
+    assign symbol = currency_symbol | default: cart.currency.symbol | default: '$'
+
+    echo symbol
+    echo whole
+    echo '.'
+    echo fraction_padded
+  endif
+-%}

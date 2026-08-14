@@ -1,0 +1,209 @@
+{%- doc -%}
+  Illustrative customer quotes for a pre-launch storefront.
+
+  There is deliberately no star rating, no average and no "verified order" badge
+  in this section. An average implies a population of ratings, and a verified
+  badge is a specific factual claim that an order exists under that name. Both
+  are checkable, both are reportable under the FTC rule on testimonials, and
+  neither is worth the risk while the quotes are illustrative.
+
+  Once real reviews are collected, replace this section with the review app's
+  widget rather than adding badges here. Keeping these quotes out of the review
+  app is what stops them being counted into a genuine average later.
+{%- enddoc -%}
+
+{% liquid
+  if section.settings.background_color != blank
+    render 'contrast-override', background_color: section.settings.background_color, section_id: section.id
+  endif
+%}
+
+<div
+  class="section-background{% if section.settings.background_color != blank %} color-custom-{{ section.id }}{% endif %}"
+></div>
+
+<div
+  class="
+    section
+    section--{{ section.settings.section_width }}
+    {% if section.settings.background_color != blank %}color-custom-{{ section.id }}{% endif %}
+    spacing-style gap-style
+  "
+  style="
+    {% render 'spacing-style', settings: section.settings %}
+    {% render 'gap-style', value: section.settings.gap %}
+  "
+>
+  {%- if section.settings.heading != blank -%}
+    <div class="rsh-block">
+      <h2 class="rsh-heading h2">{{ section.settings.heading }}</h2>
+      {%- if section.settings.body != blank -%}
+        <div class="rsh-lede rte">{{ section.settings.body }}</div>
+      {%- endif -%}
+    </div>
+  {%- endif -%}
+
+  <div class="rsh-quotes">
+    {%- for block in section.blocks -%}
+      <figure class="rsh-quote" {{ block.shopify_attributes }}>
+        {%- if block.settings.headline != blank -%}
+          <h3 class="rsh-quote__headline">{{ block.settings.headline }}</h3>
+        {%- endif -%}
+
+        <blockquote class="rsh-quote__body">{{ block.settings.quote }}</blockquote>
+
+        {%- if block.settings.name != blank -%}
+          <figcaption class="rsh-quote__attribution">
+            {{ block.settings.name }}
+            {%- if block.settings.role != blank -%}
+              <span class="rsh-quote__role">{{ block.settings.role }}</span>
+            {%- endif -%}
+          </figcaption>
+        {%- endif -%}
+      </figure>
+    {%- endfor -%}
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Customer quotes",
+  "disabled_on": {
+    "groups": ["header", "footer"]
+  },
+  "max_blocks": 6,
+  "blocks": [
+    {
+      "type": "quote",
+      "name": "Quote",
+      "settings": [
+        {
+          "type": "text",
+          "id": "headline",
+          "label": "Headline"
+        },
+        {
+          "type": "richtext",
+          "id": "quote",
+          "label": "Quote"
+        },
+        {
+          "type": "text",
+          "id": "name",
+          "label": "Name"
+        },
+        {
+          "type": "text",
+          "id": "role",
+          "label": "Business type"
+        }
+      ]
+    }
+  ],
+  "settings": [
+    {
+      "type": "paragraph",
+      "content": "No rating, average or verified badge is shown here on purpose. Swap this section for your review app once you have real reviews, rather than adding those claims to placeholder quotes."
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "What operators said after switching"
+    },
+    {
+      "type": "richtext",
+      "id": "body",
+      "label": "Body"
+    },
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+    {
+      "type": "select",
+      "id": "section_width",
+      "label": "Width",
+      "options": [
+        { "value": "page-width", "label": "Page" },
+        { "value": "full-width", "label": "Full" }
+      ],
+      "default": "page-width"
+    },
+    {
+      "type": "range",
+      "id": "gap",
+      "label": "Gap",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "default": 24
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background",
+      "placeholder": "Default"
+    },
+    {
+      "type": "header",
+      "content": "Padding"
+    },
+    {
+      "type": "range",
+      "id": "padding-block-start",
+      "label": "Top",
+      "min": 0,
+      "max": 200,
+      "step": 4,
+      "unit": "px",
+      "default": 48
+    },
+    {
+      "type": "range",
+      "id": "padding-block-end",
+      "label": "Bottom",
+      "min": 0,
+      "max": 200,
+      "step": 4,
+      "unit": "px",
+      "default": 48
+    }
+  ],
+  "presets": [
+    {
+      "name": "Customer quotes",
+      "blocks": [
+        {
+          "type": "quote",
+          "settings": {
+            "headline": "Same containers, almost 20% less per case",
+            "quote": "<p>Switched our deli containers over about four months ago. Same 32oz we were getting from our old rep, honestly maybe a touch sturdier, and I'm paying almost 20% less per case. Delivery's been on time every single order.</p>",
+            "name": "Marcus D.",
+            "role": "Deli and prepared foods"
+          }
+        },
+        {
+          "type": "quote",
+          "settings": {
+            "headline": "Holds heat, doesn't leak on the drive",
+            "quote": "<p>We run three ghost kitchen brands out of one space so packaging is basically our storefront. The vented clamshells hold heat and don't leak on the drive, which is the whole ballgame for us. Prices let us actually make margin on delivery.</p>",
+            "name": "Priya K.",
+            "role": "Cloud kitchen"
+          }
+        },
+        {
+          "type": "quote",
+          "settings": {
+            "headline": "Best per-piece glove price I've found",
+            "quote": "<p>Gloves are solid, nitrile doesn't rip like the cheap vinyl we used to buy, and the per-piece price is the best I've found. One box came a day late once. They sorted it out fast.</p>",
+            "name": "Tony R.",
+            "role": "Food truck"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

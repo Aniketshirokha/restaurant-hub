@@ -1,0 +1,173 @@
+{%- doc -%}
+  The volume ladder as a standalone section, for the home page and the wholesale
+  page.
+
+  Reads the same ladder as the product page, so a merchant changing the tiers in
+  theme settings changes them everywhere at once. There is no second copy of the
+  numbers to forget about.
+{%- enddoc -%}
+
+{% liquid
+  if section.settings.background_color != blank
+    render 'contrast-override', background_color: section.settings.background_color, section_id: section.id
+  endif
+%}
+
+<div
+  class="section-background{% if section.settings.background_color != blank %} color-custom-{{ section.id }}{% endif %}"
+></div>
+
+<div
+  class="
+    section
+    section--{{ section.settings.section_width }}
+    {% if section.settings.background_color != blank %}color-custom-{{ section.id }}{% endif %}
+    spacing-style
+  "
+  style="{% render 'spacing-style', settings: section.settings %}"
+>
+  <div class="rsh-explainer rsh-explainer--media-{{ section.settings.table_position }}">
+    <div class="rsh-explainer__body">
+      {%- if section.settings.eyebrow != blank -%}
+        <p class="rsh-eyebrow">{{ section.settings.eyebrow }}</p>
+      {%- endif -%}
+
+      {%- if section.settings.heading != blank -%}
+        <h2 class="rsh-heading h2">{{ section.settings.heading }}</h2>
+      {%- endif -%}
+
+      {%- if section.settings.body != blank -%}
+        <div class="rsh-lede rte">{{ section.settings.body }}</div>
+      {%- endif -%}
+
+      {%- if section.settings.button_label != blank -%}
+        <div class="rsh-actions">
+          <a href="{{ section.settings.button_link }}" class="button">
+            {{ section.settings.button_label }}
+          </a>
+          {%- if section.settings.secondary_label != blank -%}
+            <a href="{{ section.settings.secondary_link }}" class="button button-secondary">
+              {{ section.settings.secondary_label }}
+            </a>
+          {%- endif -%}
+        </div>
+      {%- endif -%}
+    </div>
+
+    <div class="rsh-explainer__media">
+      {% render 'rsh-tier-table' %}
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Volume pricing table",
+  "disabled_on": {
+    "groups": ["header", "footer"]
+  },
+  "settings": [
+    {
+      "type": "paragraph",
+      "content": "The tier ladder is edited in Theme settings under Case and per-piece pricing, so every page stays in agreement."
+    },
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Eyebrow"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "The more you stock, the less you pay"
+    },
+    {
+      "type": "richtext",
+      "id": "body",
+      "label": "Body",
+      "default": "<p>Discounts apply the moment your cart hits the next tier. There is no code to enter and no rep to call.</p><p>The tier counts every case in your cart, not cases of one product. Four cases of containers, three of gloves and five of liners is twelve cases, and all of it gets the twelve-case price.</p>"
+    },
+    {
+      "type": "text",
+      "id": "button_label",
+      "label": "Button label",
+      "default": "See wholesale pricing"
+    },
+    {
+      "type": "url",
+      "id": "button_link",
+      "label": "Button link"
+    },
+    {
+      "type": "text",
+      "id": "secondary_label",
+      "label": "Secondary button label"
+    },
+    {
+      "type": "url",
+      "id": "secondary_link",
+      "label": "Secondary button link"
+    },
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+    {
+      "type": "select",
+      "id": "table_position",
+      "label": "Table position",
+      "options": [
+        { "value": "right", "label": "Right" },
+        { "value": "left", "label": "Left" }
+      ],
+      "default": "right"
+    },
+    {
+      "type": "select",
+      "id": "section_width",
+      "label": "Width",
+      "options": [
+        { "value": "page-width", "label": "Page" },
+        { "value": "full-width", "label": "Full" }
+      ],
+      "default": "page-width"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background",
+      "placeholder": "Default"
+    },
+    {
+      "type": "header",
+      "content": "Padding"
+    },
+    {
+      "type": "range",
+      "id": "padding-block-start",
+      "label": "Top",
+      "min": 0,
+      "max": 200,
+      "step": 4,
+      "unit": "px",
+      "default": 48
+    },
+    {
+      "type": "range",
+      "id": "padding-block-end",
+      "label": "Bottom",
+      "min": 0,
+      "max": 200,
+      "step": 4,
+      "unit": "px",
+      "default": 48
+    }
+  ],
+  "presets": [
+    {
+      "name": "Volume pricing table"
+    }
+  ]
+}
+{% endschema %}

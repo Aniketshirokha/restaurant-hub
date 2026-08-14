@@ -1,0 +1,142 @@
+{%- doc -%}
+  Surfaces the matching lid or base for a product, from the `lid_sku` product
+  reference metafield.
+
+  Roughly half this catalogue is bases and lids sold separately. A buyer who
+  orders 500 deli containers and no lids finds out on the delivery, and then
+  calls. This block is cheaper than that call.
+{%- enddoc -%}
+
+{%- liquid
+  assign block_settings = block.settings
+  assign product_resource = closest.product
+
+  assign namespace = settings.rsh_metafield_namespace | default: 'custom'
+  assign paired = product_resource.metafields[namespace].lid_sku.value
+
+  if paired != blank and paired.id != blank
+    assign paired_variant = paired.selected_or_first_available_variant
+  endif
+-%}
+
+{%- if paired_variant != blank -%}
+  <div
+    class="rsh-paired spacing-style"
+    style="{% render 'spacing-style', settings: block_settings %}"
+    {{ block.shopify_attributes }}
+  >
+    {%- if paired.featured_image != blank -%}
+      <div class="rsh-paired__media">
+        {{
+          paired.featured_image
+          | image_url: width: 160
+          | image_tag: loading: 'lazy', width: 80, height: 80, alt: paired.featured_image.alt
+        }}
+      </div>
+    {%- endif -%}
+
+    <div class="rsh-paired__body">
+      <span class="rsh-paired__kicker">{{ block_settings.kicker | default: 'Matching lid' }}</span>
+      <span class="rsh-paired__title">
+        <a href="{{ paired.url }}">{{ paired.title }}</a>
+      </span>
+      <span class="rsh-paired__price">
+        {{ paired_variant.price | money }} per case
+      </span>
+    </div>
+
+    {%- if block_settings.show_add_button and paired_variant.available -%}
+      <div class="rsh-paired__action">
+        {%- form 'product', paired, id: null, class: 'rsh-paired__form' -%}
+          <input type="hidden" name="id" value="{{ paired_variant.id }}">
+          <input type="hidden" name="quantity" value="1">
+          <button type="submit" class="button button-secondary">Add</button>
+        {%- endform -%}
+      </div>
+    {%- endif -%}
+  </div>
+{%- elsif request.design_mode -%}
+  <div class="rsh-paired" {{ block.shopify_attributes }}>
+    <div class="rsh-paired__body">
+      <span class="rsh-paired__kicker">Matching lid</span>
+      <span class="rsh-paired__title">
+        Set the lid_sku metafield on this product to show its matching lid or base here.
+      </span>
+    </div>
+  </div>
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "Matching lid or base",
+  "tag": null,
+  "settings": [
+    {
+      "type": "paragraph",
+      "content": "Shows the product linked in the lid_sku metafield. Nothing renders when the metafield is empty."
+    },
+    {
+      "type": "text",
+      "id": "kicker",
+      "label": "Label",
+      "default": "Matching lid"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_add_button",
+      "label": "Show add to cart button",
+      "default": true
+    },
+    {
+      "type": "header",
+      "content": "Padding"
+    },
+    {
+      "type": "range",
+      "id": "padding-block-start",
+      "label": "Top",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "padding-block-end",
+      "label": "Bottom",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "padding-inline-start",
+      "label": "Left",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "padding-inline-end",
+      "label": "Right",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "default": 0
+    }
+  ],
+  "presets": [
+    {
+      "name": "Matching lid or base",
+      "category": "Product"
+    }
+  ]
+}
+{% endschema %}

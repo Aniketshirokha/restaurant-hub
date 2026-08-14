@@ -1,0 +1,60 @@
+{%- doc -%}
+  Outputs the volume tier ladder as a compact `min:discount` list, sorted and
+  validated, for other snippets to split apart. This is the single source of
+  truth for the ladder so the product page, the wholesale page and the home page
+  can never drift from each other.
+
+  Tiers configured out of order or past the quote threshold are dropped rather
+  than rendered, so a mistake in the theme editor cannot produce a ladder that
+  charges more for buying more.
+
+  @example
+  {% capture tier_list %}{% render 'rsh-tier-list' %}{% endcapture %}
+  {% assign tiers = tier_list | strip | split: ',' %}
+  {%- comment -%} 1:0,3:6,6:11,12:16,25:21 {%- endcomment -%}
+{%- enddoc -%}
+
+{%- liquid
+  assign quote_min = settings.rsh_quote_min | default: 50 | plus: 0
+
+  capture raw_mins
+    echo '1,'
+    echo settings.rsh_tier2_min | default: 3
+    echo ','
+    echo settings.rsh_tier3_min | default: 6
+    echo ','
+    echo settings.rsh_tier4_min | default: 12
+    echo ','
+    echo settings.rsh_tier5_min | default: 25
+  endcapture
+
+  capture raw_discounts
+    echo '0,'
+    echo settings.rsh_tier2_discount | default: 6
+    echo ','
+    echo settings.rsh_tier3_discount | default: 11
+    echo ','
+    echo settings.rsh_tier4_discount | default: 16
+    echo ','
+    echo settings.rsh_tier5_discount | default: 21
+  endcapture
+
+  assign mins = raw_mins | split: ','
+  assign discounts = raw_discounts | split: ','
+  assign previous_min = 0
+  assign output = ''
+
+  for min_value in mins
+    assign tier_min = min_value | plus: 0
+    assign tier_discount = discounts[forloop.index0] | plus: 0
+
+    if tier_min > previous_min and tier_min < quote_min
+      if output != ''
+        assign output = output | append: ','
+      endif
+      assign output = output | append: tier_min | append: ':' | append: tier_discount
+      assign previous_min = tier_min
+    endif
+  endfor
+-%}
+{{- output -}}

@@ -1,0 +1,153 @@
+{%- doc -%}
+  Renders the volume tier ladder as a table.
+
+  With a `variant` it shows real money: the discounted case price and the
+  per-piece price at every tier. Without one it falls back to a rates-only table
+  for the home and wholesale pages, where there is no product in context.
+
+  The table is deliberately plain markup with no disclosure around it. The whole
+  competitive position is that a buyer can see the ladder without asking, so it
+  is never collapsed behind a tab or a popover.
+
+  @param {variant} [variant] - Variant to price the ladder against.
+  @param {number} [pieces] - Pieces per case. Per-piece columns are dropped when absent.
+  @param {string} [piece_noun] - Singular noun for one piece, e.g. bowl.
+  @param {number} [current_quantity] - Case count used to highlight the live tier.
+  @param {string} [quote_url] - Where the top "ask us" row links.
+  @param {boolean} [compact] - Drops the per-case column on the rates-only table.
+
+  @example
+  {% render 'rsh-tier-table', variant: variant, pieces: 150, piece_noun: 'bowl' %}
+{%- enddoc -%}
+
+{%- liquid
+  capture tier_list
+    render 'rsh-tier-list'
+  endcapture
+  assign tiers = tier_list | strip | split: ','
+
+  assign quote_min = settings.rsh_quote_min | default: 50 | plus: 0
+  assign piece_count = pieces | plus: 0
+  assign noun = piece_noun | default: settings.rsh_piece_noun | default: 'piece'
+  assign live_quantity = current_quantity | default: 0 | plus: 0
+  assign has_variant = false
+  if variant != blank and variant.price > 0
+    assign has_variant = true
+  endif
+  assign show_per_piece = false
+  if has_variant and piece_count > 0
+    assign show_per_piece = true
+  endif
+  assign quote_link = quote_url | default: settings.rsh_quote_url
+-%}
+
+<div class="rsh-tier">
+  <table class="rsh-tier__table">
+    <caption class="rsh-visually-hidden">
+      Volume pricing by number of cases in the cart
+    </caption>
+    <thead>
+      <tr>
+        <th scope="col">Cases</th>
+        {%- if has_variant -%}
+          <th scope="col">Per case</th>
+          {%- if show_per_piece -%}
+            <th scope="col">Per {{ noun }}</th>
+          {%- endif -%}
+          <th scope="col"><span class="rsh-visually-hidden">Discount</span></th>
+        {%- else -%}
+          <th scope="col">You pay</th>
+        {%- endif -%}
+      </tr>
+    </thead>
+    <tbody>
+      {%- for tier in tiers -%}
+        {%- liquid
+          assign parts = tier | split: ':'
+          assign tier_min = parts[0] | plus: 0
+          assign tier_discount = parts[1] | plus: 0
+
+          # A tier runs up to the case before the next tier opens, or up to the
+          # quote threshold when it is the last published tier.
+          assign next_index = forloop.index0 | plus: 1
+          if forloop.last
+            assign tier_max = quote_min | minus: 1
+          else
+            assign next_parts = tiers[next_index] | split: ':'
+            assign tier_max = next_parts[0] | minus: 1
+          endif
+
+          if tier_min == tier_max
+            assign range_label = tier_min
+          else
+            assign range_label = tier_min | append: ' to ' | append: tier_max
+          endif
+
+          assign is_active = false
+          if live_quantity >= tier_min and live_quantity <= tier_max
+            assign is_active = true
+          endif
+
+          assign multiplier = 100 | minus: tier_discount
+          assign tier_price = variant.price | times: multiplier | plus: 50 | divided_by: 100
+        -%}
+        <tr
+          class="rsh-tier__row{% if is_active %} rsh-tier__row--active{% endif %}"
+          data-min="{{ tier_min }}"
+          data-max="{{ tier_max }}"
+          data-discount="{{ tier_discount }}"
+          {% if has_variant %}
+            data-tier-price="{{ tier_price }}"
+          {% endif %}
+        >
+          <th scope="row" class="rsh-tier__cases">{{ range_label }}</th>
+          {%- if has_variant -%}
+            <td class="rsh-tier__price">{{ tier_price | money }}</td>
+            {%- if show_per_piece -%}
+              <td class="rsh-tier__per-piece">
+                {%- render 'rsh-per-piece', cents: tier_price, pieces: piece_count -%}
+              </td>
+            {%- endif -%}
+            <td class="rsh-tier__save">
+              {%- if tier_discount > 0 -%}
+                <span class="rsh-tier__badge">Save {{ tier_discount }}%</span>
+              {%- else -%}
+                <span class="rsh-tier__standard">Standard</span>
+              {%- endif -%}
+            </td>
+          {%- else -%}
+            <td class="rsh-tier__save">
+              {%- if tier_discount > 0 -%}
+                <span class="rsh-tier__badge">{{ tier_discount }}% off</span>
+              {%- else -%}
+                Standard case price
+              {%- endif -%}
+            </td>
+          {%- endif -%}
+        </tr>
+      {%- endfor -%}
+
+      <tr class="rsh-tier__row rsh-tier__row--quote" data-min="{{ quote_min }}" data-max="999999">
+        <th scope="row" class="rsh-tier__cases">{{ quote_min }}+</th>
+        <td
+          class="rsh-tier__quote"
+          {% if has_variant %}
+            colspan="{% if show_per_piece %}3{% else %}2{% endif %}"
+          {% endif %}
+        >
+          {%- if quote_link != blank -%}
+            <a href="{{ quote_link }}">Ask us for a quote</a>
+          {%- else -%}
+            Ask us for a quote
+          {%- endif -%}
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  {%- if settings.rsh_tiers_cart_wide -%}
+    <p class="rsh-tier__note">
+      The tier counts every case in your cart, not cases of one product.
+    </p>
+  {%- endif -%}
+</div>

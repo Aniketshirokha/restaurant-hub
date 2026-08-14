@@ -2116,5 +2116,166 @@
         "default": "equal-width-buttons"
       }
     ]
+  },
+  {
+    "name": "Case & per-piece pricing",
+    "settings": [
+      {
+        "type": "paragraph",
+        "content": "Controls the per-piece price display and the volume tier ladder used across product pages, the wholesale page and the home page."
+      },
+      {
+        "type": "header",
+        "content": "Per-piece display"
+      },
+      {
+        "type": "text",
+        "id": "rsh_metafield_namespace",
+        "label": "Metafield namespace",
+        "default": "custom",
+        "info": "Namespace holding pieces_per_case, item_number and the spec fields."
+      },
+      {
+        "type": "range",
+        "id": "rsh_per_piece_decimals",
+        "label": "Per-piece decimal places",
+        "min": 2,
+        "max": 4,
+        "step": 1,
+        "default": 3,
+        "info": "Three decimals shows the difference between $0.220 and $0.208. Two decimals hides it."
+      },
+      {
+        "type": "text",
+        "id": "rsh_piece_noun",
+        "label": "Default piece noun",
+        "default": "piece",
+        "info": "Override per product with the piece_noun metafield, for example bowl, cup or glove."
+      },
+      {
+        "type": "header",
+        "content": "Volume tiers"
+      },
+      {
+        "type": "paragraph",
+        "content": "Discounts are counted across every case in the cart, not per product. Set the matching rules in your pricing app so the cart total agrees with what is shown here."
+      },
+      {
+        "type": "checkbox",
+        "id": "rsh_tiers_cart_wide",
+        "label": "Count cases across the whole cart",
+        "default": true
+      },
+      {
+        "type": "range",
+        "id": "rsh_tier2_min",
+        "label": "Tier 2 starts at",
+        "min": 2,
+        "max": 20,
+        "step": 1,
+        "unit": "cs",
+        "default": 3
+      },
+      {
+        "type": "range",
+        "id": "rsh_tier2_discount",
+        "label": "Tier 2 discount",
+        "min": 0,
+        "max": 50,
+        "step": 1,
+        "unit": "%",
+        "default": 6
+      },
+      {
+        "type": "range",
+        "id": "rsh_tier3_min",
+        "label": "Tier 3 starts at",
+        "min": 3,
+        "max": 40,
+        "step": 1,
+        "unit": "cs",
+        "default": 6
+      },
+      {
+        "type": "range",
+        "id": "rsh_tier3_discount",
+        "label": "Tier 3 discount",
+        "min": 0,
+        "max": 50,
+        "step": 1,
+        "unit": "%",
+        "default": 11
+      },
+      {
+        "type": "range",
+        "id": "rsh_tier4_min",
+        "label": "Tier 4 starts at",
+        "min": 4,
+        "max": 60,
+        "step": 1,
+        "unit": "cs",
+        "default": 12
+      },
+      {
+        "type": "range",
+        "id": "rsh_tier4_discount",
+        "label": "Tier 4 discount",
+        "min": 0,
+        "max": 50,
+        "step": 1,
+        "unit": "%",
+        "default": 16
+      },
+      {
+        "type": "range",
+        "id": "rsh_tier5_min",
+        "label": "Tier 5 starts at",
+        "min": 5,
+        "max": 100,
+        "step": 1,
+        "unit": "cs",
+        "default": 25
+      },
+      {
+        "type": "range",
+        "id": "rsh_tier5_discount",
+        "label": "Tier 5 discount",
+        "min": 0,
+        "max": 50,
+        "step": 1,
+        "unit": "%",
+        "default": 21
+      },
+      {
+        "type": "range",
+        "id": "rsh_quote_min",
+        "label": "Quote required at",
+        "min": 10,
+        "max": 200,
+        "step": 5,
+        "unit": "cs",
+        "default": 50
+      },
+      {
+        "type": "url",
+        "id": "rsh_quote_url",
+        "label": "Quote request page"
+      },
+      {
+        "type": "header",
+        "content": "Free shipping"
+      },
+      {
+        "type": "range",
+        "id": "rsh_free_shipping_threshold",
+        "label": "Free shipping over",
+        "min": 0,
+        "max": 500,
+        "step": 5,
+        "unit": "$",
+        "default": 149,
+        "info": "Set to 0 to hide the cart progress bar. Must match your Shopify shipping rate."
+      }
+    ]
   }
 ]
