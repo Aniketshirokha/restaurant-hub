@@ -6,8 +6,7 @@
  * or related systems. Please exercise caution as any changes
  * made to this file may be overwritten.
  * ------------------------------------------------------------
- */
-{
+ */{
   "type": "footer",
   "name": "t:names.footer",
   "sections": {
@@ -39,7 +38,7 @@
               "type": "text",
               "name": "t:names.heading",
               "settings": {
-                "text": "<p>Join our Newsletter — Get Updates, Offers and Invites.</p>",
+                "text": "<p>Price changes and restock notices, about once a month.</p>",
                 "width": "fit-content",
                 "max_width": "normal",
                 "alignment": "left",
@@ -202,7 +201,7 @@
             "text_jBr8nr": {
               "type": "text",
               "settings": {
-                "text": "<p>Stay Connected</p>",
+                "text": "<p>Restaurant Supply Hub</p>",
                 "width": "100%",
                 "max_width": "normal",
                 "alignment": "left",
@@ -226,16 +225,40 @@
               "type": "social-links",
               "name": "t:names.social_media_links",
               "settings": {
-                "facebook_url": "https://facebook.com",
-                "instagram_url": "https://instagram.com",
-                "tiktok_url": "https://tiktok.com",
-                "twitter_url": "https://x.com"
+                "facebook_url": "",
+                "instagram_url": "",
+                "tiktok_url": "",
+                "twitter_url": ""
+              },
+              "blocks": {}
+            },
+            "text_rsh_founded": {
+              "type": "text",
+              "settings": {
+                "text": "<p>Restaurant Supply Hub LLC. Founded 2024. Sourcing since 2009.</p><p>contact@restaurantsupplyhub.com</p>",
+                "width": "100%",
+                "max_width": "narrow",
+                "alignment": "left",
+                "type_preset": "rte",
+                "font": "var(--font-body--family)",
+                "line_height": "normal",
+                "letter_spacing": "normal",
+                "case": "none",
+                "wrap": "pretty",
+                "background": false,
+                "background_color": "#00000026",
+                "corner_radius": 0,
+                "padding-block-start": 0,
+                "padding-block-end": 0,
+                "padding-inline-start": 0,
+                "padding-inline-end": 0
               },
               "blocks": {}
             }
           },
           "block_order": [
             "text_jBr8nr",
+            "text_rsh_founded",
             "social_links_JBkCiP"
           ]
         }

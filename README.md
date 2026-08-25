@@ -154,9 +154,16 @@ Service, Disposable Gloves, Paper Products and Janitorial & Cleaning, plus
 `compostable` populated by tag rather than by category, and the six
 `shop-by-business` collections the cards point at.
 
-Then point the Shop by business cards at those collections in the theme editor.
-A card with a collection picked takes its title, image and link from the
-collection, so renaming the collection cannot leave the card stale.
+Then point the Shop by business cards at those collections in the theme editor,
+and pick the five parent categories in the **Start with what you're running low
+on** section on the home page. A card with a collection picked takes its title,
+image and link from the collection, so renaming the collection cannot leave the
+card stale.
+
+Each collection needs 60 to 100 words above the grid, per spec section 6.3. That
+copy is written and ready to paste in [`docs/collection-intros.md`](docs/collection-intros.md);
+it goes in the collection description in admin, because the collection template
+already renders the description above the product grid.
 
 ### 6. Navigation
 
@@ -182,6 +189,29 @@ The wholesale application, quote request and sample request all post through
 Shopify's contact form and arrive by email. Set the address under **Settings →
 Notifications**. Each one tags itself with a hidden `Form` field so they can be
 filtered apart.
+
+---
+
+## Page copy
+
+Every page in spec section 6 is loaded into its template, brackets and all. The
+stock Tinker demo copy is gone from the home page (the category grid, the best
+seller row and the sourcing block), from the product page (the four virtue icons
+and the two accordion rows) and from the footer.
+
+Two things are deliberately worded down from what the store could claim:
+
+The best seller row is headed **Popular with kitchens like yours** rather than
+"What restaurants reorder most", because there is no order history behind it yet.
+Spec section 1.4. Swap the heading once ninety days of sales reports can answer
+the question honestly.
+
+The footer reads **Restaurant Supply Hub LLC. Founded 2024. Sourcing since
+2009.** The company and the founders' experience are two different numbers and
+the footer says so. Spec section 1.2.
+
+The social links in the footer ship empty rather than pointing at the networks'
+home pages. Fill them in the theme editor or the icons stay hidden.
 
 ---
 

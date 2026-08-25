@@ -420,7 +420,7 @@
                           "type": "icon",
                           "name": "t:names.icon",
                           "settings": {
-                            "icon": "heart",
+                            "icon": "truck",
                             "width": 24,
                             "open_in_new_tab": false,
                             "icon_color": ""
@@ -431,7 +431,7 @@
                           "type": "text",
                           "name": "t:names.heading",
                           "settings": {
-                            "text": "<p>Made with care</p>",
+                            "text": "<p>Free shipping over $149</p>",
                             "width": "100%",
                             "max_width": "normal",
                             "alignment": "center",
@@ -513,7 +513,7 @@
                           "type": "text",
                           "name": "t:names.heading",
                           "settings": {
-                            "text": "<p>Great value</p>",
+                            "text": "<p>Volume pricing counts every case in your cart</p>",
                             "width": "100%",
                             "max_width": "normal",
                             "alignment": "center",
@@ -629,7 +629,7 @@
                           "type": "icon",
                           "name": "t:names.icon",
                           "settings": {
-                            "icon": "plant",
+                            "icon": "box",
                             "width": 24,
                             "open_in_new_tab": false,
                             "icon_color": ""
@@ -640,7 +640,7 @@
                           "type": "text",
                           "name": "t:names.heading",
                           "settings": {
-                            "text": "<p>Elegant design</p>",
+                            "text": "<p>No membership, no minimum</p>",
                             "width": "100%",
                             "max_width": "normal",
                             "alignment": "center",
@@ -711,7 +711,7 @@
                           "type": "icon",
                           "name": "t:names.icon",
                           "settings": {
-                            "icon": "leather",
+                            "icon": "check_box",
                             "width": 24,
                             "open_in_new_tab": false,
                             "icon_color": ""
@@ -722,7 +722,7 @@
                           "type": "text",
                           "name": "t:names.heading",
                           "settings": {
-                            "text": "<p>Quality materials</p>",
+                            "text": "<p>Bought direct from the factory</p>",
                             "width": "100%",
                             "max_width": "normal",
                             "alignment": "center",
@@ -786,7 +786,7 @@
                 "accordion_row_VyFryh": {
                   "type": "_accordion-row",
                   "settings": {
-                    "heading": "Details",
+                    "heading": "Shipping",
                     "open_by_default": false,
                     "icon": "none",
                     "width": 20
@@ -795,7 +795,7 @@
                     "text_McjMWz": {
                       "type": "text",
                       "settings": {
-                        "text": "<p>This product is crafted with quality materials to ensure durability and performance. Designed with your convenience in mind, it seamlessly fits into your everyday life.</p>",
+                        "text": "<p>Orders placed before 2pm Pacific on a business day ship the same day. Everything on this site is in our warehouse, so there is no supplier lead time between your order and the loading dock. Ground transit is 1 to 5 business days depending on distance, and you get a tracking number when the label prints.</p><p>Free over $149. Below that the rate is calculated at checkout from the actual weight and destination.</p>",
                         "width": "100%",
                         "max_width": "normal",
                         "alignment": "left",
@@ -825,7 +825,7 @@
                 "accordion_row_aaFerA": {
                   "type": "_accordion-row",
                   "settings": {
-                    "heading": "Shipping & Returns",
+                    "heading": "Returns and damages",
                     "open_by_default": false,
                     "icon": "none",
                     "width": 20
@@ -834,7 +834,7 @@
                     "text_DNPAct": {
                       "type": "text",
                       "settings": {
-                        "text": "<p>We strive to process and ship all orders in a timely manner, working diligently to ensure that your items are on their way to you as soon as possible. </p><p>We are committed to ensuring a positive shopping experience for all our customers. If for any reason you wish to return an item, we invite you to reach out to our team for assistance, and we will evaluate every return request with care and consideration.</p>",
+                        "text": "<p>Photograph damage before you throw anything away, including the outer carton, and email contact@restaurantsupplyhub.com. We replace damaged product and you do not need to ship it back.</p><p>Unopened cases in resalable condition can come back. Opened cases of gloves or anything food-contact cannot, for the same food safety reason you would not accept them.</p>",
                         "width": "100%",
                         "max_width": "normal",
                         "alignment": "left",
@@ -899,67 +899,6 @@
         "padding-block-end": 32
       }
     },
-    "section_NaqU9X": {
-      "type": "section",
-      "blocks": {
-        "video_PthMbP": {
-          "type": "video",
-          "name": "t:names.video",
-          "settings": {
-            "source": "uploaded",
-            "video_url": "",
-            "video_autoplay": false,
-            "video_loop": true,
-            "alt": "",
-            "custom_width": 100,
-            "custom_width_mobile": 100,
-            "aspect_ratio": "16/9",
-            "border": "none",
-            "border_width": 1,
-            "border_opacity": 100,
-            "border_color": "",
-            "border_radius": 0,
-            "padding-block-start": 0,
-            "padding-block-end": 0,
-            "padding-inline-start": 0,
-            "padding-inline-end": 0
-          },
-          "blocks": {}
-        }
-      },
-      "block_order": [
-        "video_PthMbP"
-      ],
-      "name": "t:names.video_section",
-      "settings": {
-        "content_direction": "column",
-        "vertical_on_mobile": true,
-        "horizontal_alignment": "flex-start",
-        "vertical_alignment": "center",
-        "align_baseline": false,
-        "horizontal_alignment_flex_direction_column": "flex-start",
-        "vertical_alignment_flex_direction_column": "center",
-        "gap": 16,
-        "section_width": "full-width",
-        "section_height": "small",
-        "section_height_custom": 50,
-        "background_media": "none",
-        "background_color": "{{ settings.color_palette.background }}",
-        "video_position": "cover",
-        "background_image_position": "cover",
-        "toggle_overlay": false,
-        "overlay_color": "#00000026",
-        "overlay_style": "solid",
-        "gradient_direction": "to top",
-        "border": "none",
-        "border_width": 1,
-        "border_opacity": 100,
-        "border_color": "",
-        "border_radius": 0,
-        "padding-block-start": 0,
-        "padding-block-end": 0
-      }
-    },
     "product_list_zR9Cym": {
       "type": "product-list",
       "blocks": {
@@ -1000,7 +939,7 @@
               "type": "_product-list-text",
               "name": "t:names.collection_title",
               "settings": {
-                "text": "<p>Shop The Full Collection</p>",
+                "text": "<h3>Other sizes and related items</h3>",
                 "width": "100%",
                 "max_width": "normal",
                 "alignment": "center",
@@ -1200,7 +1139,6 @@
   },
   "order": [
     "main",
-    "section_NaqU9X",
     "product_list_zR9Cym"
   ]
 }
