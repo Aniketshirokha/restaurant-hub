@@ -6,23 +6,180 @@
  * or related systems. Please exercise caution as any changes
  * made to this file may be overwritten.
  * ------------------------------------------------------------
- */{
+ */
+{
   "sections": {
-    "hero_iLBwPd": {
+    "hero_CaaryD": {
       "type": "hero",
       "blocks": {
-        "group_mATTUY": {
-          "type": "group",
-          "name": "t:names.group",
+        "text_NM4gVN": {
+          "type": "text",
           "settings": {
-            "content_direction": "row",
+            "text": "<h2>New arrivals</h2>",
+            "width": "fit-content",
+            "max_width": "narrow",
+            "alignment": "left",
+            "type_preset": "h1",
+            "font": "var(--font-body--family)",
+            "font_size": "1rem",
+            "line_height": "normal",
+            "letter_spacing": "normal",
+            "case": "none",
+            "wrap": "pretty",
+            "text_color": "",
+            "background": false,
+            "background_color": "#00000026",
+            "corner_radius": 0,
+            "padding-block-start": 0,
+            "padding-block-end": 0,
+            "padding-inline-start": 0,
+            "padding-inline-end": 0
+          },
+          "blocks": {}
+        },
+        "text_3by8mX": {
+          "type": "text",
+          "settings": {
+            "text": "<p>Made with care and unconditionally loved by our customers.</p>",
+            "width": "fit-content",
+            "max_width": "narrow",
+            "alignment": "left",
+            "type_preset": "rte",
+            "font": "var(--font-body--family)",
+            "font_size": "1rem",
+            "line_height": "normal",
+            "letter_spacing": "normal",
+            "case": "none",
+            "wrap": "pretty",
+            "text_color": "",
+            "background": false,
+            "background_color": "#00000026",
+            "corner_radius": 0,
+            "padding-block-start": 0,
+            "padding-block-end": 32,
+            "padding-inline-start": 0,
+            "padding-inline-end": 0
+          },
+          "blocks": {}
+        },
+        "button_xHjDVG": {
+          "type": "button",
+          "name": "t:names.button",
+          "settings": {
+            "label": "Shop now",
+            "link": "shopify://collections/all",
+            "open_in_new_tab": false,
+            "style_class": "button",
+            "custom_button_background": "{{ settings.color_palette.foreground }}",
+            "custom_button_text": "{{ settings.color_palette.background }}",
+            "custom_button_border": "{{ settings.color_palette.background }}",
+            "link_text_color": "",
+            "width": "fit-content",
+            "custom_width": 100,
+            "width_mobile": "fit-content",
+            "custom_width_mobile": 100
+          },
+          "blocks": {}
+        }
+      },
+      "block_order": [
+        "text_NM4gVN",
+        "text_3by8mX",
+        "button_xHjDVG"
+      ],
+      "name": "t:names.hero",
+      "settings": {
+        "media_type_1": "image",
+        "media_type_2": "image",
+        "stack_media_on_mobile": false,
+        "custom_mobile_media": false,
+        "media_type_1_mobile": "image",
+        "media_type_2_mobile": "image",
+        "link": "",
+        "open_in_new_tab": false,
+        "content_direction": "column",
+        "vertical_on_mobile": true,
+        "horizontal_alignment": "flex-start",
+        "vertical_alignment": "center",
+        "align_baseline": false,
+        "horizontal_alignment_flex_direction_column": "center",
+        "vertical_alignment_flex_direction_column": "center",
+        "gap": 16,
+        "section_width": "page-width",
+        "section_height": "large",
+        "section_height_custom": 50,
+        "background_color": "",
+        "toggle_overlay": true,
+        "overlay_color": "#00000026",
+        "overlay_style": "gradient",
+        "gradient_direction": "to top",
+        "blurred_reflection": false,
+        "reflection_opacity": 75,
+        "padding-block-start": 40,
+        "padding-block-end": 40
+      }
+    },
+    "rsh_trust": {
+      "type": "rsh-trust-strip",
+      "blocks": {
+        "trust_0": {
+          "type": "item",
+          "settings": {
+            "text": "In stock now",
+            "icon": "icon-inventory"
+          }
+        },
+        "trust_1": {
+          "type": "item",
+          "settings": {
+            "text": "Ships nationwide",
+            "icon": "icon-orders"
+          }
+        },
+        "trust_2": {
+          "type": "item",
+          "settings": {
+            "text": "Per-piece pricing on everything",
+            "icon": "icon-discount"
+          }
+        },
+        "trust_3": {
+          "type": "item",
+          "settings": {
+            "text": "No membership, no minimum",
+            "icon": "icon-checkmark"
+          }
+        }
+      },
+      "block_order": [
+        "trust_0",
+        "trust_1",
+        "trust_2",
+        "trust_3"
+      ],
+      "settings": {
+        "alignment": "center",
+        "section_width": "page-width",
+        "background_color": "",
+        "padding-block-start": 16,
+        "padding-block-end": 16
+      }
+    },
+    "collection_list_xpBxCm": {
+      "type": "collection-list",
+      "blocks": {
+        "group_mfTd9p": {
+          "type": "group",
+          "name": "t:names.header",
+          "settings": {
+            "content_direction": "column",
             "vertical_on_mobile": true,
             "horizontal_alignment": "flex-start",
-            "vertical_alignment": "flex-end",
-            "align_baseline": true,
-            "horizontal_alignment_flex_direction_column": "flex-start",
+            "vertical_alignment": "center",
+            "align_baseline": false,
+            "horizontal_alignment_flex_direction_column": "center",
             "vertical_alignment_flex_direction_column": "center",
-            "gap": 12,
+            "gap": 16,
             "width": "fill",
             "custom_width": 100,
             "width_mobile": "fill",
@@ -30,130 +187,43 @@
             "height": "fit",
             "custom_height": 100,
             "background_media": "none",
+            "background_color": "",
             "video_position": "cover",
             "background_image_position": "cover",
-            "border": "none",
-            "border_width": 1,
-            "border_opacity": 100,
-            "border_radius": 0,
             "toggle_overlay": false,
             "overlay_color": "#00000026",
             "overlay_style": "solid",
             "gradient_direction": "to top",
+            "border": "none",
+            "border_width": 1,
+            "border_opacity": 100,
+            "border_color": "",
+            "border_radius": 0,
+            "link": "",
             "open_in_new_tab": false,
+            "placeholder": "",
             "padding-block-start": 0,
-            "padding-block-end": 0,
+            "padding-block-end": 16,
             "padding-inline-start": 0,
             "padding-inline-end": 0
           },
           "blocks": {
-            "group_U86Qji": {
-              "type": "group",
-              "name": "t:names.group",
-              "settings": {
-                "content_direction": "column",
-                "vertical_on_mobile": true,
-                "horizontal_alignment": "flex-start",
-                "vertical_alignment": "center",
-                "align_baseline": false,
-                "horizontal_alignment_flex_direction_column": "flex-start",
-                "vertical_alignment_flex_direction_column": "center",
-                "gap": 0,
-                "width": "custom",
-                "custom_width": 100,
-                "width_mobile": "fill",
-                "custom_width_mobile": 100,
-                "height": "fit",
-                "custom_height": 100,
-                "background_media": "none",
-                "video_position": "cover",
-                "background_image_position": "cover",
-                "border": "none",
-                "border_width": 1,
-                "border_opacity": 100,
-                "border_radius": 0,
-                "toggle_overlay": false,
-                "overlay_color": "#00000026",
-                "overlay_style": "solid",
-                "gradient_direction": "to top",
-                "open_in_new_tab": false,
-                "padding-block-start": 0,
-                "padding-block-end": 0,
-                "padding-inline-start": 0,
-                "padding-inline-end": 0
-              },
-              "blocks": {
-                "text_nptTQe": {
-                  "type": "text",
-                  "name": "t:names.heading",
-                  "settings": {
-                    "text": "<h2><em>Restaurant Supply Hub</em></h2>",
-                    "width": "100%",
-                    "max_width": "normal",
-                    "alignment": "left",
-                    "type_preset": "custom",
-                    "font": "var(--font-accent--family)",
-                    "font_size": "1.5rem",
-                    "line_height": "normal",
-                    "letter_spacing": "normal",
-                    "case": "none",
-                    "wrap": "pretty",
-                    "text_color": "{{ settings.color_palette.background }}",
-                    "background": false,
-                    "background_color": "#00000026",
-                    "corner_radius": 0,
-                    "padding-block-start": 0,
-                    "padding-block-end": 0,
-                    "padding-inline-start": 0,
-                    "padding-inline-end": 0
-                  },
-                  "blocks": {}
-                },
-                "text_m9AcWC": {
-                  "type": "text",
-                  "settings": {
-                    "text": "<h1>See what every piece costs before you buy.</h1>",
-                    "width": "100%",
-                    "max_width": "normal",
-                    "alignment": "left",
-                    "type_preset": "h2",
-                    "font": "var(--font-body--family)",
-                    "line_height": "normal",
-                    "letter_spacing": "normal",
-                    "case": "none",
-                    "wrap": "pretty",
-                    "text_color": "{{ settings.color_palette.background }}",
-                    "background": false,
-                    "background_color": "#00000026",
-                    "corner_radius": 0,
-                    "padding-block-start": 0,
-                    "padding-block-end": 0,
-                    "padding-inline-start": 0,
-                    "padding-inline-end": 0
-                  },
-                  "blocks": {}
-                }
-              },
-              "block_order": [
-                "text_nptTQe",
-                "text_m9AcWC"
-              ]
-            },
-            "text_ebNxhf": {
+            "text_AYrwfM": {
               "type": "text",
               "name": "t:names.text",
               "settings": {
-                "text": "<p>Packaging, cups, gloves and cleaning supplies for kitchens that go through them. Case prices and per-piece math on every product, so you can check our numbers against whatever you're paying now.</p>",
+                "text": "<h2>Shop by Collection</h2>",
                 "width": "fit-content",
-                "max_width": "none",
+                "max_width": "normal",
                 "alignment": "left",
-                "type_preset": "rte",
+                "type_preset": "h2",
                 "font": "var(--font-body--family)",
+                "font_size": "1rem",
                 "line_height": "normal",
                 "letter_spacing": "normal",
                 "case": "none",
                 "wrap": "pretty",
-                "text_color": "{{ settings.color_palette.background }}",
+                "text_color": "",
                 "background": false,
                 "background_color": "#00000026",
                 "corner_radius": 0,
@@ -163,115 +233,137 @@
                 "padding-inline-end": 0
               },
               "blocks": {}
-            },
-            "hero_actions": {
-              "type": "group",
+            }
+          },
+          "block_order": [
+            "text_AYrwfM"
+          ]
+        },
+        "static-collection-card": {
+          "type": "_collection-card",
+          "name": "t:names.collection_card",
+          "static": true,
+          "settings": {
+            "placement": "on_image",
+            "horizontal_alignment": "flex-start",
+            "vertical_alignment": "flex-start",
+            "collection_card_gap": 8,
+            "background_color": "",
+            "border": "none",
+            "border_width": 1,
+            "border_opacity": 100,
+            "border_color": "",
+            "border_radius": 10
+          },
+          "blocks": {
+            "collection_title_zyBdAJ": {
+              "type": "collection-title",
+              "name": "t:names.collection_title",
               "settings": {
-                "content_direction": "row",
-                "vertical_on_mobile": true,
-                "horizontal_alignment": "flex-start",
-                "vertical_alignment": "center",
-                "align_baseline": false,
-                "horizontal_alignment_flex_direction_column": "flex-start",
-                "vertical_alignment_flex_direction_column": "center",
-                "gap": 12,
                 "width": "fit-content",
-                "custom_width": 100,
-                "width_mobile": "fill",
-                "custom_width_mobile": 100,
-                "height": "fit",
-                "custom_height": 100,
-                "background_media": "none",
-                "video_position": "cover",
-                "background_image_position": "cover",
+                "max_width": "normal",
+                "alignment": "left",
+                "type_preset": "h5",
+                "font": "var(--font-body--family)",
+                "font_size": "1rem",
+                "line_height": "normal",
+                "letter_spacing": "normal",
+                "case": "none",
+                "wrap": "pretty",
+                "background": false,
+                "background_color": "#00000026",
+                "text_color": "{{ settings.color_palette.foreground }}",
+                "corner_radius": 0,
+                "padding-block-start": 0,
+                "padding-block-end": 0,
+                "padding-inline-start": 0,
+                "padding-inline-end": 0
+              },
+              "blocks": {}
+            },
+            "collection-card-image": {
+              "type": "_collection-card-image",
+              "static": true,
+              "settings": {
+                "image_ratio": "portrait",
+                "toggle_overlay": false,
                 "overlay_color": "#00000026",
                 "overlay_style": "solid",
                 "gradient_direction": "to top",
                 "border": "none",
                 "border_width": 1,
                 "border_opacity": 100,
-                "border_radius": 0,
-                "open_in_new_tab": false,
-                "padding-block-start": 0,
-                "padding-block-end": 0,
-                "padding-inline-start": 0,
-                "padding-inline-end": 0
+                "border_color": "",
+                "border_radius": 0
               },
-              "blocks": {
-                "hero_btn_shop": {
-                  "type": "button",
-                  "settings": {
-                    "label": "Shop all supplies",
-                    "open_in_new_tab": false,
-                    "style_class": "button",
-                    "custom_button_background": "{{ settings.color_palette.foreground }}",
-                    "custom_button_text": "{{ settings.color_palette.background }}",
-                    "custom_button_border": "{{ settings.color_palette.background }}",
-                    "width": "fit-content",
-                    "custom_width": 100,
-                    "width_mobile": "fit-content",
-                    "custom_width_mobile": 100,
-                    "link": "/collections/all"
-                  }
-                },
-                "hero_btn_pricing": {
-                  "type": "button",
-                  "settings": {
-                    "label": "How volume pricing works",
-                    "open_in_new_tab": false,
-                    "style_class": "button-secondary",
-                    "custom_button_background": "{{ settings.color_palette.foreground }}",
-                    "custom_button_text": "{{ settings.color_palette.background }}",
-                    "custom_button_border": "{{ settings.color_palette.background }}",
-                    "width": "fit-content",
-                    "custom_width": 100,
-                    "width_mobile": "fit-content",
-                    "custom_width_mobile": 100,
-                    "link": "/pages/wholesale"
-                  }
-                }
-              },
-              "block_order": [
-                "hero_btn_shop",
-                "hero_btn_pricing"
-              ]
+              "blocks": {}
             }
           },
           "block_order": [
-            "group_U86Qji",
-            "text_ebNxhf",
-            "hero_actions"
+            "collection_title_zyBdAJ"
           ]
         }
       },
       "block_order": [
-        "group_mATTUY"
+        "group_mfTd9p"
       ],
-      "name": "t:names.hero",
+      "name": "t:names.collection_list",
       "settings": {
-        "media_type_1": "image",
-        "media_type_2": "image",
-        "open_in_new_tab": false,
-        "content_direction": "column",
-        "vertical_on_mobile": true,
-        "horizontal_alignment": "flex-start",
-        "vertical_alignment": "center",
-        "align_baseline": false,
-        "horizontal_alignment_flex_direction_column": "flex-start",
-        "vertical_alignment_flex_direction_column": "flex-end",
-        "gap": 16,
+        "collection_list": [],
+        "layout_type": "bento",
+        "carousel_on_mobile": true,
+        "columns": 4,
+        "mobile_columns": "2",
+        "mobile_card_size": "60cqw",
+        "columns_gap": 16,
+        "bento_gap": 12,
+        "rows_gap": 16,
+        "max_collections": 4,
+        "icons_style": "arrow",
+        "icons_shape": "none",
         "section_width": "page-width",
-        "section_height": "large",
-        "section_height_custom": 50,
-        "background_color": "{{ settings.color_palette.foreground }}",
-        "toggle_overlay": true,
-        "overlay_color": "#00000026",
-        "overlay_style": "solid",
-        "gradient_direction": "to top",
-        "blurred_reflection": false,
-        "reflection_opacity": 75,
-        "padding-block-start": 0,
-        "padding-block-end": 31
+        "gap": 12,
+        "background_color": "{{ settings.color_palette.background }}",
+        "padding-block-start": 48,
+        "padding-block-end": 64
+      }
+    },
+    "rsh_per_piece": {
+      "type": "rsh-per-piece-explainer",
+      "settings": {
+        "eyebrow": "Per-piece pricing",
+        "heading": "The number that actually matters",
+        "body": "<p>A case of 24 oz microwavable bowls at $32.99 is 22 cents a bowl. The same case at $36.50 is 24 cents. Two cents does not sound like much until you are packing 900 orders a week, at which point it is about $940 a year on one item.</p><p>We put the per-piece price on every product page, next to the case price, at every quantity break. Check it against your last invoice.</p>",
+        "button_label": "Shop containers",
+        "button_link": "",
+        "example_product": "",
+        "show_example_ladder": false,
+        "example_title": "24 oz Black Round Microwavable Bowl with Clear Lid",
+        "example_price": "32.99",
+        "example_pieces": 150,
+        "example_noun": "bowl",
+        "media_position": "right",
+        "section_width": "page-width",
+        "background_color": "",
+        "padding-block-start": 48,
+        "padding-block-end": 48
+      }
+    },
+    "rsh_volume": {
+      "type": "rsh-volume-pricing",
+      "settings": {
+        "eyebrow": "",
+        "heading": "The more you stock, the less you pay",
+        "body": "<p>Discounts apply the moment your cart hits the next tier. There is no code to enter and no rep to call.</p><p>The tier counts every case in your cart, not cases of one product. Four cases of containers, three of gloves and five of liners is twelve cases, and all of it gets the twelve-case price.</p>",
+        "button_label": "See wholesale pricing",
+        "button_link": "/pages/wholesale",
+        "secondary_label": "",
+        "secondary_link": "",
+        "table_position": "right",
+        "section_width": "page-width",
+        "background_color": "",
+        "padding-block-start": 48,
+        "padding-block-end": 48
       }
     },
     "product_list_EDUBdR": {
@@ -296,11 +388,13 @@
             "height": "fit",
             "custom_height": 100,
             "background_media": "none",
+            "background_color": "",
             "video_position": "cover",
             "background_image_position": "cover",
             "border": "none",
             "border_width": 1,
             "border_opacity": 100,
+            "border_color": "",
             "border_radius": 0,
             "padding-block-start": 0,
             "padding-block-end": 0,
@@ -318,10 +412,12 @@
                 "alignment": "left",
                 "type_preset": "h2",
                 "font": "var(--font-body--family)",
+                "font_size": "1rem",
                 "line_height": "normal",
                 "letter_spacing": "normal",
                 "case": "none",
                 "wrap": "pretty",
+                "text_color": "",
                 "background": false,
                 "background_color": "#00000026",
                 "corner_radius": 0,
@@ -347,6 +443,7 @@
             "border": "none",
             "border_width": 1,
             "border_opacity": 100,
+            "border_color": "",
             "border_radius": 10,
             "padding-block-start": 0,
             "padding-block-end": 0,
@@ -362,6 +459,7 @@
                 "border": "none",
                 "border_width": 1,
                 "border_opacity": 100,
+                "border_color": "",
                 "border_radius": 0,
                 "padding-block-start": 0,
                 "padding-block-end": 0,
@@ -389,16 +487,19 @@
                 "height": "fit",
                 "custom_height": 100,
                 "background_media": "none",
+                "background_color": "",
                 "video_position": "cover",
                 "background_image_position": "cover",
-                "border": "none",
-                "border_width": 1,
-                "border_opacity": 100,
-                "border_radius": 0,
                 "toggle_overlay": false,
                 "overlay_color": "#00000026",
                 "overlay_style": "solid",
                 "gradient_direction": "to top",
+                "border": "none",
+                "border_width": 1,
+                "border_opacity": 100,
+                "border_color": "",
+                "border_radius": 0,
+                "link": "",
                 "open_in_new_tab": false,
                 "padding-block-start": 24,
                 "padding-block-end": 24,
@@ -420,6 +521,7 @@
                     "letter_spacing": "normal",
                     "case": "none",
                     "wrap": "pretty",
+                    "text_color": "",
                     "background": false,
                     "background_color": "#00000026",
                     "corner_radius": 0,
@@ -445,6 +547,7 @@
                     "line_height": "normal",
                     "letter_spacing": "normal",
                     "case": "none",
+                    "text_color": "",
                     "padding-block-start": 0,
                     "padding-block-end": 0,
                     "padding-inline-start": 0,
@@ -501,6 +604,84 @@
         "padding-block-end": 64
       }
     },
+    "rsh_business": {
+      "type": "rsh-shop-by-business",
+      "blocks": {
+        "biz_0": {
+          "type": "card",
+          "settings": {
+            "collection": "",
+            "title": "Cloud kitchens",
+            "text": "Packaging that survives the drive and still looks right at the door",
+            "link": ""
+          }
+        },
+        "biz_1": {
+          "type": "card",
+          "settings": {
+            "collection": "",
+            "title": "Caterers",
+            "text": "Buy in bursts, stock for the season, keep the sizes consistent",
+            "link": ""
+          }
+        },
+        "biz_2": {
+          "type": "card",
+          "settings": {
+            "collection": "",
+            "title": "Food trucks",
+            "text": "Small storage, tight margins, no room for the wrong order",
+            "link": ""
+          }
+        },
+        "biz_3": {
+          "type": "card",
+          "settings": {
+            "collection": "",
+            "title": "Cafés and coffee shops",
+            "text": "Hot cups, cold cups and lids without the per-cup markup",
+            "link": ""
+          }
+        },
+        "biz_4": {
+          "type": "card",
+          "settings": {
+            "collection": "",
+            "title": "Delis and supermarkets",
+            "text": "Grab-and-go packaging that sells the food inside it",
+            "link": ""
+          }
+        },
+        "biz_5": {
+          "type": "card",
+          "settings": {
+            "collection": "",
+            "title": "Full-service restaurants",
+            "text": "One supplier for the whole back of house",
+            "link": ""
+          }
+        }
+      },
+      "block_order": [
+        "biz_0",
+        "biz_1",
+        "biz_2",
+        "biz_3",
+        "biz_4",
+        "biz_5"
+      ],
+      "settings": {
+        "eyebrow": "",
+        "heading": "Built around how you actually order",
+        "body": "<p>Six curated lists, each one pulled from the same catalog and sorted by what that kind of kitchen goes through fastest.</p>",
+        "show_images": true,
+        "section_width": "page-width",
+        "gap": 24,
+        "background_color": "",
+        "padding-block-start": 48,
+        "padding-block-end": 48
+      }
+    },
     "media_with_content_LfPdEJ": {
       "type": "media-with-content",
       "blocks": {
@@ -509,6 +690,7 @@
           "static": true,
           "settings": {
             "media_type": "video",
+            "link": "",
             "video_loop": true,
             "video_autoplay": true,
             "image_position": "cover",
@@ -529,6 +711,7 @@
               "type": "image",
               "name": "t:names.image",
               "settings": {
+                "link": "",
                 "image_ratio": "adapt",
                 "width": "fill",
                 "custom_width": 100,
@@ -538,6 +721,7 @@
                 "border": "none",
                 "border_width": 1,
                 "border_opacity": 100,
+                "border_color": "",
                 "border_radius": 0,
                 "padding-block-start": 0,
                 "padding-block-end": 0,
@@ -556,10 +740,12 @@
                 "alignment": "left",
                 "type_preset": "h3",
                 "font": "var(--font-body--family)",
+                "font_size": "1rem",
                 "line_height": "normal",
                 "letter_spacing": "normal",
                 "case": "none",
                 "wrap": "pretty",
+                "text_color": "",
                 "background": false,
                 "background_color": "#00000026",
                 "corner_radius": 0,
@@ -579,10 +765,12 @@
                 "alignment": "left",
                 "type_preset": "rte",
                 "font": "var(--font-body--family)",
+                "font_size": "1rem",
                 "line_height": "normal",
                 "letter_spacing": "normal",
                 "case": "none",
                 "wrap": "pretty",
+                "text_color": "",
                 "background": false,
                 "background_color": "#00000026",
                 "corner_radius": 0,
@@ -600,6 +788,10 @@
                 "link": "shopify://collections/all",
                 "open_in_new_tab": false,
                 "style_class": "button-secondary",
+                "custom_button_background": "{{ settings.color_palette.foreground }}",
+                "custom_button_text": "{{ settings.color_palette.background }}",
+                "custom_button_border": "{{ settings.color_palette.background }}",
+                "link_text_color": "",
                 "width": "fit-content",
                 "custom_width": 100,
                 "width_mobile": "fit-content",
@@ -628,309 +820,8 @@
         "padding-block-end": 0
       }
     },
-    "collection_list_xpBxCm": {
-      "type": "collection-list",
-      "blocks": {
-        "group_mfTd9p": {
-          "type": "group",
-          "name": "t:names.header",
-          "settings": {
-            "content_direction": "column",
-            "vertical_on_mobile": true,
-            "horizontal_alignment": "flex-start",
-            "vertical_alignment": "center",
-            "align_baseline": false,
-            "horizontal_alignment_flex_direction_column": "center",
-            "vertical_alignment_flex_direction_column": "center",
-            "gap": 16,
-            "width": "fill",
-            "custom_width": 100,
-            "width_mobile": "fill",
-            "custom_width_mobile": 100,
-            "height": "fit",
-            "custom_height": 100,
-            "background_media": "none",
-            "video_position": "cover",
-            "background_image_position": "cover",
-            "border": "none",
-            "border_width": 1,
-            "border_opacity": 100,
-            "border_radius": 0,
-            "toggle_overlay": false,
-            "overlay_color": "#00000026",
-            "overlay_style": "solid",
-            "gradient_direction": "to top",
-            "open_in_new_tab": false,
-            "padding-block-start": 0,
-            "padding-block-end": 16,
-            "padding-inline-start": 0,
-            "padding-inline-end": 0
-          },
-          "blocks": {
-            "text_AYrwfM": {
-              "type": "text",
-              "name": "t:names.text",
-              "settings": {
-                "text": "<h2>Shop by Collection</h2>",
-                "width": "fit-content",
-                "max_width": "normal",
-                "alignment": "left",
-                "type_preset": "h2",
-                "font": "var(--font-body--family)",
-                "font_size": "1rem",
-                "line_height": "normal",
-                "letter_spacing": "normal",
-                "case": "none",
-                "wrap": "pretty",
-                "background": false,
-                "background_color": "#00000026",
-                "corner_radius": 0,
-                "padding-block-start": 0,
-                "padding-block-end": 0,
-                "padding-inline-start": 0,
-                "padding-inline-end": 0
-              },
-              "blocks": {}
-            }
-          },
-          "block_order": [
-            "text_AYrwfM"
-          ]
-        },
-        "static-collection-card": {
-          "type": "_collection-card",
-          "name": "t:names.collection_card",
-          "static": true,
-          "settings": {
-            "placement": "on_image",
-            "horizontal_alignment": "flex-start",
-            "vertical_alignment": "flex-start",
-            "collection_card_gap": 8,
-            "border": "none",
-            "border_width": 1,
-            "border_opacity": 100,
-            "border_radius": 10
-          },
-          "blocks": {
-            "collection_title_zyBdAJ": {
-              "type": "collection-title",
-              "name": "t:names.collection_title",
-              "settings": {
-                "width": "fit-content",
-                "max_width": "normal",
-                "alignment": "left",
-                "type_preset": "h5",
-                "font": "var(--font-body--family)",
-                "font_size": "1rem",
-                "line_height": "normal",
-                "letter_spacing": "normal",
-                "case": "none",
-                "wrap": "pretty",
-                "background": false,
-                "background_color": "#00000026",
-                "text_color": "{{ settings.color_palette.foreground }}",
-                "corner_radius": 0,
-                "padding-block-start": 0,
-                "padding-block-end": 0,
-                "padding-inline-start": 0,
-                "padding-inline-end": 0
-              },
-              "blocks": {}
-            },
-            "collection-card-image": {
-              "type": "_collection-card-image",
-              "static": true,
-              "settings": {
-                "image_ratio": "portrait",
-                "toggle_overlay": false,
-                "overlay_color": "#00000026",
-                "overlay_style": "solid",
-                "gradient_direction": "to top",
-                "border": "none",
-                "border_width": 1,
-                "border_opacity": 100,
-                "border_radius": 0
-              },
-              "blocks": {}
-            }
-          },
-          "block_order": [
-            "collection_title_zyBdAJ"
-          ]
-        }
-      },
-      "block_order": [
-        "group_mfTd9p"
-      ],
-      "name": "t:names.collection_list",
-      "settings": {
-        "layout_type": "bento",
-        "carousel_on_mobile": true,
-        "columns": 4,
-        "mobile_columns": "2",
-        "mobile_card_size": "60cqw",
-        "columns_gap": 16,
-        "bento_gap": 12,
-        "rows_gap": 16,
-        "max_collections": 4,
-        "icons_style": "arrow",
-        "icons_shape": "none",
-        "section_width": "page-width",
-        "gap": 12,
-        "background_color": "{{ settings.color_palette.background }}",
-        "padding-block-start": 48,
-        "padding-block-end": 64
-      }
-    },
-    "rsh_trust": {
-      "type": "rsh-trust-strip",
-      "settings": {
-        "alignment": "center",
-        "section_width": "page-width",
-        "padding-block-start": 16,
-        "padding-block-end": 16
-      },
-      "blocks": {
-        "trust_0": {
-          "type": "item",
-          "settings": {
-            "text": "In stock now",
-            "icon": "icon-inventory"
-          }
-        },
-        "trust_1": {
-          "type": "item",
-          "settings": {
-            "text": "Ships nationwide",
-            "icon": "icon-orders"
-          }
-        },
-        "trust_2": {
-          "type": "item",
-          "settings": {
-            "text": "Per-piece pricing on everything",
-            "icon": "icon-discount"
-          }
-        },
-        "trust_3": {
-          "type": "item",
-          "settings": {
-            "text": "No membership, no minimum",
-            "icon": "icon-checkmark"
-          }
-        }
-      },
-      "block_order": [
-        "trust_0",
-        "trust_1",
-        "trust_2",
-        "trust_3"
-      ]
-    },
-    "rsh_per_piece": {
-      "type": "rsh-per-piece-explainer",
-      "settings": {
-        "heading": "The number that actually matters",
-        "body": "<p>A case of 24 oz microwavable bowls at $32.99 is 22 cents a bowl. The same case at $36.50 is 24 cents. Two cents does not sound like much until you are packing 900 orders a week, at which point it is about $940 a year on one item.</p><p>We put the per-piece price on every product page, next to the case price, at every quantity break. Check it against your last invoice.</p>",
-        "button_label": "Shop containers",
-        "show_example_ladder": false,
-        "example_title": "24 oz Black Round Microwavable Bowl with Clear Lid",
-        "example_price": "32.99",
-        "example_pieces": 150,
-        "example_noun": "bowl",
-        "media_position": "right",
-        "section_width": "page-width",
-        "padding-block-start": 48,
-        "padding-block-end": 48,
-        "eyebrow": "Per-piece pricing"
-      }
-    },
-    "rsh_volume": {
-      "type": "rsh-volume-pricing",
-      "settings": {
-        "heading": "The more you stock, the less you pay",
-        "body": "<p>Discounts apply the moment your cart hits the next tier. There is no code to enter and no rep to call.</p><p>The tier counts every case in your cart, not cases of one product. Four cases of containers, three of gloves and five of liners is twelve cases, and all of it gets the twelve-case price.</p>",
-        "button_label": "See wholesale pricing",
-        "table_position": "right",
-        "section_width": "page-width",
-        "padding-block-start": 48,
-        "padding-block-end": 48,
-        "button_link": "/pages/wholesale"
-      }
-    },
-    "rsh_business": {
-      "type": "rsh-shop-by-business",
-      "settings": {
-        "heading": "Built around how you actually order",
-        "body": "<p>Six curated lists, each one pulled from the same catalog and sorted by what that kind of kitchen goes through fastest.</p>",
-        "show_images": true,
-        "section_width": "page-width",
-        "gap": 24,
-        "padding-block-start": 48,
-        "padding-block-end": 48
-      },
-      "blocks": {
-        "biz_0": {
-          "type": "card",
-          "settings": {
-            "title": "Cloud kitchens",
-            "text": "Packaging that survives the drive and still looks right at the door"
-          }
-        },
-        "biz_1": {
-          "type": "card",
-          "settings": {
-            "title": "Caterers",
-            "text": "Buy in bursts, stock for the season, keep the sizes consistent"
-          }
-        },
-        "biz_2": {
-          "type": "card",
-          "settings": {
-            "title": "Food trucks",
-            "text": "Small storage, tight margins, no room for the wrong order"
-          }
-        },
-        "biz_3": {
-          "type": "card",
-          "settings": {
-            "title": "Cafés and coffee shops",
-            "text": "Hot cups, cold cups and lids without the per-cup markup"
-          }
-        },
-        "biz_4": {
-          "type": "card",
-          "settings": {
-            "title": "Delis and supermarkets",
-            "text": "Grab-and-go packaging that sells the food inside it"
-          }
-        },
-        "biz_5": {
-          "type": "card",
-          "settings": {
-            "title": "Full-service restaurants",
-            "text": "One supplier for the whole back of house"
-          }
-        }
-      },
-      "block_order": [
-        "biz_0",
-        "biz_1",
-        "biz_2",
-        "biz_3",
-        "biz_4",
-        "biz_5"
-      ]
-    },
     "rsh_quotes": {
       "type": "rsh-testimonials",
-      "settings": {
-        "heading": "What operators said after switching",
-        "section_width": "page-width",
-        "gap": 24,
-        "padding-block-start": 48,
-        "padding-block-end": 48
-      },
       "blocks": {
         "quote_0": {
           "type": "quote",
@@ -964,36 +855,19 @@
         "quote_0",
         "quote_1",
         "quote_2"
-      ]
+      ],
+      "settings": {
+        "heading": "What operators said after switching",
+        "body": "",
+        "section_width": "page-width",
+        "gap": 24,
+        "background_color": "",
+        "padding-block-start": 48,
+        "padding-block-end": 48
+      }
     },
     "rsh_reorder": {
       "type": "section",
-      "settings": {
-        "content_direction": "column",
-        "vertical_on_mobile": true,
-        "horizontal_alignment": "flex-start",
-        "vertical_alignment": "center",
-        "align_baseline": false,
-        "horizontal_alignment_flex_direction_column": "flex-start",
-        "vertical_alignment_flex_direction_column": "center",
-        "gap": 12,
-        "section_width": "page-width",
-        "section_height": "",
-        "section_height_custom": 50,
-        "background_media": "none",
-        "video_position": "cover",
-        "background_image_position": "cover",
-        "overlay_color": "#00000026",
-        "overlay_style": "solid",
-        "gradient_direction": "to top",
-        "border": "none",
-        "border_width": 1,
-        "border_opacity": 100,
-        "border_radius": 0,
-        "padding-block-start": 56,
-        "padding-block-end": 56,
-        "background_color": ""
-      },
       "blocks": {
         "reorder_group": {
           "type": "group",
@@ -1013,16 +887,21 @@
             "height": "fit",
             "custom_height": 100,
             "background_media": "none",
+            "background_color": "",
             "video_position": "cover",
             "background_image_position": "cover",
+            "toggle_overlay": false,
             "overlay_color": "#00000026",
             "overlay_style": "solid",
             "gradient_direction": "to top",
             "border": "none",
             "border_width": 1,
             "border_opacity": 100,
+            "border_color": "",
             "border_radius": 0,
+            "link": "",
             "open_in_new_tab": false,
+            "placeholder": "",
             "padding-block-start": 0,
             "padding-block-end": 0,
             "padding-inline-start": 0,
@@ -1032,6 +911,7 @@
             "reorder_head": {
               "type": "text",
               "settings": {
+                "text": "<h2>Your last order, ordered again</h2>",
                 "width": "100%",
                 "max_width": "normal",
                 "alignment": "left",
@@ -1041,19 +921,22 @@
                 "line_height": "normal",
                 "letter_spacing": "normal",
                 "case": "none",
+                "wrap": "pretty",
+                "text_color": "",
                 "background": false,
                 "background_color": "#00000026",
                 "corner_radius": 0,
                 "padding-block-start": 0,
                 "padding-block-end": 0,
                 "padding-inline-start": 0,
-                "padding-inline-end": 0,
-                "text": "<h2>Your last order, ordered again</h2>"
-              }
+                "padding-inline-end": 0
+              },
+              "blocks": {}
             },
             "reorder_body": {
               "type": "text",
               "settings": {
+                "text": "<p>Sign in, open your order history, hit reorder. Same items, same quantities, thirty seconds. Restaurant supply is the same list most weeks, and there is no reason to shop for it twice.</p>",
                 "width": "100%",
                 "max_width": "normal",
                 "alignment": "left",
@@ -1063,47 +946,53 @@
                 "line_height": "normal",
                 "letter_spacing": "normal",
                 "case": "none",
+                "wrap": "pretty",
+                "text_color": "",
                 "background": false,
                 "background_color": "#00000026",
                 "corner_radius": 0,
                 "padding-block-start": 0,
                 "padding-block-end": 0,
                 "padding-inline-start": 0,
-                "padding-inline-end": 0,
-                "text": "<p>Sign in, open your order history, hit reorder. Same items, same quantities, thirty seconds. Restaurant supply is the same list most weeks, and there is no reason to shop for it twice.</p>"
-              }
+                "padding-inline-end": 0
+              },
+              "blocks": {}
             },
             "reorder_btn0": {
               "type": "button",
               "settings": {
                 "label": "Create an account",
+                "link": "/account/register",
                 "open_in_new_tab": false,
                 "style_class": "button",
                 "custom_button_background": "{{ settings.color_palette.foreground }}",
                 "custom_button_text": "{{ settings.color_palette.background }}",
                 "custom_button_border": "{{ settings.color_palette.background }}",
+                "link_text_color": "",
                 "width": "fit-content",
                 "custom_width": 100,
                 "width_mobile": "fit-content",
-                "custom_width_mobile": 100,
-                "link": "/account/register"
-              }
+                "custom_width_mobile": 100
+              },
+              "blocks": {}
             },
             "reorder_btn1": {
               "type": "button",
               "settings": {
                 "label": "Order from your list",
+                "link": "/pages/quick-order",
                 "open_in_new_tab": false,
                 "style_class": "button-secondary",
                 "custom_button_background": "{{ settings.color_palette.foreground }}",
                 "custom_button_text": "{{ settings.color_palette.background }}",
                 "custom_button_border": "{{ settings.color_palette.background }}",
+                "link_text_color": "",
                 "width": "fit-content",
                 "custom_width": 100,
                 "width_mobile": "fit-content",
-                "custom_width_mobile": 100,
-                "link": "/pages/quick-order"
-              }
+                "custom_width_mobile": 100
+              },
+              "blocks": {}
             }
           },
           "block_order": [
@@ -1116,10 +1005,7 @@
       },
       "block_order": [
         "reorder_group"
-      ]
-    },
-    "rsh_closing": {
-      "type": "section",
+      ],
       "settings": {
         "content_direction": "column",
         "vertical_on_mobile": true,
@@ -1133,19 +1019,24 @@
         "section_height": "",
         "section_height_custom": 50,
         "background_media": "none",
+        "background_color": "",
         "video_position": "cover",
         "background_image_position": "cover",
+        "toggle_overlay": false,
         "overlay_color": "#00000026",
         "overlay_style": "solid",
         "gradient_direction": "to top",
         "border": "none",
         "border_width": 1,
         "border_opacity": 100,
+        "border_color": "",
         "border_radius": 0,
         "padding-block-start": 56,
-        "padding-block-end": 56,
-        "background_color": ""
-      },
+        "padding-block-end": 56
+      }
+    },
+    "rsh_closing": {
+      "type": "section",
       "blocks": {
         "closing_group": {
           "type": "group",
@@ -1165,16 +1056,21 @@
             "height": "fit",
             "custom_height": 100,
             "background_media": "none",
+            "background_color": "",
             "video_position": "cover",
             "background_image_position": "cover",
+            "toggle_overlay": false,
             "overlay_color": "#00000026",
             "overlay_style": "solid",
             "gradient_direction": "to top",
             "border": "none",
             "border_width": 1,
             "border_opacity": 100,
+            "border_color": "",
             "border_radius": 0,
+            "link": "",
             "open_in_new_tab": false,
+            "placeholder": "",
             "padding-block-start": 0,
             "padding-block-end": 0,
             "padding-inline-start": 0,
@@ -1184,6 +1080,7 @@
             "closing_head": {
               "type": "text",
               "settings": {
+                "text": "<h2>Stop running out on a Friday afternoon</h2>",
                 "width": "100%",
                 "max_width": "normal",
                 "alignment": "left",
@@ -1193,19 +1090,22 @@
                 "line_height": "normal",
                 "letter_spacing": "normal",
                 "case": "none",
+                "wrap": "pretty",
+                "text_color": "",
                 "background": false,
                 "background_color": "#00000026",
                 "corner_radius": 0,
                 "padding-block-start": 0,
                 "padding-block-end": 0,
                 "padding-inline-start": 0,
-                "padding-inline-end": 0,
-                "text": "<h2>Stop running out on a Friday afternoon</h2>"
-              }
+                "padding-inline-end": 0
+              },
+              "blocks": {}
             },
             "closing_body": {
               "type": "text",
               "settings": {
+                "text": "<p>Everything on this site is in stock and ships from our warehouse. Order today, get a tracking number today.</p>",
                 "width": "100%",
                 "max_width": "normal",
                 "alignment": "left",
@@ -1215,47 +1115,53 @@
                 "line_height": "normal",
                 "letter_spacing": "normal",
                 "case": "none",
+                "wrap": "pretty",
+                "text_color": "",
                 "background": false,
                 "background_color": "#00000026",
                 "corner_radius": 0,
                 "padding-block-start": 0,
                 "padding-block-end": 0,
                 "padding-inline-start": 0,
-                "padding-inline-end": 0,
-                "text": "<p>Everything on this site is in stock and ships from our warehouse. Order today, get a tracking number today.</p>"
-              }
+                "padding-inline-end": 0
+              },
+              "blocks": {}
             },
             "closing_btn0": {
               "type": "button",
               "settings": {
                 "label": "Shop all supplies",
+                "link": "/collections/all",
                 "open_in_new_tab": false,
                 "style_class": "button",
                 "custom_button_background": "{{ settings.color_palette.foreground }}",
                 "custom_button_text": "{{ settings.color_palette.background }}",
                 "custom_button_border": "{{ settings.color_palette.background }}",
+                "link_text_color": "",
                 "width": "fit-content",
                 "custom_width": 100,
                 "width_mobile": "fit-content",
-                "custom_width_mobile": 100,
-                "link": "/collections/all"
-              }
+                "custom_width_mobile": 100
+              },
+              "blocks": {}
             },
             "closing_btn1": {
               "type": "button",
               "settings": {
                 "label": "Request a free sample case",
+                "link": "/pages/samples",
                 "open_in_new_tab": false,
                 "style_class": "button-secondary",
                 "custom_button_background": "{{ settings.color_palette.foreground }}",
                 "custom_button_text": "{{ settings.color_palette.background }}",
                 "custom_button_border": "{{ settings.color_palette.background }}",
+                "link_text_color": "",
                 "width": "fit-content",
                 "custom_width": 100,
                 "width_mobile": "fit-content",
-                "custom_width_mobile": 100,
-                "link": "/pages/samples"
-              }
+                "custom_width_mobile": 100
+              },
+              "blocks": {}
             }
           },
           "block_order": [
@@ -1268,11 +1174,39 @@
       },
       "block_order": [
         "closing_group"
-      ]
+      ],
+      "settings": {
+        "content_direction": "column",
+        "vertical_on_mobile": true,
+        "horizontal_alignment": "flex-start",
+        "vertical_alignment": "center",
+        "align_baseline": false,
+        "horizontal_alignment_flex_direction_column": "flex-start",
+        "vertical_alignment_flex_direction_column": "center",
+        "gap": 12,
+        "section_width": "page-width",
+        "section_height": "",
+        "section_height_custom": 50,
+        "background_media": "none",
+        "background_color": "",
+        "video_position": "cover",
+        "background_image_position": "cover",
+        "toggle_overlay": false,
+        "overlay_color": "#00000026",
+        "overlay_style": "solid",
+        "gradient_direction": "to top",
+        "border": "none",
+        "border_width": 1,
+        "border_opacity": 100,
+        "border_color": "",
+        "border_radius": 0,
+        "padding-block-start": 56,
+        "padding-block-end": 56
+      }
     }
   },
   "order": [
-    "hero_iLBwPd",
+    "hero_CaaryD",
     "rsh_trust",
     "collection_list_xpBxCm",
     "rsh_per_piece",
