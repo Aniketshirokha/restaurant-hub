@@ -1234,6 +1234,67 @@
         "padding-block-start": 0,
         "padding-block-end": 0
       }
+    },
+    "1789247568162abdfb": {
+      "type": "_blocks",
+      "blocks": {
+        "ai_gen_block_8c45e4d_qfax7B": {
+          "type": "ai_gen_block_8c45e4d",
+          "settings": {
+            "background": "#FFFFFF",
+            "icon_color": "#1B7A3D",
+            "text_color": "#1A1A1A",
+            "divider_color": "#DCE2EA",
+            "border_color": "#E3E8EF",
+            "show_top_border": false,
+            "show_bottom_border": true,
+            "enable_auto_scroll": true,
+            "scroll_speed": 25,
+            "desktop_gap": 40,
+            "show_dividers": true,
+            "item_1_text": "In stock now",
+            "item_1_icon": "dot",
+            "item_2_text": "Ships nationwide",
+            "item_2_icon": "truck",
+            "item_3_text": "Per-piece pricing",
+            "item_3_icon": "tag",
+            "item_4_text": "No membership, no minimum",
+            "item_4_icon": "check"
+          },
+          "blocks": {}
+        }
+      },
+      "block_order": [
+        "ai_gen_block_8c45e4d_qfax7B"
+      ],
+      "settings": {
+        "content_direction": "column",
+        "vertical_on_mobile": true,
+        "horizontal_alignment": "flex-start",
+        "vertical_alignment": "center",
+        "align_baseline": false,
+        "horizontal_alignment_flex_direction_column": "flex-start",
+        "vertical_alignment_flex_direction_column": "center",
+        "gap": 12,
+        "section_width": "page-width",
+        "section_height": "",
+        "section_height_custom": 50,
+        "background_media": "none",
+        "background_color": "",
+        "video_position": "cover",
+        "background_image_position": "cover",
+        "toggle_overlay": false,
+        "overlay_color": "#00000026",
+        "overlay_style": "solid",
+        "gradient_direction": "to top",
+        "border": "none",
+        "border_width": 1,
+        "border_opacity": 100,
+        "border_color": "",
+        "border_radius": 0,
+        "padding-block-start": 0,
+        "padding-block-end": 0
+      }
     }
   },
   "order": [
@@ -1248,6 +1309,7 @@
     "rsh_quotes",
     "rsh_reorder",
     "rsh_closing",
-    "178924735036195891"
+    "178924735036195891",
+    "1789247568162abdfb"
   ]
 }
