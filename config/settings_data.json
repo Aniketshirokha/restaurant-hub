@@ -11,8 +11,8 @@
   "current": {
     "logo": "shopify://shop_images/D586BCEB-A5AD-4E15-97EF-61FD3188A3C1_1_-Photoroom.png",
     "logo_inverse": "shopify://shop_images/D586BCEB-A5AD-4E15-97EF-61FD3188A3C1_1_-Photoroom.png",
-    "logo_height": 36,
-    "logo_height_mobile": 28,
+    "logo_height": 73,
+    "logo_height_mobile": 75,
     "favicon": "shopify://shop_images/D586BCEB-A5AD-4E15-97EF-61FD3188A3C1_1_-Photoroom.png",
     "page_text_color": "{{ settings.color_palette.foreground }}",
     "type_body_font": "instrument_sans_n4",
