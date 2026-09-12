@@ -168,6 +168,7 @@
         "button_label": "Shop all supplies",
         "table_position": "right",
         "section_width": "page-width",
+        "background_color": "{{ settings.color_palette.color4 }}",
         "padding-block-start": 48,
         "padding-block-end": 48,
         "eyebrow": "How the pricing works",

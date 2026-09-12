@@ -160,7 +160,7 @@
       "settings": {
         "alignment": "center",
         "section_width": "page-width",
-        "background_color": "",
+        "background_color": "{{ settings.color_palette.color4 }}",
         "padding-block-start": 16,
         "padding-block-end": 16
       }
@@ -361,7 +361,7 @@
         "secondary_link": "",
         "table_position": "right",
         "section_width": "page-width",
-        "background_color": "",
+        "background_color": "{{ settings.color_palette.color4 }}",
         "padding-block-start": 48,
         "padding-block-end": 48
       }
@@ -861,7 +861,7 @@
         "body": "",
         "section_width": "page-width",
         "gap": 24,
-        "background_color": "",
+        "background_color": "{{ settings.color_palette.color4 }}",
         "padding-block-start": 48,
         "padding-block-end": 48
       }
