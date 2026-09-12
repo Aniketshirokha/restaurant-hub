@@ -1,0 +1,99 @@
+{% doc %}
+  @prompt
+    Create a brand new Shopify theme section called "Trust Bar" (file: sections/trust-bar.liquid).
+    It is a thin horizontal strip of trust points that sits directly under the header or above the
+    product form. Build it from scratch, do not reuse an existing section.
+    
+    CONTENT (4 default items, each an icon plus a short label)
+    1. "In stock now"                  icon: availability dot (filled circle inside a ring)
+    2. "Ships nationwide"              icon: delivery truck
+    3. "Per-piece pricing"             icon: price tag
+    4. "No membership, no minimum"     icon: checkmark in a circle
+    Icons must be inline SVG, drawn in the section file, no icon font and no image uploads.
+    Each icon has to visually match its label, do not use the same generic checkmark for all four.
+    Stroke style, 1.5px stroke, currentColor, 20x20 viewBox, aria-hidden="true".
+    
+    DESKTOP (990px and up)
+    - The whole row is centered horizontally in the page, not full-bleed stretched.
+    - All 4 items sit in one static row, side by side, horizontally centered as a group.
+    - No scrolling, no animation, no overflow on desktop.
+    - Gap between items: 40px.
+    - A thin vertical divider line between items, 1px wide, 16px tall, vertically centered.
+      No divider after the last item.
+    - Icon and label sit on one line, icon left, 8px gap, both vertically centered.
+    - Label font size 15px, weight 500, letter-spacing 0.
+    - Section vertical padding: 14px top, 14px bottom.
+    
+    TABLET (750px to 989px)
+    - Same static centered row, gap reduced to 24px, label 14px.
+    - If the 4 items do not fit, allow them to wrap onto a second centered line rather than overflow.
+    
+    MOBILE (749px and below) - this is the important part
+    - All items stay on ONE single row that scrolls horizontally. Never stack, never wrap.
+    - The row auto-scrolls continuously from right to left in a seamless marquee loop.
+      Implement it by duplicating the item list twice inside the track and translating the track
+      by -50% with a CSS keyframe animation, so the loop has no visible jump or gap.
+    - Animation: linear, infinite, duration controlled by a theme setting (default 25s).
+    - The track must also be swipeable by hand: use overflow-x auto with
+      -webkit-overflow-scrolling touch, and pause the animation while the user is touching it.
+    - Hide the scrollbar (scrollbar-width none, ::-webkit-scrollbar display none).
+    - Item gap on mobile: 28px, with the same 1px vertical divider between items.
+    - Label font size 13px, white-space nowrap on every label so nothing breaks mid-phrase.
+    - Add a soft fade mask on the left and right edges, 24px wide, so items fade out instead of
+      cutting off hard at the screen edge. Use mask-image linear-gradient, with a plain overflow
+      fallback for browsers that do not support it.
+    - Respect prefers-reduced-motion: when reduced motion is on, stop the auto-scroll entirely and
+      leave the row as a plain manually swipeable strip.
+    
+    STYLE
+    - Section background: white by default, settable.
+    - Top and bottom 1px hairline border in #E3E8EF, each toggleable on or off.
+    - Icon color: #1B7A3D
+    - Label color: #1A1A1A
+    - Divider color: #DCE2EA
+    - Use the theme's existing body font stack, do not import a font.
+    - No shadows, no rounded card, no gradient background. This is a flat strip, not a card.
+    
+    SCHEMA
+    Blocks (type "trust_item", max 8, min 1), each with:
+    - text: the label
+    - select: icon, options = dot, truck, tag, check, shield, clock, box, refresh
+      (draw a distinct inline SVG for every one of these options)
+    Section settings:
+    - color pickers: background, icon color, text color, divider color, border color
+    - checkbox: show top border (default off)
+    - checkbox: show bottom border (default on)
+    - checkbox: enable auto scroll on mobile (default on)
+    - range: scroll speed in seconds, 10 to 60, step 1, default 25
+    - range: desktop gap in px, 16 to 64, step 4, default 40
+    - checkbox: show dividers (default on)
+    Add presets so the section can be dropped on any template, with the 4 default blocks above
+    already filled in.
+    
+    ACCESSIBILITY AND CODE QUALITY
+    - Wrap the items in a <ul>, one <li> per item, so it announces as a list.
+    - All CSS scoped with the section id so multiple instances on one page do not collide.
+    - CSS inside a {% stylesheet %} tag or a scoped <style> in the section, no external file.
+    - No JavaScript libraries. If any JS is needed for the touch pause, keep it vanilla and inline.
+    - Section must not cause horizontal scroll on the page body, only inside the track.
+    
+    Do not add a heading, do not add a button, do not make any item clickable.
+{% enddoc %}
+{% assign ai_gen_id = block.id | replace: '_', '' | downcase %}
+{% style %}
+  .trust-bar-{{ ai_gen_id }}{display:block;width:100%;background:{{ block.settings.background }};color:{{ block.settings.text_color }};border-top:{% if block.settings.show_top_border %}1px{% else %}0{% endif %} solid {{ block.settings.border_color }};border-bottom:{% if block.settings.show_bottom_border %}1px{% else %}0{% endif %} solid {{ block.settings.border_color }};overflow:hidden}
+  .trust-bar-{{ ai_gen_id }}__viewport{width:100%;overflow:hidden}
+  .trust-bar-{{ ai_gen_id }}__track{display:flex;width:max-content;margin:0 auto;padding:14px 0;align-items:center;gap:{{ block.settings.desktop_gap }}px}
+  .trust-bar-{{ ai_gen_id }}__list{display:flex;align-items:center;gap:{{ block.settings.desktop_gap }}px;margin:0;padding:0;list-style:none}
+  .trust-bar-{{ ai_gen_id }}__item{display:flex;align-items:center;gap:8px;white-space:nowrap;font-size:15px;font-weight:500;letter-spacing:0;color:{{ block.settings.text_color }}}
+  .trust-bar-{{ ai_gen_id }}__icon{display:inline-flex;width:20px;height:20px;flex:0 0 20px;color:{{ block.settings.icon_color }}}
+  .trust-bar-{{ ai_gen_id }}__icon svg{width:20px;height:20px;stroke:currentColor;fill:none;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round}
+  .trust-bar-{{ ai_gen_id }}__divider{width:1px;height:16px;flex:0 0 1px;background:{{ block.settings.divider_color }};{% unless block.settings.show_dividers %}display:none{% endunless %}}
+  @media (min-width:750px) and (max-width:989px){.trust-bar-{{ ai_gen_id }}__track{max-width:100%;padding:14px 24px}.trust-bar-{{ ai_gen_id }}__list{flex-wrap:wrap;justify-content:center;gap:12px 24px}.trust-bar-{{ ai_gen_id }}__item{font-size:14px}.trust-bar-{{ ai_gen_id }}__list+ .trust-bar-{{ ai_gen_id }}__list{display:none}}
+  @media (max-width:749px){.trust-bar-{{ ai_gen_id }}__viewport{overflow-x:auto;overflow-y:hidden;-webkit-overflow-scrolling:touch;scrollbar-width:none;mask-image:linear-gradient(to right,transparent,#000 24px,#000 calc(100% - 24px),transparent);-webkit-mask-image:linear-gradient(to right,transparent,#000 24px,#000 calc(100% - 24px),transparent)}.trust-bar-{{ ai_gen_id }}__viewport::-webkit-scrollbar{display:none}.trust-bar-{{ ai_gen_id }}__track{margin:0;padding:12px 24px;gap:28px;{% if block.settings.enable_auto_scroll %}animation:trust-marquee-{{ ai_gen_id }} {{ block.settings.scroll_speed }}s linear infinite{% endif %}}.trust-bar-{{ ai_gen_id }}__list{gap:28px}.trust-bar-{{ ai_gen_id }}__item{font-size:13px}.trust-bar-{{ ai_gen_id }}__list+ .trust-bar-{{ ai_gen_id }}__list{display:flex}}
+  @keyframes trust-marquee-{{ ai_gen_id }}{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+  @media (prefers-reduced-motion:reduce){.trust-bar-{{ ai_gen_id }}__track{animation:none!important}}
+{% endstyle %}
+<trust-bar-{{ ai_gen_id }} class="trust-bar-{{ ai_gen_id }}" {{ block.shopify_attributes }}><div class="trust-bar-{{ ai_gen_id }}__viewport"><div class="trust-bar-{{ ai_gen_id }}__track">{% for copy in (1..2) %}<ul class="trust-bar-{{ ai_gen_id }}__list" aria-label="Trust points">{% for i in (1..4) %}{% assign text_key='item_'|append:i|append:'_text' %}{% assign icon_key='item_'|append:i|append:'_icon' %}<li class="trust-bar-{{ ai_gen_id }}__item"><span class="trust-bar-{{ ai_gen_id }}__icon" aria-hidden="true"><svg viewBox="0 0 20 20">{% case block.settings[icon_key] %}{% when 'dot' %}<circle cx="10" cy="10" r="6"/><circle cx="10" cy="10" r="2.5" fill="currentColor" stroke="none"/>{% when 'truck' %}<path d="M2.5 5.5h9v8h-9zM11.5 8h3l3 3v2.5h-6z"/><circle cx="6" cy="15" r="1.5"/><circle cx="15" cy="15" r="1.5"/>{% when 'tag' %}<path d="M3 3.5h7l7 7-6.5 6.5-7-7z"/><circle cx="7" cy="7.5" r="1"/>{% when 'check' %}<circle cx="10" cy="10" r="7"/><path d="m6.5 10 2.2 2.2 4.8-5"/>{% when 'shield' %}<path d="M10 2.5 16 5v4.5c0 4-2.4 6.7-6 8-3.6-1.3-6-4-6-8V5z"/>{% when 'clock' %}<circle cx="10" cy="10" r="7"/><path d="M10 6v4l2.8 1.8"/>{% when 'box' %}<path d="m3 6 7-3 7 3v8l-7 3-7-3zM3 6l7 3 7-3M10 9v8"/>{% when 'refresh' %}<path d="M16 7V3.5l-2.2 2.2A6.5 6.5 0 1 0 16.3 13"/><path d="M16 3.5h-3.5"/>{% endcase %}</svg></span><span>{{ block.settings[text_key] }}</span></li>{% unless i == 4 %}<li class="trust-bar-{{ ai_gen_id }}__divider" aria-hidden="true"></li>{% endunless %}{% endfor %}</ul>{% endfor %}</div></div></trust-bar-{{ ai_gen_id }}>
+<script>(function(){var r=document.querySelector('trust-bar-{{ ai_gen_id }}'),v=r&&r.querySelector('.trust-bar-{{ ai_gen_id }}__viewport'),t=r&&r.querySelector('.trust-bar-{{ ai_gen_id }}__track');if(!v)return;v.addEventListener('pointerdown',function(){t.style.animationPlayState='paused'});['pointerup','pointercancel','pointerleave'].forEach(function(e){v.addEventListener(e,function(){t.style.animationPlayState='running'})})})();</script>
+{% schema %}{"name":"Trust bar","settings":[{"type":"color","id":"background","label":"Background","default":"#FFFFFF"},{"type":"color","id":"icon_color","label":"Icon color","default":"#1B7A3D"},{"type":"color","id":"text_color","label":"Text color","default":"#1A1A1A"},{"type":"color","id":"divider_color","label":"Divider color","default":"#DCE2EA"},{"type":"color","id":"border_color","label":"Border color","default":"#E3E8EF"},{"type":"checkbox","id":"show_top_border","label":"Show top border","default":false},{"type":"checkbox","id":"show_bottom_border","label":"Show bottom border","default":true},{"type":"checkbox","id":"enable_auto_scroll","label":"Enable auto scroll on mobile","default":true},{"type":"range","id":"scroll_speed","label":"Scroll speed","min":10,"max":60,"step":1,"unit":"s","default":25},{"type":"range","id":"desktop_gap","label":"Desktop gap","min":16,"max":64,"step":4,"unit":"px","default":40},{"type":"checkbox","id":"show_dividers","label":"Show dividers","default":true},{"type":"header","content":"Trust points"},{"type":"text","id":"item_1_text","label":"Item 1 label","default":"In stock now"},{"type":"select","id":"item_1_icon","label":"Item 1 icon","options":[{"value":"dot","label":"Dot"},{"value":"truck","label":"Truck"},{"value":"tag","label":"Tag"},{"value":"check","label":"Check"},{"value":"shield","label":"Shield"},{"value":"clock","label":"Clock"},{"value":"box","label":"Box"},{"value":"refresh","label":"Refresh"}],"default":"dot"},{"type":"text","id":"item_2_text","label":"Item 2 label","default":"Ships nationwide"},{"type":"select","id":"item_2_icon","label":"Item 2 icon","options":[{"value":"dot","label":"Dot"},{"value":"truck","label":"Truck"},{"value":"tag","label":"Tag"},{"value":"check","label":"Check"},{"value":"shield","label":"Shield"},{"value":"clock","label":"Clock"},{"value":"box","label":"Box"},{"value":"refresh","label":"Refresh"}],"default":"truck"},{"type":"text","id":"item_3_text","label":"Item 3 label","default":"Per-piece pricing"},{"type":"select","id":"item_3_icon","label":"Item 3 icon","options":[{"value":"dot","label":"Dot"},{"value":"truck","label":"Truck"},{"value":"tag","label":"Tag"},{"value":"check","label":"Check"},{"value":"shield","label":"Shield"},{"value":"clock","label":"Clock"},{"value":"box","label":"Box"},{"value":"refresh","label":"Refresh"}],"default":"tag"},{"type":"text","id":"item_4_text","label":"Item 4 label","default":"No membership, no minimum"},{"type":"select","id":"item_4_icon","label":"Item 4 icon","options":[{"value":"dot","label":"Dot"},{"value":"truck","label":"Truck"},{"value":"tag","label":"Tag"},{"value":"check","label":"Check"},{"value":"shield","label":"Shield"},{"value":"clock","label":"Clock"},{"value":"box","label":"Box"},{"value":"refresh","label":"Refresh"}],"default":"check"}],"presets":[{"name":"Trust bar"}],"tag":null,"class":"trust-bar"}{% endschema %}
