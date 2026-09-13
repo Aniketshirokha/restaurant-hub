@@ -69,7 +69,7 @@
             "label": "Shop now",
             "link": "shopify://collections/all",
             "open_in_new_tab": false,
-            "style_class": "button",
+            "style_class": "button-secondary",
             "custom_button_background": "{{ settings.color_palette.foreground }}",
             "custom_button_text": "{{ settings.color_palette.background }}",
             "custom_button_border": "{{ settings.color_palette.background }}",
@@ -90,6 +90,7 @@
       "name": "t:names.hero",
       "settings": {
         "media_type_1": "image",
+        "image_1": "shopify://shop_images/hf_20260913_175755_aeebfa48-1242-479f-beab-893893bdcad0.png",
         "media_type_2": "image",
         "stack_media_on_mobile": false,
         "custom_mobile_media": false,
