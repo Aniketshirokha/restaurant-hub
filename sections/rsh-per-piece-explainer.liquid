@@ -1,17 +1,11 @@
-{%- doc -%}
-  The block that explains why per-piece pricing is the number worth comparing.
 
-  Pick a real product and the worked example prices itself from that product's
-  own case price and pieces-per-case, so the example on the home page can never
-  drift away from the catalogue. The manual fields are only a fallback for before
-  real prices are loaded.
+{%- doc -%}
+  RSH — Per-Piece Pricing Explainer
+  Modern pricing comparison section with responsive layout,
+  product-driven pricing, quantity tier ladder and animations.
 {%- enddoc -%}
 
 {% liquid
-  if section.settings.background_color != blank
-    render 'contrast-override', background_color: section.settings.background_color, section_id: section.id
-  endif
-
   assign namespace = settings.rsh_metafield_namespace | default: 'custom'
   assign example = section.settings.example_product
 
@@ -22,110 +16,805 @@
     assign example_noun = example.metafields[namespace].piece_noun.value | default: settings.rsh_piece_noun | default: 'piece'
     assign example_title = example.title
     assign example_url = example.url
+    assign example_image = example.featured_image
   else
-    # Fall back to the typed figures. Shopify number settings are integers only,
-    # so the price arrives as text and is parsed into cents here.
     assign price_parts = section.settings.example_price | default: '32.99' | split: '.'
     assign whole_dollars = price_parts[0] | plus: 0
     assign fraction = price_parts[1] | default: '0' | append: '00' | slice: 0, 2 | plus: 0
     assign example_cents = whole_dollars | times: 100 | plus: fraction
     assign example_pieces = section.settings.example_pieces | plus: 0
-    assign example_noun = section.settings.example_noun | default: 'bowl'
+    assign example_noun = section.settings.example_noun | default: 'piece'
     assign example_title = section.settings.example_title
     assign example_url = section.settings.button_link
+    assign example_image = section.settings.image
+  endif
+
+  if example_pieces > 0
+    assign cents_per_piece = example_cents | times: 1.0 | divided_by: example_pieces
   endif
 
   assign example_plural = example_noun | append: 's'
 %}
 
-<div
-  class="section-background{% if section.settings.background_color != blank %} color-custom-{{ section.id }}{% endif %}"
-></div>
-
-<div
-  class="
-    section
-    section--{{ section.settings.section_width }}
-    {% if section.settings.background_color != blank %}color-custom-{{ section.id }}{% endif %}
-    spacing-style
-  "
-  style="{% render 'spacing-style', settings: section.settings %}"
+<section
+  id="rsh-pricing-{{ section.id }}"
+  class="rsh-price-section color-{{ section.settings.color_scheme }}"
 >
-  <div class="rsh-explainer rsh-explainer--media-{{ section.settings.media_position }}">
-    <div class="rsh-explainer__body">
-      {%- if section.settings.eyebrow != blank -%}
-        <p class="rsh-eyebrow">{{ section.settings.eyebrow }}</p>
-      {%- endif -%}
+  <div class="rsh-price-container">
 
-      {%- if section.settings.heading != blank -%}
-        <h2 class="rsh-heading h2">{{ section.settings.heading }}</h2>
-      {%- endif -%}
+    <div class="rsh-price-grid">
 
-      {%- if section.settings.body != blank -%}
-        <div class="rsh-lede rte">{{ section.settings.body }}</div>
-      {%- endif -%}
+      <!-- CONTENT -->
+      <div class="rsh-price-content">
 
-      {%- if section.settings.button_label != blank -%}
-        <div class="rsh-actions">
-          <a
-            href="{{ section.settings.button_link | default: routes.all_products_collection_url }}"
-            class="button"
-          >
-            {{ section.settings.button_label }}
-          </a>
-        </div>
-      {%- endif -%}
-    </div>
+        {% if section.settings.eyebrow != blank %}
+          <div class="rsh-price-eyebrow">
+            <span class="rsh-eyebrow-dot"></span>
+            {{ section.settings.eyebrow }}
+          </div>
+        {% endif %}
 
-    <div class="rsh-explainer__media">
-      {%- if section.settings.image != blank -%}
-        <figure class="rsh-explainer__figure">
-          {{
-            section.settings.image
-            | image_url: width: 1200
-            | image_tag: loading: 'lazy', sizes: '(min-width: 800px) 50vw, 100vw', widths: '400, 600, 800, 1200'
-          }}
-        </figure>
-      {%- elsif example_cents > 0 -%}
-        <div class="rsh-example">
-          {%- if example_title != blank -%}
-            <p class="rsh-example__title">
-              {%- if example_url != blank -%}
-                <a href="{{ example_url }}">{{ example_title }}</a>
-              {%- else -%}
-                {{ example_title }}
-              {%- endif -%}
-            </p>
-          {%- endif -%}
+        {% if section.settings.heading != blank %}
+          <h2 class="rsh-price-heading">
+            {{ section.settings.heading }}
+          </h2>
+        {% endif %}
 
-          <div class="rsh-example__price">
-            <span class="rsh-example__case">
-              {{ example_cents | money }} <span>per case</span>
-            </span>
-            {%- if example_pieces > 0 -%}
-              <span class="rsh-example__piece">
-                {%- render 'rsh-per-piece', cents: example_cents, pieces: example_pieces -%}
-                <span>per {{ example_noun }} · {{ example_pieces }} {{ example_plural }} per case</span>
-              </span>
-            {%- endif -%}
+        {% if section.settings.body != blank %}
+          <div class="rsh-price-description rte">
+            {{ section.settings.body }}
+          </div>
+        {% endif %}
+
+        <div class="rsh-price-benefits">
+          <div class="rsh-price-benefit">
+            <span class="rsh-benefit-icon">✓</span>
+            <span>Transparent per-piece pricing</span>
           </div>
 
-          {%- if section.settings.show_example_ladder -%}
-            {% render 'rsh-tier-table',
-              variant: example_variant,
-              pieces: example_pieces,
-              piece_noun: example_noun
-            %}
-          {%- endif -%}
+          <div class="rsh-price-benefit">
+            <span class="rsh-benefit-icon">✓</span>
+            <span>Volume pricing on every case</span>
+          </div>
+
+          <div class="rsh-price-benefit">
+            <span class="rsh-benefit-icon">✓</span>
+            <span>Compare your current supplier</span>
+          </div>
         </div>
-      {%- endif -%}
+
+        {% if section.settings.button_label != blank %}
+          <a
+            href="{{ section.settings.button_link | default: routes.all_products_collection_url }}"
+            class="rsh-price-button"
+          >
+            {{ section.settings.button_label }}
+            <span aria-hidden="true">↗</span>
+          </a>
+        {% endif %}
+
+      </div>
+
+      <!-- PRICING CARD -->
+      <div class="rsh-price-visual">
+
+        <div class="rsh-price-card">
+
+          <div class="rsh-card-top">
+            <span class="rsh-card-label">REAL-WORLD EXAMPLE</span>
+
+            <span class="rsh-card-status">
+              <span></span>
+              Price breakdown
+            </span>
+          </div>
+
+          {% if example_image != blank %}
+            <div class="rsh-product-image">
+              {{
+                example_image
+                | image_url: width: 900
+                | image_tag:
+                  loading: 'lazy',
+                  widths: '400, 600, 900',
+                  sizes: '(min-width: 990px) 40vw, 100vw'
+              }}
+            </div>
+          {% endif %}
+
+          {% if example_title != blank %}
+            <div class="rsh-product-name">
+              {% if example_url != blank %}
+                <a href="{{ example_url }}">{{ example_title }}</a>
+              {% else %}
+                {{ example_title }}
+              {% endif %}
+            </div>
+          {% endif %}
+
+          <div class="rsh-price-main">
+
+            <div class="rsh-case-price">
+              <span class="rsh-small-label">CASE PRICE</span>
+              <strong>{{ example_cents | money }}</strong>
+              <span class="rsh-price-suffix">/ case</span>
+            </div>
+
+            <div class="rsh-price-divider"></div>
+
+            <div class="rsh-piece-price">
+              <span class="rsh-small-label">YOUR TRUE UNIT COST</span>
+
+              {% if example_pieces > 0 %}
+                <strong>
+                  {{ example_cents | times: 1000 | divided_by: example_pieces | money }}
+                </strong>
+                <span class="rsh-price-suffix">
+                  / {{ example_noun }}
+                </span>
+              {% else %}
+                <strong>—</strong>
+                <span class="rsh-price-suffix">per piece</span>
+              {% endif %}
+            </div>
+
+          </div>
+
+          {% if example_pieces > 0 %}
+            <div class="rsh-math-row">
+              <span>{{ example_pieces }} {{ example_plural }} per case</span>
+              <span class="rsh-math-equals">÷</span>
+              <span>Case price ÷ quantity</span>
+            </div>
+          {% endif %}
+
+          <div class="rsh-card-bottom">
+            <div>
+              <span class="rsh-bottom-label">WHY IT MATTERS</span>
+              <p>Small differences add up across every order.</p>
+            </div>
+
+            <div class="rsh-bottom-icon">↗</div>
+          </div>
+
+        </div>
+
+        <!-- FLOATING CALLOUT -->
+        <div class="rsh-floating-note rsh-floating-note--top">
+          <span class="rsh-note-icon">✦</span>
+          <div>
+            <strong>Compare smarter</strong>
+            <small>Look beyond the case price</small>
+          </div>
+        </div>
+
+        <div class="rsh-floating-note rsh-floating-note--bottom">
+          <span class="rsh-note-icon rsh-note-icon--green">✓</span>
+          <div>
+            <strong>Volume pricing</strong>
+            <small>More cases. Better value.</small>
+          </div>
+        </div>
+
+      </div>
+
     </div>
+
+    <!-- TIER LADDER -->
+    {% if section.settings.show_example_ladder %}
+      <div class="rsh-tier-wrapper">
+
+        <div class="rsh-tier-heading">
+          <div>
+            <span class="rsh-price-eyebrow">BUY MORE. SAVE MORE.</span>
+            <h3>Volume pricing at every level</h3>
+          </div>
+
+          <p>Discounts are calculated across your total case quantity.</p>
+        </div>
+
+        <div class="rsh-tier-grid">
+
+          <div class="rsh-tier-item">
+            <span class="rsh-tier-quantity">1–2</span>
+            <strong>Standard</strong>
+            <small>Regular pricing</small>
+          </div>
+
+          <div class="rsh-tier-item">
+            <span class="rsh-tier-quantity">3–5</span>
+            <strong>6% OFF</strong>
+            <small>Volume savings</small>
+          </div>
+
+          <div class="rsh-tier-item">
+            <span class="rsh-tier-quantity">6–11</span>
+            <strong>11% OFF</strong>
+            <small>Volume savings</small>
+          </div>
+
+          <div class="rsh-tier-item">
+            <span class="rsh-tier-quantity">12–24</span>
+            <strong>16% OFF</strong>
+            <small>Volume savings</small>
+          </div>
+
+          <div class="rsh-tier-item">
+            <span class="rsh-tier-quantity">25–49</span>
+            <strong>21% OFF</strong>
+            <small>Volume savings</small>
+          </div>
+
+          <div class="rsh-tier-item rsh-tier-item--quote">
+            <span class="rsh-tier-quantity">50+</span>
+            <strong>Custom quote</strong>
+            <small>Talk to our team</small>
+          </div>
+
+        </div>
+
+      </div>
+    {% endif %}
+
+    <div class="rsh-price-footer">
+      <span>Restaurant Supply Hub LLC</span>
+      <span class="rsh-footer-line"></span>
+      <span>Clear pricing. Better purchasing.</span>
+    </div>
+
   </div>
-</div>
+</section>
+
+<style>
+  #rsh-pricing-{{ section.id }} {
+    --rsh-ink: #111827;
+    --rsh-muted: #687080;
+    --rsh-line: rgba(17, 24, 39, 0.12);
+    --rsh-accent: #d8f36b;
+    --rsh-soft: #f4f5ef;
+    --rsh-white: #ffffff;
+    background: var(--rsh-soft);
+    color: var(--rsh-ink);
+    overflow: hidden;
+  }
+
+  #rsh-pricing-{{ section.id }} .rsh-price-container {
+    max-width: 1320px;
+    margin: 0 auto;
+    padding: 100px 32px;
+  }
+
+  #rsh-pricing-{{ section.id }} .rsh-price-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+    align-items: center;
+    gap: 90px;
+  }
+
+  #rsh-pricing-{{ section.id }} .rsh-price-content {
+    max-width: 540px;
+  }
+
+  #rsh-pricing-{{ section.id }} .rsh-price-eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 9px;
+    margin-bottom: 20px;
+    color: var(--rsh-muted);
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+  }
+
+  #rsh-pricing-{{ section.id }} .rsh-eyebrow-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: #7d9d25;
+  }
+
+  #rsh-pricing-{{ section.id }} .rsh-price-heading {
+    max-width: 520px;
+    margin: 0 0 25px;
+    font-size: clamp(38px, 4.2vw, 66px);
+    font-weight: 650;
+    letter-spacing: -0.065em;
+    line-height: 0.99;
+  }
+
+  #rsh-pricing-{{ section.id }} .rsh-price-description {
+    max-width: 480px;
+    color: var(--rsh-muted);
+    font-size: 16px;
+    line-height: 1.75;
+  }
+
+  #rsh-pricing-{{ section.id }} .rsh-price-description p {
+    margin: 0 0 16px;
+  }
+
+  #rsh-pricing-{{ section.id }} .rsh-price-benefits {
+    display: grid;
+    gap: 12px;
+    margin: 30px 0;
+  }
+
+  #rsh-pricing-{{ section.id }} .rsh-price-benefit {
+    display: flex;
+    align-items: center;
+    gap: 11px;
+    color: var(--rsh-ink);
+    font-size: 13px;
+    font-weight: 600;
+  }
+
+  #rsh-pricing-{{ section.id }} .rsh-benefit-icon {
+    display: grid;
+    width: 22px;
+    height: 22px;
+    place-items: center;
+    border-radius: 50%;
+    background: var(--rsh-accent);
+    font-size: 12px;
+    font-weight: 900;
+  }
+
+  #rsh-pricing-{{ section.id }} .rsh-price-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 25px;
+    padding: 16px 21px;
+    border: 1px solid var(--rsh-ink);
+    border-radius: 100px;
+    background: var(--rsh-ink);
+    color: white;
+    font-size: 13px;
+    font-weight: 700;
+    text-decoration: none;
+    transition: transform 0.25s ease, background 0.25s ease;
+  }
+
+  #rsh-pricing-{{ section.id }} .rsh-price-button:hover {
+    background: #303846;
+    transform: translateY(-3px);
+  }
+
+  #rsh-pricing-{{ section.id }} .rsh-price-visual {
+    position: relative;
+    padding: 35px 25px;
+  }
+
+  #rsh-pricing-{{ section.id }} .rsh-price-card {
+    position: relative;
+    z-index: 1;
+    overflow: hidden;
+    padding: 30px;
+    border: 1px solid rgba(17, 24, 39, 0.12);
+    border-radius: 24px;
+    background: var(--rsh-white);
+    box-shadow: 0 25px 80px rgba(24, 32, 43, 0.09);
+  }
+
+  #rsh-pricing-{{ section.id }} .rsh-card-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 15px;
+    margin-bottom: 25px;
+  }
+
+  #rsh-pricing-{{ section.id }} .rsh-card-label,
+  #rsh-pricing-{{ section.id }} .rsh-small-label,
+  #rsh-pricing-{{ section.id }} .rsh-bottom-label {
+    color: var(--rsh-muted);
+    font-size: 9px;
+    font-weight: 800;
+    letter-spacing: 0.13em;
+  }
+
+  #rsh-pricing-{{ section.id }} .rsh-card-status {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    color: #5c7b20;
+    font-size: 10px;
+    font-weight: 700;
+  }
+
+  #rsh-pricing-{{ section.id }} .rsh-card-status span {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: #84a62e;
+  }
+
+  #rsh-pricing-{{ section.id }} .rsh-product-image {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 210px;
+    margin: 0 -5px 25px;
+    overflow: hidden;
+    border-radius: 16px;
+    background: #f5f5f1;
+  }
+
+  #rsh-pricing-{{ section.id }} .rsh-product-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    mix-blend-mode: multiply;
+    transition: transform 0.5s ease;
+  }
+
+  #rsh-pricing-{{ section.id }} .rsh-price-card:hover .rsh-product-image img {
+    transform: scale(1.04);
+  }
+
+  #rsh-pricing-{{ section.id }} .rsh-product-name {
+    margin-bottom: 25px;
+    font-size: 16px;
+    font-weight: 700;
+    line-height: 1.4;
+  }
+
+  #rsh-pricing-{{ section.id }} .rsh-product-name a {
+    color: inherit;
+    text-decoration: none;
+  }
+
+  #rsh-pricing-{{ section.id }} .rsh-price-main {
+    display: grid;
+    grid-template-columns: 1fr 1px 1fr;
+    align-items: center;
+    gap: 22px;
+    padding: 25px 0;
+    border-top: 1px solid var(--rsh-line);
+    border-bottom: 1px solid var(--rsh-line);
+  }
+
+  #rsh-pricing-{{ section.id }} .rsh-price-divider {
+    width: 1px;
+    height: 75px;
+    background: var(--rsh-line);
+  }
+
+  #rsh-pricing-{{ section.id }} .rsh-case-price strong,
+  #rsh-pricing-{{ section.id }} .rsh-piece-price strong {
+    display: block;
+    margin: 10px 0 4px;
+    font-size: clamp(26px, 3vw, 42px);
+    font-weight: 750;
+    letter-spacing: -0.055em;
+    line-height: 1;
+  }
+
+  #rsh-pricing-{{ section.id }} .rsh-piece-price {
+    position: relative;
+    padding: 14px;
+    border-radius: 14px;
+    background: #f0f5dc;
+  }
+
+  #rsh-pricing-{{ section.id }} .rsh-piece-price strong {
+    color: #435a15;
+  }
+
+  #rsh-pricing-{{ section.id }} .rsh-price-suffix {
+    color: var(--rsh-muted);
+    font-size: 11px;
+  }
+
+  #rsh-pricing-{{ section.id }} .rsh-math-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    padding: 17px 0;
+    color: var(--rsh-muted);
+    font-size: 10px;
+    font-weight: 600;
+  }
+
+  #rsh-pricing-{{ section.id }} .rsh-math-equals {
+    color: var(--rsh-ink);
+    font-size: 16px;
+  }
+
+  #rsh-pricing-{{ section.id }} .rsh-card-bottom {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    padding: 18px;
+    border-radius: 14px;
+    background: #f7f7f4;
+  }
+
+  #rsh-pricing-{{ section.id }} .rsh-card-bottom p {
+    margin: 7px 0 0;
+    color: var(--rsh-muted);
+    font-size: 11px;
+    line-height: 1.5;
+  }
+
+  #rsh-pricing-{{ section.id }} .rsh-bottom-icon {
+    display: grid;
+    width: 38px;
+    height: 38px;
+    flex: 0 0 38px;
+    place-items: center;
+    border-radius: 50%;
+    background: var(--rsh-ink);
+    color: white;
+    font-size: 18px;
+  }
+
+  #rsh-pricing-{{ section.id }} .rsh-floating-note {
+    position: absolute;
+    z-index: 2;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 13px 16px;
+    border: 1px solid rgba(17, 24, 39, 0.08);
+    border-radius: 13px;
+    background: white;
+    box-shadow: 0 15px 35px rgba(24, 32, 43, 0.10);
+  }
+
+  #rsh-pricing-{{ section.id }} .rsh-floating-note--top {
+    top: 0;
+    right: -8px;
+  }
+
+  #rsh-pricing-{{ section.id }} .rsh-floating-note--bottom {
+    bottom: 0;
+    left: -8px;
+  }
+
+  #rsh-pricing-{{ section.id }} .rsh-note-icon {
+    display: grid;
+    width: 31px;
+    height: 31px;
+    place-items: center;
+    border-radius: 9px;
+    background: #edf1da;
+    color: #607c1c;
+    font-size: 14px;
+  }
+
+  #rsh-pricing-{{ section.id }} .rsh-note-icon--green {
+    background: #e4f2e7;
+    color: #327443;
+  }
+
+  #rsh-pricing-{{ section.id }} .rsh-floating-note strong {
+    display: block;
+    color: var(--rsh-ink);
+    font-size: 11px;
+  }
+
+  #rsh-pricing-{{ section.id }} .rsh-floating-note small {
+    display: block;
+    margin-top: 3px;
+    color: var(--rsh-muted);
+    font-size: 9px;
+  }
+
+  #rsh-pricing-{{ section.id }} .rsh-tier-wrapper {
+    margin-top: 100px;
+    padding-top: 45px;
+    border-top: 1px solid var(--rsh-line);
+  }
+
+  #rsh-pricing-{{ section.id }} .rsh-tier-heading {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 30px;
+    margin-bottom: 25px;
+  }
+
+  #rsh-pricing-{{ section.id }} .rsh-tier-heading .rsh-price-eyebrow {
+    margin-bottom: 10px;
+  }
+
+  #rsh-pricing-{{ section.id }} .rsh-tier-heading h3 {
+    margin: 0;
+    font-size: clamp(25px, 3vw, 38px);
+    font-weight: 650;
+    letter-spacing: -0.045em;
+  }
+
+  #rsh-pricing-{{ section.id }} .rsh-tier-heading p {
+    max-width: 300px;
+    margin: 0;
+    color: var(--rsh-muted);
+    font-size: 12px;
+    line-height: 1.6;
+  }
+
+  #rsh-pricing-{{ section.id }} .rsh-tier-grid {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 8px;
+  }
+
+  #rsh-pricing-{{ section.id }} .rsh-tier-item {
+    padding: 20px 14px;
+    border: 1px solid var(--rsh-line);
+    border-radius: 13px;
+    background: rgba(255, 255, 255, 0.6);
+    transition: transform 0.25s ease, background 0.25s ease;
+  }
+
+  #rsh-pricing-{{ section.id }} .rsh-tier-item:hover {
+    background: white;
+    transform: translateY(-4px);
+  }
+
+  #rsh-pricing-{{ section.id }} .rsh-tier-quantity {
+    display: block;
+    margin-bottom: 17px;
+    color: var(--rsh-muted);
+    font-size: 11px;
+    font-weight: 700;
+  }
+
+  #rsh-pricing-{{ section.id }} .rsh-tier-item strong {
+    display: block;
+    font-size: 14px;
+    letter-spacing: -0.02em;
+  }
+
+  #rsh-pricing-{{ section.id }} .rsh-tier-item small {
+    display: block;
+    margin-top: 7px;
+    color: var(--rsh-muted);
+    font-size: 9px;
+  }
+
+  #rsh-pricing-{{ section.id }} .rsh-tier-item--quote {
+    background: var(--rsh-ink);
+    color: white;
+  }
+
+  #rsh-pricing-{{ section.id }} .rsh-tier-item--quote .rsh-tier-quantity,
+  #rsh-pricing-{{ section.id }} .rsh-tier-item--quote small {
+    color: rgba(255, 255, 255, 0.6);
+  }
+
+  #rsh-pricing-{{ section.id }} .rsh-price-footer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 15px;
+    margin-top: 55px;
+    color: var(--rsh-muted);
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.03em;
+  }
+
+  #rsh-pricing-{{ section.id }} .rsh-footer-line {
+    width: 35px;
+    height: 1px;
+    background: var(--rsh-line);
+  }
+
+  @media (max-width: 1100px) {
+    #rsh-pricing-{{ section.id }} .rsh-price-grid {
+      gap: 40px;
+    }
+
+    #rsh-pricing-{{ section.id }} .rsh-tier-grid {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+
+  @media (max-width: 749px) {
+    #rsh-pricing-{{ section.id }} .rsh-price-container {
+      padding: 65px 20px;
+    }
+
+    #rsh-pricing-{{ section.id }} .rsh-price-grid {
+      grid-template-columns: 1fr;
+      gap: 40px;
+    }
+
+    #rsh-pricing-{{ section.id }} .rsh-price-heading {
+      font-size: 43px;
+    }
+
+    #rsh-pricing-{{ section.id }} .rsh-price-visual {
+      padding: 30px 5px;
+    }
+
+    #rsh-pricing-{{ section.id }} .rsh-price-card {
+      padding: 22px;
+      border-radius: 19px;
+    }
+
+    #rsh-pricing-{{ section.id }} .rsh-floating-note--top {
+      top: 0;
+      right: -2px;
+    }
+
+    #rsh-pricing-{{ section.id }} .rsh-floating-note--bottom {
+      bottom: 0;
+      left: -2px;
+    }
+
+    #rsh-pricing-{{ section.id }} .rsh-floating-note {
+      padding: 10px 12px;
+    }
+
+    #rsh-pricing-{{ section.id }} .rsh-piece-price {
+      padding: 10px;
+    }
+
+    #rsh-pricing-{{ section.id }} .rsh-case-price strong,
+    #rsh-pricing-{{ section.id }} .rsh-piece-price strong {
+      font-size: 26px;
+    }
+
+    #rsh-pricing-{{ section.id }} .rsh-tier-wrapper {
+      margin-top: 65px;
+    }
+
+    #rsh-pricing-{{ section.id }} .rsh-tier-heading {
+      display: block;
+    }
+
+    #rsh-pricing-{{ section.id }} .rsh-tier-heading p {
+      margin-top: 15px;
+    }
+
+    #rsh-pricing-{{ section.id }} .rsh-tier-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    #rsh-pricing-{{ section.id }} .rsh-price-footer {
+      flex-direction: column;
+      gap: 9px;
+      text-align: center;
+    }
+
+    #rsh-pricing-{{ section.id }} .rsh-footer-line {
+      width: 25px;
+    }
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    #rsh-pricing-{{ section.id }} .rsh-price-content,
+    #rsh-pricing-{{ section.id }} .rsh-price-visual {
+      animation: rsh-fade-up-{{ section.id }} 0.7s ease both;
+    }
+
+    #rsh-pricing-{{ section.id }} .rsh-price-visual {
+      animation-delay: 0.12s;
+    }
+
+    @keyframes rsh-fade-up-{{ section.id }} {
+      from {
+        opacity: 0;
+        transform: translateY(22px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+  }
+</style>
 
 {% schema %}
 {
-  "name": "Per-piece explainer",
+  "name": "Per-piece pricing",
   "disabled_on": {
     "groups": ["header", "footer"]
   },
@@ -133,25 +822,26 @@
     {
       "type": "text",
       "id": "eyebrow",
-      "label": "Eyebrow"
+      "label": "Eyebrow",
+      "default": "PRICE WITH CONFIDENCE"
     },
     {
       "type": "text",
       "id": "heading",
       "label": "Heading",
-      "default": "The number that actually matters"
+      "default": "The number that actually matters."
     },
     {
       "type": "richtext",
       "id": "body",
       "label": "Body",
-      "default": "<p>A case of 24 oz microwavable bowls at $32.99 is 22 cents a bowl. The same case at $36.50 is 24 cents. Two cents does not sound like much until you are packing 900 orders a week, at which point it is about $940 a year on one item.</p><p>We put the per-piece price on every product page, next to the case price, at every quantity break. Check it against your last invoice.</p>"
+      "default": "<p>Case prices only tell part of the story. We show you the per-piece cost so you can compare suppliers clearly and make every purchasing decision count.</p><p>From your first case to your largest order, transparent pricing helps you understand exactly what you are paying.</p>"
     },
     {
       "type": "text",
       "id": "button_label",
       "label": "Button label",
-      "default": "Shop containers"
+      "default": "Shop all products"
     },
     {
       "type": "url",
@@ -160,16 +850,7 @@
     },
     {
       "type": "header",
-      "content": "Worked example"
-    },
-    {
-      "type": "paragraph",
-      "content": "Pick a product and the example prices itself from that product. An uploaded image replaces the example card entirely."
-    },
-    {
-      "type": "image_picker",
-      "id": "image",
-      "label": "Screenshot"
+      "content": "Product example"
     },
     {
       "type": "product",
@@ -177,24 +858,25 @@
       "label": "Example product"
     },
     {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Fallback image"
+    },
+    {
       "type": "checkbox",
       "id": "show_example_ladder",
-      "label": "Show the tier ladder in the example",
-      "default": false
+      "label": "Show volume pricing ladder",
+      "default": true
     },
     {
       "type": "header",
-      "content": "Manual example"
-    },
-    {
-      "type": "paragraph",
-      "content": "Used only when no product is picked above."
+      "content": "Fallback product data"
     },
     {
       "type": "text",
       "id": "example_title",
       "label": "Product name",
-      "default": "24 oz Black Round Microwavable Bowl with Clear Lid"
+      "default": "24 oz Black Round Microwavable Bowl"
     },
     {
       "type": "text",
@@ -216,62 +898,18 @@
     },
     {
       "type": "header",
-      "content": "Layout"
+      "content": "Colors"
     },
     {
-      "type": "select",
-      "id": "media_position",
-      "label": "Example position",
-      "options": [
-        { "value": "right", "label": "Right" },
-        { "value": "left", "label": "Left" }
-      ],
-      "default": "right"
-    },
-    {
-      "type": "select",
-      "id": "section_width",
-      "label": "Width",
-      "options": [
-        { "value": "page-width", "label": "Page" },
-        { "value": "full-width", "label": "Full" }
-      ],
-      "default": "page-width"
-    },
-    {
-      "type": "color",
-      "id": "background_color",
-      "label": "Background",
-      "placeholder": "Default"
-    },
-    {
-      "type": "header",
-      "content": "Padding"
-    },
-    {
-      "type": "range",
-      "id": "padding-block-start",
-      "label": "Top",
-      "min": 0,
-      "max": 200,
-      "step": 4,
-      "unit": "px",
-      "default": 48
-    },
-    {
-      "type": "range",
-      "id": "padding-block-end",
-      "label": "Bottom",
-      "min": 0,
-      "max": 200,
-      "step": 4,
-      "unit": "px",
-      "default": 48
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "Color scheme",
+      "default": "scheme-1"
     }
   ],
   "presets": [
     {
-      "name": "Per-piece explainer"
+      "name": "Per-piece pricing"
     }
   ]
 }
