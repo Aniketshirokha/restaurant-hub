@@ -15,7 +15,7 @@
         "text_NM4gVN": {
           "type": "text",
           "settings": {
-            "text": "<h2>Featured Dishes</h2>",
+            "text": "<h2>Signature Selection</h2>",
             "width": "fit-content",
             "max_width": "narrow",
             "alignment": "left",
