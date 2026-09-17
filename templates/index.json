@@ -353,6 +353,7 @@
           "type": "collection",
           "settings": {
             "collection": "aluminum-pans-foil-lids",
+            "custom_image": "shopify://shop_images/hf_20260917_131703_a2f5970e-5f50-474c-865f-7c4fdcade36d.png",
             "custom_title": "Collection title",
             "short_description": "Reliable products for everyday operations."
           }
