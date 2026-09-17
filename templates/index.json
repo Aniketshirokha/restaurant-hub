@@ -26,7 +26,7 @@
             "letter_spacing": "normal",
             "case": "none",
             "wrap": "pretty",
-            "text_color": "#F8F8F8",
+            "text_color": "#f8f8f8",
             "background": false,
             "background_color": "#00000026",
             "corner_radius": 0,
@@ -51,7 +51,7 @@
             "letter_spacing": "normal",
             "case": "none",
             "wrap": "pretty",
-            "text_color": "#FFFFFF",
+            "text_color": "#ffffff",
             "background": false,
             "background_color": "#00000026",
             "corner_radius": 0,
@@ -324,6 +324,7 @@
       "block_order": [
         "group_mfTd9p"
       ],
+      "disabled": true,
       "name": "t:names.collection_list",
       "settings": {
         "collection_list": [],
@@ -345,6 +346,81 @@
         "padding-block-end": 64
       }
     },
+    "collection_ibCeQy": {
+      "type": "collection",
+      "blocks": {
+        "collection_Wmt7mN": {
+          "type": "collection",
+          "settings": {
+            "collection": "",
+            "custom_title": "Collection title",
+            "short_description": "Reliable products for everyday operations."
+          }
+        },
+        "collection_qb3xxw": {
+          "type": "collection",
+          "settings": {
+            "collection": "",
+            "custom_title": "Collection title",
+            "short_description": "Reliable products for everyday operations."
+          }
+        },
+        "collection_CeUiAN": {
+          "type": "collection",
+          "settings": {
+            "collection": "",
+            "custom_title": "Collection title",
+            "short_description": "Reliable products for everyday operations."
+          }
+        },
+        "collection_GBRyAG": {
+          "type": "collection",
+          "settings": {
+            "collection": "",
+            "custom_title": "Collection title",
+            "short_description": "Reliable products for everyday operations."
+          }
+        },
+        "collection_NQhizx": {
+          "type": "collection",
+          "settings": {
+            "collection": "",
+            "custom_title": "Collection title",
+            "short_description": "Reliable products for everyday operations."
+          }
+        },
+        "collection_paewD3": {
+          "type": "collection",
+          "settings": {
+            "collection": "",
+            "custom_title": "Collection title",
+            "short_description": "Reliable products for everyday operations."
+          }
+        }
+      },
+      "block_order": [
+        "collection_Wmt7mN",
+        "collection_qb3xxw",
+        "collection_CeUiAN",
+        "collection_GBRyAG",
+        "collection_NQhizx",
+        "collection_paewD3"
+      ],
+      "name": "Animated collections",
+      "settings": {
+        "eyebrow": "Explore our range",
+        "heading": "Everything your kitchen needs.",
+        "description": "Explore dependable restaurant supplies, thoughtfully organized for every kind of kitchen.",
+        "background_color": "#F4F3EF",
+        "text_color": "#1B211D",
+        "accent_color": "#6B7567",
+        "card_radius": 8,
+        "padding_top": 80,
+        "padding_bottom": 80,
+        "mobile_padding_top": 48,
+        "mobile_padding_bottom": 48
+      }
+    },
     "rsh_per_piece": {
       "type": "rsh-per-piece-explainer",
       "settings": {
@@ -354,16 +430,11 @@
         "button_label": "Shop containers",
         "button_link": "",
         "example_product": "",
-        "show_example_ladder": false,
         "example_title": "24 oz Black Round Microwavable Bowl with Clear Lid",
         "example_price": "32.99",
         "example_pieces": 150,
         "example_noun": "bowl",
-        "media_position": "right",
-        "section_width": "page-width",
-        "background_color": "",
-        "padding-block-start": 48,
-        "padding-block-end": 48
+        "show_tiers": true
       }
     },
     "rsh_volume": {
@@ -602,7 +673,7 @@
       },
       "name": "t:names.product_list",
       "settings": {
-        "collection": "all",
+        "collection": "shop-all",
         "layout_type": "grid",
         "carousel_on_mobile": false,
         "max_products": 8,
@@ -1257,6 +1328,7 @@
     "hero_CaaryD",
     "1789247568162abdfb",
     "collection_list_xpBxCm",
+    "collection_ibCeQy",
     "rsh_per_piece",
     "rsh_volume",
     "product_list_EDUBdR",
