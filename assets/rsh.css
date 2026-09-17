@@ -600,7 +600,8 @@
 }
 
 .rsh-card__media {
-  aspect-ratio: 3 / 2;
+  /* 4:3, the shape the persona files are drawn at, so nothing is cropped. */
+  aspect-ratio: 4 / 3;
   overflow: hidden;
   background: var(--rsh-wash-strong);
 }
@@ -939,4 +940,173 @@
   color: var(--color-error, #b3261e);
   background: color-mix(in srgb, var(--color-error, #b3261e) 10%, transparent);
   border-radius: var(--rsh-radius);
+}
+
+/* ------------------------------------------------------- Library images */
+
+/*
+ * Everything drawn by `rsh-image` carries its own width and height attributes,
+ * so the browser reserves the right box before the file arrives. These rules
+ * only let it scale; they must never set a height that fights those attributes,
+ * or the layout shift they exist to prevent comes back.
+ */
+
+.rsh-img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+/* ------------------------------------------------------- Collection banner */
+
+.rsh-banner {
+  width: 100%;
+}
+
+.rsh-banner__img {
+  border-radius: var(--rsh-radius-lg);
+}
+
+.rsh-banner__title {
+  margin: 0;
+  text-wrap: balance;
+}
+
+.rsh-banner__title--above {
+  margin-block-end: var(--gap-sm, 12px);
+}
+
+/*
+ * The parent banners carry an empty left third and the title goes in it. Below
+ * 750px a 3:1 band is too short to hold type, so the title stacks above the
+ * picture instead, for the same reason the hero swaps to its own mobile file.
+ */
+
+.rsh-banner--overlay {
+  display: block;
+}
+
+.rsh-banner--overlay .rsh-banner__caption {
+  margin-block-start: var(--gap-sm, 12px);
+}
+
+@media (min-width: 47rem) {
+  .rsh-banner--overlay {
+    display: grid;
+  }
+
+  .rsh-banner--overlay > * {
+    grid-area: 1 / 1;
+  }
+
+  .rsh-banner--overlay .rsh-banner__caption {
+    display: flex;
+    align-items: center;
+    margin-block-start: 0;
+    padding-inline: clamp(16px, 4vw, 48px);
+  }
+
+  .rsh-banner--overlay .rsh-banner__title {
+    /*
+     * The left third, and no wider. A longer collection name wraps inside it
+     * rather than running across the cases.
+     */
+    max-width: 33.333%;
+    text-align: start;
+  }
+}
+
+/*
+ * Off by default. Guide 3.1: reach for this only if contrast is genuinely short
+ * on a real screen, and keep it behind the text block rather than across the
+ * whole picture.
+ */
+
+@media (min-width: 47rem) {
+  .rsh-banner--overlay.rsh-banner--scrim .rsh-banner__caption {
+    background: linear-gradient(
+      to right,
+      rgb(0 0 0 / 0.42) 0%,
+      rgb(0 0 0 / 0.24) 40%,
+      rgb(0 0 0 / 0) 66%
+    );
+    border-radius: var(--rsh-radius-lg);
+  }
+
+  .rsh-banner--overlay.rsh-banner--scrim .rsh-banner__title {
+    color: #fff;
+  }
+}
+
+/*
+ * The 60 to 100 words that orient a buyer who landed from Google. Banner, then
+ * words, then products.
+ */
+
+.rsh-banner__intro {
+  max-width: 68ch;
+  margin-block-start: var(--gap-md, 20px);
+}
+
+/* ------------------------------------------------------- Page header band */
+
+.rsh-band {
+  width: 100%;
+}
+
+.rsh-band__img {
+  border-radius: var(--rsh-radius-lg);
+}
+
+/* ------------------------------------------------------- Explainer photo */
+
+.rsh-explainer__photo {
+  margin: 0;
+  margin-block-start: var(--gap-md, 20px);
+}
+
+.rsh-explainer__photo .rsh-img {
+  border-radius: var(--rsh-radius-lg);
+}
+
+/*
+ * The category tiles run wider than the persona cards: the parent banners are
+ * 21:9 files and 16:9 is as tight as they crop before the cases start going.
+ */
+
+.rsh-card__media--wide {
+  aspect-ratio: 16 / 9;
+}
+
+/* ------------------------------------------------------- Samples CTA */
+
+.rsh-samples {
+  display: grid;
+  gap: var(--gap-lg, 28px);
+  align-items: center;
+  grid-template-columns: 1fr;
+}
+
+.rsh-samples__media {
+  margin: 0;
+  max-width: 300px;
+}
+
+.rsh-samples__media .rsh-img {
+  border-radius: var(--rsh-radius-lg);
+}
+
+.rsh-samples__body {
+  display: grid;
+  gap: var(--gap-sm, 12px);
+}
+
+@media (min-width: 47rem) {
+  .rsh-samples {
+    grid-template-columns: auto minmax(0, 1fr);
+  }
+
+  .rsh-samples--media-right .rsh-samples__media {
+    order: 1;
+  }
 }

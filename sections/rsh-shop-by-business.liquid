@@ -62,17 +62,31 @@
         endif
       -%}
       <article class="rsh-card" {{ block.shopify_attributes }}>
-        {%- if card_image != blank and section.settings.show_images -%}
-          <div class="rsh-card__media">
-            {{
-              card_image
-              | image_url: width: 800
-              | image_tag:
-                loading: 'lazy',
-                sizes: '(min-width: 990px) 30vw, (min-width: 750px) 45vw, 100vw',
-                widths: '300, 500, 800'
-            }}
-          </div>
+        {%- if section.settings.show_images -%}
+          {%- if card_image != blank -%}
+            <div class="rsh-card__media">
+              {{
+                card_image
+                | image_url: width: 800
+                | image_tag:
+                  loading: 'lazy',
+                  sizes: '(min-width: 990px) 30vw, (min-width: 750px) 45vw, 100vw',
+                  widths: '300, 500, 800'
+              }}
+            </div>
+          {%- elsif block.settings.persona != blank and block.settings.persona != 'none' -%}
+            {%- comment -%}
+              One file, three placements: this card, the hub page card and that
+              collection's own banner. Naming the picture here rather than picking
+              it means the home page is right before anyone opens the editor.
+            {%- endcomment -%}
+            <div class="rsh-card__media">
+              {%- render 'rsh-image',
+                key: block.settings.persona,
+                sizes: '(min-width: 990px) 30vw, (min-width: 750px) 45vw, 100vw'
+              -%}
+            </div>
+          {%- endif -%}
         {%- endif -%}
 
         <div class="rsh-card__body">
@@ -121,10 +135,25 @@
           "label": "Subtitle"
         },
         {
+          "type": "select",
+          "id": "persona",
+          "label": "Picture",
+          "options": [
+            { "value": "none", "label": "None" },
+            { "value": "persona-cloud-kitchen", "label": "Cloud kitchen" },
+            { "value": "persona-caterer", "label": "Caterer" },
+            { "value": "persona-food-truck", "label": "Food truck" },
+            { "value": "persona-cafe", "label": "Cafe" },
+            { "value": "persona-deli", "label": "Deli" },
+            { "value": "persona-full-service", "label": "Full service" }
+          ],
+          "default": "none"
+        },
+        {
           "type": "image_picker",
           "id": "image",
-          "label": "Image",
-          "info": "Defaults to the collection image."
+          "label": "Image override",
+          "info": "Only to override the picture above. Otherwise leave it empty."
         },
         {
           "type": "url",
@@ -222,6 +251,7 @@
           "type": "card",
           "settings": {
             "title": "Cloud kitchens",
+            "persona": "persona-cloud-kitchen",
             "text": "Packaging that survives the drive and still looks right at the door"
           }
         },
@@ -229,6 +259,7 @@
           "type": "card",
           "settings": {
             "title": "Caterers",
+            "persona": "persona-caterer",
             "text": "Buy in bursts, stock for the season, keep the sizes consistent"
           }
         },
@@ -236,6 +267,7 @@
           "type": "card",
           "settings": {
             "title": "Food trucks",
+            "persona": "persona-food-truck",
             "text": "Small storage, tight margins, no room for the wrong order"
           }
         },
@@ -243,6 +275,7 @@
           "type": "card",
           "settings": {
             "title": "Cafés and coffee shops",
+            "persona": "persona-cafe",
             "text": "Hot cups, cold cups and lids without the per-cup markup"
           }
         },
@@ -250,6 +283,7 @@
           "type": "card",
           "settings": {
             "title": "Delis and supermarkets",
+            "persona": "persona-deli",
             "text": "Grab-and-go packaging that sells the food inside it"
           }
         },
@@ -257,6 +291,7 @@
           "type": "card",
           "settings": {
             "title": "Full-service restaurants",
+            "persona": "persona-full-service",
             "text": "One supplier for the whole back of house"
           }
         }

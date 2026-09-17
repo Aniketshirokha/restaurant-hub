@@ -90,10 +90,10 @@
       "name": "t:names.hero",
       "settings": {
         "media_type_1": "image",
-        "image_1": "shopify://shop_images/hf_20260913_175755_aeebfa48-1242-479f-beab-893893bdcad0.png",
+        "image_1": "shopify://shop_images/hero-warehouse-dock.webp",
         "media_type_2": "image",
         "stack_media_on_mobile": false,
-        "custom_mobile_media": false,
+        "custom_mobile_media": true,
         "media_type_1_mobile": "image",
         "media_type_2_mobile": "image",
         "link": "",
@@ -110,14 +110,15 @@
         "section_height": "large",
         "section_height_custom": 50,
         "background_color": "",
-        "toggle_overlay": true,
+        "toggle_overlay": false,
         "overlay_color": "#00000099",
         "overlay_style": "gradient",
         "gradient_direction": "to top",
         "blurred_reflection": false,
         "reflection_opacity": 75,
         "padding-block-start": 40,
-        "padding-block-end": 40
+        "padding-block-end": 40,
+        "image_1_mobile": "shopify://shop_images/hero-warehouse-dock-mobile.webp"
       }
     },
     "1789247568162abdfb": {
@@ -127,7 +128,7 @@
           "type": "ai_gen_block_8c45e4d",
           "name": "Trust bar",
           "settings": {
-            "background": "#ffffff",
+            "background": "#FCFCFB",
             "icon_color": "#1b7a3d",
             "text_color": "#1a1a1a",
             "divider_color": "#dce2ea",
@@ -180,169 +181,6 @@
         "border_radius": 0,
         "padding-block-start": 0,
         "padding-block-end": 0
-      }
-    },
-    "collection_list_xpBxCm": {
-      "type": "collection-list",
-      "blocks": {
-        "group_mfTd9p": {
-          "type": "group",
-          "name": "t:names.header",
-          "settings": {
-            "content_direction": "column",
-            "vertical_on_mobile": true,
-            "horizontal_alignment": "flex-start",
-            "vertical_alignment": "center",
-            "align_baseline": false,
-            "horizontal_alignment_flex_direction_column": "center",
-            "vertical_alignment_flex_direction_column": "center",
-            "gap": 16,
-            "width": "fill",
-            "custom_width": 100,
-            "width_mobile": "fill",
-            "custom_width_mobile": 100,
-            "height": "fit",
-            "custom_height": 100,
-            "background_media": "none",
-            "background_color": "",
-            "video_position": "cover",
-            "background_image_position": "cover",
-            "toggle_overlay": false,
-            "overlay_color": "#00000026",
-            "overlay_style": "solid",
-            "gradient_direction": "to top",
-            "border": "none",
-            "border_width": 1,
-            "border_opacity": 100,
-            "border_color": "",
-            "border_radius": 0,
-            "link": "",
-            "open_in_new_tab": false,
-            "placeholder": "",
-            "padding-block-start": 0,
-            "padding-block-end": 16,
-            "padding-inline-start": 0,
-            "padding-inline-end": 0
-          },
-          "blocks": {
-            "text_AYrwfM": {
-              "type": "text",
-              "name": "t:names.text",
-              "settings": {
-                "text": "<h2>Shop by Collection</h2>",
-                "width": "fit-content",
-                "max_width": "normal",
-                "alignment": "left",
-                "type_preset": "h2",
-                "font": "var(--font-body--family)",
-                "font_size": "1rem",
-                "line_height": "normal",
-                "letter_spacing": "normal",
-                "case": "none",
-                "wrap": "pretty",
-                "text_color": "",
-                "background": false,
-                "background_color": "#00000026",
-                "corner_radius": 0,
-                "padding-block-start": 0,
-                "padding-block-end": 0,
-                "padding-inline-start": 0,
-                "padding-inline-end": 0
-              },
-              "blocks": {}
-            }
-          },
-          "block_order": [
-            "text_AYrwfM"
-          ]
-        },
-        "static-collection-card": {
-          "type": "_collection-card",
-          "name": "t:names.collection_card",
-          "static": true,
-          "settings": {
-            "placement": "on_image",
-            "horizontal_alignment": "flex-start",
-            "vertical_alignment": "flex-start",
-            "collection_card_gap": 8,
-            "background_color": "",
-            "border": "none",
-            "border_width": 1,
-            "border_opacity": 100,
-            "border_color": "",
-            "border_radius": 10
-          },
-          "blocks": {
-            "collection_title_zyBdAJ": {
-              "type": "collection-title",
-              "name": "t:names.collection_title",
-              "settings": {
-                "width": "fit-content",
-                "max_width": "normal",
-                "alignment": "left",
-                "type_preset": "h5",
-                "font": "var(--font-body--family)",
-                "font_size": "1rem",
-                "line_height": "normal",
-                "letter_spacing": "normal",
-                "case": "none",
-                "wrap": "pretty",
-                "background": false,
-                "background_color": "#00000026",
-                "text_color": "{{ settings.color_palette.foreground }}",
-                "corner_radius": 0,
-                "padding-block-start": 0,
-                "padding-block-end": 0,
-                "padding-inline-start": 0,
-                "padding-inline-end": 0
-              },
-              "blocks": {}
-            },
-            "collection-card-image": {
-              "type": "_collection-card-image",
-              "static": true,
-              "settings": {
-                "image_ratio": "portrait",
-                "toggle_overlay": false,
-                "overlay_color": "#00000026",
-                "overlay_style": "solid",
-                "gradient_direction": "to top",
-                "border": "none",
-                "border_width": 1,
-                "border_opacity": 100,
-                "border_color": "",
-                "border_radius": 0
-              },
-              "blocks": {}
-            }
-          },
-          "block_order": [
-            "collection_title_zyBdAJ"
-          ]
-        }
-      },
-      "block_order": [
-        "group_mfTd9p"
-      ],
-      "name": "t:names.collection_list",
-      "settings": {
-        "collection_list": [],
-        "layout_type": "bento",
-        "carousel_on_mobile": true,
-        "columns": 4,
-        "mobile_columns": "2",
-        "mobile_card_size": "60cqw",
-        "columns_gap": 16,
-        "bento_gap": 12,
-        "rows_gap": 16,
-        "max_collections": 4,
-        "icons_style": "arrow",
-        "icons_shape": "none",
-        "section_width": "page-width",
-        "gap": 12,
-        "background_color": "{{ settings.color_palette.background }}",
-        "padding-block-start": 48,
-        "padding-block-end": 64
       }
     },
     "rsh_per_piece": {
@@ -404,7 +242,7 @@
             "custom_width_mobile": 100,
             "height": "fit",
             "custom_height": 100,
-            "background_media": "none",
+            "background_media": "image",
             "background_color": "",
             "video_position": "cover",
             "background_image_position": "cover",
@@ -412,11 +250,12 @@
             "border_width": 1,
             "border_opacity": 100,
             "border_color": "",
-            "border_radius": 0,
-            "padding-block-start": 0,
-            "padding-block-end": 0,
-            "padding-inline-start": 0,
-            "padding-inline-end": 0
+            "border_radius": 8,
+            "padding-block-start": 40,
+            "padding-block-end": 40,
+            "padding-inline-start": 24,
+            "padding-inline-end": 24,
+            "background_image": "shopify://shop_images/start-here-mixed-cases.webp"
           },
           "blocks": {
             "product_list_text_qK4EWG": {
@@ -630,7 +469,8 @@
             "collection": "",
             "title": "Cloud kitchens",
             "text": "Packaging that survives the drive and still looks right at the door",
-            "link": ""
+            "link": "",
+            "persona": "persona-cloud-kitchen"
           }
         },
         "biz_1": {
@@ -639,7 +479,8 @@
             "collection": "",
             "title": "Caterers",
             "text": "Buy in bursts, stock for the season, keep the sizes consistent",
-            "link": ""
+            "link": "",
+            "persona": "persona-caterer"
           }
         },
         "biz_2": {
@@ -648,7 +489,8 @@
             "collection": "",
             "title": "Food trucks",
             "text": "Small storage, tight margins, no room for the wrong order",
-            "link": ""
+            "link": "",
+            "persona": "persona-food-truck"
           }
         },
         "biz_3": {
@@ -657,7 +499,8 @@
             "collection": "",
             "title": "Cafés and coffee shops",
             "text": "Hot cups, cold cups and lids without the per-cup markup",
-            "link": ""
+            "link": "",
+            "persona": "persona-cafe"
           }
         },
         "biz_4": {
@@ -666,7 +509,8 @@
             "collection": "",
             "title": "Delis and supermarkets",
             "text": "Grab-and-go packaging that sells the food inside it",
-            "link": ""
+            "link": "",
+            "persona": "persona-deli"
           }
         },
         "biz_5": {
@@ -675,7 +519,8 @@
             "collection": "",
             "title": "Full-service restaurants",
             "text": "One supplier for the whole back of house",
-            "link": ""
+            "link": "",
+            "persona": "persona-full-service"
           }
         }
       },
@@ -706,12 +551,13 @@
           "type": "_media-without-appearance",
           "static": true,
           "settings": {
-            "media_type": "video",
+            "media_type": "image",
             "link": "",
             "video_loop": true,
             "video_autoplay": true,
             "image_position": "cover",
-            "video_position": "cover"
+            "video_position": "cover",
+            "image": "shopify://shop_images/sourcing-factory-floor.webp"
           },
           "blocks": {}
         },
@@ -903,7 +749,7 @@
             "custom_width_mobile": 100,
             "height": "fit",
             "custom_height": 100,
-            "background_media": "none",
+            "background_media": "image",
             "background_color": "",
             "video_position": "cover",
             "background_image_position": "cover",
@@ -922,7 +768,8 @@
             "padding-block-start": 0,
             "padding-block-end": 0,
             "padding-inline-start": 0,
-            "padding-inline-end": 0
+            "padding-inline-end": 0,
+            "background_image": "shopify://shop_images/reorder-clipboard-cases.webp"
           },
           "blocks": {
             "reorder_head": {
@@ -1072,7 +919,7 @@
             "custom_width_mobile": 100,
             "height": "fit",
             "custom_height": 100,
-            "background_media": "none",
+            "background_media": "image",
             "background_color": "",
             "video_position": "cover",
             "background_image_position": "cover",
@@ -1091,7 +938,8 @@
             "padding-block-start": 0,
             "padding-block-end": 0,
             "padding-inline-start": 0,
-            "padding-inline-end": 0
+            "padding-inline-end": 0,
+            "background_image": "shopify://shop_images/cta-order-staged-dock.webp"
           },
           "blocks": {
             "closing_head": {
@@ -1221,50 +1069,102 @@
         "padding-block-end": 56
       }
     },
-    "178924735036195891": {
-      "type": "_blocks",
+    "rsh_categories": {
+      "type": "rsh-category-grid",
+      "blocks": {
+        "tile_food_packaging": {
+          "type": "tile",
+          "settings": {
+            "collection": "shopify://collections/food-packaging",
+            "banner": "col-food-packaging",
+            "title": "Food packaging"
+          }
+        },
+        "tile_food_service": {
+          "type": "tile",
+          "settings": {
+            "collection": "shopify://collections/food-service",
+            "banner": "col-food-service",
+            "title": "Food service"
+          }
+        },
+        "tile_disposable_gloves": {
+          "type": "tile",
+          "settings": {
+            "collection": "shopify://collections/disposable-gloves",
+            "banner": "col-disposable-gloves",
+            "title": "Disposable gloves"
+          }
+        },
+        "tile_paper_products": {
+          "type": "tile",
+          "settings": {
+            "collection": "shopify://collections/paper-products",
+            "banner": "col-paper-products",
+            "title": "Paper products"
+          }
+        },
+        "tile_janitorial_cleaning": {
+          "type": "tile",
+          "settings": {
+            "collection": "shopify://collections/janitorial-cleaning",
+            "banner": "col-janitorial-cleaning",
+            "title": "Janitorial and cleaning"
+          }
+        },
+        "tile_compostable": {
+          "type": "tile",
+          "settings": {
+            "collection": "shopify://collections/compostable",
+            "banner": "col-compostable",
+            "title": "Compostable"
+          }
+        }
+      },
+      "block_order": [
+        "tile_food_packaging",
+        "tile_food_service",
+        "tile_disposable_gloves",
+        "tile_paper_products",
+        "tile_janitorial_cleaning",
+        "tile_compostable"
+      ],
       "settings": {
-        "content_direction": "column",
-        "vertical_on_mobile": true,
-        "horizontal_alignment": "flex-start",
-        "vertical_alignment": "center",
-        "align_baseline": false,
-        "horizontal_alignment_flex_direction_column": "flex-start",
-        "vertical_alignment_flex_direction_column": "center",
-        "gap": 12,
+        "heading": "Shop by Collection",
+        "body": "",
         "section_width": "page-width",
-        "section_height": "",
-        "section_height_custom": 50,
-        "background_media": "none",
-        "background_color": "",
-        "video_position": "cover",
-        "background_image_position": "cover",
-        "toggle_overlay": false,
-        "overlay_color": "#00000026",
-        "overlay_style": "solid",
-        "gradient_direction": "to top",
-        "border": "none",
-        "border_width": 1,
-        "border_opacity": 100,
-        "border_color": "",
-        "border_radius": 0,
-        "padding-block-start": 0,
-        "padding-block-end": 0
+        "gap": 24,
+        "padding-block-start": 48,
+        "padding-block-end": 64
+      }
+    },
+    "rsh_samples": {
+      "type": "rsh-samples-cta",
+      "settings": {
+        "show_image": true,
+        "heading": "Not sure it is the right container?",
+        "body": "<p>Ask for a sample case. We will send the container, the cup and the glove you are comparing, so you can put your own food in it before you commit to a pallet.</p>",
+        "button_label": "Request a free sample case",
+        "button_link": "shopify://pages/samples",
+        "media_position": "left",
+        "section_width": "page-width",
+        "padding-block-start": 48,
+        "padding-block-end": 64
       }
     }
   },
   "order": [
     "hero_CaaryD",
     "1789247568162abdfb",
-    "collection_list_xpBxCm",
+    "rsh_categories",
     "rsh_per_piece",
     "rsh_volume",
     "product_list_EDUBdR",
     "rsh_business",
     "media_with_content_LfPdEJ",
-    "rsh_quotes",
     "rsh_reorder",
+    "rsh_quotes",
     "rsh_closing",
-    "178924735036195891"
+    "rsh_samples"
   ]
 }

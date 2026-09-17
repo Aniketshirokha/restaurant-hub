@@ -1,0 +1,203 @@
+{%- doc -%}
+  The collection page header: banner, then the intro copy, then the grid.
+
+  The order is the point. A buyer who landed from Google needs the words to know
+  they are in the right place, and they only do that job above the products
+  rather than buried under them for SEO.
+
+  Which picture a collection gets, and where its title sits, is decided by the
+  handle, so a new collection is wired by naming its file rather than by editing
+  the theme:
+
+    the five parents and compostable  `col-<handle>`     title over the empty left third
+    the six business collections      `persona-<type>`   title above the picture
+    the twenty-eight sub-collections  `sub-<handle>`     title above the picture
+    best sellers                      reuses the Start here band
+    new arrivals                      no banner at launch
+
+  A collection with no row in the library simply gets no banner.
+{%- enddoc -%}
+
+{% liquid
+  assign handle = collection.handle
+  assign key = ''
+  assign layout = 'stacked'
+
+  assign parents = 'food-packaging,food-service,disposable-gloves,paper-products,janitorial-cleaning,compostable' | split: ','
+  if parents contains handle
+    assign key = 'col-' | append: handle
+    assign layout = 'overlay'
+  endif
+
+  # The six Shop by business collections share one file with the home page cards
+  # and the hub page. A 4:3 card cropped to a 3:1 band loses over half its
+  # height, so these run at 16:9 with the title above rather than over them.
+  case handle
+    when 'cloud-kitchens'
+      assign key = 'persona-cloud-kitchen'
+    when 'caterers'
+      assign key = 'persona-caterer'
+    when 'food-trucks'
+      assign key = 'persona-food-truck'
+    when 'cafes-coffee-shops'
+      assign key = 'persona-cafe'
+    when 'delis-supermarkets'
+      assign key = 'persona-deli'
+    when 'full-service-restaurants'
+      assign key = 'persona-full-service'
+    when 'best-sellers'
+      assign key = 'start-here-mixed-cases'
+  endcase
+
+  # The twenty-eight sub-collections, listed rather than inferred. The library
+  # will answer to any `sub-` key because of its alt text pattern, so an inferred
+  # match would send every unlisted collection looking for a file that was never
+  # drawn.
+  assign subs = 'take-out-containers,microwaveable-containers,deli-soup-containers,hinged-clamshells,paper-food-containers-pails,aluminum-pans-foil-lids,carry-out-bags,food-wrap-deli-paper,stretch-pallet-wrap,hot-cups-lids,cold-cups-lids,portion-cups-lids,cup-carriers-accessories,cutlery,plates-bowls,straws,food-deli-trays,nitrile-gloves,vinyl-gloves,latex-gloves,poly-pe-tpe-gloves,industrial-gloves,paper-towels,napkins,bath-tissue,toilet-seat-covers,cleaning-chemicals,trash-bags-can-liners' | split: ','
+  if key == blank and subs contains handle
+    assign key = 'sub-' | append: handle
+  endif
+
+  assign persona_ratio = ''
+  if key contains 'persona-'
+    assign persona_ratio = '16:9'
+  endif
+
+  if section.settings.background_color != blank
+    render 'contrast-override', background_color: section.settings.background_color, section_id: section.id
+  endif
+%}
+
+<div
+  class="section-background{% if section.settings.background_color != blank %} color-custom-{{ section.id }}{% endif %}"
+></div>
+
+<div
+  class="
+    section
+    section--{{ section.settings.section_width }}
+    {% if section.settings.background_color != blank %}color-custom-{{ section.id }}{% endif %}
+    spacing-style
+  "
+  style="{% render 'spacing-style', settings: section.settings %}"
+>
+  {%- if key != blank and layout == 'overlay' -%}
+    {%- comment -%}
+      Guide 3.2. The file carries an empty left third and the title goes in it,
+      left aligned and vertically centred. Below 750px the band is too short to
+      hold type, so it stacks instead, the same reasoning as the mobile hero.
+    {%- endcomment -%}
+    <div class="rsh-banner rsh-banner--overlay{% if section.settings.title_scrim %} rsh-banner--scrim{% endif %}">
+      <div class="rsh-banner__media">
+        {%- render 'rsh-image',
+          key: key,
+          sizes: '100vw',
+          loading: 'eager',
+          fetchpriority: 'high',
+          class: 'rsh-banner__img'
+        -%}
+      </div>
+      <div class="rsh-banner__caption">
+        <h1 class="rsh-banner__title">{{ collection.title }}</h1>
+      </div>
+    </div>
+  {%- else -%}
+    <h1 class="rsh-banner__title rsh-banner__title--above">{{ collection.title }}</h1>
+
+    {%- if key != blank -%}
+      <div class="rsh-banner rsh-banner--stacked">
+        {%- render 'rsh-image',
+          key: key,
+          name: collection.title,
+          ratio: persona_ratio,
+          sizes: '100vw',
+          loading: 'eager',
+          fetchpriority: 'high',
+          class: 'rsh-banner__img'
+        -%}
+      </div>
+    {%- endif -%}
+  {%- endif -%}
+
+  {%- if section.settings.show_description and collection.description != blank -%}
+    <div class="rsh-banner__intro rte">{{ collection.description }}</div>
+  {%- endif -%}
+</div>
+
+{% schema %}
+{
+  "name": "Collection banner",
+  "enabled_on": {
+    "templates": ["collection"]
+  },
+  "settings": [
+    {
+      "type": "paragraph",
+      "content": "The banner is chosen by the collection handle. Name the file for the handle and it appears here; there is nothing to pick."
+    },
+    {
+      "type": "checkbox",
+      "id": "show_description",
+      "label": "Show the collection description",
+      "default": true,
+      "info": "The 60 to 100 words that orient a buyer who landed from Google. It belongs above the products."
+    },
+    {
+      "type": "checkbox",
+      "id": "title_scrim",
+      "label": "Darken behind the title",
+      "default": false,
+      "info": "Only if the title is genuinely hard to read on a real screen. It sits behind the title alone, never across the whole picture."
+    },
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+    {
+      "type": "select",
+      "id": "section_width",
+      "label": "Width",
+      "options": [
+        { "value": "page-width", "label": "Page" },
+        { "value": "full-width", "label": "Full" }
+      ],
+      "default": "page-width"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background",
+      "placeholder": "Default"
+    },
+    {
+      "type": "header",
+      "content": "Padding"
+    },
+    {
+      "type": "range",
+      "id": "padding-block-start",
+      "label": "Top",
+      "min": 0,
+      "max": 200,
+      "step": 4,
+      "unit": "px",
+      "default": 24
+    },
+    {
+      "type": "range",
+      "id": "padding-block-end",
+      "label": "Bottom",
+      "min": 0,
+      "max": 200,
+      "step": 4,
+      "unit": "px",
+      "default": 24
+    }
+  ],
+  "presets": [
+    {
+      "name": "Collection banner"
+    }
+  ]
+}
+{% endschema %}

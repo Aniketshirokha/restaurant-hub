@@ -318,9 +318,19 @@
         "padding-block-start": 48,
         "padding-block-end": 64
       }
+    },
+    "header_band": {
+      "type": "rsh-page-header",
+      "settings": {
+        "image_key": "404-empty-shelf",
+        "section_width": "page-width",
+        "padding-block-start": 24,
+        "padding-block-end": 8
+      }
     }
   },
   "order": [
+    "header_band",
     "main",
     "product_list_ed3c8h"
   ]

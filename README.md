@@ -30,6 +30,10 @@ ladder is visible without asking, on any plan. So the pricing pieces are ours.
 
 | Section | Used on |
 |---|---|
+| **Collection banner** | Every collection page |
+| **Category grid** | Home |
+| **Page header band** | Content pages, blog index, 404 |
+| **Samples CTA** | Home, Samples |
 | **Trust strip** | Home |
 | **Per-piece explainer** | Home |
 | **Volume pricing table** | Home, Wholesale |
@@ -182,6 +186,25 @@ The wholesale application, quote request and sample request all post through
 Shopify's contact form and arrive by email. Set the address under **Settings →
 Notifications**. Each one tags itself with a hidden `Form` field so they can be
 filtered apart.
+
+### 9. Images
+
+The 64-image library is wired but not uploaded. Everything resolves by filename,
+so the one step is uploading the set to **Settings → Files** named exactly as the
+image placement guide names them. Nothing is picked in the theme editor.
+
+```bash
+pip install Pillow
+python3 scripts/prepare-images.py "path/to/the/png/set" ./webp
+```
+
+That converts the set to the WebP the theme expects and tells you what is missing
+or the wrong shape. An unuploaded file renders nothing rather than breaking its
+section, so the set can go up in any order.
+
+`docs/image-placement.md` has the full map, the decisions taken where the guide
+left a choice, and the short list of alt text that needs checking against the real
+pictures.
 
 ---
 

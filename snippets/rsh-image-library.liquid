@@ -1,0 +1,137 @@
+{%- doc -%}
+  The 64-image library, one row per file.
+
+  This is the only place the set is described. Alt text comes from the image
+  placement guide section 5, the render aspect and the upload width from section
+  4. Everything that draws one of these images goes through `rsh-image`, which
+  reads this, so a correction here corrects the whole site at once.
+
+  Filenames carry no extension here. `rsh-image` appends `.webp`, because the
+  guide allows exactly one format.
+
+  @param {string} key - Filename without the extension, e.g. 'hero-warehouse-dock'
+  @param {string} [name] - Collection title, used by the sub-collection alt pattern
+
+  Emits one pipe-delimited row: alt|ratio_width|ratio_height|upload_width
+
+  An alt of `-` means the image is decorative and renders `alt=""`.
+
+  The render ratio is not always the shape of the file. The parent collection
+  banners and the page header bands are 21:9 files rendered at 3:1, cropped from
+  the centre so the empty overlay third stays where the title is. That is guide
+  section 4, and it is why the ratio lives here rather than being read off the
+  file.
+{%- enddoc -%}
+
+{%- liquid
+  case key
+    # ------------------------------------------------ Home page and global
+    when 'hero-warehouse-dock'
+      assign row = 'Restaurant Supply Hub warehouse with a delivery truck at the loading dock and racking stocked with cases|21|9|3000'
+    when 'hero-warehouse-dock-mobile'
+      # 1280, not 1600: this is the one portrait file in the set, so the 1600px
+      # longest edge the guide gives is its height.
+      assign row = 'Warehouse racking stocked with cases of food packaging|4|5|1280'
+    when 'og-share'
+      assign row = 'A staged Restaurant Supply Hub order of cases, cups and gloves|16|9|1200'
+    when '404-empty-shelf'
+      assign row = 'One empty shelf bay in an otherwise fully stocked warehouse aisle|16|9|1600'
+    when 'per-piece-hand-bowl'
+      assign row = 'A single microwavable bowl lifted from a full case of identical bowls|4|3|1600'
+    when 'volume-tier-stacks'
+      assign row = 'Five stacks of cases rising left to right, showing volume pricing tiers|16|9|1600'
+    when 'sourcing-factory-floor'
+      assign row = 'A packaging manufacturing line forming clear containers|16|9|1600'
+    when 'reorder-clipboard-cases'
+      assign row = 'A packing list and phone on a prep counter beside newly delivered cases|16|9|1600'
+    when 'cta-order-staged-dock'
+      assign row = 'A wrapped pallet of cases staged at an open loading dock|21|9|2400'
+    when 'samples-three-case'
+      assign row = 'A sample box holding a deli container, a paper cup and a nitrile glove|1|1|1200'
+    when 'start-here-mixed-cases'
+      assign row = 'A row of unopened cases of restaurant supplies|21|9|2400'
+    when 'trust-strip-concrete'
+      assign row = '-|21|9|2400'
+    when 'email-header'
+      assign row = '-|3|1|1200'
+
+    # ------------------------------------------------ Shop by business
+    when 'persona-cloud-kitchen'
+      assign row = 'Vented clamshells being packed into delivery bags at a cloud kitchen pass|4|3|1600'
+    when 'persona-caterer'
+      assign row = 'Aluminium steam pans and foil lids staged on a catering prep table|4|3|1600'
+    when 'persona-food-truck'
+      assign row = 'Take-out boxes and gloves stored in a food truck service area|4|3|1600'
+    when 'persona-cafe'
+      assign row = 'Paper hot cups and lids on an espresso bar counter|4|3|1600'
+    when 'persona-deli'
+      assign row = 'A refrigerated grab-and-go case stocked with clamshells of prepared food|4|3|1600'
+    when 'persona-full-service'
+      assign row = 'A restaurant back-of-house station with gloves, napkins and containers|4|3|1600'
+
+    # ------------------------------------------------ Parent collection banners
+    when 'col-food-packaging'
+      assign row = 'Cases of deli containers, take-out boxes and clamshells|3|1|2400'
+    when 'col-food-service'
+      assign row = 'Paper hot cups, cold cups, cutlery and plates in case quantity|3|1|2400'
+    when 'col-disposable-gloves'
+      assign row = 'Cases of black and blue nitrile gloves, one box open|3|1|2400'
+    when 'col-paper-products'
+      assign row = 'Bales of paper towels, napkins and bath tissue|3|1|2400'
+    when 'col-janitorial-cleaning'
+      assign row = 'Can liner rolls and gallon jugs of cleaning chemicals|3|1|2400'
+    when 'col-compostable'
+      assign row = 'Bagasse plates, moulded pulp trays and kraft paper pails|3|1|2400'
+
+    # ------------------------------------------------ Sub-collection banners
+    #
+    # The guide gives a pattern for these and asks for a specific line only where
+    # the picture shows something specific. The two it names are here; the rest
+    # fall through to the pattern at the bottom, which uses the live collection
+    # title so renaming a collection cannot leave the alt text stale.
+    when 'sub-hinged-clamshells'
+      assign row = 'Hinged clamshells showing four closure types, in case quantity on a warehouse floor|16|9|2000'
+    when 'sub-portion-cups-lids'
+      assign row = 'Portion cups and lids in graduated sizes, in case quantity on a warehouse floor|16|9|2000'
+
+    # ------------------------------------------------ Page header bands
+    #
+    # REVIEW THESE AGAINST THE FILES. The guide writes out only `page-returns`,
+    # and `page-shipping` is named in its blocked list as a departing truck. The
+    # rest are drafted from the page they sit on, not from the picture, so each
+    # one needs eyes on the real file before launch. A wrong description is worse
+    # than the pattern it was meant to satisfy. See docs/image-placement.md.
+    when 'page-returns'
+      assign row = 'A kraft case with a crushed corner on a warehouse floor|3|1|2400'
+    when 'page-shipping'
+      assign row = 'A delivery truck pulling away from a loading dock|3|1|2400'
+    when 'page-wholesale'
+      assign row = 'A wrapped pallet of mixed cases staged for a wholesale order|3|1|2400'
+    when 'page-about'
+      assign row = 'A stocked warehouse aisle seen from the floor|3|1|2400'
+    when 'page-faq'
+      assign row = 'A clipboard of packing notes resting on a stack of cases|3|1|2400'
+    when 'page-rewards'
+      assign row = 'Cases stacked in a rising step pattern on a warehouse floor|3|1|2400'
+    when 'page-referral'
+      assign row = 'Two loaded hand trucks side by side in a warehouse aisle|3|1|2400'
+    when 'page-quick-order'
+      assign row = 'A picking aisle with cases pulled and ready to load|3|1|2400'
+    when 'page-contact'
+      assign row = 'A warehouse office counter with a phone and an order pad|3|1|2400'
+    when 'page-field-notes'
+      assign row = 'A notebook and pen on a prep counter beside stacked cases|3|1|2400'
+    when 'blog-default'
+      assign row = 'Cases of restaurant supplies stacked in a warehouse aisle|16|9|2000'
+  endcase
+
+  # The sub-collection pattern from guide section 5.
+  if row == blank and key contains 'sub-'
+    assign label = name
+    if label == blank
+      assign label = key | remove_first: 'sub-' | replace: '-', ' ' | capitalize
+    endif
+    assign row = label | append: ' in case quantity on a warehouse floor|16|9|2000'
+  endif
+-%}
+{{- row -}}

@@ -78,6 +78,14 @@
     </div>
 
     <div class="rsh-explainer__media">
+      {%- comment -%}
+        Guide 3.5 asks for a screenshot of the live price block here, because the
+        one block on the home page whose whole job is "check our numbers" cannot
+        be the block that is lying. The example card below is better than a
+        screenshot: it is the real price block, priced from a real product, so
+        the numbers cannot drift away from the catalogue at all. The uploaded
+        screenshot setting stays for anyone who wants one instead.
+      {%- endcomment -%}
       {%- if section.settings.image != blank -%}
         <figure class="rsh-explainer__figure">
           {{
@@ -118,6 +126,15 @@
             %}
           {%- endif -%}
         </div>
+      {%- endif -%}
+
+      {%- if section.settings.show_photo -%}
+        <figure class="rsh-explainer__photo">
+          {%- render 'rsh-image',
+            key: 'per-piece-hand-bowl',
+            sizes: '(min-width: 750px) 44vw, 100vw'
+          -%}
+        </figure>
       {%- endif -%}
     </div>
   </div>
@@ -169,7 +186,14 @@
     {
       "type": "image_picker",
       "id": "image",
-      "label": "Screenshot"
+      "label": "Screenshot",
+      "info": "Only if you want a still instead of the live price block. Never mock one up: if the numbers in the picture do not match the product page, this block is lying."
+    },
+    {
+      "type": "checkbox",
+      "id": "show_photo",
+      "label": "Show per-piece-hand-bowl.webp beside it",
+      "default": true
     },
     {
       "type": "product",

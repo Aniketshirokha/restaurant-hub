@@ -1,0 +1,109 @@
+{%- doc -%}
+  Draws one image from the Shopify Files library by filename.
+
+  Everything the placement guide asks for on every `<img>` happens here rather
+  than at each call site: a srcset at the widths that matter for this set, an
+  explicit width and height so nothing reflows as the page loads, the centre crop
+  that keeps the empty overlay third centred, and the alt text from the library.
+
+  Renders nothing at all when the file has not been uploaded yet, so a partly
+  uploaded library degrades to a missing picture rather than a broken page.
+
+  @param {string} key - Filename without the extension, e.g. 'hero-warehouse-dock'
+  @param {string} [sizes] - The `sizes` attribute. Defaults to '100vw'
+  @param {string} [loading] - 'eager' or 'lazy'. Defaults to 'lazy'
+  @param {string} [fetchpriority] - Set to 'high' on the one LCP image per page
+  @param {string} [class] - Extra classes on the `<img>`
+  @param {string} [name] - Collection title, for the sub-collection alt pattern
+  @param {string} [alt] - Overrides the library alt text
+  @param {string} [ratio] - 'w:h', overrides the library render ratio
+
+  @example
+  {% render 'rsh-image', key: 'col-food-packaging', sizes: '100vw' %}
+{%- enddoc -%}
+
+{%- liquid
+  capture library_row
+    render 'rsh-image-library', key: key, name: name
+  endcapture
+
+  assign parts = library_row | strip | split: '|'
+  assign library_alt = parts[0]
+  assign ratio_w = parts[1] | plus: 0
+  assign ratio_h = parts[2] | plus: 0
+  assign upload_width = parts[3] | plus: 0
+
+  if ratio != blank
+    assign override = ratio | split: ':'
+    assign ratio_w = override[0] | plus: 0
+    assign ratio_h = override[1] | plus: 0
+  endif
+
+  # A key with no row in the library, or a malformed row, draws nothing. The
+  # guard matters: every size below divides by the ratio width.
+  assign known = false
+  if upload_width > 0 and ratio_w > 0 and ratio_h > 0
+    assign known = true
+  endif
+-%}
+
+{%- if known -%}
+  {%- liquid
+    if alt == blank
+      assign alt = library_alt
+    endif
+    if alt == '-'
+      assign alt = ''
+    endif
+
+    assign filename = key | append: '.webp'
+    assign sizes = sizes | default: '100vw'
+    assign loading = loading | default: 'lazy'
+
+    # The widths the guide names, kept to what the file can actually supply, with
+    # the upload width itself always on the end so the largest rendering is sharp.
+    assign width_list = ''
+    assign candidates = '750,1100,1500,2000,3000' | split: ','
+    for candidate in candidates
+      assign candidate_width = candidate | plus: 0
+      if candidate_width < upload_width
+        assign width_list = width_list | append: candidate | append: ','
+      endif
+    endfor
+    assign width_list = width_list | append: upload_width | split: ','
+
+    assign height = upload_width | times: ratio_h | divided_by: ratio_w
+    assign fallback_dimensions = upload_width | append: 'x' | append: height
+
+    capture fallback
+      echo filename | file_img_url: fallback_dimensions, crop: 'center'
+    endcapture
+    assign fallback = fallback | strip
+  -%}
+
+  {%- capture srcset -%}
+    {%- for width in width_list -%}
+      {%- liquid
+        assign w = width | plus: 0
+        assign h = w | times: ratio_h | divided_by: ratio_w
+        assign dimensions = w | append: 'x' | append: h
+      -%}
+      {{- filename | file_img_url: dimensions, crop: 'center' }} {{ w }}w{% unless forloop.last %}, {% endunless %}
+    {%- endfor -%}
+  {%- endcapture -%}
+
+  {%- if fallback != blank -%}
+    <img
+      src="{{ fallback }}"
+      srcset="{{ srcset | strip }}"
+      sizes="{{ sizes }}"
+      alt="{{ alt | escape }}"
+      width="{{ upload_width }}"
+      height="{{ height }}"
+      loading="{{ loading }}"
+      decoding="async"
+      {% if fetchpriority != blank %}fetchpriority="{{ fetchpriority }}"{% endif %}
+      class="rsh-img{% if class != blank %} {{ class }}{% endif %}"
+    >
+  {%- endif -%}
+{%- endif -%}

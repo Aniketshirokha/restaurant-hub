@@ -11,6 +11,18 @@
 {%- assign block_settings = block.settings -%}
 <div class="blog-post-card__image-container">
   <a href="{{ article.url }}">
+    {%- if image == blank -%}
+      {%- comment -%}
+        Without this the card emits an `<img>` with no src and no dimensions.
+      {%- endcomment -%}
+      {%- assign fallback_class = 'border-style blog-post-card__image blog-post-card__image--' | append: block_settings.height -%}
+      {%- render 'rsh-image',
+        key: 'blog-default',
+        sizes: '(min-width: 750px) 50vw, 100vw',
+        loading: 'eager',
+        class: fallback_class
+      -%}
+    {%- else -%}
     <img
       srcset="
         {% if image.width >= 350 %}{{ image | image_url: width: 350 }} 350w,{% endif %}
@@ -32,6 +44,7 @@
       "
       style="{% render 'border-override', settings: block_settings %}"
     >
+    {%- endif -%}
   </a>
 </div>
 

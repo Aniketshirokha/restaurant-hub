@@ -280,9 +280,18 @@
       "block_order": [
         "rew_g"
       ]
+    },
+    "header_band": {
+      "type": "rsh-page-header",
+      "settings": {
+        "section_width": "page-width",
+        "padding-block-start": 0,
+        "padding-block-end": 32
+      }
     }
   },
   "order": [
+    "header_band",
     "copy"
   ]
 }
