@@ -398,7 +398,7 @@
             "custom_width_mobile": 100,
             "height": "fit",
             "custom_height": 100,
-            "background_media": "image",
+            "background_media": "none",
             "background_color": "",
             "video_position": "cover",
             "background_image_position": "cover",
