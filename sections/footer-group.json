@@ -11,57 +11,81 @@
   "type": "footer",
   "name": "t:names.footer",
   "sections": {
-    "utilities": {
-      "type": "footer-utilities",
+    "rsh_footer": {
+      "type": "rsh-footer",
       "blocks": {
-        "footer_policy_list_Hj84YB": {
-          "type": "footer-policy-list",
-          "name": "t:names.policy_list",
+        "shop": {
+          "type": "menu",
           "settings": {
-            "text_color": "",
-            "font_size": "0.75rem",
-            "case": "none"
-          },
-          "blocks": {}
+            "heading": "Shop",
+            "menu": "main-menu",
+            "parent": "SHOP",
+            "extra_label": "Shop all supplies",
+            "extra_url": "shopify://collections/shop-all"
+          }
         },
-        "copyright": {
-          "type": "footer-copyright",
+        "business": {
+          "type": "menu",
           "settings": {
-            "show_powered_by": true,
-            "text_color": "",
-            "font_size": "0.75rem",
-            "case": "none"
-          },
-          "blocks": {}
+            "heading": "By business",
+            "menu": "main-menu",
+            "parent": "SHOP BY BUSINESS",
+            "extra_label": "",
+            "extra_url": ""
+          }
         },
-        "footer_policy_list_rfGrqz": {
-          "type": "footer-policy-list",
-          "name": "t:names.policy_list",
+        "company": {
+          "type": "links",
           "settings": {
-            "text_color": "",
-            "font_size": "0.75rem",
-            "case": "none"
-          },
-          "blocks": {}
+            "heading": "Company",
+            "label_1": "Why us",
+            "url_1": "shopify://pages/why-us",
+            "label_2": "Volume deals",
+            "url_2": "shopify://pages/deals",
+            "label_3": "Contact",
+            "url_3": "shopify://pages/contact",
+            "label_4": "",
+            "url_4": "",
+            "label_5": "",
+            "url_5": "",
+            "label_6": "",
+            "url_6": ""
+          }
         }
       },
       "block_order": [
-        "footer_policy_list_Hj84YB",
-        "copyright",
-        "footer_policy_list_rfGrqz"
+        "shop",
+        "business",
+        "company"
       ],
       "settings": {
-        "section_width": "page-width",
-        "gap": 24,
-        "background_color": "{{ settings.color_palette.background }}",
-        "divider_thickness": 1,
-        "divider_color": "",
-        "padding-block-start": 20,
-        "padding-block-end": 18
+        "show_signup": true,
+        "signup_heading": "Restock reminders and volume deals",
+        "signup_text": "Once a month at most. New lines, price drops, and the odd sample offer.",
+        "signup_placeholder": "Work email",
+        "signup_button": "Sign up",
+        "signup_success": "You're on the list.",
+        "tagline": "Wholesale restaurant supply by the case, with the per-piece price on every product.",
+        "email": "",
+        "phone": "",
+        "location": "Shipping nationwide from California",
+        "hours": "",
+        "social_instagram": "",
+        "social_facebook": "",
+        "social_linkedin": "",
+        "social_youtube": "",
+        "social_tiktok": "",
+        "social_x": "",
+        "note": "All rights reserved.",
+        "show_policies": true,
+        "show_payment": true,
+        "top_label": "Back to top",
+        "padding-block-start": 64,
+        "padding-block-end": 32
       }
     }
   },
   "order": [
-    "utilities"
+    "rsh_footer"
   ]
 }
