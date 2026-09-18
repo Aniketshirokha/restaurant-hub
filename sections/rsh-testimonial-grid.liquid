@@ -1,0 +1,237 @@
+{%- doc -%}
+  Real quotes, three at a time, at the foot of the product page.
+
+  The grid shows its first three cards and a "View more" that brings the next
+  three in, so a buyer who wants proof gets it without a wall of text pushing
+  the footer off the screen, and one who does not scrolls past three cards.
+  Each card names the product the buyer was talking about and links to it, and
+  quotes about the product on this page are moved to the front.
+
+  Only real quotes go in. A slot with no quote renders nothing on the
+  storefront and a dashed placeholder in the theme editor; with no filled slot
+  the section renders nothing at all, heading included. Invented testimonials
+  are what the FTC's rule on consumer reviews and testimonials bans, and the
+  store has nothing to gain from a promise it cannot back. Ask the buyer before
+  quoting them, keep their words as they said them, and pick the product they
+  actually bought.
+
+  As with the wall on the home page: no stars, no average, no avatar, no
+  "verified" badge.
+
+  Cards past the first three ship with `hidden` already set, so nothing
+  flashes or jumps; the script only wires the button. Without JavaScript the
+  <noscript> rule below shows every card and drops the button.
+{%- enddoc -%}
+
+<script src="{{ 'rsh-testimonial-grid.js' | asset_url }}" type="module" fetchpriority="low"></script>
+{%- if section.settings.reveal -%}
+  <script src="{{ 'rsh-reveal.js' | asset_url }}" type="module"></script>
+{%- endif -%}
+
+{%- liquid
+  assign visible = section.settings.visible | default: 3
+  assign show_product = section.settings.show_product
+  assign show_thumbnail = section.settings.show_thumbnail
+
+  assign filled = 0
+  for block in section.blocks
+    if block.settings.quote != blank
+      assign filled = filled | plus: 1
+    endif
+  endfor
+
+  assign current_handle = ''
+  if section.settings.current_first and product != blank
+    assign current_handle = product.handle
+  endif
+
+  if section.settings.background_color != blank
+    render 'contrast-override', background_color: section.settings.background_color, section_id: section.id
+  endif
+-%}
+
+{%- if filled > 0 or request.design_mode -%}
+  <div
+    class="section-background{% if section.settings.background_color != blank %} color-custom-{{ section.id }}{% endif %}"
+  ></div>
+
+  <div
+    class="
+      section
+      section--{{ section.settings.section_width }}
+      {% if section.settings.background_color != blank %}color-custom-{{ section.id }}{% endif %}
+      spacing-style
+    "
+    style="{% render 'spacing-style', settings: section.settings %}"
+  >
+    <rsh-testimonial-grid
+      class="rsh-tgrid rsh-tgrid--{{ section.settings.card_style }}"
+      data-visible="{{ visible }}"
+      data-more-label="{{ section.settings.more_label | default: 'View more' | escape }}"
+      data-fewer-label="{{ section.settings.fewer_label | default: 'Show fewer' | escape }}"
+      data-status-template="Showing [shown] of [total] quotes"
+      {% if section.settings.allow_fewer %}data-allow-fewer{% endif %}
+      {% if section.settings.reveal %}data-rsh-reveal{% endif %}
+    >
+      {%- if section.settings.eyebrow != blank or section.settings.heading != blank or section.settings.body != blank -%}
+        <header class="rsh-tgrid__intro">
+          {%- if section.settings.eyebrow != blank -%}
+            <p class="rsh-eyebrow">{{ section.settings.eyebrow | escape }}</p>
+          {%- endif -%}
+          {%- if section.settings.heading != blank -%}
+            <h2 class="rsh-heading h2">{{ section.settings.heading | escape }}</h2>
+          {%- endif -%}
+          {%- if section.settings.body != blank -%}
+            <div class="rsh-lede rte">{{ section.settings.body }}</div>
+          {%- endif -%}
+        </header>
+      {%- endif -%}
+
+      <ol class="rsh-tgrid__grid" role="list" id="rsh-tgrid-{{ section.id }}">
+        {%- liquid
+          assign position = 0
+          if current_handle != blank
+            for block in section.blocks
+              if block.settings.quote != blank and block.settings.product.handle == current_handle
+                assign position = position | plus: 1
+                render 'rsh-testimonial-card', block: block, position: position, visible: visible, show_product: show_product, show_thumbnail: show_thumbnail
+              endif
+            endfor
+          endif
+        -%}
+        {%- for block in section.blocks -%}
+          {%- if block.settings.quote != blank -%}
+            {%- if current_handle != blank and block.settings.product.handle == current_handle -%}
+              {%- continue -%}
+            {%- endif -%}
+            {%- assign position = position | plus: 1 -%}
+            {%- render 'rsh-testimonial-card',
+              block: block,
+              position: position,
+              visible: visible,
+              show_product: show_product,
+              show_thumbnail: show_thumbnail
+            -%}
+          {%- elsif request.design_mode -%}
+            <li class="rsh-tgrid__item rsh-tgrid__item--empty" {{ block.shopify_attributes }}>
+              <div class="rsh-tgrid__card rsh-tgrid__card--empty">
+                <p class="rsh-tgrid__slot">Quote {{ forloop.index }}</p>
+                <p class="rsh-tgrid__hint">
+                  Paste a buyer's words, add their name and business, then pick the product they meant. Empty slots never show on the storefront.
+                </p>
+              </div>
+            </li>
+          {%- endif -%}
+        {%- endfor -%}
+      </ol>
+
+      {%- if filled > visible -%}
+        <div class="rsh-tgrid__foot">
+          <button
+            type="button"
+            class="rsh-tgrid__more"
+            data-more
+            aria-controls="rsh-tgrid-{{ section.id }}"
+            aria-expanded="false"
+          >
+            <span data-more-label>{{ section.settings.more_label | default: 'View more' | escape }}</span>
+            <span class="rsh-tgrid__count" data-more-count>{{ filled | minus: visible }}</span>
+          </button>
+          <p class="visually-hidden" data-status aria-live="polite"></p>
+        </div>
+        <noscript>
+          <style>
+            #rsh-tgrid-{{ section.id }} .rsh-tgrid__item[hidden] { display: flex; }
+            #rsh-tgrid-{{ section.id }} + .rsh-tgrid__foot { display: none; }
+          </style>
+        </noscript>
+      {%- endif -%}
+    </rsh-testimonial-grid>
+  </div>
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "Testimonials, three at a time",
+  "disabled_on": {
+    "groups": ["header", "footer"]
+  },
+  "max_blocks": 40,
+  "settings": [
+    {
+      "type": "paragraph",
+      "content": "Real quotes only. A slot with no quote never shows on the storefront; with no quotes at all the whole section stays off. Ask the buyer first, keep their words as they said them, and pick the product they bought."
+    },
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "From the kitchens we supply" },
+    { "type": "text", "id": "heading", "label": "Heading", "default": "In their words" },
+    {
+      "type": "richtext",
+      "id": "body",
+      "label": "Lede",
+      "default": "<p>Buyers on the products they order from us. Every quote links to the product it is about.</p>"
+    },
+    { "type": "header", "content": "Three at a time" },
+    {
+      "type": "range",
+      "id": "visible",
+      "label": "Quotes shown before the button",
+      "min": 3,
+      "max": 9,
+      "step": 3,
+      "default": 3
+    },
+    { "type": "text", "id": "more_label", "label": "Button", "default": "View more" },
+    { "type": "checkbox", "id": "allow_fewer", "label": "Let the button fold the grid back", "default": true },
+    { "type": "text", "id": "fewer_label", "label": "Folded-back label", "default": "Show fewer", "visible_if": "{{ section.settings.allow_fewer }}" },
+    { "type": "header", "content": "Cards" },
+    { "type": "checkbox", "id": "show_product", "label": "Name and link the product", "default": true },
+    { "type": "checkbox", "id": "show_thumbnail", "label": "Show the product's picture", "default": true, "visible_if": "{{ section.settings.show_product }}" },
+    { "type": "checkbox", "id": "current_first", "label": "Quotes about this product first", "default": true },
+    {
+      "type": "select",
+      "id": "card_style",
+      "label": "Card style",
+      "options": [
+        { "value": "filled", "label": "Tinted" },
+        { "value": "outlined", "label": "Outlined" }
+      ],
+      "default": "filled"
+    },
+    { "type": "checkbox", "id": "reveal", "label": "Cards arrive as you scroll", "default": true },
+    { "type": "header", "content": "Layout" },
+    {
+      "type": "select",
+      "id": "section_width",
+      "label": "Width",
+      "options": [
+        { "value": "page-width", "label": "Page" },
+        { "value": "full-width", "label": "Full" }
+      ],
+      "default": "page-width"
+    },
+    { "type": "color", "id": "background_color", "label": "Background", "placeholder": "Default" },
+    { "type": "header", "content": "Padding" },
+    { "type": "range", "id": "padding-block-start", "label": "Top", "min": 0, "max": 200, "step": 4, "unit": "px", "default": 64 },
+    { "type": "range", "id": "padding-block-end", "label": "Bottom", "min": 0, "max": 200, "step": 4, "unit": "px", "default": 64 }
+  ],
+  "blocks": [
+    {
+      "type": "quote",
+      "name": "Quote",
+      "settings": [
+        { "type": "richtext", "id": "quote", "label": "Their words", "info": "As they said them. Leave empty to keep the slot off the storefront." },
+        { "type": "text", "id": "name", "label": "Name", "info": "First name and last initial, as agreed with them." },
+        { "type": "text", "id": "role", "label": "Business", "info": "Taqueria owner, cloud kitchen, caterer." },
+        { "type": "text", "id": "place", "label": "City" },
+        { "type": "product", "id": "product", "label": "The product they mean" }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Testimonials, three at a time",
+      "blocks": [{ "type": "quote" }, { "type": "quote" }, { "type": "quote" }]
+    }
+  ]
+}
+{% endschema %}

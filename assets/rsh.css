@@ -4837,3 +4837,362 @@
   font-family: var(--font-accent--family, inherit);
   font-weight: var(--font-accent--weight, 600);
 }
+
+/* -------------------------------------------------------------------
+ * Testimonial grid: three at a time
+ *
+ * Cards past the visible count carry `hidden`; the script takes it off in
+ * threes. The `.is-new` animation only runs on cards the button brought in.
+ * ------------------------------------------------------------------ */
+
+.rsh-tgrid {
+  display: block;
+  width: 100%;
+}
+
+.rsh-tgrid__intro {
+  max-width: 40rem;
+  margin-block-end: clamp(1.5rem, 3vw, 2.5rem);
+}
+
+.rsh-tgrid__intro .rsh-lede {
+  margin-block-start: 0.6rem;
+}
+
+.rsh-tgrid__grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: var(--gap-md, 20px);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+@media screen and (min-width: 750px) {
+  .rsh-tgrid__grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media screen and (min-width: 990px) {
+  .rsh-tgrid__grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+.rsh-tgrid__item {
+  display: flex;
+  min-width: 0;
+}
+
+.rsh-tgrid__item[hidden] {
+  display: none;
+}
+
+.rsh-tgrid__card {
+  position: relative;
+  display: grid;
+  grid-template-rows: 1fr auto;
+  gap: var(--gap-md, 20px);
+  width: 100%;
+  margin: 0;
+  padding: clamp(20px, 2.6vw, 30px);
+  background: var(--color-background, #fff);
+  border: 1px solid var(--rsh-hairline);
+  border-radius: var(--rsh-radius-lg);
+  transition:
+    transform 220ms cubic-bezier(0.2, 0.7, 0.3, 1),
+    box-shadow 220ms ease,
+    border-color 220ms ease;
+}
+
+.rsh-tgrid--filled .rsh-tgrid__card {
+  background: var(--rsh-wash);
+  border-color: transparent;
+}
+
+.rsh-tgrid__card::before {
+  content: '';
+  position: absolute;
+  inset-block-start: 0;
+  inset-inline: 0;
+  block-size: 3px;
+  background: var(--rsh-accent);
+  border-start-start-radius: var(--rsh-radius-lg);
+  border-start-end-radius: var(--rsh-radius-lg);
+  opacity: 0;
+  transition: opacity 220ms ease;
+}
+
+.rsh-tgrid__card:hover {
+  border-color: var(--rsh-hairline-strong);
+  box-shadow:
+    0 1px 2px rgb(var(--color-foreground-rgb) / 0.04),
+    0 16px 32px -16px rgb(var(--color-foreground-rgb) / 0.22);
+}
+
+.rsh-tgrid--filled .rsh-tgrid__card:hover {
+  background: var(--color-background, #fff);
+}
+
+.rsh-tgrid__card:hover::before {
+  opacity: 1;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .rsh-tgrid__card:hover {
+    transform: translateY(-3px);
+  }
+}
+
+.rsh-tgrid__card:focus {
+  outline: none;
+}
+
+.rsh-tgrid__card:focus-visible {
+  outline: 2px solid var(--rsh-accent);
+  outline-offset: 3px;
+}
+
+.rsh-tgrid__quote {
+  margin: 0;
+  font-size: 1rem;
+  line-height: 1.6;
+  color: rgb(var(--color-foreground-rgb) / 0.84);
+  text-wrap: pretty;
+}
+
+.rsh-tgrid__quote p {
+  margin: 0;
+}
+
+.rsh-tgrid__quote p + p {
+  margin-block-start: 0.6em;
+}
+
+.rsh-tgrid__mark {
+  display: block;
+  height: 0.5em;
+  margin-block-end: 0.4em;
+  font-family: Georgia, 'Times New Roman', serif;
+  font-size: 3rem;
+  line-height: 0.8;
+  color: var(--rsh-accent);
+  opacity: 0.35;
+  user-select: none;
+}
+
+.rsh-tgrid__by {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem 1rem;
+  align-items: center;
+  justify-content: space-between;
+  padding-block-start: var(--gap-sm, 12px);
+  border-block-start: 1px solid var(--rsh-hairline);
+}
+
+.rsh-tgrid__who {
+  display: grid;
+  gap: 0.15rem;
+  min-width: 0;
+}
+
+.rsh-tgrid__name {
+  font-family: var(--font-accent--family, inherit);
+  font-style: var(--font-accent--style, normal);
+  font-weight: var(--font-accent--weight, 600);
+  font-size: var(--font-size--sm, 0.9375rem);
+}
+
+.rsh-tgrid__role {
+  font-size: var(--font-size--xs, 0.8125rem);
+  color: var(--rsh-muted);
+}
+
+.rsh-tgrid__product {
+  display: inline-flex;
+  gap: 0.6rem;
+  align-items: center;
+  max-width: 100%;
+  padding: 0.3rem 0.8rem 0.3rem 0.3rem;
+  color: inherit;
+  text-decoration: none;
+  background: var(--color-background, #fff);
+  border: 1px solid var(--rsh-hairline);
+  border-radius: 999px;
+  transition: border-color 160ms ease;
+}
+
+.rsh-tgrid--outlined .rsh-tgrid__product {
+  background: var(--rsh-wash);
+}
+
+.rsh-tgrid__product:hover {
+  border-color: var(--rsh-hairline-strong);
+}
+
+.rsh-tgrid__product:hover .rsh-tgrid__product-title {
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.rsh-tgrid__thumb {
+  flex: 0 0 auto;
+  width: 36px;
+  height: 36px;
+  object-fit: cover;
+  background: var(--rsh-wash-strong);
+  border-radius: 50%;
+}
+
+.rsh-tgrid__product-text {
+  display: grid;
+  min-width: 0;
+  line-height: 1.25;
+}
+
+.rsh-tgrid__product-kicker {
+  font-size: 0.6875rem;
+  letter-spacing: 0.08em;
+  color: var(--rsh-muted);
+  text-transform: uppercase;
+}
+
+.rsh-tgrid__product-title {
+  display: -webkit-box;
+  max-width: 15rem;
+  overflow: hidden;
+  font-size: var(--font-size--xs, 0.8125rem);
+  font-weight: 600;
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
+  -webkit-box-orient: vertical;
+}
+
+.rsh-tgrid__product-arrow {
+  color: var(--rsh-accent);
+  transition: transform 160ms ease;
+}
+
+.rsh-tgrid__product:hover .rsh-tgrid__product-arrow {
+  transform: translateX(3px);
+}
+
+.rsh-tgrid__foot {
+  display: flex;
+  justify-content: center;
+  margin-block-start: clamp(1.5rem, 3vw, 2.5rem);
+}
+
+.rsh-tgrid__more {
+  display: inline-flex;
+  gap: 0.7rem;
+  align-items: center;
+  min-height: 48px;
+  padding: 0.7rem 1.1rem 0.7rem 1.5rem;
+  font-family: var(--font-accent--family, inherit);
+  font-style: var(--font-accent--style, normal);
+  font-weight: var(--font-accent--weight, 600);
+  font-size: var(--font-size--sm, 0.9375rem);
+  line-height: 1;
+  color: inherit;
+  cursor: pointer;
+  background: var(--color-background, #fff);
+  border: 1px solid var(--rsh-hairline-strong);
+  border-radius: 999px;
+  transition:
+    border-color 160ms ease,
+    background-color 160ms ease,
+    transform 160ms ease;
+}
+
+.rsh-tgrid__more:hover {
+  background: var(--rsh-accent-wash);
+  border-color: var(--rsh-accent);
+}
+
+.rsh-tgrid__more:focus-visible {
+  outline: 2px solid var(--rsh-accent);
+  outline-offset: 3px;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .rsh-tgrid__more:active {
+    transform: translateY(1px);
+  }
+}
+
+.rsh-tgrid__count {
+  display: inline-grid;
+  place-items: center;
+  min-width: 1.7em;
+  height: 1.7em;
+  padding: 0 0.5em;
+  font-size: 0.75em;
+  font-weight: 700;
+  line-height: 1;
+  color: #fff;
+  background: var(--rsh-accent);
+  border-radius: 999px;
+}
+
+.rsh-tgrid__count[hidden] {
+  display: none;
+}
+
+@keyframes rsh-tgrid-in {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.rsh-tgrid__item.is-new .rsh-tgrid__card {
+  animation: rsh-tgrid-in 520ms cubic-bezier(0.2, 0.7, 0.2, 1) both;
+  animation-delay: calc(var(--rsh-tgrid-i, 0) * 70ms);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .rsh-tgrid__item.is-new .rsh-tgrid__card {
+    animation: none;
+  }
+}
+
+/* Empty slots: theme editor only, never the storefront. */
+
+.rsh-tgrid__card--empty {
+  display: grid;
+  gap: 0.5rem;
+  align-content: center;
+  min-height: 12rem;
+  color: var(--rsh-muted);
+  text-align: center;
+  background: transparent;
+  border: 1.5px dashed var(--rsh-hairline-strong);
+}
+
+.rsh-tgrid__card--empty::before {
+  display: none;
+}
+
+.rsh-tgrid__slot {
+  margin: 0;
+  font-family: var(--font-accent--family, inherit);
+  font-weight: var(--font-accent--weight, 600);
+  font-size: 0.75rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.rsh-tgrid__hint {
+  max-width: 26ch;
+  margin: 0 auto;
+  font-size: var(--font-size--sm, 0.875rem);
+  line-height: 1.5;
+}

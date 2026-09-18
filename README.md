@@ -39,6 +39,7 @@ ladder is visible without asking, on any plan. So the pricing pieces are ours.
 | **Volume pricing table** | Home, Wholesale |
 | **Shop by business** | Home, Shop by business |
 | **Customer quotes** | Home, Reviews |
+| **Testimonials, three at a time** | Product (20 empty slots; shows nothing until real quotes go in) |
 | **Quick order pad** | Quick order |
 | **Wholesale application** | Wholesale application, Quote, Samples |
 | **Free shipping progress** | Cart |
@@ -221,6 +222,15 @@ days after delivery, and at ninety days replace the quotes section with the app'
 widget. At that point the badges and the average come back, legitimately. Keep
 these quotes out of the review app so they can never be counted into a real
 average.
+
+**No invented testimonials.** The product page ends in a grid built for
+twenty real quotes, three showing and a "View more" for the rest, each linked to
+the product the buyer meant. Its twenty slots are empty and it renders nothing
+until a real quote goes in: writing testimonials and publishing them as buyers'
+words is what the FTC's rule on consumer reviews and testimonials bans
+(16 CFR 465), and the three illustrative quotes on the home page should be
+swapped for real ones, or removed, before the password comes off. Ask the buyer,
+keep their words as said, pick the product they bought.
 
 **No invented customer numbers.** "17 years sourcing this category" is true and
 checkable. "Trusted by 400 kitchens" is a claim that would have to be defended.

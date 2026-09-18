@@ -782,12 +782,238 @@
         "padding-block-start": 48,
         "padding-block-end": 48
       }
+    },
+    "rsh_quotes": {
+      "type": "rsh-testimonial-grid",
+      "blocks": {
+        "q01": {
+          "type": "quote",
+          "settings": {
+            "quote": "",
+            "name": "",
+            "role": "",
+            "place": ""
+          }
+        },
+        "q02": {
+          "type": "quote",
+          "settings": {
+            "quote": "",
+            "name": "",
+            "role": "",
+            "place": ""
+          }
+        },
+        "q03": {
+          "type": "quote",
+          "settings": {
+            "quote": "",
+            "name": "",
+            "role": "",
+            "place": ""
+          }
+        },
+        "q04": {
+          "type": "quote",
+          "settings": {
+            "quote": "",
+            "name": "",
+            "role": "",
+            "place": ""
+          }
+        },
+        "q05": {
+          "type": "quote",
+          "settings": {
+            "quote": "",
+            "name": "",
+            "role": "",
+            "place": ""
+          }
+        },
+        "q06": {
+          "type": "quote",
+          "settings": {
+            "quote": "",
+            "name": "",
+            "role": "",
+            "place": ""
+          }
+        },
+        "q07": {
+          "type": "quote",
+          "settings": {
+            "quote": "",
+            "name": "",
+            "role": "",
+            "place": ""
+          }
+        },
+        "q08": {
+          "type": "quote",
+          "settings": {
+            "quote": "",
+            "name": "",
+            "role": "",
+            "place": ""
+          }
+        },
+        "q09": {
+          "type": "quote",
+          "settings": {
+            "quote": "",
+            "name": "",
+            "role": "",
+            "place": ""
+          }
+        },
+        "q10": {
+          "type": "quote",
+          "settings": {
+            "quote": "",
+            "name": "",
+            "role": "",
+            "place": ""
+          }
+        },
+        "q11": {
+          "type": "quote",
+          "settings": {
+            "quote": "",
+            "name": "",
+            "role": "",
+            "place": ""
+          }
+        },
+        "q12": {
+          "type": "quote",
+          "settings": {
+            "quote": "",
+            "name": "",
+            "role": "",
+            "place": ""
+          }
+        },
+        "q13": {
+          "type": "quote",
+          "settings": {
+            "quote": "",
+            "name": "",
+            "role": "",
+            "place": ""
+          }
+        },
+        "q14": {
+          "type": "quote",
+          "settings": {
+            "quote": "",
+            "name": "",
+            "role": "",
+            "place": ""
+          }
+        },
+        "q15": {
+          "type": "quote",
+          "settings": {
+            "quote": "",
+            "name": "",
+            "role": "",
+            "place": ""
+          }
+        },
+        "q16": {
+          "type": "quote",
+          "settings": {
+            "quote": "",
+            "name": "",
+            "role": "",
+            "place": ""
+          }
+        },
+        "q17": {
+          "type": "quote",
+          "settings": {
+            "quote": "",
+            "name": "",
+            "role": "",
+            "place": ""
+          }
+        },
+        "q18": {
+          "type": "quote",
+          "settings": {
+            "quote": "",
+            "name": "",
+            "role": "",
+            "place": ""
+          }
+        },
+        "q19": {
+          "type": "quote",
+          "settings": {
+            "quote": "",
+            "name": "",
+            "role": "",
+            "place": ""
+          }
+        },
+        "q20": {
+          "type": "quote",
+          "settings": {
+            "quote": "",
+            "name": "",
+            "role": "",
+            "place": ""
+          }
+        }
+      },
+      "block_order": [
+        "q01",
+        "q02",
+        "q03",
+        "q04",
+        "q05",
+        "q06",
+        "q07",
+        "q08",
+        "q09",
+        "q10",
+        "q11",
+        "q12",
+        "q13",
+        "q14",
+        "q15",
+        "q16",
+        "q17",
+        "q18",
+        "q19",
+        "q20"
+      ],
+      "settings": {
+        "eyebrow": "From the kitchens we supply",
+        "heading": "In their words",
+        "body": "<p>Buyers on the products they order from us. Every quote links to the product it is about.</p>",
+        "visible": 3,
+        "more_label": "View more",
+        "allow_fewer": true,
+        "fewer_label": "Show fewer",
+        "show_product": true,
+        "show_thumbnail": true,
+        "current_first": true,
+        "card_style": "filled",
+        "reveal": true,
+        "section_width": "page-width",
+        "background_color": "",
+        "padding-block-start": 64,
+        "padding-block-end": 72
+      }
     }
   },
   "order": [
     "main",
     "rsh_recommend",
     "product_list_zR9Cym",
-    "rsh_samples"
+    "rsh_samples",
+    "rsh_quotes"
   ]
 }

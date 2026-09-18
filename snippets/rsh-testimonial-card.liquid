@@ -1,0 +1,69 @@
+{%- doc -%}
+  One card of the testimonial grid: the quote, who said it, and the product
+  they were talking about, linked.
+
+  Cards past the visible count ship with `hidden` already set, so the page
+  paints once; the section's script takes it off three at a time.
+
+  @param {object} block - the quote block
+  @param {number} position - 1-based position among the filled quotes
+  @param {number} visible - how many cards show before "View more"
+  @param {boolean} show_product - name and link the product
+  @param {boolean} show_thumbnail - carry the product's picture in the chip
+{%- enddoc -%}
+
+{%- liquid
+  assign s = block.settings
+  assign product_resource = s.product
+  assign hide = false
+  if position > visible
+    assign hide = true
+  endif
+-%}
+
+<li
+  class="rsh-tgrid__item"
+  data-item
+  data-rsh-reveal-item
+  {% if hide %}hidden{% endif %}
+  {{ block.shopify_attributes }}
+>
+  <figure class="rsh-tgrid__card" tabindex="-1">
+    <blockquote class="rsh-tgrid__quote">
+      <span class="rsh-tgrid__mark" aria-hidden="true">&ldquo;</span>
+      {{ s.quote }}
+    </blockquote>
+    <figcaption class="rsh-tgrid__by">
+      {%- if s.name != blank or s.role != blank or s.place != blank -%}
+        <span class="rsh-tgrid__who">
+          {%- if s.name != blank -%}
+            <span class="rsh-tgrid__name">{{ s.name | escape }}</span>
+          {%- endif -%}
+          {%- if s.role != blank or s.place != blank -%}
+            <span class="rsh-tgrid__role">
+              {{- s.role | escape -}}
+              {%- if s.role != blank and s.place != blank -%}, {% endif -%}
+              {{- s.place | escape -}}
+            </span>
+          {%- endif -%}
+        </span>
+      {%- endif -%}
+      {%- if show_product and product_resource != blank -%}
+        <a class="rsh-tgrid__product" href="{{ product_resource.url }}">
+          {%- if show_thumbnail and product_resource.featured_image != blank -%}
+            {{-
+              product_resource.featured_image
+              | image_url: width: 96
+              | image_tag: loading: 'lazy', width: 36, height: 36, class: 'rsh-tgrid__thumb', alt: ''
+            -}}
+          {%- endif -%}
+          <span class="rsh-tgrid__product-text">
+            <span class="rsh-tgrid__product-kicker">About</span>
+            <span class="rsh-tgrid__product-title">{{ product_resource.title | escape }}</span>
+          </span>
+          <span class="rsh-tgrid__product-arrow" aria-hidden="true">&rarr;</span>
+        </a>
+      {%- endif -%}
+    </figcaption>
+  </figure>
+</li>
