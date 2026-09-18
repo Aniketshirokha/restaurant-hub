@@ -261,20 +261,18 @@
   /* Product */
 
   #rsh-editorial-{{ section.id }} .rsh-editorial-photo {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    min-height: 390px;
+    display: block;
+    aspect-ratio: 4 / 3;
     background: #e9e9e3;
     overflow: hidden;
+    border-radius: 10px;
   }
 
   #rsh-editorial-{{ section.id }} .rsh-editorial-photo img {
     display: block;
     width: 100%;
-    height: 390px;
-    object-fit: contain;
-    mix-blend-mode: multiply;
+    height: 100%;
+    object-fit: cover;
     transition: transform .45s ease;
   }
 
@@ -319,8 +317,12 @@
 
   #rsh-editorial-{{ section.id }} .rsh-editorial-pack {
     white-space: nowrap;
-    color: #777d73;
-    font-size: 11px;
+    padding: 4px 10px;
+    color: #4a6b23;
+    background: #eaf0dc;
+    border-radius: 999px;
+    font-size: 12px;
+    font-weight: 600;
   }
 
   /* Prices */
@@ -339,15 +341,27 @@
   }
 
   #rsh-editorial-{{ section.id }} .rsh-editorial-price-highlight {
-    border-color: #d2ddba;
+    border-color: #b9cf94;
     background: #eaf0dc;
+    box-shadow: inset 0 0 0 1px #b9cf94;
+  }
+
+  #rsh-editorial-{{ section.id }} .rsh-editorial-price-highlight span {
+    color: #4a6b23;
+  }
+
+  #rsh-editorial-{{ section.id }} .rsh-editorial-price-highlight strong {
+    color: #2f4a13;
+    font-weight: 600;
   }
 
   #rsh-editorial-{{ section.id }} .rsh-editorial-price span {
     display: block;
-    color: #777d73;
-    font-size: 10px;
+    color: #6b716a;
+    font-size: 12px;
     font-weight: 600;
+    letter-spacing: .06em;
+    text-transform: uppercase;
   }
 
   #rsh-editorial-{{ section.id }} .rsh-editorial-price strong {
@@ -365,11 +379,14 @@
 
   #rsh-editorial-{{ section.id }} .rsh-editorial-calculation {
     display: flex;
+    flex-wrap: wrap;
     justify-content: space-between;
-    gap: 20px;
-    padding-top: 15px;
-    color: #777d73;
-    font-size: 10px;
+    gap: 6px 20px;
+    margin-top: 14px;
+    padding-top: 14px;
+    border-top: 1px solid #e2e2db;
+    color: #6b716a;
+    font-size: 13px;
   }
 
   /* Tier section */

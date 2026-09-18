@@ -76,6 +76,13 @@
         echo filename | file_img_url: file_dimensions, crop: 'center'
       endcapture
       assign file_url = file_url | strip
+
+      # A missing file does not come back empty: Shopify hands out a placeholder
+      # URL, which renders as a grey "No image" box. A real CDN URL carries the
+      # filename, so that is what decides whether the file is actually there.
+      unless file_url contains key
+        assign file_url = ''
+      endunless
     endif
 
     # The widths the guide names, kept to what the file can supply, with the
