@@ -88,7 +88,11 @@
 
   <div class="rsh-hero__grain" aria-hidden="true"></div>
 
-  <div class="rsh-hero__inner section section--{{ section.settings.section_width }}">
+  <div
+    class="section section--{{ section.settings.section_width }} spacing-style rsh-hero__section"
+    style="{% render 'spacing-style', settings: section.settings %}"
+  >
+    <div class="rsh-hero__inner">
     <div class="rsh-hero__copy">
       {%- if section.settings.eyebrow != blank -%}
         <p class="rsh-hero__eyebrow">
@@ -193,6 +197,7 @@
         </noscript>
       </rsh-hero-price>
     {%- endif -%}
+    </div>
   </div>
 </section>
 
@@ -334,6 +339,27 @@
       "id": "image_key",
       "label": "Background picture",
       "info": "A filename from the image library without the .webp, e.g. hero-warehouse-dock. Leave empty for the gradient."
+    },
+    {
+      "type": "range",
+      "id": "padding-block-start",
+      "label": "Top padding",
+      "min": 0,
+      "max": 200,
+      "step": 4,
+      "unit": "px",
+      "default": 72,
+      "info": "The height of a transparent header is added to this automatically."
+    },
+    {
+      "type": "range",
+      "id": "padding-block-end",
+      "label": "Bottom padding",
+      "min": 0,
+      "max": 200,
+      "step": 4,
+      "unit": "px",
+      "default": 88
     },
     {
       "type": "range",
