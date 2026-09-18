@@ -25,10 +25,7 @@
     assign product_image = section.settings.image
   endif
 
-  assign noun = product_noun
-  | default: section.settings.example_noun
-  | default: settings.rsh_piece_noun
-  | default: 'piece'
+  assign noun = product_noun | default: section.settings.example_noun | default: settings.rsh_piece_noun | default: 'piece'
 %}
 
 <section class="rsh-editorial-pricing" id="rsh-editorial-{{ section.id }}">
