@@ -109,6 +109,32 @@ def _schema_of(path):
         return None
 
 
+# Shopify caps a schema's `name` at 25 characters and rejects the whole file
+# over it, silently through the GitHub sync ("Invalid schema: name is too long"
+# through the API). Presets and a section's own block types get the same check.
+SCHEMA_NAME_MAX = 25
+
+
+def _check_schema_names(path, schema, problems):
+    def check(name, where):
+        if isinstance(name, str) and not name.startswith('t:') and len(name) > SCHEMA_NAME_MAX:
+            problems.append(f'{path}: {where} name "{name}" is {len(name)} characters; Shopify allows {SCHEMA_NAME_MAX}')
+    check(schema.get('name'), 'schema')
+    for preset in schema.get('presets', []) or []:
+        check(preset.get('name'), 'preset')
+    for block in schema.get('blocks', []) or []:
+        check(block.get('name'), f'block "{block.get("type")}"')
+
+
+def check_schema_names():
+    problems = []
+    for path in sorted(_glob.glob('sections/*.liquid') + _glob.glob('blocks/*.liquid')):
+        schema = _schema_of(path)
+        if schema is not None:
+            _check_schema_names(path, schema, problems)
+    return problems
+
+
 def _settings_index(schema):
     return {s['id']: s for s in schema.get('settings', []) if s.get('id')}
 
@@ -206,7 +232,7 @@ def check_templates_against_schemas():
 
 
 
-_template_problems = check_templates_against_schemas()
+_template_problems = check_schema_names() + check_templates_against_schemas()
 for _line in _template_problems:
     print(_line)
 problems.extend(_template_problems)
