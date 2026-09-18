@@ -39,7 +39,7 @@ ladder is visible without asking, on any plan. So the pricing pieces are ours.
 | **Volume pricing table** | Home, Wholesale |
 | **Shop by business** | Home, Shop by business |
 | **Customer quotes** | Home, Reviews |
-| **Testimonial grid** | Product (20 empty slots; shows nothing until real quotes go in) |
+| **Testimonial grid** | Product (20 empty slots; asks buyers for a quote until real ones go in) |
 | **Quick order pad** | Quick order |
 | **Wholesale application** | Wholesale application, Quote, Samples |
 | **Free shipping progress** | Cart |

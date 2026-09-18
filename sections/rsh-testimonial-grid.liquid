@@ -18,6 +18,11 @@
   As with the wall on the home page: no stars, no average, no avatar, no
   "verified" badge.
 
+  While there are no quotes the section is not blank: it shows its heading and
+  one card asking buyers for a quote, linked to the contact form, so the page
+  collects the real thing instead of waiting for it. Once quotes are in, the
+  same ask becomes a line under the button.
+
   Cards past the first three ship with `hidden` already set, so nothing
   flashes or jumps; the script only wires the button. Without JavaScript the
   <noscript> rule below shows every card and drops the button.
@@ -32,6 +37,7 @@
   assign visible = section.settings.visible | default: 3
   assign show_product = section.settings.show_product
   assign show_thumbnail = section.settings.show_thumbnail
+  assign invite = section.settings.invite
 
   assign filled = 0
   for block in section.blocks
@@ -50,7 +56,7 @@
   endif
 -%}
 
-{%- if filled > 0 or request.design_mode -%}
+{%- if filled > 0 or invite or request.design_mode -%}
   <div
     class="section-background{% if section.settings.background_color != blank %} color-custom-{{ section.id }}{% endif %}"
   ></div>
@@ -81,8 +87,14 @@
           {%- if section.settings.heading != blank -%}
             <h2 class="rsh-heading h2">{{ section.settings.heading | escape }}</h2>
           {%- endif -%}
-          {%- if section.settings.body != blank -%}
-            <div class="rsh-lede rte">{{ section.settings.body }}</div>
+          {%- liquid
+            assign lede = section.settings.body
+            if filled == 0 and section.settings.body_empty != blank
+              assign lede = section.settings.body_empty
+            endif
+          -%}
+          {%- if lede != blank -%}
+            <div class="rsh-lede rte">{{ lede }}</div>
           {%- endif -%}
         </header>
       {%- endif -%}
@@ -123,13 +135,33 @@
             </li>
           {%- endif -%}
         {%- endfor -%}
+        {%- if invite and filled == 0 -%}
+          <li class="rsh-tgrid__item rsh-tgrid__item--invite">
+            <div class="rsh-tgrid__card rsh-tgrid__card--invite">
+              <div class="rsh-tgrid__invite-body">
+                <span class="rsh-tgrid__mark" aria-hidden="true">&ldquo;</span>
+                {%- if section.settings.invite_prompt != blank -%}
+                  <p class="rsh-tgrid__invite-title">{{ section.settings.invite_prompt | escape }}</p>
+                {%- endif -%}
+                {%- if section.settings.invite_text != blank -%}
+                  <div class="rsh-tgrid__invite-text rte">{{ section.settings.invite_text }}</div>
+                {%- endif -%}
+              </div>
+              {%- if section.settings.invite_label != blank -%}
+                <a class="rsh-tgrid__pill" href="{{ section.settings.invite_link | default: '/pages/contact' }}">
+                  {{- section.settings.invite_label | escape -}}
+                </a>
+              {%- endif -%}
+            </div>
+          </li>
+        {%- endif -%}
       </ol>
 
       {%- if filled > visible -%}
         <div class="rsh-tgrid__foot">
           <button
             type="button"
-            class="rsh-tgrid__more"
+            class="rsh-tgrid__pill rsh-tgrid__more"
             data-more
             aria-controls="rsh-tgrid-{{ section.id }}"
             aria-expanded="false"
@@ -145,6 +177,13 @@
             #rsh-tgrid-{{ section.id }} + .rsh-tgrid__foot { display: none; }
           </style>
         </noscript>
+      {%- endif -%}
+
+      {%- if invite and filled > 0 and section.settings.invite_label != blank -%}
+        <p class="rsh-tgrid__invite-line">
+          {{ section.settings.invite_prompt | escape }}
+          <a href="{{ section.settings.invite_link | default: '/pages/contact' }}">{{ section.settings.invite_label | escape }} &rarr;</a>
+        </p>
       {%- endif -%}
     </rsh-testimonial-grid>
   </div>
@@ -198,6 +237,31 @@
       "default": "filled"
     },
     { "type": "checkbox", "id": "reveal", "label": "Cards arrive as you scroll", "default": true },
+    { "type": "header", "content": "Ask for quotes" },
+    {
+      "type": "checkbox",
+      "id": "invite",
+      "label": "Ask buyers for a quote",
+      "info": "With no quotes yet this is the one card that shows. Once there are quotes it becomes a line under the button.",
+      "default": true
+    },
+    { "type": "text", "id": "invite_prompt", "label": "Prompt", "default": "Bought from us?", "visible_if": "{{ section.settings.invite }}" },
+    {
+      "type": "richtext",
+      "id": "invite_text",
+      "label": "Text",
+      "default": "<p>Two sentences on what you order and how it holds up. We show it with your first name, business and city, and link the product.</p>",
+      "visible_if": "{{ section.settings.invite }}"
+    },
+    { "type": "text", "id": "invite_label", "label": "Button", "default": "Send a quote", "visible_if": "{{ section.settings.invite }}" },
+    { "type": "url", "id": "invite_link", "label": "Button link", "default": "/pages/contact", "visible_if": "{{ section.settings.invite }}" },
+    {
+      "type": "richtext",
+      "id": "body_empty",
+      "label": "Lede while there are no quotes",
+      "default": "<p>We are gathering words from the kitchens we have supplied for years. Yours can be first.</p>",
+      "visible_if": "{{ section.settings.invite }}"
+    },
     { "type": "header", "content": "Layout" },
     {
       "type": "select",

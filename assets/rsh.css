@@ -5085,7 +5085,7 @@
   margin-block-start: clamp(1.5rem, 3vw, 2.5rem);
 }
 
-.rsh-tgrid__more {
+.rsh-tgrid__pill {
   display: inline-flex;
   gap: 0.7rem;
   align-items: center;
@@ -5107,20 +5107,108 @@
     transform 160ms ease;
 }
 
-.rsh-tgrid__more:hover {
+.rsh-tgrid__pill:hover {
   background: var(--rsh-accent-wash);
   border-color: var(--rsh-accent);
 }
 
-.rsh-tgrid__more:focus-visible {
+.rsh-tgrid__pill:focus-visible {
   outline: 2px solid var(--rsh-accent);
   outline-offset: 3px;
 }
 
 @media (prefers-reduced-motion: no-preference) {
-  .rsh-tgrid__more:active {
+  .rsh-tgrid__pill:active {
     transform: translateY(1px);
   }
+}
+
+a.rsh-tgrid__pill {
+  color: inherit;
+  text-decoration: none;
+}
+
+/* The ask: one card while there are no quotes, a line once there are. */
+
+.rsh-tgrid__item--invite {
+  grid-column: 1 / -1;
+}
+
+.rsh-tgrid__card--invite {
+  grid-template-rows: none;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 1.25rem 2.5rem;
+  align-items: center;
+  background: var(--rsh-accent-wash);
+  border-color: transparent;
+}
+
+@media screen and (min-width: 750px) {
+  .rsh-tgrid__card--invite {
+    grid-template-columns: minmax(0, 1fr) auto;
+  }
+}
+
+.rsh-tgrid__card--invite::before {
+  display: none;
+}
+
+.rsh-tgrid__card--invite:hover {
+  box-shadow: none;
+  transform: none;
+  background: var(--rsh-accent-wash);
+}
+
+.rsh-tgrid__invite-body {
+  min-width: 0;
+}
+
+.rsh-tgrid__invite-body .rsh-tgrid__mark {
+  margin-block-end: 0.2em;
+}
+
+.rsh-tgrid__invite-title {
+  margin: 0 0 0.35rem;
+  font-family: var(--font-accent--family, inherit);
+  font-style: var(--font-accent--style, normal);
+  font-weight: var(--font-accent--weight, 600);
+  font-size: 1.125rem;
+  line-height: 1.3;
+}
+
+.rsh-tgrid__invite-text {
+  max-width: 48ch;
+  font-size: var(--font-size--sm, 0.9375rem);
+  line-height: 1.55;
+  color: rgb(var(--color-foreground-rgb) / 0.78);
+}
+
+.rsh-tgrid__invite-text p {
+  margin: 0;
+}
+
+.rsh-tgrid__card--invite .rsh-tgrid__pill {
+  background: var(--color-background, #fff);
+  border-color: var(--rsh-accent);
+  justify-self: start;
+}
+
+.rsh-tgrid__invite-line {
+  margin: 1.25rem 0 0;
+  font-size: var(--font-size--sm, 0.9375rem);
+  color: var(--rsh-muted);
+  text-align: center;
+}
+
+.rsh-tgrid__invite-line a {
+  color: var(--rsh-accent);
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.rsh-tgrid__invite-line a:hover {
+  text-decoration: underline;
+  text-underline-offset: 2px;
 }
 
 .rsh-tgrid__count {
