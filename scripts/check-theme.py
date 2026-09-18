@@ -132,7 +132,9 @@ def _check_schema_names(path, schema, problems):
 # through the GitHub sync.
 ALLOWED_DEFAULTS = {
     'url': {'/collections', '/collections/all'},
-    'link_list': {'main-menu', 'footer'},
+    # customer-account-main-menu is not in the docs, but the stock header
+    # defaults to it and syncs, so Shopify accepts it.
+    'link_list': {'main-menu', 'footer', 'customer-account-main-menu'},
 }
 
 
