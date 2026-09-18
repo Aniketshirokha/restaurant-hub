@@ -1,0 +1,211 @@
+{{ 'rsj-core.css' | asset_url | stylesheet_tag }}
+<script src="{{ 'rsj-core.js' | asset_url }}" defer></script>
+
+<section class="rsj-cats" data-rsj-rail>
+  <div class="rsj-container">
+    <header class="rsj-cats__head rsj-reveal">
+      <div>
+        {%- if section.settings.eyebrow != blank -%}<span class="rsj-eyebrow">{{ section.settings.eyebrow }}</span>{%- endif -%}
+        {%- if section.settings.heading != blank -%}<h2 class="rsj-h2">{{ section.settings.heading }}</h2>{%- endif -%}
+      </div>
+      <div class="rsj-cats__nav">
+        <button class="rsj-arrow rsj-cats__arrow" data-rail-prev type="button" aria-label="Previous categories">
+          <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12.5 4L6.5 10l6 6"/></svg>
+        </button>
+        <button class="rsj-arrow rsj-cats__arrow" data-rail-next type="button" aria-label="Next categories">
+          <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7.5 4l6 6-6 6"/></svg>
+        </button>
+      </div>
+    </header>
+
+    <div class="rsj-cats__rail rsj-rail" data-rsj-stagger>
+      {%- for block in section.blocks -%}
+        {%- assign col = block.settings.collection -%}
+        {%- assign img = block.settings.image | default: col.featured_image -%}
+        {%- assign url = block.settings.link | default: col.url -%}
+        <a
+          class="rsj-cats__card rsj-reveal rsj-reveal--zoom"
+          href="{{ url | default: routes.all_products_collection_url }}"
+          {{ block.shopify_attributes }}
+        >
+          <div class="rsj-cats__media">
+            {%- if img -%}
+              {{ img | image_url: width: 1000 | image_tag: loading: 'lazy', widths: '400, 700, 1000', alt: block.settings.title }}
+            {%- else -%}
+              <div class="rsj-cats__ph"></div>
+            {%- endif -%}
+          </div>
+          <div class="rsj-cats__veil"></div>
+          <div class="rsj-cats__body">
+            <h3 class="rsj-cats__title">{{ block.settings.title }}</h3>
+            {%- if block.settings.subtitle != blank -%}
+              <p class="rsj-cats__sub">{{ block.settings.subtitle }}</p>
+            {%- endif -%}
+            <span class="rsj-cats__cta">{{ block.settings.cta | default: 'Shop now' }} <span class="rsj-btn__arrow">&rarr;</span></span>
+          </div>
+        </a>
+      {%- endfor -%}
+    </div>
+
+    <div class="rsj-cats__progress rsj-rail-track" data-rail-track><span class="rsj-rail-thumb" data-rail-thumb></span></div>
+
+    {%- if section.settings.view_all_label != blank -%}
+      <div class="rsj-cats__all rsj-reveal">
+        <a class="rsj-btn rsj-btn--ink rsj-cats__all-btn" href="{{ section.settings.view_all_link | default: routes.all_products_collection_url }}">
+          {{ section.settings.view_all_label }}
+          <span class="rsj-btn__arrow">&rarr;</span>
+        </a>
+      </div>
+    {%- endif -%}
+  </div>
+</section>
+
+{% stylesheet %}
+.rsj-cats { padding: var(--rsj-sec-y) 0; background: var(--rsj-paper); }
+.rsj-cats__head {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 1.2rem;
+  margin-bottom: var(--rsj-sec-gap);
+}
+.rsj-cats__nav { display: none; gap: 0.5rem; flex: none; padding-bottom: 0.3rem; }
+/* swipeable carousel — cards a touch larger than a static grid would allow */
+.rsj-cats__rail {
+  gap: var(--rsj-card-gap);
+  grid-auto-columns: min(68vw, 300px);
+  /* headroom so the hover lift isn't clipped by the scroll container */
+  padding-top: 10px;
+  margin-top: -10px;
+}
+.rsj-cats__card {
+  position: relative;
+  display: block;
+  border-radius: var(--rsj-radius);
+  overflow: hidden;
+  aspect-ratio: 3 / 4;
+  background: var(--rsj-ink);
+  color: #fff;
+  text-decoration: none;
+  isolation: isolate;
+}
+.rsj-cats__media, .rsj-cats__media img, .rsj-cats__ph {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.9s var(--rsj-ease);
+}
+.rsj-cats__ph { background: radial-gradient(120% 120% at 20% 10%, #3a3222, #16140f); }
+.rsj-cats__veil {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(185deg, rgba(22,20,15,0) 30%, rgba(22,20,15,0.86) 88%);
+  transition: background 0.5s var(--rsj-ease);
+}
+/* gold sweep on hover */
+.rsj-cats__card::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(115deg, transparent 30%, rgba(232,189,97,0.22) 50%, transparent 70%);
+  transform: translateX(-130%);
+  transition: transform 0.8s var(--rsj-ease);
+  z-index: 2;
+}
+@media (hover: hover) {
+  .rsj-cats__card:hover .rsj-cats__media img { transform: scale(1.07); }
+  .rsj-cats__card:hover::after { transform: translateX(130%); }
+  .rsj-cats__card:hover .rsj-cats__cta { color: var(--rsj-gold-hi); }
+}
+.rsj-cats__body {
+  position: absolute;
+  inset: auto 0 0 0;
+  padding: 1.1rem 1.1rem 1.2rem;
+  z-index: 3;
+}
+.rsj-cats__title {
+  font-family: var(--rsj-font-head);
+  font-weight: 800;
+  font-size: clamp(1.15rem, 1rem + 1.3vw, 1.6rem);
+  line-height: 1.1;
+  text-transform: uppercase;
+  margin: 0 0 0.3rem;
+}
+.rsj-cats__sub {
+  font-family: var(--rsj-font-body);
+  font-size: 0.84rem;
+  line-height: 1.5;
+  color: rgba(255,255,255,0.78);
+  margin: 0 0 0.7rem;
+  max-width: 40ch;
+}
+.rsj-cats__cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  font-family: var(--rsj-font-body);
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--rsj-gold);
+  transition: color 0.3s;
+}
+
+/* carousel progress + view all */
+.rsj-cats__progress { margin-top: 0.9rem; max-width: 240px; margin-inline: auto; }
+.rsj-cats__all { display: flex; justify-content: center; margin-top: 1.4rem; }
+.rsj-cats__all-btn { width: 100%; justify-content: center; }
+
+@media (min-width: 750px) {
+  .rsj-cats__nav { display: inline-flex; }
+  .rsj-cats__rail { grid-auto-columns: 340px; }
+  .rsj-cats__body { padding: 1.5rem 1.6rem 1.6rem; }
+  .rsj-cats__progress { max-width: 300px; margin-inline: 0; }
+  .rsj-cats__all { justify-content: flex-start; margin-top: 1.6rem; }
+  .rsj-cats__all-btn { width: auto; }
+}
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "RSJ Category Blocks",
+  "tag": "section",
+  "max_blocks": 12,
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Start here" },
+    { "type": "text", "id": "heading", "label": "Heading", "default": "Shop by category" },
+    { "type": "header", "content": "View all" },
+    { "type": "text", "id": "view_all_label", "label": "View all button label", "default": "View All Categories", "info": "Leave empty to hide the button." },
+    { "type": "url", "id": "view_all_link", "label": "View all button link", "info": "Defaults to all products." }
+  ],
+  "blocks": [
+    {
+      "type": "category",
+      "name": "Category block",
+      "settings": [
+        { "type": "text", "id": "title", "label": "Title", "default": "Food Packaging" },
+        { "type": "text", "id": "subtitle", "label": "Subtitle", "default": "Containers, clamshells, deli, foil, to-go boxes." },
+        { "type": "text", "id": "cta", "label": "Button text", "default": "Shop Packaging" },
+        { "type": "collection", "id": "collection", "label": "Collection", "info": "Used for the link and (if no image set) the image." },
+        { "type": "image_picker", "id": "image", "label": "Image (overrides collection image)" },
+        { "type": "url", "id": "link", "label": "Link (overrides collection link)" }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "RSJ Category Blocks",
+      "category": "Royal SJ",
+      "blocks": [
+        { "type": "category", "settings": { "title": "Disposable Gloves", "subtitle": "Nitrile, vinyl, latex, poly. Food-safe, by the case.", "cta": "Shop Gloves" } },
+        { "type": "category", "settings": { "title": "Food Service", "subtitle": "Cups, lids, plates, bowls, trays, cutlery.", "cta": "Shop Food Service" } },
+        { "type": "category", "settings": { "title": "Food Packaging", "subtitle": "Containers, clamshells, deli, foil, to-go boxes.", "cta": "Shop Packaging" } },
+        { "type": "category", "settings": { "title": "Paper Products", "subtitle": "Towels, tissue, napkins, dispensers.", "cta": "Shop Paper" } }
+      ]
+    }
+  ]
+}
+{% endschema %}
