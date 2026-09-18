@@ -102,7 +102,7 @@
 %}
 
 <section
-  class="rsh-hero{% if has_image %} rsh-hero--has-image{% endif %}{% unless section.settings.show_proof_mobile %} rsh-hero--proof-desktop-only{% endunless %}"
+  class="rsh-hero{% if has_image %} rsh-hero--has-image{% endif %}{% if section.settings.text_tone == 'dark' %} rsh-hero--ink{% endif %}{% unless section.settings.show_proof_mobile %} rsh-hero--proof-desktop-only{% endunless %}"
   data-layout="{% if show_panel %}split{% else %}text{% endif %}"
   style="
     --rsh-hero-shape: {{ shape_d }};
@@ -422,15 +422,25 @@
       "info": "Crop it to the mobile shape, 4:5 by default. Phones download this one only. Leave it empty and the desktop picture is used, cropped to its centre."
     },
     {
+      "type": "select",
+      "id": "text_tone",
+      "label": "Text",
+      "options": [
+        { "value": "dark", "label": "Black, for a light picture" },
+        { "value": "light", "label": "White, for a dark picture" }
+      ],
+      "default": "dark"
+    },
+    {
       "type": "range",
       "id": "overlay_opacity",
-      "label": "Darken behind the text",
+      "label": "Wash behind the text",
       "min": 0,
       "max": 100,
       "step": 5,
       "unit": "%",
       "default": 80,
-      "info": "Heaviest over the words and clearing toward the other side, so the picture still reads as a picture."
+      "info": "Lightens under black text, darkens under white. Heaviest over the words and clearing toward the other side, so the picture still reads as a picture."
     },
     {
       "type": "text",
