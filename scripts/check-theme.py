@@ -84,3 +84,93 @@ for problem in problems:
     print(problem)
 print(f'\n{len(problems)} problem(s)')
 sys.exit(1 if problems else 0)
+
+
+# --------------------------------------------------------------------------
+# Template blocks against their schemas.
+#
+# Shopify rejects a whole JSON template, silently, when any block in it carries
+# a value its schema cannot take: a select value that is not one of the options,
+# a range value off the step or out of bounds, a checkbox that is not a boolean.
+# The file simply never syncs while its neighbours do. This walks every template
+# and section group, finds each block's schema, and checks each setting given.
+# --------------------------------------------------------------------------
+import glob as _glob
+
+
+def _schema_of(path):
+    try:
+        text = open(path).read()
+    except OSError:
+        return None
+    m = re.search(r'{%-?\s*schema\s*-?%}(.*?){%-?\s*endschema\s*-?%}', text, re.S)
+    if not m:
+        return None
+    try:
+        return json.loads(m.group(1))
+    except json.JSONDecodeError:
+        return None
+
+
+def _settings_index(schema):
+    return {s['id']: s for s in schema.get('settings', []) if s.get('id')}
+
+
+def _check_settings(where, given, schema, problems):
+    index = _settings_index(schema)
+    for key, value in given.items():
+        s = index.get(key)
+        if s is None:
+            continue  # unknown keys are tolerated by Shopify; only bad values reject
+        kind = s.get('type')
+        if kind == 'select':
+            options = [o['value'] for o in s.get('options', [])]
+            if value not in options:
+                problems.append(f'{where}: {key} = {value!r} is not one of {options}')
+        elif kind == 'range':
+            if not isinstance(value, (int, float)) or isinstance(value, bool):
+                problems.append(f'{where}: {key} = {value!r} but the setting is a range (number)')
+            else:
+                lo, hi, step = s.get('min', 0), s.get('max', 100), s.get('step', 1)
+                if value < lo or value > hi:
+                    problems.append(f'{where}: {key} = {value} is outside {lo}..{hi}')
+                elif step and abs(((value - lo) / step) - round((value - lo) / step)) > 1e-9:
+                    problems.append(f'{where}: {key} = {value} is not on a step of {step} from {lo}')
+        elif kind == 'checkbox' and not isinstance(value, bool):
+            problems.append(f'{where}: {key} = {value!r} but the setting is a checkbox (true/false)')
+
+
+def _walk_blocks(where, blocks, problems):
+    for bid, block in (blocks or {}).items():
+        btype = block.get('type', '')
+        schema = _schema_of(f'blocks/{btype}.liquid')
+        if schema is not None:
+            _check_settings(f'{where} > {bid} [{btype}]', block.get('settings', {}), schema, problems)
+        _walk_blocks(f'{where} > {bid}', block.get('blocks'), problems)
+
+
+def check_templates_against_schemas():
+    problems = []
+    for path in sorted(_glob.glob('templates/*.json') + _glob.glob('sections/*.json')):
+        raw = re.sub(r'/\*.*?\*/', '', open(path).read(), flags=re.S)
+        try:
+            data = json.loads(raw)
+        except json.JSONDecodeError:
+            continue  # reported by the JSON check already
+        for sid, section in data.get('sections', {}).items():
+            stype = section.get('type', '')
+            schema = _schema_of(f'sections/{stype}.liquid')
+            where = f'{path} > {sid} [{stype}]'
+            if schema is not None:
+                _check_settings(where, section.get('settings', {}), schema, problems)
+            _walk_blocks(where, section.get('blocks'), problems)
+    return problems
+
+
+if __name__ == '__main__':
+    _p = check_templates_against_schemas()
+    for line in _p:
+        print('  schema:', line)
+    print(f'{len(_p)} template value problem(s)')
+    if _p:
+        sys.exit(1)
