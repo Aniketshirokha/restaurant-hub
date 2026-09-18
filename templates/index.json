@@ -38,7 +38,8 @@
         "section_width": "page-width",
         "ratio_desktop": "21/9",
         "ratio_mobile": "4/5",
-        "show_proof_mobile": false
+        "show_proof_mobile": false,
+        "text_tone": "dark"
       }
     },
     "rsh_proof": {
