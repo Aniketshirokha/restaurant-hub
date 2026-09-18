@@ -328,7 +328,7 @@
                     "width": 20
                   },
                   "blocks": {
-                    "spec": {
+                    "row_spec_spec": {
                       "type": "rsh-spec-table",
                       "settings": {
                         "heading": "",
@@ -340,7 +340,7 @@
                     }
                   },
                   "block_order": [
-                    "spec"
+                    "row_spec_spec"
                   ]
                 },
                 "row_ship": {
@@ -352,7 +352,7 @@
                     "width": 20
                   },
                   "blocks": {
-                    "copy": {
+                    "row_ship_copy": {
                       "type": "rsh-copy",
                       "settings": {
                         "text": "<p>In-stock orders ship nationwide with tracking on every order. Free shipping over $[threshold].</p><p>Arrived damaged or wrong? Photograph it before you throw anything away, including the outer carton, and message us as soon as it arrives. We replace damaged product; you don't need to ship it back.</p><p>Unopened cases in resalable condition can come back. Message us first and we'll confirm the window and any restocking charge before you ship anything. Return shipping is on you unless the error was ours.</p>",
@@ -362,7 +362,7 @@
                     }
                   },
                   "block_order": [
-                    "copy"
+                    "row_ship_copy"
                   ]
                 },
                 "row_bulk": {
@@ -374,7 +374,7 @@
                     "width": 20
                   },
                   "blocks": {
-                    "copy": {
+                    "row_bulk_copy": {
                       "type": "rsh-copy",
                       "settings": {
                         "text": "<p>Volume discounts apply on their own as your cart grows, counted across everything in it rather than per product. The ladder above shows every step.</p><p>Past [quote] cases, or for a recurring order, ask for a quote and we'll fit pricing to the volume.</p><p><a href=\"/pages/contact\">Ask for a quote →</a></p>",
@@ -384,7 +384,7 @@
                     }
                   },
                   "block_order": [
-                    "copy"
+                    "row_bulk_copy"
                   ]
                 },
                 "row_help": {
@@ -396,7 +396,7 @@
                     "width": 20
                   },
                   "blocks": {
-                    "copy": {
+                    "row_help_copy": {
                       "type": "rsh-copy",
                       "settings": {
                         "text": "<p>17 years of sourcing usually means we know off the top of our head. Tell us the menu item and how it travels, and we'll say which container, lid and size.</p><p><a href=\"/pages/contact#rsh-contact-form\">Ask a question →</a></p>",
@@ -406,7 +406,7 @@
                     }
                   },
                   "block_order": [
-                    "copy"
+                    "row_help_copy"
                   ]
                 }
               },

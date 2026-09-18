@@ -82,9 +82,6 @@ if css.count('{') != css.count('}'):
 
 for problem in problems:
     print(problem)
-print(f'\n{len(problems)} problem(s)')
-sys.exit(1 if problems else 0)
-
 
 # --------------------------------------------------------------------------
 # Template blocks against their schemas.
@@ -124,9 +121,11 @@ def _check_settings(where, given, schema, problems):
             continue  # unknown keys are tolerated by Shopify; only bad values reject
         kind = s.get('type')
         if kind == 'select':
+            # Shopify accepts a select value it does not know (cart.json carries
+            # one today and syncs), so this is a warning, not a rejection.
             options = [o['value'] for o in s.get('options', [])]
             if value not in options:
-                problems.append(f'{where}: {key} = {value!r} is not one of {options}')
+                print(f'  warning: {where}: {key} = {value!r} is not one of {options}')
         elif kind == 'range':
             if not isinstance(value, (int, float)) or isinstance(value, bool):
                 problems.append(f'{where}: {key} = {value!r} but the setting is a range (number)')
@@ -167,10 +166,9 @@ def check_templates_against_schemas():
     return problems
 
 
-if __name__ == '__main__':
-    _p = check_templates_against_schemas()
-    for line in _p:
-        print('  schema:', line)
-    print(f'{len(_p)} template value problem(s)')
-    if _p:
-        sys.exit(1)
+
+for _line in check_templates_against_schemas():
+    problems.append('template value: ' + _line)
+
+print(f'\n{len(problems)} problem(s)')
+sys.exit(1 if problems else 0)
