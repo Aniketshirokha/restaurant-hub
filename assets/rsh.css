@@ -1695,13 +1695,33 @@
   position: relative;
   display: flex;
   align-items: center;
-  min-height: max(var(--rsh-hero-min, 62vh), 26rem);
   overflow: hidden;
   color: var(--hero-paper);
   background:
     radial-gradient(120% 90% at 8% 0%, rgb(56 176 106 / 0.16) 0%, transparent 55%),
     radial-gradient(90% 80% at 100% 100%, rgb(56 176 106 / 0.1) 0%, transparent 60%),
     linear-gradient(160deg, var(--hero-ink-2) 0%, var(--hero-ink) 62%);
+}
+
+/*
+ * The shape. A zero-width flex item whose top padding is a percentage of the
+ * hero's width, which is how a ratio was done before `aspect-ratio` existed —
+ * and still the only way to do it here. `aspect-ratio` on the hero itself sets
+ * the height outright, and because the hero clips its overflow to contain the
+ * photograph, copy the ratio could not fit was cut off; `min-height` with
+ * `fit-content` or `max-content` does not rescue it, both are ignored against
+ * a ratio-derived height. As a flex item the spacer only ever sets the floor,
+ * so the hero is exactly the ratio whenever the words fit inside it and grows
+ * past it when they do not.
+ *
+ * The value is thousandths of a percent, because Liquid does integer division:
+ * 21:9 arrives as 42857 and becomes 42.857%.
+ */
+.rsh-hero::before {
+  content: '';
+  flex: 0 0 0px;
+  inline-size: 0;
+  padding-block-start: calc(var(--rsh-hero-shape, 42857) * 0.001%);
 }
 
 /* A dock floor, suggested rather than photographed. */
@@ -1756,6 +1776,12 @@
       rgb(6 12 9 / calc(var(--rsh-hero-scrim, 0.8) * 0.14)) 45%,
       rgb(6 12 9 / calc(var(--rsh-hero-scrim, 0.8) * 0.42)) 100%
     );
+}
+
+@media (max-width: 47rem) {
+  .rsh-hero::before {
+    padding-block-start: calc(var(--rsh-hero-shape-mobile, 125000) * 0.001%);
+  }
 }
 
 /* Stacked, the words sit over the top of the picture rather than the side. */
@@ -2157,6 +2183,10 @@
     gap: 0.5rem;
     margin-block-start: 1.5rem;
     font-size: 0.9375rem;
+  }
+
+  .rsh-hero--proof-desktop-only .rsh-hero__proof {
+    display: none;
   }
 }
 
