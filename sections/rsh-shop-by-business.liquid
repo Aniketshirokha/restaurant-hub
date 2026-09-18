@@ -56,37 +56,44 @@
           assign card_url = linked_collection.url
         endif
 
-        assign card_image = block.settings.image
-        if card_image == blank and linked_collection != blank
-          assign card_image = linked_collection.featured_image
+        assign card_key = block.settings.persona
+        if card_key == 'none'
+          assign card_key = ''
+        endif
+
+        # Anything picked here wins. Otherwise the named file, and until that is
+        # uploaded, whatever picture the collection already has.
+        assign card_fallback = block.settings.image
+        if card_fallback != blank
+          assign card_key = ''
+        endif
+        if card_fallback == blank and linked_collection != blank
+          assign card_fallback = linked_collection.image
+        endif
+        if card_fallback == blank and linked_collection != blank
+          assign card_fallback = linked_collection.products.first.featured_image
+        endif
+
+        assign card_has_media = false
+        if card_key != blank or card_fallback != blank
+          assign card_has_media = true
         endif
       -%}
       <article class="rsh-card" {{ block.shopify_attributes }}>
-        {%- if section.settings.show_images -%}
-          {%- if card_image != blank -%}
-            <div class="rsh-card__media">
-              {{
-                card_image
-                | image_url: width: 800
-                | image_tag:
-                  loading: 'lazy',
-                  sizes: '(min-width: 990px) 30vw, (min-width: 750px) 45vw, 100vw',
-                  widths: '300, 500, 800'
-              }}
-            </div>
-          {%- elsif block.settings.persona != blank and block.settings.persona != 'none' -%}
-            {%- comment -%}
-              One file, three placements: this card, the hub page card and that
-              collection's own banner. Naming the picture here rather than picking
-              it means the home page is right before anyone opens the editor.
-            {%- endcomment -%}
-            <div class="rsh-card__media">
-              {%- render 'rsh-image',
-                key: block.settings.persona,
-                sizes: '(min-width: 990px) 30vw, (min-width: 750px) 45vw, 100vw'
-              -%}
-            </div>
-          {%- endif -%}
+        {%- if section.settings.show_images and card_has_media -%}
+          {%- comment -%}
+            One file, three placements: this card, the hub page card and that
+            collection's own banner. Naming the picture rather than picking it
+            means the home page is right before anyone opens the editor.
+          {%- endcomment -%}
+          <div class="rsh-card__media">
+            {%- render 'rsh-image',
+              key: card_key,
+              fallback_image: card_fallback,
+              ratio: '4:3',
+              sizes: '(min-width: 990px) 30vw, (min-width: 750px) 45vw, 100vw'
+            -%}
+          </div>
         {%- endif -%}
 
         <div class="rsh-card__body">

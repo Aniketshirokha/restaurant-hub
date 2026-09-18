@@ -441,7 +441,7 @@
       },
       "name": "t:names.product_list",
       "settings": {
-        "collection": "all",
+        "collection": "shop-all",
         "layout_type": "grid",
         "carousel_on_mobile": false,
         "max_products": 8,
@@ -466,7 +466,7 @@
         "biz_0": {
           "type": "card",
           "settings": {
-            "collection": "",
+            "collection": "cloud-kitchens",
             "title": "Cloud kitchens",
             "text": "Packaging that survives the drive and still looks right at the door",
             "link": "",
@@ -476,7 +476,7 @@
         "biz_1": {
           "type": "card",
           "settings": {
-            "collection": "",
+            "collection": "caterers",
             "title": "Caterers",
             "text": "Buy in bursts, stock for the season, keep the sizes consistent",
             "link": "",
@@ -486,7 +486,7 @@
         "biz_2": {
           "type": "card",
           "settings": {
-            "collection": "",
+            "collection": "food-trucks",
             "title": "Food trucks",
             "text": "Small storage, tight margins, no room for the wrong order",
             "link": "",
@@ -496,7 +496,7 @@
         "biz_3": {
           "type": "card",
           "settings": {
-            "collection": "",
+            "collection": "cafes-coffee-shops",
             "title": "Cafés and coffee shops",
             "text": "Hot cups, cold cups and lids without the per-cup markup",
             "link": "",
@@ -506,7 +506,7 @@
         "biz_4": {
           "type": "card",
           "settings": {
-            "collection": "",
+            "collection": "delis-supermarkets",
             "title": "Delis and supermarkets",
             "text": "Grab-and-go packaging that sells the food inside it",
             "link": "",
@@ -516,7 +516,7 @@
         "biz_5": {
           "type": "card",
           "settings": {
-            "collection": "",
+            "collection": "full-service-restaurants",
             "title": "Full-service restaurants",
             "text": "One supplier for the whole back of house",
             "link": "",
@@ -1075,7 +1075,7 @@
         "tile_food_packaging": {
           "type": "tile",
           "settings": {
-            "collection": "shopify://collections/food-packaging",
+            "collection": "food-packaging",
             "banner": "col-food-packaging",
             "title": "Food packaging"
           }
@@ -1083,7 +1083,7 @@
         "tile_food_service": {
           "type": "tile",
           "settings": {
-            "collection": "shopify://collections/food-service",
+            "collection": "food-service",
             "banner": "col-food-service",
             "title": "Food service"
           }
@@ -1091,7 +1091,7 @@
         "tile_disposable_gloves": {
           "type": "tile",
           "settings": {
-            "collection": "shopify://collections/disposable-gloves",
+            "collection": "disposable-gloves",
             "banner": "col-disposable-gloves",
             "title": "Disposable gloves"
           }
@@ -1099,7 +1099,7 @@
         "tile_paper_products": {
           "type": "tile",
           "settings": {
-            "collection": "shopify://collections/paper-products",
+            "collection": "paper-products",
             "banner": "col-paper-products",
             "title": "Paper products"
           }
@@ -1107,7 +1107,7 @@
         "tile_janitorial_cleaning": {
           "type": "tile",
           "settings": {
-            "collection": "shopify://collections/janitorial-cleaning",
+            "collection": "janitorial-cleaning",
             "banner": "col-janitorial-cleaning",
             "title": "Janitorial and cleaning"
           }
@@ -1115,7 +1115,7 @@
         "tile_compostable": {
           "type": "tile",
           "settings": {
-            "collection": "shopify://collections/compostable",
+            "collection": "compostable",
             "banner": "col-compostable",
             "title": "Compostable"
           }

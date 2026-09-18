@@ -62,12 +62,36 @@
         if card_url == blank and linked_collection != blank
           assign card_url = linked_collection.url
         endif
+
+        assign tile_key = block.settings.banner
+        if tile_key == 'none'
+          assign tile_key = ''
+        endif
+
+        # Anything picked here wins. Otherwise the named file, and until that is
+        # uploaded, whatever picture the collection already has.
+        assign tile_fallback = block.settings.image
+        if tile_fallback != blank
+          assign tile_key = ''
+        endif
+        if tile_fallback == blank and linked_collection != blank
+          assign tile_fallback = linked_collection.image
+        endif
+        if tile_fallback == blank and linked_collection != blank
+          assign tile_fallback = linked_collection.products.first.featured_image
+        endif
+
+        assign tile_has_media = false
+        if tile_key != blank or tile_fallback != blank
+          assign tile_has_media = true
+        endif
       -%}
       <article class="rsh-card rsh-card--wide" {{ block.shopify_attributes }}>
-        {%- if block.settings.banner != blank and block.settings.banner != 'none' -%}
+        {%- if tile_has_media -%}
           <div class="rsh-card__media rsh-card__media--wide">
             {%- render 'rsh-image',
-              key: block.settings.banner,
+              key: tile_key,
+              fallback_image: tile_fallback,
               ratio: '16:9',
               sizes: '(min-width: 990px) 32vw, (min-width: 750px) 46vw, 100vw'
             -%}
@@ -122,6 +146,12 @@
             { "value": "col-compostable", "label": "Compostable" }
           ],
           "default": "none"
+        },
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image override",
+          "info": "Only to override the picture above. Left empty, the tile uses the named file, then the collection's own image."
         },
         {
           "type": "text",

@@ -6,10 +6,16 @@
   explicit width and height so nothing reflows as the page loads, the centre crop
   that keeps the empty overlay third centred, and the alt text from the library.
 
-  Renders nothing at all when the file has not been uploaded yet, so a partly
-  uploaded library degrades to a missing picture rather than a broken page.
+  When the library file has not been uploaded, `fallback_image` is drawn instead,
+  at the same shape. That is what lets a collection banner or a category tile
+  show the collection's own picture today and switch to the named file the moment
+  it lands in Settings, Files, with nothing to change in the theme.
+
+  With no file and no fallback it renders nothing at all, so a half-built library
+  degrades to a missing picture rather than a broken page.
 
   @param {string} key - Filename without the extension, e.g. 'hero-warehouse-dock'
+  @param {object} [fallback_image] - A Shopify image drawn if the file is absent
   @param {string} [sizes] - The `sizes` attribute. Defaults to '100vw'
   @param {string} [loading] - 'eager' or 'lazy'. Defaults to 'lazy'
   @param {string} [fetchpriority] - Set to 'high' on the one LCP image per page
@@ -19,7 +25,7 @@
   @param {string} [ratio] - 'w:h', overrides the library render ratio
 
   @example
-  {% render 'rsh-image', key: 'col-food-packaging', sizes: '100vw' %}
+  {% render 'rsh-image', key: 'col-food-packaging', fallback_image: collection.image %}
 {%- enddoc -%}
 
 {%- liquid
@@ -33,35 +39,47 @@
   assign ratio_h = parts[2] | plus: 0
   assign upload_width = parts[3] | plus: 0
 
+  # A key with no row in the library still draws its fallback, at a sane shape.
+  if upload_width == 0
+    assign upload_width = 1600
+    assign ratio_w = 16
+    assign ratio_h = 9
+    assign library_alt = ''
+    assign key = ''
+  endif
+
   if ratio != blank
     assign override = ratio | split: ':'
     assign ratio_w = override[0] | plus: 0
     assign ratio_h = override[1] | plus: 0
   endif
 
-  # A key with no row in the library, or a malformed row, draws nothing. The
-  # guard matters: every size below divides by the ratio width.
-  assign known = false
-  if upload_width > 0 and ratio_w > 0 and ratio_h > 0
-    assign known = true
+  # Every size below divides by the ratio width, so a broken row stops here.
+  assign usable = false
+  if ratio_w > 0 and ratio_h > 0
+    assign usable = true
   endif
 -%}
 
-{%- if known -%}
+{%- if usable -%}
   {%- liquid
-    if alt == blank
-      assign alt = library_alt
-    endif
-    if alt == '-'
-      assign alt = ''
-    endif
-
-    assign filename = key | append: '.webp'
     assign sizes = sizes | default: '100vw'
     assign loading = loading | default: 'lazy'
 
-    # The widths the guide names, kept to what the file can actually supply, with
-    # the upload width itself always on the end so the largest rendering is sharp.
+    assign height = upload_width | times: ratio_h | divided_by: ratio_w
+
+    assign file_url = ''
+    if key != blank
+      assign filename = key | append: '.webp'
+      assign file_dimensions = upload_width | append: 'x' | append: height
+      capture file_url
+        echo filename | file_img_url: file_dimensions, crop: 'center'
+      endcapture
+      assign file_url = file_url | strip
+    endif
+
+    # The widths the guide names, kept to what the file can supply, with the
+    # upload width itself always on the end so the largest rendering is sharp.
     assign width_list = ''
     assign candidates = '750,1100,1500,2000,3000' | split: ','
     for candidate in candidates
@@ -71,30 +89,63 @@
       endif
     endfor
     assign width_list = width_list | append: upload_width | split: ','
-
-    assign height = upload_width | times: ratio_h | divided_by: ratio_w
-    assign fallback_dimensions = upload_width | append: 'x' | append: height
-
-    capture fallback
-      echo filename | file_img_url: fallback_dimensions, crop: 'center'
-    endcapture
-    assign fallback = fallback | strip
   -%}
 
-  {%- capture srcset -%}
-    {%- for width in width_list -%}
-      {%- liquid
-        assign w = width | plus: 0
-        assign h = w | times: ratio_h | divided_by: ratio_w
-        assign dimensions = w | append: 'x' | append: h
-      -%}
-      {{- filename | file_img_url: dimensions, crop: 'center' }} {{ w }}w{% unless forloop.last %}, {% endunless %}
-    {%- endfor -%}
-  {%- endcapture -%}
-
-  {%- if fallback != blank -%}
+  {%- if file_url != blank -%}
+    {%- liquid
+      if alt == blank
+        assign alt = library_alt
+      endif
+      if alt == '-'
+        assign alt = ''
+      endif
+    -%}
+    {%- capture srcset -%}
+      {%- for width in width_list -%}
+        {%- liquid
+          assign w = width | plus: 0
+          assign h = w | times: ratio_h | divided_by: ratio_w
+          assign dimensions = w | append: 'x' | append: h
+        -%}
+        {{- filename | file_img_url: dimensions, crop: 'center' }} {{ w }}w{% unless forloop.last %}, {% endunless %}
+      {%- endfor -%}
+    {%- endcapture -%}
     <img
-      src="{{ fallback }}"
+      src="{{ file_url }}"
+      srcset="{{ srcset | strip }}"
+      sizes="{{ sizes }}"
+      alt="{{ alt | escape }}"
+      width="{{ upload_width }}"
+      height="{{ height }}"
+      loading="{{ loading }}"
+      decoding="async"
+      {% if fetchpriority != blank %}fetchpriority="{{ fetchpriority }}"{% endif %}
+      class="rsh-img{% if class != blank %} {{ class }}{% endif %}"
+    >
+  {%- elsif fallback_image != blank -%}
+    {%- comment -%}
+      The named file is not uploaded yet. Draw the picture the store does have,
+      cropped to the same shape so the layout is identical either way.
+    {%- endcomment -%}
+    {%- liquid
+      if alt == blank
+        assign alt = fallback_image.alt
+      endif
+      if alt == '-'
+        assign alt = ''
+      endif
+    -%}
+    {%- capture srcset -%}
+      {%- for width in width_list -%}
+        {%- liquid
+          assign w = width | plus: 0
+          assign h = w | times: ratio_h | divided_by: ratio_w
+        -%}
+        {{- fallback_image | image_url: width: w, height: h, crop: 'center' }} {{ w }}w{% unless forloop.last %}, {% endunless %}
+      {%- endfor -%}
+    {%- endcapture -%}
+    <img
+      src="{{ fallback_image | image_url: width: upload_width, height: height, crop: 'center' }}"
       srcset="{{ srcset | strip }}"
       sizes="{{ sizes }}"
       alt="{{ alt | escape }}"

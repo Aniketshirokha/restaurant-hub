@@ -63,6 +63,19 @@
     assign persona_ratio = '16:9'
   endif
 
+  # Until the named file is uploaded, draw whatever picture the store already
+  # has: the collection's own image, or failing that the first product's. The
+  # named file takes over the moment it lands in Settings, Files.
+  assign banner_fallback = collection.image
+  if banner_fallback == blank
+    assign banner_fallback = collection.products.first.featured_image
+  endif
+
+  assign has_media = false
+  if key != blank or banner_fallback != blank
+    assign has_media = true
+  endif
+
   if section.settings.background_color != blank
     render 'contrast-override', background_color: section.settings.background_color, section_id: section.id
   endif
@@ -81,7 +94,7 @@
   "
   style="{% render 'spacing-style', settings: section.settings %}"
 >
-  {%- if key != blank and layout == 'overlay' -%}
+  {%- if has_media and layout == 'overlay' -%}
     {%- comment -%}
       Guide 3.2. The file carries an empty left third and the title goes in it,
       left aligned and vertically centred. Below 750px the band is too short to
@@ -91,6 +104,8 @@
       <div class="rsh-banner__media">
         {%- render 'rsh-image',
           key: key,
+          fallback_image: banner_fallback,
+          ratio: '3:1',
           sizes: '100vw',
           loading: 'eager',
           fetchpriority: 'high',
@@ -104,11 +119,12 @@
   {%- else -%}
     <h1 class="rsh-banner__title rsh-banner__title--above">{{ collection.title }}</h1>
 
-    {%- if key != blank -%}
+    {%- if has_media -%}
       <div class="rsh-banner rsh-banner--stacked">
         {%- render 'rsh-image',
           key: key,
           name: collection.title,
+          fallback_image: banner_fallback,
           ratio: persona_ratio,
           sizes: '100vw',
           loading: 'eager',

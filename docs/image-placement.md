@@ -12,9 +12,16 @@ guide left a choice, and what is still waiting on you.
 them.** Nothing else. There is no image to pick in the theme editor, no
 collection image to set, no per-page upload.
 
-Every placement resolves by filename. Until a file is uploaded its slot renders
-*nothing* — not a broken image, not a placeholder — so you can upload in any
-order and watch the site fill in.
+Every placement resolves by filename, and each one falls back while you wait:
+
+> **the picture you pick in the theme editor → the named file → the collection's
+> own image → the first product's image → nothing**
+
+So the collection banners, the category tiles and the business cards show
+something the moment a collection has products, and switch to the named file the
+day it lands in Files, with nothing to change in the theme. Only slots with no
+collection behind them (the hero, the CTA bands, the page headers) stay blank
+until their file is uploaded. Nothing ever renders broken.
 
 To get from the PNG set to uploadable WebP:
 
@@ -46,6 +53,11 @@ Three files carry the whole system.
 | `snippets/rsh-image-library.liquid` | One row per image: alt text, render aspect, upload width. The only place the set is described. |
 | `snippets/rsh-image.liquid` | Draws one image: srcset at 750/1100/1500/2000/3000 capped to the file, explicit `width` and `height`, centre crop, alt from the library. Renders nothing if the file is absent. |
 | `scripts/prepare-images.py` | Converts and names the set before upload. |
+
+`rsh-image` takes a `fallback_image`, which is what makes the chain above work:
+it draws the named file when it exists and the Shopify image when it does not,
+cropped to the same shape either way, so the layout does not move when you
+upload.
 
 Because alt text lives in one place, fixing a description fixes it everywhere the
 picture appears. Because every `<img>` carries real dimensions, the nine-image
@@ -198,3 +210,28 @@ two exceptions. `blocks/_blog-post-image.liquid` and
 `blocks/_blog-post-featured-image.liquid` are stock Horizon blocks, edited to fall
 back to `blog-default`. A Horizon update will revert them. The change is four
 lines in each; re-apply or drop it, nothing else depends on it.
+
+
+---
+
+## 9. If a picture is not showing
+
+Work down this list.
+
+1. **Is the file in Settings → Files, spelled exactly?** `Col-Food-Packaging.webp`
+   and `col-food-packaging-v2.webp` are both misses. `scripts/prepare-images.py`
+   names them correctly; upload its output folder, not the PNG folder.
+2. **Does the collection exist, with that exact handle?** The banner matches on
+   handle, so `paper-food-containers-pails-1` does not get the banner drawn for
+   `paper-food-containers-pails`. Fix the handle rather than the theme.
+3. **Does the collection have products?** With no named file, no collection image
+   and no products, there is nothing left to draw and the slot stays empty. That
+   is the intended end of the chain, not a fault.
+4. **A collection image set in admin does not appear on the tile?** Only if a
+   named file is already uploaded — the file wins. Remove the file, or pick the
+   image explicitly on the tile, which beats everything.
+
+A product row showing nothing is almost always the collection, not the section.
+A `collection` setting takes a **handle**, and `all` is a route rather than a
+collection, so it resolves to nothing and the row renders empty. Point it at a
+real handle.
