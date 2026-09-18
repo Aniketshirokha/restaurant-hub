@@ -2799,25 +2799,40 @@
  * words stay in the page column like everything else.
  * ------------------------------------------------------------------ */
 
+/*
+ * The section itself is forced transparent by Horizon (`.shopify-section
+ * :is(.section)`, specificity 0,3,0), so the colour is painted on the
+ * theme's section-background div beside it. That div cannot see custom
+ * properties set on its sibling, so each tone names its colour here and the
+ * selector is three classes deep to outrank the theme's own default.
+ */
+.shopify-section .section-background.rsh-band__bg--ink {
+  background-color: #0c1310;
+}
+
+.shopify-section .section-background.rsh-band__bg--accent {
+  background-color: var(--rsh-accent);
+}
+
+.shopify-section .section-background.rsh-band__bg--paper {
+  background-color: var(--rsh-wash);
+}
+
 .rsh-band {
-  --rsh-band-bg: #0c1310;
   --rsh-band-text: #fcfcfb;
   --rsh-band-soft: rgb(252 252 251 / 0.78);
   --rsh-band-eyebrow: #47c67b;
   --rsh-band-btn-bg: #fcfcfb;
   --rsh-band-btn-text: #0c1310;
   --rsh-band-btn-bg-hover: #e9efe9;
-  background: var(--rsh-band-bg);
   color: var(--rsh-band-text);
 }
 
 .rsh-band--accent {
-  --rsh-band-bg: var(--rsh-accent);
   --rsh-band-eyebrow: rgb(252 252 251 / 0.72);
 }
 
 .rsh-band--paper {
-  --rsh-band-bg: var(--rsh-wash);
   --rsh-band-text: rgb(var(--color-foreground-rgb));
   --rsh-band-soft: var(--rsh-muted);
   --rsh-band-eyebrow: var(--rsh-accent);
