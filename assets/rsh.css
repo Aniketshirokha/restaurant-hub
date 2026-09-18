@@ -2101,3 +2101,35 @@
     width: min(30rem, 100%);
   }
 }
+
+/* ------------------------------------------------------- Mega menu */
+
+/*
+ * Overrides for the stock mega menu, kept here rather than in the block so a
+ * Horizon update cannot take them with it. Two classes deep so they win
+ * whichever order the stylesheets land in.
+ */
+
+/*
+ * Grid items stretch by default, so a group with one child took the height of
+ * the tallest group beside it and left a hole under itself. Each column starts
+ * at the top now and takes only the height it needs.
+ */
+
+.mega-menu__grid .mega-menu__list {
+  align-items: start;
+}
+
+.mega-menu__grid .mega-menu__column {
+  align-self: start;
+}
+
+/* A steadier rhythm: the group heading sits closer to its own links than to
+   the group above it. */
+.mega-menu__grid .mega-menu__column > div > .mega-menu__link--parent {
+  margin-block-end: 0.15rem;
+}
+
+.mega-menu__grid .mega-menu__column ul > li + li {
+  margin-block-start: 0.1rem;
+}
