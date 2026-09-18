@@ -1076,10 +1076,72 @@
         "padding-block-start": 64,
         "padding-block-end": 64
       }
+    },
+    "rsh_proof": {
+      "type": "rsh-proof-bar",
+      "blocks": {
+        "q1": {
+          "type": "quote",
+          "settings": {
+            "line": "Holds heat, doesn't leak on the drive.",
+            "name": "Priya K.",
+            "role": "Cloud kitchen"
+          }
+        },
+        "q2": {
+          "type": "quote",
+          "settings": {
+            "line": "Same containers, almost 20% less per case.",
+            "name": "Marcus D.",
+            "role": "Deli and prepared foods"
+          }
+        },
+        "q3": {
+          "type": "quote",
+          "settings": {
+            "line": "Best per-piece glove price I've found.",
+            "name": "Tony R.",
+            "role": "Food truck"
+          }
+        },
+        "s1": {
+          "type": "stat",
+          "settings": {
+            "source": "product_count",
+            "value": "",
+            "label": "Restaurant-grade products"
+          }
+        },
+        "s2": {
+          "type": "stat",
+          "settings": {
+            "source": "custom",
+            "value": "17",
+            "label": "Years of sourcing"
+          }
+        }
+      },
+      "block_order": [
+        "q1",
+        "q2",
+        "q3",
+        "s1",
+        "s2"
+      ],
+      "settings": {
+        "autoplay": true,
+        "interval": 6,
+        "section_width": "full-width",
+        "background_color": "#f6f1e8",
+        "accent_color": "#9a6a1c",
+        "padding-block-start": 28,
+        "padding-block-end": 28
+      }
     }
   },
   "order": [
     "rsh_hero",
+    "rsh_proof",
     "1789247568162abdfb",
     "collection_list_xpBxCm",
     "collection_ibCeQy",

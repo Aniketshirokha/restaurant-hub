@@ -1,0 +1,342 @@
+{%- doc -%}
+  The strip directly under the hero: one thing a buyer said, rotating, next to
+  the two or three numbers this shop can actually stand behind.
+
+  What is deliberately absent is a star rating and a review average. There are
+  no reviews yet, and an average invented to fill a slot is the precise thing
+  the FTC's review rule prohibits. When Judge.me has real ratings, the average
+  belongs here as a fourth figure and not a day before.
+
+  The quote lines are the testimonial wall's headlines, on purpose. The strip is
+  a trailer for the section further down the page, not a second set of claims
+  that has to be kept in step with the first.
+
+  Nothing here needs JavaScript. Without it the first quote stands on its own
+  and the dots never appear, which is a sentence rather than a broken carousel.
+{%- enddoc -%}
+
+<script
+  src="{{ 'rsh-proof-bar.js' | asset_url }}"
+  type="module"
+></script>
+
+{% liquid
+  assign quote_count = 0
+  assign stat_count = 0
+  for block in section.blocks
+    case block.type
+      when 'quote'
+        assign quote_count = quote_count | plus: 1
+      when 'stat'
+        assign stat_count = stat_count | plus: 1
+    endcase
+  endfor
+
+  assign interval = 0
+  if section.settings.autoplay
+    assign interval = section.settings.interval | times: 1000
+  endif
+
+  if section.settings.background_color != blank
+    render 'contrast-override', background_color: section.settings.background_color, section_id: section.id
+  endif
+
+  assign accent_style = ''
+  if section.settings.accent_color != blank
+    assign accent_style = section.settings.accent_color | prepend: '--rsh-proof-accent: ' | append: ';'
+  endif
+%}
+
+<div
+  class="section-background{% if section.settings.background_color != blank %} color-custom-{{ section.id }}{% endif %}"
+></div>
+
+<div
+  class="
+    section
+    section--{{ section.settings.section_width }}
+    {% if section.settings.section_width == 'full-width' %}section--full-width-margin{% endif %}
+    {% if section.settings.background_color != blank %}color-custom-{{ section.id }}{% endif %}
+    spacing-style rsh-proof
+  "
+  style="
+    {% render 'spacing-style', settings: section.settings %}
+    {{ accent_style }}
+  "
+>
+  <rsh-proof-bar
+    class="rsh-proof__inner"
+    data-interval="{{ interval }}"
+  >
+    {%- if quote_count > 0 -%}
+      <div class="rsh-proof__voice">
+        <span class="rsh-proof__mark" aria-hidden="true">&ldquo;</span>
+
+        <div class="rsh-proof__stack">
+          {%- assign q = 0 -%}
+          {%- for block in section.blocks -%}
+            {%- if block.type == 'quote' -%}
+              <figure
+                class="rsh-proof__quote{% if q == 0 %} is-active{% endif %}"
+                data-quote
+                data-index="{{ q }}"
+                {% if q > 0 %}hidden{% endif %}
+                {{ block.shopify_attributes }}
+              >
+                <blockquote class="rsh-proof__line">{{ block.settings.line }}</blockquote>
+                {%- if block.settings.name != blank or block.settings.role != blank -%}
+                  <figcaption class="rsh-proof__by">
+                    {%- if block.settings.name != blank -%}
+                      <span class="rsh-proof__name">{{ block.settings.name }}</span>
+                    {%- endif -%}
+                    {%- if block.settings.name != blank and block.settings.role != blank -%}
+                      <span class="rsh-proof__sep" aria-hidden="true">&middot;</span>
+                    {%- endif -%}
+                    {%- if block.settings.role != blank -%}
+                      <span class="rsh-proof__role">{{ block.settings.role }}</span>
+                    {%- endif -%}
+                  </figcaption>
+                {%- endif -%}
+              </figure>
+              {%- assign q = q | plus: 1 -%}
+            {%- endif -%}
+          {%- endfor -%}
+        </div>
+
+        {%- if quote_count > 1 -%}
+          {%- comment -%}
+            Hidden until the script takes over. Dots that page through quotes
+            nothing can page are worse than no dots.
+          {%- endcomment -%}
+          <div class="rsh-proof__dots" data-dots hidden>
+            {%- for i in (1..quote_count) -%}
+              <button
+                class="rsh-proof__dot{% if forloop.first %} is-active{% endif %}"
+                type="button"
+                data-dot
+                data-index="{{ forloop.index0 }}"
+                {% if forloop.first %}aria-current="true"{% endif %}
+              >
+                <span class="rsh-visually-hidden">
+                  {{- 'Show quote ' | append: forloop.index -}}
+                </span>
+              </button>
+            {%- endfor -%}
+          </div>
+        {%- endif -%}
+      </div>
+    {%- endif -%}
+
+    {%- if stat_count > 0 -%}
+      <ul class="rsh-proof__stats" role="list">
+        {%- for block in section.blocks -%}
+          {%- if block.type == 'stat' -%}
+            {%- liquid
+              assign value = block.settings.value
+              if block.settings.source == 'product_count'
+                assign value = collections.all.all_products_count
+                if value == 0
+                  assign value = ''
+                endif
+              endif
+            -%}
+            {%- if value != blank -%}
+              <li class="rsh-proof__stat" {{ block.shopify_attributes }}>
+                <span class="rsh-proof__value">{{ value }}</span>
+                {%- if block.settings.label != blank -%}
+                  <span class="rsh-proof__label">{{ block.settings.label }}</span>
+                {%- endif -%}
+              </li>
+            {%- endif -%}
+          {%- endif -%}
+        {%- endfor -%}
+      </ul>
+    {%- endif -%}
+  </rsh-proof-bar>
+</div>
+
+{% schema %}
+{
+  "name": "Proof bar",
+  "tag": "section",
+  "class": "rsh-proof-section",
+  "max_blocks": 12,
+  "settings": [
+    {
+      "type": "paragraph",
+      "content": "No star rating, review average, count, avatar or verified badge belongs in this strip until Judge.me holds real reviews. Until then the quotes are illustrative, the same ones the testimonials section further down the page uses."
+    },
+    {
+      "type": "header",
+      "content": "Quote rotation"
+    },
+    {
+      "type": "checkbox",
+      "id": "autoplay",
+      "label": "Rotate quotes on their own",
+      "info": "Rotation stops while the strip is hovered or focused, and never starts for visitors who ask for reduced motion.",
+      "default": true
+    },
+    {
+      "type": "range",
+      "id": "interval",
+      "label": "Seconds on each quote",
+      "min": 3,
+      "max": 12,
+      "step": 1,
+      "unit": "s",
+      "default": 6
+    },
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+    {
+      "type": "select",
+      "id": "section_width",
+      "label": "Width",
+      "options": [
+        { "value": "page-width", "label": "Page" },
+        { "value": "full-width", "label": "Full" }
+      ],
+      "default": "full-width"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background",
+      "default": "#f6f1e8"
+    },
+    {
+      "type": "color",
+      "id": "accent_color",
+      "label": "Figures and quote mark",
+      "info": "Sits behind large type only. Keep it dark enough to read on the background above.",
+      "default": "#9a6a1c"
+    },
+    {
+      "type": "header",
+      "content": "Padding"
+    },
+    {
+      "type": "range",
+      "id": "padding-block-start",
+      "label": "Top",
+      "min": 0,
+      "max": 200,
+      "step": 4,
+      "unit": "px",
+      "default": 28
+    },
+    {
+      "type": "range",
+      "id": "padding-block-end",
+      "label": "Bottom",
+      "min": 0,
+      "max": 200,
+      "step": 4,
+      "unit": "px",
+      "default": 28
+    }
+  ],
+  "blocks": [
+    {
+      "type": "quote",
+      "name": "Quote",
+      "limit": 8,
+      "settings": [
+        {
+          "type": "text",
+          "id": "line",
+          "label": "Line",
+          "info": "One short sentence. The full quote belongs in the testimonials section."
+        },
+        {
+          "type": "text",
+          "id": "name",
+          "label": "Name"
+        },
+        {
+          "type": "text",
+          "id": "role",
+          "label": "Kind of kitchen"
+        }
+      ]
+    },
+    {
+      "type": "stat",
+      "name": "Figure",
+      "limit": 4,
+      "settings": [
+        {
+          "type": "select",
+          "id": "source",
+          "label": "Value",
+          "options": [
+            { "value": "custom", "label": "Type it below" },
+            { "value": "product_count", "label": "Count the products in the store" }
+          ],
+          "default": "custom"
+        },
+        {
+          "type": "text",
+          "id": "value",
+          "label": "Figure",
+          "info": "Ignored when the value is counted from the store."
+        },
+        {
+          "type": "text",
+          "id": "label",
+          "label": "Label"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Proof bar",
+      "blocks": [
+        {
+          "type": "quote",
+          "settings": {
+            "line": "Holds heat, doesn't leak on the drive.",
+            "name": "Priya K.",
+            "role": "Cloud kitchen"
+          }
+        },
+        {
+          "type": "quote",
+          "settings": {
+            "line": "Same containers, almost 20% less per case.",
+            "name": "Marcus D.",
+            "role": "Deli and prepared foods"
+          }
+        },
+        {
+          "type": "quote",
+          "settings": {
+            "line": "Best per-piece glove price I've found.",
+            "name": "Tony R.",
+            "role": "Food truck"
+          }
+        },
+        {
+          "type": "stat",
+          "settings": {
+            "source": "product_count",
+            "label": "Restaurant-grade products"
+          }
+        },
+        {
+          "type": "stat",
+          "settings": {
+            "source": "custom",
+            "value": "17",
+            "label": "Years of sourcing"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
