@@ -9,6 +9,36 @@
  */
 {
   "sections": {
+    "rsh_hero": {
+      "type": "rsh-hero",
+      "settings": {
+        "eyebrow": "Wholesale restaurant supply",
+        "heading": "The number that matters is",
+        "heading_accent": "per piece.",
+        "body": "<p>Containers, cups, gloves, liners and paper by the case — with the per-piece price on every product and the volume ladder in plain sight. Check it against your last invoice.</p>",
+        "primary_label": "Shop all",
+        "primary_link": "shopify://collections/shop-all",
+        "secondary_label": "Why us",
+        "secondary_link": "shopify://pages/about",
+        "proof_1": "In stock, ships nationwide",
+        "proof_2": "No membership, no minimum",
+        "proof_3": "Volume pricing counted across your whole cart",
+        "show_calculator": false,
+        "panel_label": "Try it on a real case",
+        "example_product": "",
+        "example_title": "24 oz microwavable bowl with lid",
+        "example_price": "32.99",
+        "example_pieces": 150,
+        "example_noun": "bowl",
+        "image": "shopify://shop_images/hf_20260913_175755_aeebfa48-1242-479f-beab-893893bdcad0.png",
+        "overlay_opacity": 75,
+        "image_key": "",
+        "padding-block-start": 56,
+        "padding-block-end": 64,
+        "min_height": 60,
+        "section_width": "page-width"
+      }
+    },
     "1789247568162abdfb": {
       "type": "_blocks",
       "blocks": {
@@ -16,7 +46,7 @@
           "type": "ai_gen_block_8c45e4d",
           "name": "Trust bar",
           "settings": {
-            "background": "#FCFCFB",
+            "background": "#fcfcfb",
             "icon_color": "#1b7a3d",
             "text_color": "#1a1a1a",
             "divider_color": "#dce2ea",
@@ -331,6 +361,7 @@
     "rsh_volume": {
       "type": "rsh-volume-pricing",
       "settings": {
+        "show_photo": false,
         "eyebrow": "",
         "heading": "The more you stock, the less you pay",
         "body": "<p>Discounts apply the moment your cart hits the next tier. There is no code to enter and no rep to call.</p><p>The tier counts every case in your cart, not cases of one product. Four cases of containers, three of gloves and five of liners is twelve cases, and all of it gets the twelve-case price.</p>",
@@ -342,8 +373,7 @@
         "section_width": "page-width",
         "background_color": "",
         "padding-block-start": 48,
-        "padding-block-end": 48,
-        "show_photo": false
+        "padding-block-end": 48
       }
     },
     "product_list_9xDfTQ": {
@@ -380,8 +410,7 @@
             "padding-block-start": 0,
             "padding-block-end": 0,
             "padding-inline-start": 0,
-            "padding-inline-end": 0,
-            "background_image": "shopify://shop_images/start-here-mixed-cases.webp"
+            "padding-inline-end": 0
           },
           "blocks": {
             "product_list_text_6Lq9iy": {
@@ -546,88 +575,54 @@
         "padding-block-end": 48
       }
     },
-    "rsh_business": {
-      "type": "rsh-shop-by-business",
+    "rsh_wall": {
+      "type": "rsh-testimonial-wall",
       "blocks": {
-        "biz_0": {
-          "type": "card",
+        "quote_0": {
+          "type": "quote",
           "settings": {
-            "collection": "cloud-kitchens",
-            "title": "Cloud kitchens",
-            "text": "Packaging that survives the drive and still looks right at the door",
-            "link": "",
-            "persona": "persona-cloud-kitchen"
+            "headline": "Same containers, almost 20% less per case",
+            "quote": "<p>Switched our deli containers over about four months ago. Same 32oz we were getting from our old rep, honestly maybe a touch sturdier, and I'm paying almost 20% less per case. Delivery's been on time every single order.</p>",
+            "name": "Marcus D.",
+            "role": "Deli and prepared foods"
           }
         },
-        "biz_1": {
-          "type": "card",
+        "quote_1": {
+          "type": "quote",
           "settings": {
-            "collection": "caterers",
-            "title": "Caterers",
-            "text": "Buy in bursts, stock for the season, keep the sizes consistent",
-            "link": "",
-            "persona": "persona-caterer"
+            "headline": "Holds heat, doesn't leak on the drive",
+            "quote": "<p>We run three ghost kitchen brands out of one space so packaging is basically our storefront. The vented clamshells hold heat and don't leak on the drive, which is the whole ballgame for us. Prices let us actually make margin on delivery.</p>",
+            "name": "Priya K.",
+            "role": "Cloud kitchen"
           }
         },
-        "biz_2": {
-          "type": "card",
+        "quote_2": {
+          "type": "quote",
           "settings": {
-            "collection": "food-trucks",
-            "title": "Food trucks",
-            "text": "Small storage, tight margins, no room for the wrong order",
-            "link": "",
-            "persona": "persona-food-truck"
-          }
-        },
-        "biz_3": {
-          "type": "card",
-          "settings": {
-            "collection": "cafes-coffee-shops",
-            "title": "Cafés and coffee shops",
-            "text": "Hot cups, cold cups and lids without the per-cup markup",
-            "link": "",
-            "persona": "persona-cafe"
-          }
-        },
-        "biz_4": {
-          "type": "card",
-          "settings": {
-            "collection": "delis-supermarkets",
-            "title": "Delis and supermarkets",
-            "text": "Grab-and-go packaging that sells the food inside it",
-            "link": "",
-            "persona": "persona-deli"
-          }
-        },
-        "biz_5": {
-          "type": "card",
-          "settings": {
-            "collection": "full-service-restaurants",
-            "title": "Full-service restaurants",
-            "text": "One supplier for the whole back of house",
-            "link": "",
-            "persona": "persona-full-service"
+            "headline": "Best per-piece glove price I've found",
+            "quote": "<p>Gloves are solid, nitrile doesn't rip like the cheap vinyl we used to buy, and the per-piece price is the best I've found. One box came a day late once. They sorted it out fast.</p>",
+            "name": "Tony R.",
+            "role": "Food truck"
           }
         }
       },
       "block_order": [
-        "biz_0",
-        "biz_1",
-        "biz_2",
-        "biz_3",
-        "biz_4",
-        "biz_5"
+        "quote_0",
+        "quote_1",
+        "quote_2"
       ],
       "settings": {
-        "eyebrow": "",
-        "heading": "Built around how you actually order",
-        "body": "<p>Six curated lists, each one pulled from the same catalog and sorted by what that kind of kitchen goes through fastest.</p>",
-        "show_images": true,
+        "eyebrow": "In their words",
+        "heading": "What operators said after switching",
+        "body": "<p>Three kinds of kitchen, one catalogue. Open any of them to read the whole thing.</p>",
+        "open_label": "Read the full quote",
+        "columns": "3",
+        "reveal": true,
         "section_width": "page-width",
-        "gap": 24,
+        "gap": 32,
         "background_color": "",
-        "padding-block-start": 48,
-        "padding-block-end": 48
+        "padding-block-start": 64,
+        "padding-block-end": 64
       }
     },
     "rsh_reorder": {
@@ -998,84 +993,6 @@
         "padding-block-start": 0,
         "padding-block-end": 0
       }
-    },
-    "rsh_hero": {
-      "type": "rsh-hero",
-      "settings": {
-        "eyebrow": "Wholesale restaurant supply",
-        "heading": "The number that matters is",
-        "heading_accent": "per piece.",
-        "body": "<p>Containers, cups, gloves, liners and paper by the case — with the per-piece price on every product and the volume ladder in plain sight. Check it against your last invoice.</p>",
-        "primary_label": "Shop all",
-        "primary_link": "shopify://collections/shop-all",
-        "secondary_label": "Why us",
-        "secondary_link": "shopify://pages/about",
-        "proof_1": "In stock, ships nationwide",
-        "proof_2": "No membership, no minimum",
-        "proof_3": "Volume pricing counted across your whole cart",
-        "show_calculator": false,
-        "panel_label": "Try it on a real case",
-        "example_title": "24 oz microwavable bowl with lid",
-        "example_price": "32.99",
-        "example_pieces": 150,
-        "example_noun": "bowl",
-        "image_key": "",
-        "min_height": 60,
-        "section_width": "page-width",
-        "image": "shopify://shop_images/hf_20260913_175755_aeebfa48-1242-479f-beab-893893bdcad0.png",
-        "overlay_opacity": 75,
-        "padding-block-start": 56,
-        "padding-block-end": 64
-      }
-    },
-    "rsh_wall": {
-      "type": "rsh-testimonial-wall",
-      "blocks": {
-        "quote_0": {
-          "type": "quote",
-          "settings": {
-            "headline": "Same containers, almost 20% less per case",
-            "quote": "<p>Switched our deli containers over about four months ago. Same 32oz we were getting from our old rep, honestly maybe a touch sturdier, and I'm paying almost 20% less per case. Delivery's been on time every single order.</p>",
-            "name": "Marcus D.",
-            "role": "Deli and prepared foods"
-          }
-        },
-        "quote_1": {
-          "type": "quote",
-          "settings": {
-            "headline": "Holds heat, doesn't leak on the drive",
-            "quote": "<p>We run three ghost kitchen brands out of one space so packaging is basically our storefront. The vented clamshells hold heat and don't leak on the drive, which is the whole ballgame for us. Prices let us actually make margin on delivery.</p>",
-            "name": "Priya K.",
-            "role": "Cloud kitchen"
-          }
-        },
-        "quote_2": {
-          "type": "quote",
-          "settings": {
-            "headline": "Best per-piece glove price I've found",
-            "quote": "<p>Gloves are solid, nitrile doesn't rip like the cheap vinyl we used to buy, and the per-piece price is the best I've found. One box came a day late once. They sorted it out fast.</p>",
-            "name": "Tony R.",
-            "role": "Food truck"
-          }
-        }
-      },
-      "block_order": [
-        "quote_0",
-        "quote_1",
-        "quote_2"
-      ],
-      "settings": {
-        "eyebrow": "In their words",
-        "heading": "What operators said after switching",
-        "body": "<p>Three kinds of kitchen, one catalogue. Open any of them to read the whole thing.</p>",
-        "open_label": "Read the full quote",
-        "columns": "3",
-        "reveal": true,
-        "section_width": "page-width",
-        "gap": 32,
-        "padding-block-start": 64,
-        "padding-block-end": 64
-      }
     }
   },
   "order": [
@@ -1086,7 +1003,6 @@
     "rsh_per_piece",
     "rsh_volume",
     "product_list_9xDfTQ",
-    "rsh_business",
     "rsh_wall",
     "rsh_reorder",
     "rsh_closing",
