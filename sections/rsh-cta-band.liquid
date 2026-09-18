@@ -9,8 +9,15 @@
   the ones that do not.
 {%- enddoc -%}
 
-<section
-  class="rsh-band rsh-band--{{ section.settings.tone }} section section--page-width spacing-style"
+{%- comment -%}
+  The colour goes on the theme's own section-background div, not on the
+  section. Horizon sets every `.section` to `background: transparent` at a
+  specificity nothing here should try to beat, precisely so that this div
+  is the one thing that paints behind a section.
+{%- endcomment -%}
+<div class="section-background rsh-band__bg rsh-band__bg--{{ section.settings.tone }}"></div>
+<div
+  class="section section--page-width spacing-style rsh-band rsh-band--{{ section.settings.tone }}"
   style="{% render 'spacing-style', settings: section.settings %}"
 >
   <div class="rsh-band__inner">
@@ -38,7 +45,7 @@
       </div>
     {%- endif -%}
   </div>
-</section>
+</div>
 
 {% schema %}
 {
