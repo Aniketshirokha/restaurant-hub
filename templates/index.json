@@ -32,6 +32,7 @@
         "example_noun": "bowl",
         "image": "shopify://shop_images/Wide-website-hero-background-Warm-bold.png",
         "image_mobile": "shopify://shop_images/Vertical-mobile-website-hero-background.png",
+        "text_tone": "dark",
         "overlay_opacity": 20,
         "image_key": "",
         "padding-block-start": 56,
@@ -39,8 +40,7 @@
         "show_proof_mobile": false,
         "ratio_desktop": "21/9",
         "ratio_mobile": "4/5",
-        "section_width": "page-width",
-        "text_tone": "dark"
+        "section_width": "page-width"
       }
     },
     "rsh_proof": {
@@ -406,6 +406,90 @@
         "mobile_padding_bottom": 48
       }
     },
+    "rsh_business_rail": {
+      "type": "rsh-business-rail",
+      "blocks": {
+        "k1": {
+          "type": "card",
+          "settings": {
+            "collection": "cloud-kitchens",
+            "title": "Cloud kitchens",
+            "text": "Packaging that survives the drive and still looks right at the door",
+            "persona": "persona-cloud-kitchen",
+            "link": ""
+          }
+        },
+        "k2": {
+          "type": "card",
+          "settings": {
+            "collection": "caterers",
+            "title": "Caterers",
+            "text": "Buy in bursts, stock for the season, keep the sizes consistent",
+            "persona": "persona-caterer",
+            "link": ""
+          }
+        },
+        "k3": {
+          "type": "card",
+          "settings": {
+            "collection": "food-trucks",
+            "title": "Food trucks",
+            "text": "Small storage, tight margins, no room for the wrong order",
+            "persona": "persona-food-truck",
+            "link": ""
+          }
+        },
+        "k4": {
+          "type": "card",
+          "settings": {
+            "collection": "cafes-coffee-shops",
+            "title": "Cafés and coffee shops",
+            "text": "Hot cups, cold cups and lids without the per-cup markup",
+            "persona": "persona-cafe",
+            "link": ""
+          }
+        },
+        "k5": {
+          "type": "card",
+          "settings": {
+            "collection": "delis-supermarkets",
+            "title": "Delis and supermarkets",
+            "text": "Grab-and-go packaging that sells the food inside it",
+            "persona": "persona-deli",
+            "link": ""
+          }
+        },
+        "k6": {
+          "type": "card",
+          "settings": {
+            "collection": "full-service-restaurants",
+            "title": "Full-service restaurants",
+            "text": "One supplier for the whole back of house",
+            "persona": "persona-full-service",
+            "link": ""
+          }
+        }
+      },
+      "block_order": [
+        "k1",
+        "k2",
+        "k3",
+        "k4",
+        "k5",
+        "k6"
+      ],
+      "settings": {
+        "eyebrow": "Shop by business",
+        "heading": "Built for how you actually operate",
+        "lede": "Curated, ready-to-buy sets for every kind of operation.",
+        "card_label": "Shop the set",
+        "seconds": 48,
+        "reveal": true,
+        "background_color": "",
+        "padding-block-start": 64,
+        "padding-block-end": 64
+      }
+    },
     "rsh_per_piece": {
       "type": "rsh-per-piece-explainer",
       "settings": {
@@ -439,6 +523,108 @@
         "background_color": "",
         "padding-block-start": 48,
         "padding-block-end": 48
+      }
+    },
+    "rsh_why": {
+      "type": "rsh-numbered-props",
+      "blocks": {
+        "c1": {
+          "type": "card",
+          "settings": {
+            "icon": "tag",
+            "title": "Lower price, same grade",
+            "text": "The exact product the established brands carry. We paid less, so you pay less."
+          }
+        },
+        "c2": {
+          "type": "card",
+          "settings": {
+            "icon": "badge",
+            "title": "Quality that holds up",
+            "text": "Leak-resistant, microwave and freezer safe, tested against real kitchen use."
+          }
+        },
+        "c3": {
+          "type": "card",
+          "settings": {
+            "icon": "grid",
+            "title": "The whole list, one cart",
+            "text": "Containers, gloves, foil, cleaning, paper. One supplier, one delivery."
+          }
+        },
+        "c4": {
+          "type": "card",
+          "settings": {
+            "icon": "truck",
+            "title": "Stock you can depend on",
+            "text": "Core range in stock, shipped nationwide. You never run out mid-service."
+          }
+        }
+      },
+      "block_order": [
+        "c1",
+        "c2",
+        "c3",
+        "c4"
+      ],
+      "settings": {
+        "eyebrow": "Why Restaurant Supply Hub",
+        "heading": "Why we beat the alternatives",
+        "lede": "",
+        "tone": "ink",
+        "reveal": true,
+        "section_width": "page-width",
+        "background_color": "",
+        "padding-block-start": 80,
+        "padding-block-end": 80
+      }
+    },
+    "rsh_story": {
+      "type": "rsh-founders",
+      "blocks": {
+        "f1": {
+          "type": "figure",
+          "settings": {
+            "source": "custom",
+            "value": "17",
+            "label": "Years of combined sourcing"
+          }
+        },
+        "f2": {
+          "type": "figure",
+          "settings": {
+            "source": "custom",
+            "value": "2",
+            "label": "Founders on the factory floor"
+          }
+        },
+        "f3": {
+          "type": "figure",
+          "settings": {
+            "source": "product_count",
+            "value": "",
+            "label": "Restaurant-grade products"
+          }
+        }
+      },
+      "block_order": [
+        "f1",
+        "f2",
+        "f3"
+      ],
+      "settings": {
+        "eyebrow": "Our story",
+        "heading": "17 years of knowing exactly who makes the good stuff",
+        "body": "<p>Restaurant Supply Hub was built by two people — <strong>Mr. Jeevan and Mr. Hemant</strong> — who spent their careers on the supply side of this business: walking factory floors, testing product that looked fine until you put hot food in it, and learning what a container should actually cost before three layers of middlemen mark it up.</p>",
+        "button_label": "Our story",
+        "button_link": "shopify://pages/why-us",
+        "media": "logo",
+        "panel_tone": "paper",
+        "image_key": "sourcing-factory-floor",
+        "section_width": "page-width",
+        "background_color": "",
+        "padding-block-start": 80,
+        "padding-block-end": 80
       }
     },
     "product_list_9xDfTQ": {
@@ -690,555 +876,6 @@
         "padding-block-end": 64
       }
     },
-    "rsh_reorder": {
-      "type": "section",
-      "blocks": {
-        "reorder_group": {
-          "type": "group",
-          "settings": {
-            "content_direction": "column",
-            "vertical_on_mobile": true,
-            "horizontal_alignment": "flex-start",
-            "vertical_alignment": "center",
-            "align_baseline": false,
-            "horizontal_alignment_flex_direction_column": "flex-start",
-            "vertical_alignment_flex_direction_column": "center",
-            "gap": 16,
-            "width": "fill",
-            "custom_width": 100,
-            "width_mobile": "fill",
-            "custom_width_mobile": 100,
-            "height": "fit",
-            "custom_height": 100,
-            "background_media": "none",
-            "background_color": "",
-            "video_position": "cover",
-            "background_image_position": "cover",
-            "toggle_overlay": false,
-            "overlay_color": "#00000026",
-            "overlay_style": "solid",
-            "gradient_direction": "to top",
-            "border": "none",
-            "border_width": 1,
-            "border_opacity": 100,
-            "border_color": "",
-            "border_radius": 0,
-            "link": "",
-            "open_in_new_tab": false,
-            "placeholder": "",
-            "padding-block-start": 0,
-            "padding-block-end": 0,
-            "padding-inline-start": 0,
-            "padding-inline-end": 0
-          },
-          "blocks": {
-            "reorder_head": {
-              "type": "text",
-              "settings": {
-                "text": "<h2>Your last order, ordered again</h2>",
-                "width": "100%",
-                "max_width": "normal",
-                "alignment": "left",
-                "type_preset": "h2",
-                "font": "var(--font-body--family)",
-                "font_size": "1rem",
-                "line_height": "normal",
-                "letter_spacing": "normal",
-                "case": "none",
-                "wrap": "pretty",
-                "text_color": "",
-                "background": false,
-                "background_color": "#00000026",
-                "corner_radius": 0,
-                "padding-block-start": 0,
-                "padding-block-end": 0,
-                "padding-inline-start": 0,
-                "padding-inline-end": 0
-              },
-              "blocks": {}
-            },
-            "reorder_body": {
-              "type": "text",
-              "settings": {
-                "text": "<p>Sign in, open your order history, hit reorder. Same items, same quantities, thirty seconds. Restaurant supply is the same list most weeks, and there is no reason to shop for it twice.</p>",
-                "width": "100%",
-                "max_width": "normal",
-                "alignment": "left",
-                "type_preset": "rte",
-                "font": "var(--font-body--family)",
-                "font_size": "1rem",
-                "line_height": "normal",
-                "letter_spacing": "normal",
-                "case": "none",
-                "wrap": "pretty",
-                "text_color": "",
-                "background": false,
-                "background_color": "#00000026",
-                "corner_radius": 0,
-                "padding-block-start": 0,
-                "padding-block-end": 0,
-                "padding-inline-start": 0,
-                "padding-inline-end": 0
-              },
-              "blocks": {}
-            },
-            "reorder_btn0": {
-              "type": "button",
-              "settings": {
-                "label": "Create an account",
-                "link": "/account/register",
-                "open_in_new_tab": false,
-                "style_class": "button",
-                "custom_button_background": "{{ settings.color_palette.foreground }}",
-                "custom_button_text": "{{ settings.color_palette.background }}",
-                "custom_button_border": "{{ settings.color_palette.background }}",
-                "link_text_color": "",
-                "width": "fit-content",
-                "custom_width": 100,
-                "width_mobile": "fit-content",
-                "custom_width_mobile": 100
-              },
-              "blocks": {}
-            },
-            "reorder_btn1": {
-              "type": "button",
-              "settings": {
-                "label": "Order from your list",
-                "link": "/pages/quick-order",
-                "open_in_new_tab": false,
-                "style_class": "button-secondary",
-                "custom_button_background": "{{ settings.color_palette.foreground }}",
-                "custom_button_text": "{{ settings.color_palette.background }}",
-                "custom_button_border": "{{ settings.color_palette.background }}",
-                "link_text_color": "",
-                "width": "fit-content",
-                "custom_width": 100,
-                "width_mobile": "fit-content",
-                "custom_width_mobile": 100
-              },
-              "blocks": {}
-            }
-          },
-          "block_order": [
-            "reorder_head",
-            "reorder_body",
-            "reorder_btn0",
-            "reorder_btn1"
-          ]
-        }
-      },
-      "block_order": [
-        "reorder_group"
-      ],
-      "settings": {
-        "content_direction": "column",
-        "vertical_on_mobile": true,
-        "horizontal_alignment": "flex-start",
-        "vertical_alignment": "center",
-        "align_baseline": false,
-        "horizontal_alignment_flex_direction_column": "flex-start",
-        "vertical_alignment_flex_direction_column": "center",
-        "gap": 12,
-        "section_width": "page-width",
-        "section_height": "",
-        "section_height_custom": 50,
-        "background_media": "none",
-        "background_color": "",
-        "video_position": "cover",
-        "background_image_position": "cover",
-        "toggle_overlay": false,
-        "overlay_color": "#00000026",
-        "overlay_style": "solid",
-        "gradient_direction": "to top",
-        "border": "none",
-        "border_width": 1,
-        "border_opacity": 100,
-        "border_color": "",
-        "border_radius": 0,
-        "padding-block-start": 56,
-        "padding-block-end": 56
-      }
-    },
-    "rsh_closing": {
-      "type": "section",
-      "blocks": {
-        "closing_group": {
-          "type": "group",
-          "settings": {
-            "content_direction": "column",
-            "vertical_on_mobile": true,
-            "horizontal_alignment": "flex-start",
-            "vertical_alignment": "center",
-            "align_baseline": false,
-            "horizontal_alignment_flex_direction_column": "flex-start",
-            "vertical_alignment_flex_direction_column": "center",
-            "gap": 16,
-            "width": "fill",
-            "custom_width": 100,
-            "width_mobile": "fill",
-            "custom_width_mobile": 100,
-            "height": "fit",
-            "custom_height": 100,
-            "background_media": "none",
-            "background_color": "",
-            "video_position": "cover",
-            "background_image_position": "cover",
-            "toggle_overlay": false,
-            "overlay_color": "#00000026",
-            "overlay_style": "solid",
-            "gradient_direction": "to top",
-            "border": "none",
-            "border_width": 1,
-            "border_opacity": 100,
-            "border_color": "",
-            "border_radius": 0,
-            "link": "",
-            "open_in_new_tab": false,
-            "placeholder": "",
-            "padding-block-start": 0,
-            "padding-block-end": 0,
-            "padding-inline-start": 0,
-            "padding-inline-end": 0
-          },
-          "blocks": {
-            "closing_head": {
-              "type": "text",
-              "settings": {
-                "text": "<h2>Stop running out on a Friday afternoon</h2>",
-                "width": "100%",
-                "max_width": "normal",
-                "alignment": "left",
-                "type_preset": "h2",
-                "font": "var(--font-body--family)",
-                "font_size": "1rem",
-                "line_height": "normal",
-                "letter_spacing": "normal",
-                "case": "none",
-                "wrap": "pretty",
-                "text_color": "",
-                "background": false,
-                "background_color": "#00000026",
-                "corner_radius": 0,
-                "padding-block-start": 0,
-                "padding-block-end": 0,
-                "padding-inline-start": 0,
-                "padding-inline-end": 0
-              },
-              "blocks": {}
-            },
-            "closing_body": {
-              "type": "text",
-              "settings": {
-                "text": "<p>Everything on this site is in stock and ships from our warehouse. Order today, get a tracking number today.</p>",
-                "width": "100%",
-                "max_width": "normal",
-                "alignment": "left",
-                "type_preset": "rte",
-                "font": "var(--font-body--family)",
-                "font_size": "1rem",
-                "line_height": "normal",
-                "letter_spacing": "normal",
-                "case": "none",
-                "wrap": "pretty",
-                "text_color": "",
-                "background": false,
-                "background_color": "#00000026",
-                "corner_radius": 0,
-                "padding-block-start": 0,
-                "padding-block-end": 0,
-                "padding-inline-start": 0,
-                "padding-inline-end": 0
-              },
-              "blocks": {}
-            },
-            "closing_btn0": {
-              "type": "button",
-              "settings": {
-                "label": "Shop all supplies",
-                "link": "/collections/all",
-                "open_in_new_tab": false,
-                "style_class": "button",
-                "custom_button_background": "{{ settings.color_palette.foreground }}",
-                "custom_button_text": "{{ settings.color_palette.background }}",
-                "custom_button_border": "{{ settings.color_palette.background }}",
-                "link_text_color": "",
-                "width": "fit-content",
-                "custom_width": 100,
-                "width_mobile": "fit-content",
-                "custom_width_mobile": 100
-              },
-              "blocks": {}
-            },
-            "closing_btn1": {
-              "type": "button",
-              "settings": {
-                "label": "Request a free sample case",
-                "link": "/pages/samples",
-                "open_in_new_tab": false,
-                "style_class": "button-secondary",
-                "custom_button_background": "{{ settings.color_palette.foreground }}",
-                "custom_button_text": "{{ settings.color_palette.background }}",
-                "custom_button_border": "{{ settings.color_palette.background }}",
-                "link_text_color": "",
-                "width": "fit-content",
-                "custom_width": 100,
-                "width_mobile": "fit-content",
-                "custom_width_mobile": 100
-              },
-              "blocks": {}
-            }
-          },
-          "block_order": [
-            "closing_head",
-            "closing_body",
-            "closing_btn0",
-            "closing_btn1"
-          ]
-        }
-      },
-      "block_order": [
-        "closing_group"
-      ],
-      "settings": {
-        "content_direction": "column",
-        "vertical_on_mobile": true,
-        "horizontal_alignment": "flex-start",
-        "vertical_alignment": "center",
-        "align_baseline": false,
-        "horizontal_alignment_flex_direction_column": "flex-start",
-        "vertical_alignment_flex_direction_column": "center",
-        "gap": 12,
-        "section_width": "page-width",
-        "section_height": "",
-        "section_height_custom": 50,
-        "background_media": "none",
-        "background_color": "",
-        "video_position": "cover",
-        "background_image_position": "cover",
-        "toggle_overlay": false,
-        "overlay_color": "#00000026",
-        "overlay_style": "solid",
-        "gradient_direction": "to top",
-        "border": "none",
-        "border_width": 1,
-        "border_opacity": 100,
-        "border_color": "",
-        "border_radius": 0,
-        "padding-block-start": 56,
-        "padding-block-end": 56
-      }
-    },
-    "178924735036195891": {
-      "type": "_blocks",
-      "settings": {
-        "content_direction": "column",
-        "vertical_on_mobile": true,
-        "horizontal_alignment": "flex-start",
-        "vertical_alignment": "center",
-        "align_baseline": false,
-        "horizontal_alignment_flex_direction_column": "flex-start",
-        "vertical_alignment_flex_direction_column": "center",
-        "gap": 12,
-        "section_width": "page-width",
-        "section_height": "",
-        "section_height_custom": 50,
-        "background_media": "none",
-        "background_color": "",
-        "video_position": "cover",
-        "background_image_position": "cover",
-        "toggle_overlay": false,
-        "overlay_color": "#00000026",
-        "overlay_style": "solid",
-        "gradient_direction": "to top",
-        "border": "none",
-        "border_width": 1,
-        "border_opacity": 100,
-        "border_color": "",
-        "border_radius": 0,
-        "padding-block-start": 0,
-        "padding-block-end": 0
-      }
-    },
-    "rsh_business_rail": {
-      "type": "rsh-business-rail",
-      "blocks": {
-        "k1": {
-          "type": "card",
-          "settings": {
-            "collection": "cloud-kitchens",
-            "title": "Cloud kitchens",
-            "persona": "persona-cloud-kitchen",
-            "text": "Packaging that survives the drive and still looks right at the door"
-          }
-        },
-        "k2": {
-          "type": "card",
-          "settings": {
-            "collection": "caterers",
-            "title": "Caterers",
-            "persona": "persona-caterer",
-            "text": "Buy in bursts, stock for the season, keep the sizes consistent"
-          }
-        },
-        "k3": {
-          "type": "card",
-          "settings": {
-            "collection": "food-trucks",
-            "title": "Food trucks",
-            "persona": "persona-food-truck",
-            "text": "Small storage, tight margins, no room for the wrong order"
-          }
-        },
-        "k4": {
-          "type": "card",
-          "settings": {
-            "collection": "cafes-coffee-shops",
-            "title": "Cafés and coffee shops",
-            "persona": "persona-cafe",
-            "text": "Hot cups, cold cups and lids without the per-cup markup"
-          }
-        },
-        "k5": {
-          "type": "card",
-          "settings": {
-            "collection": "delis-supermarkets",
-            "title": "Delis and supermarkets",
-            "persona": "persona-deli",
-            "text": "Grab-and-go packaging that sells the food inside it"
-          }
-        },
-        "k6": {
-          "type": "card",
-          "settings": {
-            "collection": "full-service-restaurants",
-            "title": "Full-service restaurants",
-            "persona": "persona-full-service",
-            "text": "One supplier for the whole back of house"
-          }
-        }
-      },
-      "block_order": [
-        "k1",
-        "k2",
-        "k3",
-        "k4",
-        "k5",
-        "k6"
-      ],
-      "settings": {
-        "eyebrow": "Shop by business",
-        "heading": "Built for how you actually operate",
-        "lede": "Curated, ready-to-buy sets for every kind of operation.",
-        "card_label": "Shop the set",
-        "seconds": 48,
-        "reveal": true,
-        "background_color": "",
-        "padding-block-start": 64,
-        "padding-block-end": 64
-      }
-    },
-    "rsh_why": {
-      "type": "rsh-numbered-props",
-      "blocks": {
-        "c1": {
-          "type": "card",
-          "settings": {
-            "icon": "tag",
-            "title": "Lower price, same grade",
-            "text": "The exact product the established brands carry. We paid less, so you pay less."
-          }
-        },
-        "c2": {
-          "type": "card",
-          "settings": {
-            "icon": "badge",
-            "title": "Quality that holds up",
-            "text": "Leak-resistant, microwave and freezer safe, tested against real kitchen use."
-          }
-        },
-        "c3": {
-          "type": "card",
-          "settings": {
-            "icon": "grid",
-            "title": "The whole list, one cart",
-            "text": "Containers, gloves, foil, cleaning, paper. One supplier, one delivery."
-          }
-        },
-        "c4": {
-          "type": "card",
-          "settings": {
-            "icon": "truck",
-            "title": "Stock you can depend on",
-            "text": "Core range in stock, shipped nationwide. You never run out mid-service."
-          }
-        }
-      },
-      "block_order": [
-        "c1",
-        "c2",
-        "c3",
-        "c4"
-      ],
-      "settings": {
-        "eyebrow": "Why Restaurant Supply Hub",
-        "heading": "Why we beat the alternatives",
-        "lede": "",
-        "tone": "ink",
-        "reveal": true,
-        "section_width": "page-width",
-        "background_color": "",
-        "padding-block-start": 80,
-        "padding-block-end": 80
-      }
-    },
-    "rsh_story": {
-      "type": "rsh-founders",
-      "blocks": {
-        "f1": {
-          "type": "figure",
-          "settings": {
-            "source": "custom",
-            "value": "17",
-            "label": "Years of combined sourcing"
-          }
-        },
-        "f2": {
-          "type": "figure",
-          "settings": {
-            "source": "custom",
-            "value": "2",
-            "label": "Founders on the factory floor"
-          }
-        },
-        "f3": {
-          "type": "figure",
-          "settings": {
-            "source": "product_count",
-            "value": "",
-            "label": "Restaurant-grade products"
-          }
-        }
-      },
-      "block_order": [
-        "f1",
-        "f2",
-        "f3"
-      ],
-      "settings": {
-        "eyebrow": "Our story",
-        "heading": "17 years of knowing exactly who makes the good stuff",
-        "body": "<p>Restaurant Supply Hub was built by two people — <strong>Mr. Jeevan and Mr. Hemant</strong> — who spent their careers on the supply side of this business: walking factory floors, testing product that looked fine until you put hot food in it, and learning what a container should actually cost before three layers of middlemen mark it up.</p>",
-        "button_label": "Our story",
-        "button_link": "shopify://pages/why-us",
-        "media": "logo",
-        "panel_tone": "paper",
-        "image_key": "sourcing-factory-floor",
-        "section_width": "page-width",
-        "background_color": "",
-        "padding-block-start": 80,
-        "padding-block-end": 80
-      }
-    },
     "rsh_ladder": {
       "type": "rsh-volume-ladder",
       "blocks": {
@@ -1291,6 +928,37 @@
         "padding-block-start": 88,
         "padding-block-end": 88
       }
+    },
+    "178924735036195891": {
+      "type": "_blocks",
+      "settings": {
+        "content_direction": "column",
+        "vertical_on_mobile": true,
+        "horizontal_alignment": "flex-start",
+        "vertical_alignment": "center",
+        "align_baseline": false,
+        "horizontal_alignment_flex_direction_column": "flex-start",
+        "vertical_alignment_flex_direction_column": "center",
+        "gap": 12,
+        "section_width": "page-width",
+        "section_height": "",
+        "section_height_custom": 50,
+        "background_media": "none",
+        "background_color": "",
+        "video_position": "cover",
+        "background_image_position": "cover",
+        "toggle_overlay": false,
+        "overlay_color": "#00000026",
+        "overlay_style": "solid",
+        "gradient_direction": "to top",
+        "border": "none",
+        "border_width": 1,
+        "border_opacity": 100,
+        "border_color": "",
+        "border_radius": 0,
+        "padding-block-start": 0,
+        "padding-block-end": 0
+      }
     }
   },
   "order": [
@@ -1306,9 +974,7 @@
     "rsh_story",
     "product_list_9xDfTQ",
     "rsh_wall",
-    "rsh_reorder",
     "rsh_ladder",
-    "rsh_closing",
     "178924735036195891"
   ]
 }

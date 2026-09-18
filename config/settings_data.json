@@ -74,9 +74,9 @@
     "color_palette": {
       "background": "#ffffff",
       "foreground": "#040404",
-      "color1": "#15FF00",
-      "color2": "#401b1b",
-      "color3": "#FFF200",
+      "color1": "#00B859",
+      "color2": "#A25400",
+      "color3": "#fff200",
       "color4": "#f1ede8"
     }
   },
