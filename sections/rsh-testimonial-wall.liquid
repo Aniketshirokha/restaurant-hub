@@ -1,0 +1,324 @@
+{%- doc -%}
+  Testimonials as a wall of cards, each one opening into a dialog.
+
+  The grid is the point: a buyer can see at a glance that several different kinds
+  of kitchen are talking, and read the one that sounds like their own business
+  rather than waiting for a carousel to come round to it. The card shows the
+  headline and the opening of the quote; the dialog holds the whole thing, with
+  the other quotes a click away inside it.
+
+  There is deliberately no star rating, no average, no avatar, no photograph and
+  no "verified order" badge. An average implies a population of ratings, a
+  verified badge is a specific factual claim that an order exists under that
+  name, and a face implies a person who can be looked up. All three are checkable
+  and reportable under the FTC rule on testimonials, and none is worth the risk
+  while these quotes are illustrative. Replace this section with the review app's
+  widget once there are real reviews, rather than adding badges to placeholders.
+
+  Nothing here needs JavaScript. Without it every card shows its quote in full,
+  the buttons that would open a dialog are hidden because they would do nothing,
+  and the section is a readable wall of quotes. The script is what shortens the
+  cards and turns them into openers.
+{%- enddoc -%}
+
+<script
+  src="{{ 'rsh-testimonial-wall.js' | asset_url }}"
+  type="module"
+  fetchpriority="low"
+></script>
+
+{% liquid
+  if section.settings.background_color != blank
+    render 'contrast-override', background_color: section.settings.background_color, section_id: section.id
+  endif
+%}
+
+<div
+  class="section-background{% if section.settings.background_color != blank %} color-custom-{{ section.id }}{% endif %}"
+></div>
+
+<div
+  class="
+    section
+    section--{{ section.settings.section_width }}
+    {% if section.settings.background_color != blank %}color-custom-{{ section.id }}{% endif %}
+    spacing-style gap-style
+  "
+  style="
+    {% render 'spacing-style', settings: section.settings %}
+    {% render 'gap-style', value: section.settings.gap %}
+  "
+>
+  {%- if section.settings.heading != blank or section.settings.eyebrow != blank -%}
+    <div class="rsh-block rsh-wall__intro">
+      {%- if section.settings.eyebrow != blank -%}
+        <p class="rsh-eyebrow">{{ section.settings.eyebrow }}</p>
+      {%- endif -%}
+      {%- if section.settings.heading != blank -%}
+        <h2 class="rsh-heading h2">{{ section.settings.heading }}</h2>
+      {%- endif -%}
+      {%- if section.settings.body != blank -%}
+        <div class="rsh-lede rte">{{ section.settings.body }}</div>
+      {%- endif -%}
+    </div>
+  {%- endif -%}
+
+  <rsh-testimonial-wall
+    class="rsh-wall"
+    data-reveal="{{ section.settings.reveal }}"
+    data-columns="{{ section.settings.columns }}"
+  >
+    <ul class="rsh-wall__grid" role="list">
+      {%- for block in section.blocks -%}
+        <li class="rsh-wall__item" {{ block.shopify_attributes }}>
+          <article
+            class="rsh-wall__card"
+            data-card
+            data-index="{{ forloop.index0 }}"
+            style="--rsh-wall-delay: {{ forloop.index0 | times: 70 }}ms"
+          >
+            <span class="rsh-wall__mark" aria-hidden="true">&ldquo;</span>
+
+            {%- if block.settings.headline != blank -%}
+              <h3 class="rsh-wall__headline" data-headline>{{ block.settings.headline }}</h3>
+            {%- endif -%}
+
+            <div class="rsh-wall__quote rte" data-quote>{{ block.settings.quote }}</div>
+
+            <footer class="rsh-wall__by">
+              {%- if block.settings.name != blank -%}
+                <span class="rsh-wall__name" data-name>{{ block.settings.name }}</span>
+              {%- endif -%}
+              {%- if block.settings.role != blank -%}
+                <span class="rsh-wall__role" data-role>{{ block.settings.role }}</span>
+              {%- endif -%}
+            </footer>
+
+            {%- comment -%}
+              Hidden until the script enhances the card. Without it this button
+              would open nothing, and the quote it offers to show is already
+              there in full.
+            {%- endcomment -%}
+            <button class="rsh-wall__open" type="button" data-open hidden>
+              <span aria-hidden="true">{{ section.settings.open_label }}</span>
+              <span class="rsh-visually-hidden">
+                {{ section.settings.open_label }} from {{ block.settings.name | default: 'this operator' }}
+              </span>
+            </button>
+          </article>
+        </li>
+      {%- endfor -%}
+    </ul>
+
+    <dialog class="rsh-wall__dialog" data-dialog aria-labelledby="{{ section.id }}-dialog-headline">
+      <div class="rsh-wall__sheet">
+        <button class="rsh-wall__close" type="button" data-close>
+          <span class="svg-wrapper" aria-hidden="true">
+            {{- 'icon-close.svg' | inline_asset_content -}}
+          </span>
+          <span class="rsh-visually-hidden">Close</span>
+        </button>
+
+        <span class="rsh-wall__mark rsh-wall__mark--lg" aria-hidden="true">&ldquo;</span>
+
+        <p class="rsh-wall__sheet-headline" id="{{ section.id }}-dialog-headline" data-d-headline></p>
+        <div class="rsh-wall__sheet-quote rte" data-d-quote></div>
+
+        <footer class="rsh-wall__sheet-by">
+          <span class="rsh-wall__name" data-d-name></span>
+          <span class="rsh-wall__role" data-d-role></span>
+        </footer>
+
+        <nav class="rsh-wall__sheet-nav" aria-label="Move between quotes">
+          <button class="rsh-wall__nav-btn" type="button" data-prev>
+            <span class="svg-wrapper" aria-hidden="true">
+              {{- 'icon-chevron-left.svg' | inline_asset_content -}}
+            </span>
+            <span class="rsh-visually-hidden">Previous quote</span>
+          </button>
+          <span class="rsh-wall__counter" data-counter aria-live="polite"></span>
+          <button class="rsh-wall__nav-btn" type="button" data-next>
+            <span class="svg-wrapper" aria-hidden="true">
+              {{- 'icon-chevron-right.svg' | inline_asset_content -}}
+            </span>
+            <span class="rsh-visually-hidden">Next quote</span>
+          </button>
+        </nav>
+      </div>
+    </dialog>
+  </rsh-testimonial-wall>
+</div>
+
+{% schema %}
+{
+  "name": "Testimonials",
+  "disabled_on": {
+    "groups": ["header", "footer"]
+  },
+  "max_blocks": 9,
+  "blocks": [
+    {
+      "type": "quote",
+      "name": "Testimonial",
+      "settings": [
+        {
+          "type": "text",
+          "id": "headline",
+          "label": "Headline",
+          "info": "The one line worth reading if they read nothing else."
+        },
+        {
+          "type": "richtext",
+          "id": "quote",
+          "label": "Quote"
+        },
+        {
+          "type": "text",
+          "id": "name",
+          "label": "Name"
+        },
+        {
+          "type": "text",
+          "id": "role",
+          "label": "Business type"
+        }
+      ]
+    }
+  ],
+  "settings": [
+    {
+      "type": "paragraph",
+      "content": "No rating, average, avatar, photo or verified badge is shown here on purpose. Swap this section for your review app once you have real reviews, rather than adding those claims to placeholder quotes."
+    },
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Eyebrow",
+      "default": "In their words"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "What operators said after switching"
+    },
+    {
+      "type": "richtext",
+      "id": "body",
+      "label": "Body",
+      "default": "<p>Six kinds of kitchen, one catalogue. Open any of them to read the whole thing.</p>"
+    },
+    {
+      "type": "text",
+      "id": "open_label",
+      "label": "Open button label",
+      "default": "Read the full quote"
+    },
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+    {
+      "type": "select",
+      "id": "columns",
+      "label": "Columns on desktop",
+      "options": [
+        { "value": "2", "label": "Two" },
+        { "value": "3", "label": "Three" }
+      ],
+      "default": "3"
+    },
+    {
+      "type": "checkbox",
+      "id": "reveal",
+      "label": "Fade the cards in as they scroll into view",
+      "default": true,
+      "info": "Never runs for a visitor who asked for reduced motion."
+    },
+    {
+      "type": "select",
+      "id": "section_width",
+      "label": "Width",
+      "options": [
+        { "value": "page-width", "label": "Page" },
+        { "value": "full-width", "label": "Full" }
+      ],
+      "default": "page-width"
+    },
+    {
+      "type": "range",
+      "id": "gap",
+      "label": "Gap",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "default": 32
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background",
+      "placeholder": "Default"
+    },
+    {
+      "type": "header",
+      "content": "Padding"
+    },
+    {
+      "type": "range",
+      "id": "padding-block-start",
+      "label": "Top",
+      "min": 0,
+      "max": 200,
+      "step": 4,
+      "unit": "px",
+      "default": 64
+    },
+    {
+      "type": "range",
+      "id": "padding-block-end",
+      "label": "Bottom",
+      "min": 0,
+      "max": 200,
+      "step": 4,
+      "unit": "px",
+      "default": 64
+    }
+  ],
+  "presets": [
+    {
+      "name": "Testimonials",
+      "blocks": [
+        {
+          "type": "quote",
+          "settings": {
+            "headline": "Same containers, almost 20% less per case",
+            "quote": "<p>Switched our deli containers over about four months ago. Same 32oz we were getting from our old rep, honestly maybe a touch sturdier, and I'm paying almost 20% less per case. Delivery's been on time every single order.</p>",
+            "name": "Marcus D.",
+            "role": "Deli and prepared foods"
+          }
+        },
+        {
+          "type": "quote",
+          "settings": {
+            "headline": "Holds heat, doesn't leak on the drive",
+            "quote": "<p>We run three ghost kitchen brands out of one space so packaging is basically our storefront. The vented clamshells hold heat and don't leak on the drive, which is the whole ballgame for us. Prices let us actually make margin on delivery.</p>",
+            "name": "Priya K.",
+            "role": "Cloud kitchen"
+          }
+        },
+        {
+          "type": "quote",
+          "settings": {
+            "headline": "Best per-piece glove price I've found",
+            "quote": "<p>Gloves are solid, nitrile doesn't rip like the cheap vinyl we used to buy, and the per-piece price is the best I've found. One box came a day late once. They sorted it out fast.</p>",
+            "name": "Tony R.",
+            "role": "Food truck"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
