@@ -1,0 +1,228 @@
+{%- doc -%}
+  The standing offers: the things that are true on every order, not this week
+  only.
+
+  Everything in the preset is already a fact of how this store works, which is
+  the point. A deals page that promises something the checkout does not do is
+  worse than no deals page, so nothing here is a claim the site cannot keep.
+{%- enddoc -%}
+
+{% liquid
+  if section.settings.background_color != blank
+    render 'contrast-override', background_color: section.settings.background_color, section_id: section.id
+  endif
+  assign threshold = settings.rsh_free_shipping_threshold | default: 149
+%}
+
+<div
+  class="section-background{% if section.settings.background_color != blank %} color-custom-{{ section.id }}{% endif %}"
+></div>
+
+<div
+  class="
+    section
+    section--{{ section.settings.section_width }}
+    {% if section.settings.background_color != blank %}color-custom-{{ section.id }}{% endif %}
+    spacing-style gap-style
+  "
+  style="
+    {% render 'spacing-style', settings: section.settings %}
+    {% render 'gap-style', value: section.settings.gap %}
+  "
+>
+  {%- if section.settings.heading != blank or section.settings.eyebrow != blank -%}
+    <div class="rsh-deals__head">
+      {%- if section.settings.eyebrow != blank -%}
+        <p class="rsh-eyebrow">{{ section.settings.eyebrow }}</p>
+      {%- endif -%}
+      {%- if section.settings.heading != blank -%}
+        <h2 class="rsh-deals__heading">{{ section.settings.heading }}</h2>
+      {%- endif -%}
+    </div>
+  {%- endif -%}
+
+  <ul class="rsh-offers" role="list">
+    {%- for block in section.blocks -%}
+      {%- liquid
+        assign body = block.settings.text | replace: '[threshold]', threshold
+        assign has_link = false
+        if block.settings.link != blank and block.settings.link_label != blank
+          assign has_link = true
+        endif
+      -%}
+      <li class="rsh-offers__item" {{ block.shopify_attributes }}>
+        {%- if block.settings.icon != 'none' -%}
+          <span class="rsh-offers__icon svg-wrapper" aria-hidden="true">
+            {{- block.settings.icon | append: '.svg' | inline_asset_content -}}
+          </span>
+        {%- endif -%}
+
+        {%- if block.settings.title != blank -%}
+          <h3 class="rsh-offers__title">{{ block.settings.title }}</h3>
+        {%- endif -%}
+
+        {%- if body != blank -%}
+          <p class="rsh-offers__text">{{ body }}</p>
+        {%- endif -%}
+
+        {%- if has_link -%}
+          <a class="rsh-offers__link" href="{{ block.settings.link }}">
+            {{ block.settings.link_label }}
+            <span aria-hidden="true">&rarr;</span>
+          </a>
+        {%- endif -%}
+      </li>
+    {%- endfor -%}
+  </ul>
+</div>
+
+{% schema %}
+{
+  "name": "Standing offers",
+  "max_blocks": 8,
+  "blocks": [
+    {
+      "type": "offer",
+      "name": "Offer",
+      "settings": [
+        {
+          "type": "select",
+          "id": "icon",
+          "label": "Icon",
+          "options": [
+            { "value": "none", "label": "None" },
+            { "value": "icon-checkmark", "label": "Checkmark" },
+            { "value": "icon-available", "label": "Available" },
+            { "value": "icon-inventory", "label": "Inventory" },
+            { "value": "icon-discount", "label": "Discount" },
+            { "value": "icon-orders", "label": "Orders" },
+            { "value": "icon-cart", "label": "Cart" },
+            { "value": "icon-info", "label": "Info" }
+          ],
+          "default": "icon-checkmark"
+        },
+        { "type": "text", "id": "title", "label": "Title" },
+        {
+          "type": "text",
+          "id": "text",
+          "label": "Text",
+          "info": "Write [threshold] and the free shipping figure from theme settings is filled in."
+        },
+        { "type": "text", "id": "link_label", "label": "Link label" },
+        { "type": "url", "id": "link", "label": "Link" }
+      ]
+    }
+  ],
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Every order" },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "What you get without asking"
+    },
+    { "type": "header", "content": "Layout" },
+    {
+      "type": "select",
+      "id": "section_width",
+      "label": "Width",
+      "options": [
+        { "value": "page-width", "label": "Page" },
+        { "value": "full-width", "label": "Full" }
+      ],
+      "default": "page-width"
+    },
+    {
+      "type": "range",
+      "id": "gap",
+      "label": "Gap",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "default": 28
+    },
+    { "type": "color", "id": "background_color", "label": "Background", "placeholder": "Default" },
+    { "type": "header", "content": "Padding" },
+    {
+      "type": "range",
+      "id": "padding-block-start",
+      "label": "Top",
+      "min": 0,
+      "max": 200,
+      "step": 4,
+      "unit": "px",
+      "default": 64
+    },
+    {
+      "type": "range",
+      "id": "padding-block-end",
+      "label": "Bottom",
+      "min": 0,
+      "max": 200,
+      "step": 4,
+      "unit": "px",
+      "default": 64
+    }
+  ],
+  "presets": [
+    {
+      "name": "Standing offers",
+      "blocks": [
+        {
+          "type": "offer",
+          "settings": {
+            "icon": "icon-orders",
+            "title": "Free shipping over $[threshold]",
+            "text": "On every order, with no code and no account tier to reach first."
+          }
+        },
+        {
+          "type": "offer",
+          "settings": {
+            "icon": "icon-discount",
+            "title": "Per-piece price on every product",
+            "text": "Next to the case price, at every quantity break, so you can compare us against your last invoice."
+          }
+        },
+        {
+          "type": "offer",
+          "settings": {
+            "icon": "icon-checkmark",
+            "title": "No membership, no minimum",
+            "text": "One case is a real order. Today's two-case buyer is next year's twenty-case account."
+          }
+        },
+        {
+          "type": "offer",
+          "settings": {
+            "icon": "icon-inventory",
+            "title": "In stock, ships nationwide",
+            "text": "Everything on the site ships from our warehouse. Order today, get a tracking number today."
+          }
+        },
+        {
+          "type": "offer",
+            "settings": {
+            "icon": "icon-cart",
+            "title": "Try it before a pallet",
+            "text": "Ask for a sample case and put your own food in the container before you commit.",
+            "link_label": "Request a sample case",
+            "link": "shopify://pages/samples"
+          }
+        },
+        {
+          "type": "offer",
+          "settings": {
+            "icon": "icon-info",
+            "title": "Buying at volume",
+            "text": "Past the published ladder we price it properly rather than by formula.",
+            "link_label": "Request a quote",
+            "link": "shopify://pages/request-a-quote"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
