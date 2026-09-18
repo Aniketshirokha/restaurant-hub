@@ -1794,16 +1794,28 @@
 
 .rsh-hero__copy {
   display: grid;
-  gap: var(--gap-sm, 14px);
+  gap: 0;
   max-width: 34rem;
 }
 
-.rsh-hero__heading + .rsh-hero__lede {
-  margin-block-start: 0.35rem;
+/*
+ * The vertical rhythm is set here rather than by a single grid gap, because
+ * the four steps are deliberately unequal: the eyebrow sits close under
+ * nothing and close over the heading, the lede stands away from it, and the
+ * buttons stand away again.
+ */
+
+.rsh-hero__eyebrow + .rsh-hero__heading {
+  margin-block-start: 0.85rem;
 }
 
-.rsh-hero__lede + .rsh-hero__actions {
-  margin-block-start: 0.6rem;
+.rsh-hero__heading + .rsh-hero__lede {
+  margin-block-start: 1.15rem;
+}
+
+.rsh-hero__lede + .rsh-hero__actions,
+.rsh-hero__heading + .rsh-hero__actions {
+  margin-block-start: 1.75rem;
 }
 
 .rsh-hero--has-image .rsh-hero__eyebrow,
@@ -1812,38 +1824,21 @@
   text-shadow: 0 1px 3px rgb(6 12 9 / 0.55);
 }
 
+/*
+ * Weight comes from the accent face throughout. It is the only one of the
+ * three loaded above 400, so anything else asking for 600 here would have the
+ * browser draw a fake bold over a regular.
+ */
+
 .rsh-hero__eyebrow {
-  display: flex;
-  gap: 0.6rem;
-  align-items: center;
-  margin: 0 0 0.2rem;
-  font-family: var(--font-body--family, inherit);
-  font-size: 0.8125rem;
-  font-weight: 600;
-  letter-spacing: 0.14em;
+  margin: 0;
+  font-family: var(--font-accent--family, inherit);
+  font-style: var(--font-accent--style, normal);
+  font-weight: var(--font-accent--weight, 600);
+  font-size: 0.78125rem;
+  letter-spacing: 0.16em;
   text-transform: uppercase;
-  color: rgb(255 255 255 / 0.82);
-}
-
-.rsh-hero__pip {
-  inline-size: 8px;
-  block-size: 8px;
-  background: var(--hero-accent);
-  border-radius: 50%;
-  box-shadow: 0 0 0 0 rgb(56 176 106 / 0.55);
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .rsh-hero__pip {
-    animation: rsh-hero-pip 2.4s ease-out infinite;
-  }
-}
-
-@keyframes rsh-hero-pip {
-  60%,
-  100% {
-    box-shadow: 0 0 0 11px rgb(56 176 106 / 0);
-  }
+  color: rgb(255 255 255 / 0.75);
 }
 
 .rsh-hero__heading {
@@ -1851,23 +1846,25 @@
   font-family: var(--font-h1--family, inherit);
   font-style: var(--font-h1--style, normal);
   font-weight: var(--font-h1--weight, 700);
-  font-size: clamp(2.25rem, 4.6vw, 3.4rem);
-  line-height: 1.08;
+  font-size: clamp(2.5rem, 5.4vw, 4.25rem);
+  /* Archivo Black is a black face already; tightening it any further closes
+     the counters and the whole line turns to mud. */
+  line-height: 1.04;
   letter-spacing: -0.005em;
   text-wrap: balance;
 }
 
 .rsh-hero__accent {
   display: block;
-  margin-block-start: 0.04em;
+  margin-block-start: 0.02em;
   color: var(--hero-accent);
 }
 
 .rsh-hero__lede {
-  max-width: 44ch;
-  font-size: clamp(1rem, 1.3vw, 1.125rem);
+  max-width: 42ch;
+  font-size: clamp(1rem, 1.15vw, 1.0625rem);
   line-height: 1.6;
-  color: rgb(255 255 255 / 0.9);
+  color: rgb(255 255 255 / 0.88);
 }
 
 .rsh-hero__lede p {
@@ -1878,17 +1875,20 @@
   display: flex;
   flex-wrap: wrap;
   gap: 12px;
-  margin-block-start: 0.4rem;
 }
 
 .rsh-hero__cta {
   display: inline-flex;
-  gap: 0.55rem;
+  gap: 0.5rem;
   align-items: center;
-  padding: 0.95rem 1.6rem;
-  font-size: var(--font-size--md, 1rem);
-  font-weight: 650;
+  padding: 0.9rem 1.75rem;
+  font-family: var(--font-accent--family, inherit);
+  font-style: var(--font-accent--style, normal);
+  font-weight: var(--font-accent--weight, 600);
+  font-size: 0.9375rem;
+  letter-spacing: 0.005em;
   text-decoration: none;
+  white-space: nowrap;
   border-radius: 999px;
   transition: background-color 180ms ease, border-color 180ms ease, transform 180ms ease;
 }
@@ -1906,13 +1906,13 @@
 
 .rsh-hero__cta--ghost {
   color: var(--hero-paper);
-  background: rgb(255 255 255 / 0.04);
-  border: 1px solid rgb(255 255 255 / 0.28);
+  background: rgb(255 255 255 / 0.06);
+  border: 1px solid rgb(255 255 255 / 0.32);
 }
 
 .rsh-hero__cta--ghost:hover {
-  background: rgb(255 255 255 / 0.1);
-  border-color: rgb(255 255 255 / 0.5);
+  background: rgb(255 255 255 / 0.12);
+  border-color: rgb(255 255 255 / 0.55);
 }
 
 .rsh-hero__cta-arrow {
@@ -2084,7 +2084,7 @@
 
 /* Text only: one column, and the copy held to a readable measure. */
 .rsh-hero[data-layout='text'] .rsh-hero__copy {
-  max-width: 36rem;
+  max-width: 38rem;
 }
 
 @media (min-width: 60rem) {
@@ -2101,6 +2101,65 @@
     width: min(30rem, 100%);
   }
 }
+
+/*
+ * On a phone the copy has the whole width, so the measure comes from the
+ * heading's own size rather than a max-width, and the buttons share a row
+ * until there is genuinely no room for two.
+ */
+
+@media (max-width: 47rem) {
+  .rsh-hero__copy,
+  .rsh-hero[data-layout='text'] .rsh-hero__copy {
+    max-width: 100%;
+  }
+
+  .rsh-hero__eyebrow {
+    font-size: 0.75rem;
+    letter-spacing: 0.14em;
+  }
+
+  .rsh-hero__eyebrow + .rsh-hero__heading {
+    margin-block-start: 0.7rem;
+  }
+
+  .rsh-hero__heading {
+    font-size: clamp(2rem, 8.6vw, 2.9rem);
+    line-height: 1.06;
+  }
+
+  .rsh-hero__heading + .rsh-hero__lede {
+    margin-block-start: 0.9rem;
+  }
+
+  .rsh-hero__lede {
+    max-width: 34ch;
+    font-size: 1rem;
+  }
+
+  .rsh-hero__lede + .rsh-hero__actions,
+  .rsh-hero__heading + .rsh-hero__actions {
+    margin-block-start: 1.5rem;
+  }
+
+  .rsh-hero__actions {
+    gap: 10px;
+  }
+
+  .rsh-hero__cta {
+    flex: 1 1 auto;
+    justify-content: center;
+    min-inline-size: 8.5rem;
+    padding-inline: 1.25rem;
+  }
+
+  .rsh-hero__proof {
+    gap: 0.5rem;
+    margin-block-start: 1.5rem;
+    font-size: 0.9375rem;
+  }
+}
+
 
 /* ------------------------------------------------------- Mega menu */
 
@@ -2383,4 +2442,275 @@
 /* The headings keep the display face and get a little more room under them. */
 .mega-menu__grid .mega-menu__link--parent {
   margin-block-end: 0.25rem;
+}
+
+/* ------------------------------------------------------------------ *
+ * Proof bar
+ *
+ * The strip under the hero. One customer line at a time on the left, the
+ * figures the shop stands behind on the right, a hairline between them.
+ *
+ * The quotes are stacked in a single grid cell rather than laid out in a
+ * row, so the strip's height is set by the longest of them once and never
+ * moves as they change. Weights come from the accent face, which is loaded
+ * at 600; asking the body face for 600 would have the browser fake it.
+ * ------------------------------------------------------------------ */
+
+.rsh-proof {
+  --rsh-proof-accent: var(--rsh-accent);
+  --rsh-proof-rule: rgb(var(--color-foreground-rgb) / 0.16);
+}
+
+.rsh-proof__inner {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: center;
+  column-gap: clamp(1.5rem, 3.5vw, 3.5rem);
+  row-gap: 1.25rem;
+}
+
+/* ---- the quote ---- */
+
+.rsh-proof__voice {
+  display: grid;
+  /* `start` matters: auto tracks stretch to fill the column otherwise, which
+     pushes the mark to one edge and the dots to the other with the quote
+     marooned between them. */
+  grid-template-columns: auto minmax(0, max-content) auto;
+  justify-content: start;
+  align-items: center;
+  column-gap: clamp(0.75rem, 1.5vw, 1.25rem);
+  min-width: 0;
+}
+
+.rsh-proof__mark {
+  align-self: start;
+  margin-block-start: 0.12em;
+  font-family: var(--font-h1--family, inherit);
+  font-style: var(--font-h1--style, normal);
+  font-weight: var(--font-h1--weight, 400);
+  font-size: clamp(2.5rem, 4.5vw, 3.75rem);
+  line-height: 0.68;
+  color: var(--rsh-proof-accent);
+  opacity: 0.5;
+  user-select: none;
+}
+
+.rsh-proof__stack {
+  display: grid;
+  min-width: 0;
+}
+
+.rsh-proof__quote {
+  grid-area: 1 / 1;
+  margin: 0;
+  min-width: 0;
+}
+
+/* The attribute has to win over the grid placement above. */
+.rsh-proof__quote[hidden] {
+  display: none;
+}
+
+.rsh-proof__line {
+  margin: 0;
+  font-family: var(--font-accent--family, inherit);
+  font-style: var(--font-accent--style, normal);
+  font-weight: var(--font-accent--weight, 600);
+  font-size: clamp(1.0625rem, 1.45vw, 1.375rem);
+  line-height: 1.25;
+  letter-spacing: -0.005em;
+  text-wrap: balance;
+}
+
+.rsh-proof__by {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0.4rem;
+  margin-block-start: 0.5rem;
+  font-family: var(--font-accent--family, inherit);
+  font-style: var(--font-accent--style, normal);
+  font-weight: var(--font-accent--weight, 600);
+  font-size: var(--font-size--xs, 0.8125rem);
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  color: var(--rsh-muted);
+}
+
+.rsh-proof__name {
+  color: rgb(var(--color-foreground-rgb));
+}
+
+.rsh-proof__sep {
+  opacity: 0.55;
+}
+
+/* Only the enhanced strip crossfades. Before the script arrives a single
+   quote is simply present, with no opacity for a blocked script to strand
+   it at. */
+[data-enhanced] .rsh-proof__quote {
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(0.4rem);
+  transition: opacity 0.4s ease, transform 0.4s ease, visibility 0s linear 0.4s;
+}
+
+[data-enhanced] .rsh-proof__quote.is-active {
+  opacity: 1;
+  visibility: visible;
+  transform: none;
+  transition-delay: 0s;
+}
+
+/* ---- the dots ---- */
+
+.rsh-proof__dots {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+.rsh-proof__dots[hidden] {
+  display: none;
+}
+
+.rsh-proof__dot {
+  appearance: none;
+  /* Padding rather than size: the dot stays small, the hit target does not. */
+  padding: 0.4rem;
+  margin: 0;
+  border: 0;
+  background: none;
+  line-height: 0;
+  cursor: pointer;
+  border-radius: 50%;
+}
+
+.rsh-proof__dot::before {
+  content: '';
+  display: block;
+  inline-size: 7px;
+  block-size: 7px;
+  border-radius: 50%;
+  background: rgb(var(--color-foreground-rgb) / 0.24);
+  transition: background 0.2s ease, transform 0.2s ease;
+}
+
+.rsh-proof__dot:hover::before {
+  background: rgb(var(--color-foreground-rgb) / 0.45);
+}
+
+.rsh-proof__dot.is-active::before {
+  background: var(--rsh-proof-accent);
+  transform: scale(1.3);
+}
+
+.rsh-proof__dot:focus-visible {
+  outline: 2px solid var(--rsh-proof-accent);
+  outline-offset: 1px;
+}
+
+/* ---- the figures ---- */
+
+.rsh-proof__stats {
+  display: flex;
+  align-items: center;
+  gap: clamp(1.25rem, 2.5vw, 2.5rem);
+  margin: 0;
+  padding: 0;
+  padding-inline-start: clamp(1.5rem, 3vw, 3rem);
+  border-inline-start: 1px solid var(--rsh-proof-rule);
+  list-style: none;
+}
+
+.rsh-proof__stat {
+  display: flex;
+  align-items: center;
+  gap: 0.55rem;
+  min-width: 0;
+}
+
+.rsh-proof__value {
+  font-family: var(--font-h1--family, inherit);
+  font-style: var(--font-h1--style, normal);
+  font-weight: var(--font-h1--weight, 400);
+  font-size: clamp(1.75rem, 2.8vw, 2.5rem);
+  line-height: 1;
+  color: var(--rsh-proof-accent);
+  font-variant-numeric: tabular-nums;
+}
+
+.rsh-proof__label {
+  /* Wraps into a short block beside the figure rather than running the
+     strip wide. */
+  max-inline-size: 12ch;
+  font-family: var(--font-accent--family, inherit);
+  font-style: var(--font-accent--style, normal);
+  font-weight: var(--font-accent--weight, 600);
+  font-size: var(--font-size--xs, 0.8125rem);
+  line-height: 1.2;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  color: var(--rsh-muted);
+  text-wrap: balance;
+}
+
+/* ---- narrower ---- */
+
+/*
+ * Horizon only pads a full-width section from 750px up, so below that the
+ * strip would run to the screen edge while every other section keeps its
+ * margin. Same variable, so the two stay in line.
+ */
+@media screen and (max-width: 749px) {
+  .rsh-proof.section--full-width .rsh-proof__inner {
+    padding-inline: var(--page-margin);
+  }
+}
+
+@media screen and (max-width: 989px) {
+  .rsh-proof__inner {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .rsh-proof__stats {
+    flex-wrap: wrap;
+    padding-inline-start: 0;
+    border-inline-start: 0;
+    padding-block-start: 1.25rem;
+    border-block-start: 1px solid var(--rsh-proof-rule);
+  }
+}
+
+@media screen and (max-width: 599px) {
+  .rsh-proof__voice {
+    grid-template-columns: auto minmax(0, 1fr);
+    row-gap: 0.75rem;
+  }
+
+  .rsh-proof__dots {
+    grid-column: 2;
+    margin-inline-start: -0.4rem;
+  }
+
+  .rsh-proof__stats {
+    gap: 1rem 1.5rem;
+  }
+
+  /* Narrower labels keep both figures on one row rather than one each. */
+  .rsh-proof__label {
+    max-inline-size: 10ch;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  [data-enhanced] .rsh-proof__quote {
+    transform: none;
+    transition: opacity 0.001s linear, visibility 0s;
+  }
+
+  .rsh-proof__dot::before {
+    transition: none;
+  }
 }
