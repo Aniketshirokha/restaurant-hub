@@ -69,13 +69,41 @@
   assign max_cases = quote_min | minus: 1
   assign shop_link = section.settings.primary_link | default: routes.all_products_collection_url
   assign why_link = section.settings.secondary_link | default: '/pages/about'
+
+  assign has_image = false
+  if section.settings.image != blank or section.settings.image_key != blank
+    assign has_image = true
+  endif
+
+  assign show_panel = false
+  if section.settings.show_calculator and base_cents > 0 and pieces > 0
+    assign show_panel = true
+  endif
 %}
 
 <section
-  class="rsh-hero{% if section.settings.image_key != blank %} rsh-hero--has-image{% endif %}"
-  style="--rsh-hero-min: {{ section.settings.min_height }}vh;"
+  class="rsh-hero{% if has_image %} rsh-hero--has-image{% endif %}"
+  data-layout="{% if show_panel %}split{% else %}text{% endif %}"
+  style="
+    --rsh-hero-min: {{ section.settings.min_height }}vh;
+    --rsh-hero-scrim: {{ section.settings.overlay_opacity | divided_by: 100.0 }};
+  "
 >
-  {%- if section.settings.image_key != blank -%}
+  {%- if section.settings.image != blank -%}
+    <div class="rsh-hero__bg" aria-hidden="true">
+      {{
+        section.settings.image
+        | image_url: width: 3000
+        | image_tag:
+          widths: '750, 1100, 1500, 2000, 3000',
+          sizes: '100vw',
+          loading: 'eager',
+          fetchpriority: 'high',
+          class: 'rsh-hero__img',
+          alt: ''
+      }}
+    </div>
+  {%- elsif section.settings.image_key != blank -%}
     <div class="rsh-hero__bg" aria-hidden="true">
       {%- render 'rsh-image',
         key: section.settings.image_key,
@@ -86,7 +114,15 @@
     </div>
   {%- endif -%}
 
-  <div class="rsh-hero__grain" aria-hidden="true"></div>
+  {%- comment -%}
+    The scrim is heaviest where the words are and clears toward the other side,
+    so the photograph is still a photograph rather than a grey panel.
+  {%- endcomment -%}
+  <div class="rsh-hero__scrim" aria-hidden="true"></div>
+
+  {%- unless has_image -%}
+    <div class="rsh-hero__grain" aria-hidden="true"></div>
+  {%- endunless -%}
 
   <div
     class="section section--{{ section.settings.section_width }} spacing-style rsh-hero__section"
@@ -142,7 +178,7 @@
       {%- endif -%}
     </div>
 
-    {%- if section.settings.show_calculator and base_cents > 0 and pieces > 0 -%}
+    {%- if show_panel -%}
       <rsh-hero-price
         class="rsh-hero__panel"
         data-base-price="{{ base_cents }}"
@@ -292,8 +328,9 @@
     {
       "type": "checkbox",
       "id": "show_calculator",
-      "label": "Show the calculator",
-      "default": true
+      "label": "Show the calculator panel",
+      "default": false,
+      "info": "Off gives a text-only hero over the picture. On adds the panel beside it."
     },
     {
       "type": "text",
@@ -332,13 +369,33 @@
     },
     {
       "type": "header",
-      "content": "Layout"
+      "content": "Background"
+    },
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Background image"
+    },
+    {
+      "type": "range",
+      "id": "overlay_opacity",
+      "label": "Darken behind the text",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "%",
+      "default": 80,
+      "info": "Heaviest over the words and clearing toward the other side, so the picture still reads as a picture."
     },
     {
       "type": "text",
       "id": "image_key",
-      "label": "Background picture",
-      "info": "A filename from the image library without the .webp, e.g. hero-warehouse-dock. Leave empty for the gradient."
+      "label": "Or a library filename",
+      "info": "Used only when no image is picked above. A filename without the .webp, e.g. hero-warehouse-dock."
+    },
+    {
+      "type": "header",
+      "content": "Layout"
     },
     {
       "type": "range",
@@ -348,7 +405,7 @@
       "max": 200,
       "step": 4,
       "unit": "px",
-      "default": 72,
+      "default": 56,
       "info": "The height of a transparent header is added to this automatically."
     },
     {
@@ -359,7 +416,7 @@
       "max": 200,
       "step": 4,
       "unit": "px",
-      "default": 88
+      "default": 64
     },
     {
       "type": "range",
@@ -369,7 +426,7 @@
       "max": 100,
       "step": 5,
       "unit": "vh",
-      "default": 80
+      "default": 62
     },
     {
       "type": "select",

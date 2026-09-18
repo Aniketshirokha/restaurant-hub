@@ -1012,15 +1012,19 @@
         "proof_1": "In stock, ships nationwide",
         "proof_2": "No membership, no minimum",
         "proof_3": "Volume pricing counted across your whole cart",
-        "show_calculator": true,
+        "show_calculator": false,
         "panel_label": "Try it on a real case",
         "example_title": "24 oz microwavable bowl with lid",
         "example_price": "32.99",
         "example_pieces": 150,
         "example_noun": "bowl",
         "image_key": "",
-        "min_height": 80,
-        "section_width": "page-width"
+        "min_height": 62,
+        "section_width": "page-width",
+        "image": "shopify://shop_images/hf_20260913_175755_aeebfa48-1242-479f-beab-893893bdcad0.png",
+        "overlay_opacity": 75,
+        "padding-block-start": 56,
+        "padding-block-end": 64
       }
     },
     "rsh_wall": {
