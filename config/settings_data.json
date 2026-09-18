@@ -14,7 +14,7 @@
     "logo_height": 73,
     "logo_height_mobile": 75,
     "favicon": "shopify://shop_images/D586BCEB-A5AD-4E15-97EF-61FD3188A3C1_1_-Photoroom.png",
-    "page_text_color": "{{ settings.color_palette.foreground }}",
+    "page_text_color": "#FDFBFB",
     "type_body_font": "instrument_sans_n4",
     "type_subheading_font": "instrument_sans_n4",
     "type_heading_font": "archivo_black_n4",
