@@ -6,7 +6,8 @@
  * or related systems. Please exercise caution as any changes
  * made to this file may be overwritten.
  * ------------------------------------------------------------
- */{
+ */
+{
   "sections": {
     "main": {
       "type": "product-information",
@@ -94,7 +95,7 @@
                 "width": "fit-content",
                 "max_width": "normal",
                 "alignment": "left",
-                "type_preset": "h2",
+                "type_preset": "h3",
                 "font": "var(--font-body--family)",
                 "font_size": "1rem",
                 "line_height": "normal",
@@ -115,6 +116,7 @@
             "rsh_item_number": {
               "type": "sku",
               "settings": {
+                "type_preset": "",
                 "width": "100%",
                 "alignment": "left",
                 "font": "var(--font-body--family)",
@@ -126,7 +128,8 @@
                 "padding-block-end": 0,
                 "padding-inline-start": 0,
                 "padding-inline-end": 0
-              }
+              },
+              "blocks": {}
             },
             "rsh_price": {
               "type": "rsh-price-per-piece",
@@ -137,10 +140,12 @@
                 "padding-block-end": 0,
                 "padding-inline-start": 0,
                 "padding-inline-end": 0
-              }
+              },
+              "blocks": {}
             },
             "rsh_tier": {
               "type": "rsh-tier-table",
+              "disabled": true,
               "settings": {
                 "heading": "Volume pricing",
                 "show_nudge": true,
@@ -152,7 +157,8 @@
                 "padding-block-end": 8,
                 "padding-inline-start": 0,
                 "padding-inline-end": 0
-              }
+              },
+              "blocks": {}
             },
             "variant_picker_R3rGDr": {
               "type": "variant-picker",
@@ -186,11 +192,13 @@
                 "unit_noun_singular": "case",
                 "backorder_text": "Available to order",
                 "cutoff_text": "Ships today if ordered before 2pm Pacific.",
+                "show_free_shipping": true,
                 "padding-block-start": 0,
                 "padding-block-end": 0,
                 "padding-inline-start": 0,
                 "padding-inline-end": 0
-              }
+              },
+              "blocks": {}
             },
             "buy_buttons_eYQEYi": {
               "type": "buy-buttons",
@@ -261,17 +269,8 @@
                 "padding-block-end": 0,
                 "padding-inline-start": 0,
                 "padding-inline-end": 0
-              }
-            },
-            "rsh_specs": {
-              "type": "rsh-spec-table",
-              "settings": {
-                "heading": "Specifications",
-                "padding-block-start": 0,
-                "padding-block-end": 0,
-                "padding-inline-start": 0,
-                "padding-inline-end": 0
-              }
+              },
+              "blocks": {}
             },
             "product_description_LfDYCg": {
               "type": "product-description",
@@ -330,6 +329,7 @@
                 "border_opacity": 100,
                 "border_color": "",
                 "border_radius": 0,
+                "link": "",
                 "open_in_new_tab": false,
                 "placeholder": "",
                 "padding-block-start": 8,
@@ -369,6 +369,7 @@
                     "border_opacity": 100,
                     "border_color": "",
                     "border_radius": 0,
+                    "link": "",
                     "open_in_new_tab": false,
                     "placeholder": "",
                     "padding-block-start": 0,
@@ -408,6 +409,7 @@
                         "border_opacity": 100,
                         "border_color": "",
                         "border_radius": 10,
+                        "link": "",
                         "open_in_new_tab": false,
                         "placeholder": "",
                         "padding-block-start": 42,
@@ -422,6 +424,7 @@
                           "settings": {
                             "icon": "heart",
                             "width": 24,
+                            "link": "",
                             "open_in_new_tab": false,
                             "icon_color": ""
                           },
@@ -490,6 +493,7 @@
                         "border_opacity": 100,
                         "border_color": "",
                         "border_radius": 10,
+                        "link": "",
                         "open_in_new_tab": false,
                         "placeholder": "",
                         "padding-block-start": 42,
@@ -504,6 +508,7 @@
                           "settings": {
                             "icon": "price_tag",
                             "width": 24,
+                            "link": "",
                             "open_in_new_tab": false,
                             "icon_color": ""
                           },
@@ -578,6 +583,7 @@
                     "border_opacity": 100,
                     "border_color": "",
                     "border_radius": 0,
+                    "link": "",
                     "open_in_new_tab": false,
                     "placeholder": "",
                     "padding-block-start": 0,
@@ -617,6 +623,7 @@
                         "border_opacity": 100,
                         "border_color": "",
                         "border_radius": 10,
+                        "link": "",
                         "open_in_new_tab": false,
                         "placeholder": "",
                         "padding-block-start": 42,
@@ -631,6 +638,7 @@
                           "settings": {
                             "icon": "plant",
                             "width": 24,
+                            "link": "",
                             "open_in_new_tab": false,
                             "icon_color": ""
                           },
@@ -699,6 +707,7 @@
                         "border_opacity": 100,
                         "border_color": "",
                         "border_radius": 10,
+                        "link": "",
                         "open_in_new_tab": false,
                         "placeholder": "",
                         "padding-block-start": 42,
@@ -713,6 +722,7 @@
                           "settings": {
                             "icon": "leather",
                             "width": 24,
+                            "link": "",
                             "open_in_new_tab": false,
                             "icon_color": ""
                           },
@@ -877,7 +887,6 @@
             "rsh_inventory",
             "buy_buttons_eYQEYi",
             "rsh_paired",
-            "rsh_specs",
             "product_description_LfDYCg",
             "group_X39hBc",
             "accordion_g8EVVp"
@@ -1093,6 +1102,7 @@
                 "border_opacity": 100,
                 "border_color": "",
                 "border_radius": 0,
+                "link": "",
                 "open_in_new_tab": false,
                 "padding-block-start": 24,
                 "padding-block-end": 24,
