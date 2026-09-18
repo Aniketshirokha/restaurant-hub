@@ -31,14 +31,15 @@
         "example_pieces": 150,
         "example_noun": "bowl",
         "image": "shopify://shop_images/Wide-website-hero-background-Warm-bold.png",
-        "overlay_opacity": 60,
+        "image_mobile": "shopify://shop_images/Vertical-mobile-website-hero-background.png",
+        "overlay_opacity": 20,
         "image_key": "",
         "padding-block-start": 56,
         "padding-block-end": 64,
-        "section_width": "page-width",
+        "show_proof_mobile": false,
         "ratio_desktop": "21/9",
         "ratio_mobile": "4/5",
-        "show_proof_mobile": false
+        "section_width": "page-width"
       }
     },
     "rsh_proof": {
