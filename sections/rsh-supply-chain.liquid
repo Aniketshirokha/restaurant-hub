@@ -1,0 +1,122 @@
+{%- doc -%}
+  Two supply chains side by side: the usual one, with a markup at every
+  hand-off, and this store's, with the middle taken out. Each is a row of
+  stops joined by arrows, and the markups sit on the arrows of the first chain
+  because that is where they happen.
+
+  The stops are blocks, so the chain can be lengthened or shortened without
+  touching this file. The chains are plain ordered lists; the arrows are drawn
+  by CSS and a screen reader hears the stops in order, which is the point.
+{%- enddoc -%}
+
+{% liquid
+  if section.settings.background_color != blank
+    render 'contrast-override', background_color: section.settings.background_color, section_id: section.id
+  endif
+%}
+
+<div class="section-background{% if section.settings.background_color != blank %} color-custom-{{ section.id }}{% endif %}"></div>
+<div
+  class="section section--{{ section.settings.section_width }}{% if section.settings.background_color != blank %} color-custom-{{ section.id }}{% endif %} spacing-style"
+  style="{% render 'spacing-style', settings: section.settings %}"
+>
+  <div class="rsh-chain">
+    <div class="rsh-chain__row rsh-chain__row--usual">
+      <p class="rsh-chain__title">{{ section.settings.usual_title }}</p>
+      <ol class="rsh-chain__list" role="list">
+        {%- for block in section.blocks -%}
+          {%- if block.type == 'usual' -%}
+            <li class="rsh-chain__stop{% if block.settings.markup %} rsh-chain__stop--markup{% endif %}" {{ block.shopify_attributes }}>
+              <span class="rsh-chain__name">{{ block.settings.name }}</span>
+              {%- if block.settings.markup -%}
+                <span class="rsh-chain__tag">+ markup</span>
+              {%- endif -%}
+            </li>
+          {%- endif -%}
+        {%- endfor -%}
+      </ol>
+    </div>
+
+    <div class="rsh-chain__row rsh-chain__row--ours">
+      <p class="rsh-chain__title">{{ section.settings.ours_title }}</p>
+      <ol class="rsh-chain__list" role="list">
+        {%- for block in section.blocks -%}
+          {%- if block.type == 'ours' -%}
+            <li class="rsh-chain__stop{% if block.settings.highlight %} rsh-chain__stop--us{% endif %}" {{ block.shopify_attributes }}>
+              <span class="rsh-chain__name">{{ block.settings.name }}</span>
+            </li>
+          {%- endif -%}
+        {%- endfor -%}
+      </ol>
+      {%- if section.settings.ours_note != blank -%}
+        <p class="rsh-chain__note">{{ section.settings.ours_note }}</p>
+      {%- endif -%}
+    </div>
+
+    {%- if section.settings.body != blank -%}
+      <div class="rsh-chain__body rte">{{ section.settings.body }}</div>
+    {%- endif -%}
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Supply chain",
+  "tag": "section",
+  "max_blocks": 10,
+  "settings": [
+    { "type": "text", "id": "usual_title", "label": "Usual chain, title", "default": "How restaurant supply usually works" },
+    { "type": "text", "id": "ours_title", "label": "Our chain, title", "default": "The Restaurant Supply Hub way" },
+    { "type": "text", "id": "ours_note", "label": "Our chain, note", "default": "The middle, removed" },
+    { "type": "richtext", "id": "body", "label": "Text under the chains" },
+    { "type": "header", "content": "Layout" },
+    {
+      "type": "select",
+      "id": "section_width",
+      "label": "Width",
+      "options": [ { "value": "page-width", "label": "Page" }, { "value": "full-width", "label": "Full" } ],
+      "default": "page-width"
+    },
+    { "type": "color", "id": "background_color", "label": "Background", "placeholder": "Default" },
+    { "type": "header", "content": "Padding" },
+    { "type": "range", "id": "padding-block-start", "label": "Top", "min": 0, "max": 200, "step": 4, "unit": "px", "default": 64 },
+    { "type": "range", "id": "padding-block-end", "label": "Bottom", "min": 0, "max": 200, "step": 4, "unit": "px", "default": 64 }
+  ],
+  "blocks": [
+    {
+      "type": "usual",
+      "name": "Usual chain, stop",
+      "settings": [
+        { "type": "text", "id": "name", "label": "Stop" },
+        { "type": "checkbox", "id": "markup", "label": "Adds a markup", "default": true }
+      ]
+    },
+    {
+      "type": "ours",
+      "name": "Our chain, stop",
+      "settings": [
+        { "type": "text", "id": "name", "label": "Stop" },
+        { "type": "checkbox", "id": "highlight", "label": "This is us", "default": false }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Supply chain",
+      "settings": {
+        "body": "<p>We buy direct, keep overhead thin, and know what things should cost after 17 years on factory floors. What we don't do is cut quality to hit a price — the savings come from the supply chain, not the container. It's the same grade the established brands sell.</p>"
+      },
+      "blocks": [
+        { "type": "usual", "settings": { "name": "Factory", "markup": false } },
+        { "type": "usual", "settings": { "name": "National distributor", "markup": true } },
+        { "type": "usual", "settings": { "name": "Regional distributor", "markup": true } },
+        { "type": "usual", "settings": { "name": "Local rep", "markup": true } },
+        { "type": "usual", "settings": { "name": "Your kitchen", "markup": false } },
+        { "type": "ours", "settings": { "name": "Factory" } },
+        { "type": "ours", "settings": { "name": "Restaurant Supply Hub", "highlight": true } },
+        { "type": "ours", "settings": { "name": "Your kitchen" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

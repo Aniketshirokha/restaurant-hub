@@ -1,0 +1,91 @@
+{%- doc -%}
+  A full-width band with an eyebrow, a heading, a line of text and a button.
+  Opens and closes the Why us and Contact pages, in ink at the top and in the
+  brand green at the bottom, so the first and last thing on each page is a
+  sentence rather than a card.
+
+  The tone is a class, not a colour setting, because the three combinations
+  that work have been chosen once here and a colour picker would only offer
+  the ones that do not.
+{%- enddoc -%}
+
+<section
+  class="rsh-band rsh-band--{{ section.settings.tone }} section section--page-width spacing-style"
+  style="{% render 'spacing-style', settings: section.settings %}"
+>
+  <div class="rsh-band__inner">
+    <div class="rsh-band__copy">
+      {%- if section.settings.eyebrow != blank -%}
+        <p class="rsh-band__eyebrow">{{ section.settings.eyebrow }}</p>
+      {%- endif -%}
+      {%- if section.settings.heading != blank -%}
+        {%- if section.settings.heading_level == 'h1' -%}
+          <h1 class="rsh-band__heading">{{ section.settings.heading }}</h1>
+        {%- else -%}
+          <h2 class="rsh-band__heading">{{ section.settings.heading }}</h2>
+        {%- endif -%}
+      {%- endif -%}
+      {%- if section.settings.text != blank -%}
+        <div class="rsh-band__text rte">{{ section.settings.text }}</div>
+      {%- endif -%}
+    </div>
+    {%- if section.settings.button_label != blank -%}
+      <div class="rsh-band__action">
+        <a href="{{ section.settings.button_link | default: routes.all_products_collection_url }}" class="rsh-band__button">
+          {{ section.settings.button_label }}
+          <span class="rsh-band__arrow" aria-hidden="true">&rarr;</span>
+        </a>
+      </div>
+    {%- endif -%}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Statement band",
+  "tag": "section",
+  "settings": [
+    {
+      "type": "select",
+      "id": "tone",
+      "label": "Tone",
+      "options": [
+        { "value": "ink", "label": "Ink" },
+        { "value": "accent", "label": "Green" },
+        { "value": "paper", "label": "Paper" }
+      ],
+      "default": "ink"
+    },
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow" },
+    { "type": "text", "id": "heading", "label": "Heading" },
+    {
+      "type": "select",
+      "id": "heading_level",
+      "label": "Heading is the page title",
+      "info": "Choose H1 for the band at the top of a page whose title is not shown anywhere else.",
+      "options": [
+        { "value": "h2", "label": "No, a section heading (H2)" },
+        { "value": "h1", "label": "Yes, the page title (H1)" }
+      ],
+      "default": "h2"
+    },
+    { "type": "richtext", "id": "text", "label": "Text" },
+    { "type": "text", "id": "button_label", "label": "Button" },
+    { "type": "url", "id": "button_link", "label": "Button link" },
+    { "type": "header", "content": "Padding" },
+    { "type": "range", "id": "padding-block-start", "label": "Top", "min": 0, "max": 200, "step": 4, "unit": "px", "default": 72 },
+    { "type": "range", "id": "padding-block-end", "label": "Bottom", "min": 0, "max": 200, "step": 4, "unit": "px", "default": 72 }
+  ],
+  "presets": [
+    {
+      "name": "Statement band",
+      "settings": {
+        "eyebrow": "The promise, in one line",
+        "heading": "Same quality the big distributors sell. Lower cost, because we removed the middle.",
+        "text": "<p>Backed by 17 years of knowing exactly what we are buying.</p>",
+        "button_label": "Shop all supplies"
+      }
+    }
+  ]
+}
+{% endschema %}

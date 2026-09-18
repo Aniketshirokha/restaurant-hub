@@ -2788,3 +2788,694 @@
     transition: none;
   }
 }
+
+/* ------------------------------------------------------------------ *
+ * Why us and Contact pages
+ *
+ * Six sections that share a grammar: an eyebrow in the accent face, a
+ * heading in the display face, body in the body face, and the brand green
+ * doing the pointing. The band paints its colour on the section grid
+ * itself, which spans the viewport, so it bleeds edge to edge while its
+ * words stay in the page column like everything else.
+ * ------------------------------------------------------------------ */
+
+.rsh-band {
+  --rsh-band-bg: #0c1310;
+  --rsh-band-text: #fcfcfb;
+  --rsh-band-soft: rgb(252 252 251 / 0.78);
+  --rsh-band-eyebrow: #47c67b;
+  --rsh-band-btn-bg: #fcfcfb;
+  --rsh-band-btn-text: #0c1310;
+  --rsh-band-btn-bg-hover: #e9efe9;
+  background: var(--rsh-band-bg);
+  color: var(--rsh-band-text);
+}
+
+.rsh-band--accent {
+  --rsh-band-bg: var(--rsh-accent);
+  --rsh-band-eyebrow: rgb(252 252 251 / 0.72);
+}
+
+.rsh-band--paper {
+  --rsh-band-bg: var(--rsh-wash);
+  --rsh-band-text: rgb(var(--color-foreground-rgb));
+  --rsh-band-soft: var(--rsh-muted);
+  --rsh-band-eyebrow: var(--rsh-accent);
+  --rsh-band-btn-bg: rgb(var(--color-foreground-rgb));
+  --rsh-band-btn-text: #fcfcfb;
+  --rsh-band-btn-bg-hover: #2b2b2b;
+}
+
+.rsh-band__inner {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 1.5rem clamp(2rem, 5vw, 5rem);
+}
+
+.rsh-band__copy {
+  max-width: 44rem;
+}
+
+.rsh-band__eyebrow {
+  margin: 0 0 0.85rem;
+  font-family: var(--font-accent--family, inherit);
+  font-weight: var(--font-accent--weight, 600);
+  font-size: 0.78125rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--rsh-band-eyebrow);
+}
+
+.rsh-band__heading {
+  margin: 0;
+  font-family: var(--font-h1--family, inherit);
+  font-style: var(--font-h1--style, normal);
+  font-weight: var(--font-h1--weight, 400);
+  font-size: clamp(1.75rem, 3.4vw, 2.75rem);
+  line-height: 1.08;
+  letter-spacing: -0.005em;
+  text-wrap: balance;
+}
+
+.rsh-band__text {
+  margin-block-start: 1rem;
+  max-width: 46ch;
+  font-size: clamp(1rem, 1.15vw, 1.0625rem);
+  line-height: 1.6;
+  color: var(--rsh-band-soft);
+}
+
+.rsh-band__text p {
+  margin: 0;
+}
+
+.rsh-band__button {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.95rem 1.75rem;
+  font-family: var(--font-accent--family, inherit);
+  font-weight: var(--font-accent--weight, 600);
+  font-size: 0.9375rem;
+  text-decoration: none;
+  white-space: nowrap;
+  color: var(--rsh-band-btn-text);
+  background: var(--rsh-band-btn-bg);
+  border-radius: 999px;
+  transition: background-color 180ms ease;
+}
+
+.rsh-band__button:hover {
+  background: var(--rsh-band-btn-bg-hover);
+}
+
+.rsh-band__arrow {
+  transition: transform 180ms ease;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .rsh-band__button:hover .rsh-band__arrow {
+    transform: translateX(3px);
+  }
+}
+
+@media screen and (max-width: 749px) {
+  .rsh-band__inner {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+/* ---- numbered cards ---- */
+
+.rsh-props__head {
+  max-width: 40rem;
+  margin-block-end: 2rem;
+}
+
+.rsh-props__grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(14rem, 1fr));
+  gap: 1rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.rsh-props__card {
+  position: relative;
+  display: grid;
+  gap: 0.6rem;
+  align-content: start;
+  padding: 1.5rem 1.5rem 1.6rem;
+  background: var(--rsh-wash);
+  border: 1px solid var(--rsh-hairline);
+  border-radius: var(--rsh-radius-lg);
+  transition: border-color 180ms ease, transform 180ms ease;
+}
+
+.rsh-props__card:hover {
+  border-color: var(--rsh-hairline-strong);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .rsh-props__card:hover {
+    transform: translateY(-2px);
+  }
+}
+
+.rsh-props__num {
+  font-family: var(--font-h1--family, inherit);
+  font-weight: var(--font-h1--weight, 400);
+  font-size: 1.75rem;
+  line-height: 1;
+  color: var(--rsh-accent);
+  font-variant-numeric: tabular-nums;
+}
+
+.rsh-props__title {
+  margin: 0.35rem 0 0;
+  font-family: var(--font-accent--family, inherit);
+  font-weight: var(--font-accent--weight, 600);
+  font-size: 1.125rem;
+  line-height: 1.25;
+}
+
+.rsh-props__text {
+  margin: 0;
+  font-size: 0.9375rem;
+  line-height: 1.55;
+  color: var(--rsh-muted);
+}
+
+/* ---- founders ---- */
+
+.rsh-founders {
+  display: grid;
+  grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr);
+  gap: clamp(2rem, 5vw, 5rem);
+  align-items: start;
+}
+
+.rsh-founders__body {
+  margin-block-start: 1.25rem;
+  max-width: 62ch;
+  line-height: 1.65;
+}
+
+.rsh-founders__body p + p {
+  margin-block-start: 1em;
+}
+
+.rsh-founders__figures {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(9rem, 1fr));
+  gap: 1rem 1.5rem;
+  margin: 2rem 0 0;
+  padding: 1.5rem 0 0;
+  list-style: none;
+  border-block-start: 1px solid var(--rsh-hairline);
+}
+
+.rsh-founders__figure {
+  display: grid;
+  gap: 0.35rem;
+}
+
+.rsh-founders__value {
+  font-family: var(--font-h1--family, inherit);
+  font-weight: var(--font-h1--weight, 400);
+  font-size: clamp(2rem, 3.2vw, 2.75rem);
+  line-height: 1;
+  color: var(--rsh-accent);
+  font-variant-numeric: tabular-nums;
+}
+
+.rsh-founders__label {
+  font-family: var(--font-accent--family, inherit);
+  font-weight: var(--font-accent--weight, 600);
+  font-size: 0.78125rem;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  color: var(--rsh-muted);
+  max-inline-size: 16ch;
+}
+
+.rsh-founders__media {
+  position: sticky;
+  top: calc(var(--header-height, 0px) + 1.5rem);
+  margin: 0;
+  overflow: hidden;
+  border-radius: var(--rsh-radius-lg);
+}
+
+/* None of the library files are uploaded yet, so until the photograph lands
+   the story takes the whole width rather than sitting beside a hole. */
+.rsh-founders__media:empty {
+  display: none;
+}
+
+.rsh-founders:has(.rsh-founders__media:empty) {
+  grid-template-columns: minmax(0, 1fr);
+}
+
+.rsh-founders__media img,
+.rsh-founders__img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+@media screen and (max-width: 989px) {
+  .rsh-founders {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .rsh-founders__media {
+    position: static;
+    order: -1;
+  }
+}
+
+/* ---- supply chain ---- */
+
+.rsh-chain {
+  display: grid;
+  gap: 1.25rem;
+}
+
+.rsh-chain__row {
+  padding: 1.5rem;
+  border: 1px solid var(--rsh-hairline);
+  border-radius: var(--rsh-radius-lg);
+}
+
+.rsh-chain__row--ours {
+  background: var(--rsh-accent-wash);
+  border-color: color-mix(in srgb, var(--rsh-accent) 35%, transparent);
+}
+
+.rsh-chain__title {
+  margin: 0 0 1rem;
+  font-family: var(--font-accent--family, inherit);
+  font-weight: var(--font-accent--weight, 600);
+  font-size: 0.78125rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--rsh-muted);
+}
+
+.rsh-chain__row--ours .rsh-chain__title {
+  color: var(--rsh-accent);
+}
+
+.rsh-chain__list {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.75rem 0;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.rsh-chain__stop {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  min-width: 0;
+}
+
+/* The arrow lives on the stop after it, so the last stop has none. */
+.rsh-chain__stop + .rsh-chain__stop::before {
+  content: '\2192';
+  margin-inline: 0.75rem;
+  color: var(--rsh-muted);
+  font-size: 1.1rem;
+}
+
+.rsh-chain__name {
+  padding: 0.55rem 0.95rem;
+  font-family: var(--font-accent--family, inherit);
+  font-weight: var(--font-accent--weight, 600);
+  font-size: 0.9375rem;
+  line-height: 1.2;
+  background: var(--rsh-wash);
+  border: 1px solid var(--rsh-hairline);
+  border-radius: 999px;
+  white-space: nowrap;
+}
+
+.rsh-chain__stop--us .rsh-chain__name {
+  color: #fcfcfb;
+  background: var(--rsh-accent);
+  border-color: var(--rsh-accent);
+}
+
+.rsh-chain__tag {
+  font-family: var(--font-accent--family, inherit);
+  font-weight: var(--font-accent--weight, 600);
+  font-size: 0.75rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: #b3261e;
+  white-space: nowrap;
+}
+
+.rsh-chain__note {
+  margin: 0.9rem 0 0;
+  font-size: 0.9375rem;
+  font-style: italic;
+  color: var(--rsh-muted);
+}
+
+.rsh-chain__body {
+  max-width: 62ch;
+  margin-block-start: 0.5rem;
+  line-height: 1.65;
+}
+
+.rsh-chain__body p {
+  margin: 0;
+}
+
+@media screen and (max-width: 599px) {
+  .rsh-chain__list {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  /* Stacked, the chain runs downward and the arrows point the same way. */
+  .rsh-chain__stop + .rsh-chain__stop::before {
+    content: '\2193';
+    margin: 0 0 0 1rem;
+  }
+
+  .rsh-chain__stop {
+    flex-wrap: wrap;
+  }
+}
+
+/* ---- contact card ---- */
+
+.rsh-contact {
+  display: grid;
+  grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+  overflow: hidden;
+  border: 1px solid var(--rsh-hairline);
+  border-radius: var(--rsh-radius-lg);
+  background: rgb(var(--color-background-rgb, 255 255 255));
+}
+
+.rsh-contact__aside {
+  padding: clamp(1.5rem, 3vw, 2.75rem);
+  color: #fcfcfb;
+  background:
+    radial-gradient(120% 90% at 100% 0%, rgb(71 198 123 / 0.22) 0%, transparent 55%),
+    linear-gradient(160deg, #17231d 0%, #0c1310 65%);
+}
+
+.rsh-contact__eyebrow {
+  color: #47c67b;
+}
+
+.rsh-contact__heading {
+  margin: 0.75rem 0 0;
+  font-family: var(--font-h1--family, inherit);
+  font-weight: var(--font-h1--weight, 400);
+  font-size: clamp(1.5rem, 2.4vw, 2rem);
+  line-height: 1.12;
+  text-wrap: balance;
+}
+
+.rsh-contact__text {
+  margin-block-start: 1rem;
+  line-height: 1.6;
+  color: rgb(252 252 251 / 0.8);
+}
+
+.rsh-contact__text p {
+  margin: 0;
+}
+
+.rsh-contact__points {
+  display: grid;
+  gap: 0.6rem;
+  margin: 1.5rem 0 0;
+  padding: 1.25rem 0 0;
+  list-style: none;
+  border-block-start: 1px solid rgb(252 252 251 / 0.16);
+}
+
+.rsh-contact__point {
+  position: relative;
+  padding-inline-start: 1.4rem;
+  font-size: 0.9375rem;
+  line-height: 1.45;
+}
+
+.rsh-contact__point::before {
+  content: '\2713';
+  position: absolute;
+  inset-inline-start: 0;
+  color: #47c67b;
+  font-weight: 700;
+}
+
+.rsh-contact__main {
+  padding: clamp(1.5rem, 3vw, 2.75rem);
+}
+
+.rsh-contact__form {
+  display: grid;
+  gap: 1rem;
+}
+
+.rsh-contact__row {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(12rem, 1fr));
+  gap: 1rem;
+}
+
+.rsh-contact__field {
+  position: relative;
+}
+
+.rsh-contact__field input,
+.rsh-contact__field textarea {
+  width: 100%;
+  padding: 1.35rem 1rem 0.65rem;
+  font: inherit;
+  font-size: 1rem;
+  line-height: 1.4;
+  color: inherit;
+  background: var(--rsh-wash);
+  border: 1px solid var(--rsh-hairline);
+  border-radius: var(--rsh-radius);
+  transition: border-color 150ms ease, background-color 150ms ease;
+}
+
+.rsh-contact__field textarea {
+  resize: vertical;
+  min-height: 8rem;
+}
+
+.rsh-contact__field input:focus,
+.rsh-contact__field textarea:focus {
+  outline: none;
+  background: transparent;
+  border-color: var(--rsh-accent);
+  box-shadow: 0 0 0 3px var(--rsh-accent-wash);
+}
+
+.rsh-contact__field label {
+  position: absolute;
+  inset-inline-start: 1rem;
+  top: 1rem;
+  font-size: 1rem;
+  color: var(--rsh-muted);
+  pointer-events: none;
+  transform-origin: left top;
+  transition: transform 150ms ease, color 150ms ease;
+}
+
+.rsh-contact__field label span {
+  opacity: 0.7;
+}
+
+/* Lifts once the field is focused or holds anything; the blank placeholder
+   is what makes `:placeholder-shown` mean "empty". */
+.rsh-contact__field input:focus + label,
+.rsh-contact__field textarea:focus + label,
+.rsh-contact__field input:not(:placeholder-shown) + label,
+.rsh-contact__field textarea:not(:placeholder-shown) + label {
+  transform: translateY(-0.6rem) scale(0.78);
+  color: var(--rsh-accent);
+}
+
+.rsh-contact__submit {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  justify-self: start;
+  padding: 0.95rem 1.75rem;
+  font-family: var(--font-accent--family, inherit);
+  font-weight: var(--font-accent--weight, 600);
+  font-size: 0.9375rem;
+  color: #fcfcfb;
+  background: var(--rsh-accent);
+  border: 0;
+  border-radius: 999px;
+  cursor: pointer;
+  transition: background-color 180ms ease;
+}
+
+.rsh-contact__submit:hover {
+  background: #156a3e;
+}
+
+.rsh-contact__arrow {
+  transition: transform 180ms ease;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .rsh-contact__submit:hover .rsh-contact__arrow {
+    transform: translateX(3px);
+  }
+}
+
+.rsh-contact__note {
+  margin: -0.25rem 0 0;
+  font-size: 0.875rem;
+  color: var(--rsh-muted);
+}
+
+.rsh-contact__status {
+  margin: 0;
+  padding: 0.9rem 1rem;
+  border-radius: var(--rsh-radius);
+  font-size: 0.9375rem;
+}
+
+.rsh-contact__status p {
+  margin: 0;
+}
+
+.rsh-contact__status--ok {
+  color: var(--rsh-accent);
+  background: var(--rsh-accent-wash);
+}
+
+.rsh-contact__status--error {
+  color: #8f1d17;
+  background: rgb(179 38 30 / 0.1);
+}
+
+@media screen and (max-width: 749px) {
+  .rsh-contact {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .rsh-contact__submit {
+    justify-self: stretch;
+  }
+}
+
+/* ---- questions ---- */
+
+.rsh-faq {
+  max-width: 48rem;
+}
+
+.rsh-faq__head {
+  margin-block-end: 1.5rem;
+}
+
+.rsh-faq__list {
+  display: grid;
+  gap: 0.6rem;
+}
+
+.rsh-faq__item {
+  border: 1px solid var(--rsh-hairline);
+  border-radius: var(--rsh-radius-lg);
+  background: var(--rsh-wash);
+  transition: border-color 150ms ease;
+}
+
+.rsh-faq__item[open] {
+  border-color: var(--rsh-hairline-strong);
+  background: transparent;
+}
+
+.rsh-faq__q {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 1.1rem 1.25rem;
+  font-family: var(--font-accent--family, inherit);
+  font-weight: var(--font-accent--weight, 600);
+  font-size: 1.0625rem;
+  line-height: 1.3;
+  cursor: pointer;
+  list-style: none;
+}
+
+.rsh-faq__q::-webkit-details-marker {
+  display: none;
+}
+
+.rsh-faq__q:focus-visible {
+  outline: 2px solid var(--rsh-accent);
+  outline-offset: -2px;
+  border-radius: var(--rsh-radius-lg);
+}
+
+.rsh-faq__icon {
+  position: relative;
+  flex: 0 0 auto;
+  inline-size: 1.25rem;
+  block-size: 1.25rem;
+}
+
+.rsh-faq__icon::before,
+.rsh-faq__icon::after {
+  content: '';
+  position: absolute;
+  inset: 50% auto auto 50%;
+  inline-size: 0.8rem;
+  block-size: 2px;
+  background: var(--rsh-accent);
+  transform: translate(-50%, -50%);
+  transition: transform 200ms ease;
+}
+
+.rsh-faq__icon::after {
+  transform: translate(-50%, -50%) rotate(90deg);
+}
+
+.rsh-faq__item[open] .rsh-faq__icon::after {
+  transform: translate(-50%, -50%) rotate(0deg);
+}
+
+.rsh-faq__a {
+  padding: 0 1.25rem 1.25rem;
+  line-height: 1.6;
+  color: var(--rsh-muted);
+}
+
+.rsh-faq__a p {
+  margin: 0;
+}
+
+.rsh-faq__a p + p {
+  margin-block-start: 0.6em;
+}
+
+.rsh-faq__a a {
+  color: var(--rsh-accent);
+  font-weight: 600;
+  font-family: var(--font-accent--family, inherit);
+}

@@ -1,0 +1,96 @@
+{%- doc -%}
+  A row of numbered cards: 01, 02, 03, 04, each a short claim and a line under
+  it. On the Why us page they are the four reasons; on the Contact page they
+  are the four things people write in about.
+
+  `$[threshold]` in any card's text becomes the free-shipping figure from theme
+  settings, the same token the Deals page uses, so the number can never be
+  quoted differently on two pages.
+{%- enddoc -%}
+
+{% liquid
+  assign threshold = settings.rsh_free_shipping_threshold | default: 149
+
+  if section.settings.background_color != blank
+    render 'contrast-override', background_color: section.settings.background_color, section_id: section.id
+  endif
+%}
+
+<div class="section-background{% if section.settings.background_color != blank %} color-custom-{{ section.id }}{% endif %}"></div>
+<div
+  class="section section--{{ section.settings.section_width }}{% if section.settings.background_color != blank %} color-custom-{{ section.id }}{% endif %} spacing-style"
+  style="{% render 'spacing-style', settings: section.settings %}"
+>
+  <div class="rsh-props">
+    {%- if section.settings.eyebrow != blank or section.settings.heading != blank -%}
+      <div class="rsh-props__head">
+        {%- if section.settings.eyebrow != blank -%}
+          <p class="rsh-eyebrow">{{ section.settings.eyebrow }}</p>
+        {%- endif -%}
+        {%- if section.settings.heading != blank -%}
+          <h2 class="rsh-heading h2">{{ section.settings.heading }}</h2>
+        {%- endif -%}
+      </div>
+    {%- endif -%}
+
+    <ul class="rsh-props__grid" role="list">
+      {%- for block in section.blocks -%}
+        {%- assign text = block.settings.text | replace: '[threshold]', threshold -%}
+        <li class="rsh-props__card" {{ block.shopify_attributes }}>
+          <span class="rsh-props__num" aria-hidden="true">{{ forloop.index | prepend: '0' | slice: -2, 2 }}</span>
+          {%- if block.settings.title != blank -%}
+            <h3 class="rsh-props__title">{{ block.settings.title }}</h3>
+          {%- endif -%}
+          {%- if text != blank -%}
+            <p class="rsh-props__text">{{ text }}</p>
+          {%- endif -%}
+        </li>
+      {%- endfor -%}
+    </ul>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Numbered cards",
+  "tag": "section",
+  "max_blocks": 8,
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow" },
+    { "type": "text", "id": "heading", "label": "Heading" },
+    { "type": "header", "content": "Layout" },
+    {
+      "type": "select",
+      "id": "section_width",
+      "label": "Width",
+      "options": [ { "value": "page-width", "label": "Page" }, { "value": "full-width", "label": "Full" } ],
+      "default": "page-width"
+    },
+    { "type": "color", "id": "background_color", "label": "Background", "placeholder": "Default" },
+    { "type": "header", "content": "Padding" },
+    { "type": "range", "id": "padding-block-start", "label": "Top", "min": 0, "max": 200, "step": 4, "unit": "px", "default": 56 },
+    { "type": "range", "id": "padding-block-end", "label": "Bottom", "min": 0, "max": 200, "step": 4, "unit": "px", "default": 56 }
+  ],
+  "blocks": [
+    {
+      "type": "card",
+      "name": "Card",
+      "settings": [
+        { "type": "text", "id": "title", "label": "Title" },
+        { "type": "textarea", "id": "text", "label": "Text", "info": "Write $[threshold] and the free shipping figure from theme settings is filled in." }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Numbered cards",
+      "blocks": [
+        { "type": "card", "settings": { "title": "We buy direct", "text": "No national distributor, no regional rep, no three-markup chain between the factory and your kitchen." } },
+        { "type": "card", "settings": { "title": "We know product", "text": "We don't overpay at the source because we know what things should cost and who makes them well. Same grade the big names carry." } },
+        { "type": "card", "settings": { "title": "We keep the range deep", "text": "Containers, cups, gloves, foil, bags, cleaning, paper. The whole back of house, one supplier, in stock." } },
+        { "type": "card", "settings": { "title": "Small orders, big respect", "text": "No membership wall, no minimum that locks out the little shop. Today's two-case buyer is next year's twenty-case account." } }
+      ]
+    }
+  ]
+}
+{% endschema %}

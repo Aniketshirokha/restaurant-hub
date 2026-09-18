@@ -9,93 +9,65 @@
  */
 {
   "sections": {
-    "section": {
-      "type": "section",
+    "hero": {
+      "type": "rsh-cta-band",
+      "settings": {
+        "tone": "ink",
+        "eyebrow": "Contact & help",
+        "heading": "How can we help?",
+        "heading_level": "h2",
+        "text": "<p>Straight answers, no runaround. Shipping, returns, bulk orders, and everything in between.</p>",
+        "button_label": "",
+        "button_link": "",
+        "padding-block-start": 72,
+        "padding-block-end": 72
+      }
+    },
+    "topics": {
+      "type": "rsh-numbered-props",
       "blocks": {
-        "text_dWXrnm": {
-          "type": "text",
+        "c1": {
+          "type": "card",
           "settings": {
-            "text": "{{ closest.page.content }}",
-            "width": "100%",
-            "max_width": "normal",
-            "alignment": "left",
-            "type_preset": "rte",
-            "font": "var(--font-body--family)",
-            "font_size": "1rem",
-            "line_height": "normal",
-            "letter_spacing": "normal",
-            "case": "none",
-            "wrap": "pretty",
-            "background": false,
-            "background_color": "#00000026",
-            "corner_radius": 0,
-            "padding-block-start": 0,
-            "padding-block-end": 0,
-            "padding-inline-start": 0,
-            "padding-inline-end": 0
-          },
-          "blocks": {}
+            "title": "Shipping & delivery",
+            "text": "Fast, nationwide, free over $[threshold]. Tracking on every order — no surprise fuel surcharge."
+          }
         },
-        "contact_form_jWxXkm": {
-          "type": "contact-form",
+        "c2": {
+          "type": "card",
           "settings": {
-            "width": "custom",
-            "custom_width": 60,
-            "width_mobile": "custom",
-            "custom_width_mobile": 100,
-            "input_style": "default",
-            "padding-block-start": 0,
-            "padding-block-end": 0,
-            "padding-inline-start": 0,
-            "padding-inline-end": 0
-          },
-          "blocks": {
-            "submit-button": {
-              "type": "contact-form-submit-button",
-              "static": true,
-              "settings": {
-                "label": "Send",
-                "style_class": "button",
-                "width": "fit-content",
-                "custom_width": 100,
-                "width_mobile": "fit-content",
-                "custom_width_mobile": 100
-              },
-              "blocks": {}
-            }
-          },
-          "block_order": []
+            "title": "Returns & damages",
+            "text": "Arrived damaged or wrong? Send a photo and we'll replace or refund it. The risk is on us."
+          }
+        },
+        "c3": {
+          "type": "card",
+          "settings": {
+            "title": "Bulk & wholesale",
+            "text": "Volume discounts apply automatically. For very large or recurring orders, we'll fit pricing to the volume."
+          }
+        },
+        "c4": {
+          "type": "card",
+          "settings": {
+            "title": "Not sure what fits?",
+            "text": "Ask. 17 years of sourcing usually means we know the answer off the top of our head."
+          }
         }
       },
       "block_order": [
-        "text_dWXrnm",
-        "contact_form_jWxXkm"
+        "c1",
+        "c2",
+        "c3",
+        "c4"
       ],
       "settings": {
-        "content_direction": "column",
-        "vertical_on_mobile": true,
-        "horizontal_alignment": "center",
-        "vertical_alignment": "center",
-        "align_baseline": false,
-        "horizontal_alignment_flex_direction_column": "center",
-        "vertical_alignment_flex_direction_column": "center",
-        "gap": 12,
+        "eyebrow": "",
+        "heading": "",
         "section_width": "page-width",
-        "section_height_custom": 50,
-        "background_media": "none",
-        "background_color": "{{ settings.color_palette.background }}",
-        "video_position": "cover",
-        "background_image_position": "cover",
-        "border": "none",
-        "border_width": 1,
-        "border_opacity": 100,
-        "border_radius": 0,
-        "toggle_overlay": false,
-        "overlay_color": "#00000026",
-        "overlay_style": "solid",
-        "gradient_direction": "to top",
+        "background_color": "",
         "padding-block-start": 48,
-        "padding-block-end": 48
+        "padding-block-end": 24
       }
     },
     "main": {
@@ -161,18 +133,145 @@
         "padding-block-end": 0
       }
     },
-    "header_band": {
-      "type": "rsh-page-header",
+    "form": {
+      "type": "rsh-contact-card",
+      "blocks": {
+        "p1": {
+          "type": "point",
+          "settings": {
+            "text": "Replies from people who know the products"
+          }
+        },
+        "p2": {
+          "type": "point",
+          "settings": {
+            "text": "Bulk pricing fitted to your volume"
+          }
+        },
+        "p3": {
+          "type": "point",
+          "settings": {
+            "text": "No membership, no sales theater"
+          }
+        }
+      },
+      "block_order": [
+        "p1",
+        "p2",
+        "p3"
+      ],
       "settings": {
+        "eyebrow": "Talk to us",
+        "heading": "Real answers from real sourcing people",
+        "text": "<p>Not sure which container fits your menu? Ask. 17 years of sourcing usually means we know off the top of our head.</p>",
+        "label_name": "Name",
+        "label_phone": "Phone",
+        "label_email": "Email",
+        "label_business": "Business type",
+        "hint_business": "cafe, food truck, deli…",
+        "label_body": "How can we help?",
+        "button_label": "Send message",
+        "note": "We reply fast during business hours.",
+        "success_text": "Thanks, your message is in. We reply during business hours.",
         "section_width": "page-width",
-        "padding-block-start": 0,
-        "padding-block-end": 32
+        "background_color": "",
+        "padding-block-start": 24,
+        "padding-block-end": 48
+      }
+    },
+    "faq": {
+      "type": "rsh-faq",
+      "blocks": {
+        "q1": {
+          "type": "qa",
+          "settings": {
+            "question": "Do I need an account or membership to buy?",
+            "answer": "<p>No. Prices are on the page and you can check out as a guest. An account just makes reordering faster.</p>"
+          }
+        },
+        "q2": {
+          "type": "qa",
+          "settings": {
+            "question": "Is there a minimum order?",
+            "answer": "<p>No minimum to get started. Order a single case if that's what you need. Volume discounts kick in automatically as you add more.</p><p><a href=\"/pages/deals\">See volume pricing →</a></p>"
+          }
+        },
+        "q3": {
+          "type": "qa",
+          "settings": {
+            "question": "Why are your prices lower than other suppliers?",
+            "answer": "<p>We buy direct from the factories instead of through layers of distributors, and we keep overhead thin. Same grade, shorter chain.</p><p><a href=\"/pages/why-us\">The full breakdown →</a></p>"
+          }
+        },
+        "q4": {
+          "type": "qa",
+          "settings": {
+            "question": "Is the quality actually the same as the big brands?",
+            "answer": "<p>Yes. Same grades, same kind of factories. Our food packaging is rated 0°F to 180°F, leak-resistant, microwave and freezer safe.</p>"
+          }
+        },
+        "q5": {
+          "type": "qa",
+          "settings": {
+            "question": "How fast will I get my order?",
+            "answer": "<p>In-stock orders ship fast and arrive nationwide, with tracking on every order.</p>"
+          }
+        },
+        "q6": {
+          "type": "qa",
+          "settings": {
+            "question": "What if my order arrives damaged?",
+            "answer": "<p>Send us a photo through the form above and we'll replace or refund it. The risk is on us, so you can buy with confidence.</p>"
+          }
+        },
+        "q7": {
+          "type": "qa",
+          "settings": {
+            "question": "Can I get custom-printed packaging?",
+            "answer": "<p>Not yet at launch. Drop us a note through the form above and we'll tell you the moment it's available.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "q1",
+        "q2",
+        "q3",
+        "q4",
+        "q5",
+        "q6",
+        "q7"
+      ],
+      "settings": {
+        "eyebrow": "",
+        "heading": "",
+        "open_first": true,
+        "section_width": "page-width",
+        "background_color": "",
+        "padding-block-start": 32,
+        "padding-block-end": 64
+      }
+    },
+    "closing": {
+      "type": "rsh-cta-band",
+      "settings": {
+        "tone": "accent",
+        "eyebrow": "No membership, no minimum runaround",
+        "heading": "Prices are on the page",
+        "heading_level": "h2",
+        "text": "<p>See your per-piece cost before you buy, on every product.</p>",
+        "button_label": "Shop all supplies",
+        "button_link": "shopify://collections/shop-all",
+        "padding-block-start": 72,
+        "padding-block-end": 72
       }
     }
   },
   "order": [
-    "header_band",
+    "hero",
+    "topics",
     "main",
-    "section"
+    "form",
+    "faq",
+    "closing"
   ]
 }

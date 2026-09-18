@@ -1,0 +1,144 @@
+{%- doc -%}
+  The contact form, as one card: the reasons to write on the left, the form on
+  the right.
+
+  It is Shopify's own contact form, so submissions land in the store's inbox
+  with nothing to install. The business-type field is an extra `contact[...]`
+  field, which Shopify includes in the email as it is.
+
+  The labels float: they sit in the field until it is focused or filled, then
+  lift out of the way. That is done with `placeholder=" "` and `:placeholder-
+  shown`, so it works without a script and the label never disappears.
+{%- enddoc -%}
+
+{% liquid
+  if section.settings.background_color != blank
+    render 'contrast-override', background_color: section.settings.background_color, section_id: section.id
+  endif
+%}
+
+<div class="section-background{% if section.settings.background_color != blank %} color-custom-{{ section.id }}{% endif %}"></div>
+<div
+  class="section section--{{ section.settings.section_width }}{% if section.settings.background_color != blank %} color-custom-{{ section.id }}{% endif %} spacing-style"
+  style="{% render 'spacing-style', settings: section.settings %}"
+>
+  <div class="rsh-contact">
+    <aside class="rsh-contact__aside">
+      {%- if section.settings.eyebrow != blank -%}
+        <p class="rsh-eyebrow rsh-contact__eyebrow">{{ section.settings.eyebrow }}</p>
+      {%- endif -%}
+      {%- if section.settings.heading != blank -%}
+        <h2 class="rsh-contact__heading">{{ section.settings.heading }}</h2>
+      {%- endif -%}
+      {%- if section.settings.text != blank -%}
+        <div class="rsh-contact__text rte">{{ section.settings.text }}</div>
+      {%- endif -%}
+      {%- if section.blocks.size > 0 -%}
+        <ul class="rsh-contact__points" role="list">
+          {%- for block in section.blocks -%}
+            {%- if block.settings.text != blank -%}
+              <li class="rsh-contact__point" {{ block.shopify_attributes }}>{{ block.settings.text }}</li>
+            {%- endif -%}
+          {%- endfor -%}
+        </ul>
+      {%- endif -%}
+    </aside>
+
+    <div class="rsh-contact__main">
+      {%- form 'contact', class: 'rsh-contact__form', id: 'rsh-contact-form' -%}
+        {%- if form.posted_successfully? -%}
+          <p class="rsh-contact__status rsh-contact__status--ok" role="status" tabindex="-1" autofocus>
+            {{ section.settings.success_text | default: 'Thanks, your message is in. We reply during business hours.' }}
+          </p>
+        {%- elsif form.errors -%}
+          <div class="rsh-contact__status rsh-contact__status--error" role="alert" tabindex="-1" autofocus>
+            <p>{{ form.errors.translated_fields.email | capitalize }} {{ form.errors.messages.email }}</p>
+          </div>
+        {%- endif -%}
+
+        <div class="rsh-contact__row">
+          <div class="rsh-contact__field">
+            <input type="text" id="rsh-contact-name" name="contact[name]" placeholder=" " autocomplete="name" value="{% if form.name %}{{ form.name }}{% elsif customer %}{{ customer.name }}{% endif %}">
+            <label for="rsh-contact-name">{{ section.settings.label_name | default: 'Name' }}</label>
+          </div>
+          <div class="rsh-contact__field">
+            <input type="tel" id="rsh-contact-phone" name="contact[phone]" placeholder=" " autocomplete="tel" value="{{ form.phone }}">
+            <label for="rsh-contact-phone">{{ section.settings.label_phone | default: 'Phone' }} <span>(optional)</span></label>
+          </div>
+        </div>
+        <div class="rsh-contact__field">
+          <input type="email" id="rsh-contact-email" name="contact[email]" placeholder=" " autocomplete="email" required aria-required="true" value="{% if form.email %}{{ form.email }}{% elsif customer %}{{ customer.email }}{% endif %}">
+          <label for="rsh-contact-email">{{ section.settings.label_email | default: 'Email' }}</label>
+        </div>
+        <div class="rsh-contact__field">
+          <input type="text" id="rsh-contact-business" name="contact[business]" placeholder=" " value="{{ form.business }}">
+          <label for="rsh-contact-business">{{ section.settings.label_business | default: 'Business type' }} <span>({{ section.settings.hint_business | default: 'cafe, food truck, deli…' }})</span></label>
+        </div>
+        <div class="rsh-contact__field">
+          <textarea id="rsh-contact-body" name="contact[body]" rows="5" placeholder=" " required aria-required="true">{{ form.body }}</textarea>
+          <label for="rsh-contact-body">{{ section.settings.label_body | default: 'How can we help?' }}</label>
+        </div>
+
+        <button type="submit" class="rsh-contact__submit">
+          {{ section.settings.button_label | default: 'Send message' }}
+          <span class="rsh-contact__arrow" aria-hidden="true">&rarr;</span>
+        </button>
+        {%- if section.settings.note != blank -%}
+          <p class="rsh-contact__note">{{ section.settings.note }}</p>
+        {%- endif -%}
+      {%- endform -%}
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Contact card",
+  "tag": "section",
+  "max_blocks": 5,
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Talk to us" },
+    { "type": "text", "id": "heading", "label": "Heading", "default": "Real answers from real sourcing people" },
+    { "type": "richtext", "id": "text", "label": "Text", "default": "<p>Not sure which container fits your menu? Ask. 17 years of sourcing usually means we know off the top of our head.</p>" },
+    { "type": "header", "content": "Form" },
+    { "type": "text", "id": "label_name", "label": "Name label", "default": "Name" },
+    { "type": "text", "id": "label_phone", "label": "Phone label", "default": "Phone" },
+    { "type": "text", "id": "label_email", "label": "Email label", "default": "Email" },
+    { "type": "text", "id": "label_business", "label": "Business label", "default": "Business type" },
+    { "type": "text", "id": "hint_business", "label": "Business hint", "default": "cafe, food truck, deli…" },
+    { "type": "text", "id": "label_body", "label": "Message label", "default": "How can we help?" },
+    { "type": "text", "id": "button_label", "label": "Button", "default": "Send message" },
+    { "type": "text", "id": "note", "label": "Note under the button", "default": "We reply fast during business hours." },
+    { "type": "text", "id": "success_text", "label": "After sending", "default": "Thanks, your message is in. We reply during business hours." },
+    { "type": "header", "content": "Layout" },
+    {
+      "type": "select",
+      "id": "section_width",
+      "label": "Width",
+      "options": [ { "value": "page-width", "label": "Page" }, { "value": "full-width", "label": "Full" } ],
+      "default": "page-width"
+    },
+    { "type": "color", "id": "background_color", "label": "Background", "placeholder": "Default" },
+    { "type": "header", "content": "Padding" },
+    { "type": "range", "id": "padding-block-start", "label": "Top", "min": 0, "max": 200, "step": 4, "unit": "px", "default": 48 },
+    { "type": "range", "id": "padding-block-end", "label": "Bottom", "min": 0, "max": 200, "step": 4, "unit": "px", "default": 48 }
+  ],
+  "blocks": [
+    {
+      "type": "point",
+      "name": "Reason to write",
+      "settings": [ { "type": "text", "id": "text", "label": "Text" } ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Contact card",
+      "blocks": [
+        { "type": "point", "settings": { "text": "Replies from people who know the products" } },
+        { "type": "point", "settings": { "text": "Bulk pricing fitted to your volume" } },
+        { "type": "point", "settings": { "text": "No membership, no sales theater" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,271 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "hero": {
+      "type": "rsh-cta-band",
+      "settings": {
+        "tone": "ink",
+        "eyebrow": "Why Restaurant Supply Hub",
+        "heading": "Two people, 17 years of sourcing, one simple idea",
+        "heading_level": "h1",
+        "text": "<p>Restaurants shouldn't overpay for the basics. Restaurant Supply Hub was built by two people who spent their careers on the supply side and got tired of watching independent operators pay three markups for a container that costs pennies to make.</p>",
+        "button_label": "Shop all supplies",
+        "button_link": "shopify://collections/shop-all",
+        "padding-block-start": 80,
+        "padding-block-end": 80
+      }
+    },
+    "founders": {
+      "type": "rsh-founders",
+      "blocks": {
+        "f1": {
+          "type": "figure",
+          "settings": {
+            "source": "custom",
+            "value": "17",
+            "label": "Years of combined sourcing"
+          }
+        },
+        "f2": {
+          "type": "figure",
+          "settings": {
+            "source": "custom",
+            "value": "2",
+            "label": "Founders on the factory floor"
+          }
+        },
+        "f3": {
+          "type": "figure",
+          "settings": {
+            "source": "product_count",
+            "value": "",
+            "label": "Restaurant-grade products"
+          }
+        }
+      },
+      "block_order": [
+        "f1",
+        "f2",
+        "f3"
+      ],
+      "settings": {
+        "eyebrow": "The founders",
+        "heading": "We've spent 17 years learning what this stuff should actually cost",
+        "body": "<p>[FOUNDER 1] and [FOUNDER 2] didn't come to restaurant supply from the outside. They came up in it. Between them they've spent 17 years sourcing food packaging, disposables and kitchen essentials — walking factory floors, testing product that looked fine until you put hot food in it, and building relationships with the makers who actually deliver.</p><p>That history is not a line on an about page. <strong>It's the entire reason this business can do what it does.</strong> Once you've spent that long learning which factory makes a deli container that survives a delivery bag and which one cuts the wall too thin, you stop guessing. You know what good product costs before three layers of distributors mark it up. And you can buy it direct.</p><p>Here's how restaurant supply usually works: a container gets made, sold to a national distributor, marked up, sold to a regional one, marked up again, then sold to your local rep, who marks it up once more. By the time you pay, the price has little to do with what the container cost to make. Restaurant Supply Hub was built to cut that chain short.</p><p>If you're a small operator who's been treated like a rounding error by the big distributors, <strong>you're exactly who this was built for.</strong></p>",
+        "image_key": "sourcing-factory-floor",
+        "section_width": "page-width",
+        "background_color": "",
+        "padding-block-start": 72,
+        "padding-block-end": 72
+      }
+    },
+    "chain": {
+      "type": "rsh-supply-chain",
+      "blocks": {
+        "u1": {
+          "type": "usual",
+          "settings": {
+            "name": "Factory",
+            "markup": false
+          }
+        },
+        "u2": {
+          "type": "usual",
+          "settings": {
+            "name": "National distributor",
+            "markup": true
+          }
+        },
+        "u3": {
+          "type": "usual",
+          "settings": {
+            "name": "Regional distributor",
+            "markup": true
+          }
+        },
+        "u4": {
+          "type": "usual",
+          "settings": {
+            "name": "Local rep",
+            "markup": true
+          }
+        },
+        "u5": {
+          "type": "usual",
+          "settings": {
+            "name": "Your kitchen",
+            "markup": false
+          }
+        },
+        "o1": {
+          "type": "ours",
+          "settings": {
+            "name": "Factory",
+            "highlight": false
+          }
+        },
+        "o2": {
+          "type": "ours",
+          "settings": {
+            "name": "Restaurant Supply Hub",
+            "highlight": true
+          }
+        },
+        "o3": {
+          "type": "ours",
+          "settings": {
+            "name": "Your kitchen",
+            "highlight": false
+          }
+        }
+      },
+      "block_order": [
+        "u1",
+        "u2",
+        "u3",
+        "u4",
+        "u5",
+        "o1",
+        "o2",
+        "o3"
+      ],
+      "settings": {
+        "usual_title": "How restaurant supply usually works",
+        "ours_title": "The Restaurant Supply Hub way",
+        "ours_note": "The middle, removed",
+        "body": "<p>We buy direct, keep overhead thin, and know what things should cost after 17 years on factory floors. What we don't do is cut quality to hit a price — the savings come from the supply chain, not the container. It's the same grade the established brands sell.</p>",
+        "section_width": "page-width",
+        "background_color": "#f6f1e8",
+        "padding-block-start": 64,
+        "padding-block-end": 64
+      }
+    },
+    "props": {
+      "type": "rsh-numbered-props",
+      "blocks": {
+        "c1": {
+          "type": "card",
+          "settings": {
+            "title": "We buy direct",
+            "text": "No national distributor, no regional rep, no three-markup chain between the factory and your kitchen."
+          }
+        },
+        "c2": {
+          "type": "card",
+          "settings": {
+            "title": "We know product",
+            "text": "We don't overpay at the source because we know what things should cost and who makes them well. Same grade the big names carry."
+          }
+        },
+        "c3": {
+          "type": "card",
+          "settings": {
+            "title": "We keep the range deep",
+            "text": "Containers, cups, gloves, foil, bags, cleaning, paper. The whole back of house, one supplier, in stock."
+          }
+        },
+        "c4": {
+          "type": "card",
+          "settings": {
+            "title": "Small orders, big respect",
+            "text": "No membership wall, no minimum that locks out the little shop. Today's two-case buyer is next year's twenty-case account."
+          }
+        }
+      },
+      "block_order": [
+        "c1",
+        "c2",
+        "c3",
+        "c4"
+      ],
+      "settings": {
+        "eyebrow": "",
+        "heading": "",
+        "section_width": "page-width",
+        "background_color": "",
+        "padding-block-start": 56,
+        "padding-block-end": 56
+      }
+    },
+    "wall": {
+      "type": "rsh-testimonial-wall",
+      "blocks": {
+        "quote_0": {
+          "type": "quote",
+          "settings": {
+            "headline": "Same containers, almost 20% less per case",
+            "quote": "<p>Switched our deli containers over about four months ago. Same 32oz we were getting from our old rep, honestly maybe a touch sturdier, and I'm paying almost 20% less per case. Delivery's been on time every single order.</p>",
+            "name": "Marcus D.",
+            "role": "Deli and prepared foods"
+          }
+        },
+        "quote_1": {
+          "type": "quote",
+          "settings": {
+            "headline": "Holds heat, doesn't leak on the drive",
+            "quote": "<p>We run three ghost kitchen brands out of one space so packaging is basically our storefront. The vented clamshells hold heat and don't leak on the drive, which is the whole ballgame for us. Prices let us actually make margin on delivery.</p>",
+            "name": "Priya K.",
+            "role": "Cloud kitchen"
+          }
+        },
+        "quote_2": {
+          "type": "quote",
+          "settings": {
+            "headline": "Best per-piece glove price I've found",
+            "quote": "<p>Gloves are solid, nitrile doesn't rip like the cheap vinyl we used to buy, and the per-piece price is the best I've found. One box came a day late once. They sorted it out fast.</p>",
+            "name": "Tony R.",
+            "role": "Food truck"
+          }
+        }
+      },
+      "block_order": [
+        "quote_0",
+        "quote_1",
+        "quote_2"
+      ],
+      "settings": {
+        "eyebrow": "In their words",
+        "heading": "What operators said after switching",
+        "body": "<p>Three kinds of kitchen, one catalogue. Open any of them to read the whole thing.</p>",
+        "open_label": "Read the full quote",
+        "columns": "3",
+        "reveal": true,
+        "section_width": "page-width",
+        "gap": 32,
+        "background_color": "",
+        "padding-block-start": 64,
+        "padding-block-end": 64
+      }
+    },
+    "closing": {
+      "type": "rsh-cta-band",
+      "settings": {
+        "tone": "accent",
+        "eyebrow": "The promise, in one line",
+        "heading": "Same quality the big distributors sell. Lower cost, because we removed the middle.",
+        "heading_level": "h2",
+        "text": "<p>Backed by 17 years of knowing exactly what we are buying.</p>",
+        "button_label": "Shop all supplies",
+        "button_link": "shopify://collections/shop-all",
+        "padding-block-start": 72,
+        "padding-block-end": 72
+      }
+    }
+  },
+  "order": [
+    "hero",
+    "founders",
+    "chain",
+    "props",
+    "wall",
+    "closing"
+  ]
+}
