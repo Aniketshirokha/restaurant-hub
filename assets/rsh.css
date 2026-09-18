@@ -1685,7 +1685,7 @@
   position: relative;
   display: flex;
   align-items: center;
-  min-height: var(--rsh-hero-min, 80vh);
+  min-height: max(var(--rsh-hero-min, 80vh), 33rem);
   overflow: hidden;
   color: var(--hero-paper);
   background:
@@ -1719,13 +1719,25 @@
   opacity: 0.38;
 }
 
-.rsh-hero__inner {
+/*
+ * The theme's own page grid. It stays as the theme wrote it; the hero's two
+ * column layout goes on the child, because `.section > *` forces every direct
+ * child into the middle column and would otherwise collapse both columns into
+ * one. Padding comes from spacing-style, which is also what adds the height of
+ * a transparent header on the first section of the page.
+ */
+
+.rsh-hero__section {
   position: relative;
+  z-index: 1;
+  width: 100%;
+}
+
+.rsh-hero__inner {
   display: grid;
   gap: clamp(32px, 5vw, 64px);
   align-items: center;
   width: 100%;
-  padding-block: clamp(56px, 9vw, 104px);
   grid-template-columns: minmax(0, 1fr);
 }
 
@@ -1992,6 +2004,13 @@
 
 .rsh-hero__saving[hidden] {
   display: none;
+}
+
+/* The nudge, before there is a saving to name. */
+.rsh-hero__saving.is-quiet {
+  font-weight: 500;
+  color: rgb(20 32 26 / 0.66);
+  background: rgb(20 32 26 / 0.05);
 }
 
 @media (min-width: 60rem) {

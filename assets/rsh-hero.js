@@ -1,6 +1,6 @@
 import { Component } from '@theme/component';
 import { formatMoney } from '@theme/money-formatting';
-import { parseTiers, tierFor, tierPriceCents, perPieceAmount } from '@theme/rsh-pricing';
+import { parseTiers, tierFor, nextTierFrom, tierPriceCents, perPieceAmount } from '@theme/rsh-pricing';
 
 /**
  * The hero's price calculator.
@@ -67,18 +67,27 @@ class RshHeroPrice extends Component {
     const piece = perPieceAmount(caseCents, this.pieces, this.decimals);
     set('[data-piece-price]', piece ? this.symbol + piece : '—');
 
-    // Only worth naming once there is a saving to name.
-    const saving = (this.base - caseCents) * cases;
+    // This line always says something. Hiding it at one case left a gap that
+    // opened and closed as the slider moved, and "you are not saving anything
+    // yet" is a worse answer than "here is what would".
     const savingNode = this.querySelector('[data-saving]');
     if (!savingNode) return;
 
-    if (saving <= 0) {
-      savingNode.hidden = true;
+    const saving = (this.base - caseCents) * cases;
+
+    if (saving > 0) {
+      const amount = formatMoney(saving, this.format, this.currency);
+      savingNode.textContent = `${discount}% off at ${cases} cases — ${amount} back on this order.`;
+      savingNode.classList.remove('is-quiet');
+      savingNode.hidden = false;
       return;
     }
 
-    const amount = formatMoney(saving, this.format, this.currency);
-    savingNode.textContent = `${discount}% off at ${cases} cases — ${amount} back on this order.`;
+    const next = nextTierFrom(cases, this.tiers);
+    savingNode.textContent = next
+      ? `Standard price. ${next.min} cases takes ${next.discount}% off every case.`
+      : 'Standard price.';
+    savingNode.classList.add('is-quiet');
     savingNode.hidden = false;
   }
 }
