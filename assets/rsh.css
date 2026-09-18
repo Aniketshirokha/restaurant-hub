@@ -1794,24 +1794,35 @@
 
 .rsh-hero__copy {
   display: grid;
-  gap: var(--gap-md, 20px);
+  gap: var(--gap-sm, 14px);
   max-width: 34rem;
 }
 
-.rsh-hero--has-image .rsh-hero__copy {
-  text-shadow: 0 1px 12px rgb(6 12 9 / 0.45);
+.rsh-hero__heading + .rsh-hero__lede {
+  margin-block-start: 0.35rem;
+}
+
+.rsh-hero__lede + .rsh-hero__actions {
+  margin-block-start: 0.6rem;
+}
+
+.rsh-hero--has-image .rsh-hero__eyebrow,
+.rsh-hero--has-image .rsh-hero__lede,
+.rsh-hero--has-image .rsh-hero__proof-item {
+  text-shadow: 0 1px 3px rgb(6 12 9 / 0.55);
 }
 
 .rsh-hero__eyebrow {
   display: flex;
   gap: 0.6rem;
   align-items: center;
-  margin: 0;
-  font-size: var(--font-size--sm, 0.8125rem);
+  margin: 0 0 0.2rem;
+  font-family: var(--font-body--family, inherit);
+  font-size: 0.8125rem;
   font-weight: 600;
-  letter-spacing: 0.1em;
+  letter-spacing: 0.14em;
   text-transform: uppercase;
-  color: rgb(255 255 255 / 0.88);
+  color: rgb(255 255 255 / 0.82);
 }
 
 .rsh-hero__pip {
@@ -1837,15 +1848,18 @@
 
 .rsh-hero__heading {
   margin: 0;
-  font-size: clamp(2.25rem, 5vw, 3.5rem);
-  font-weight: 800;
-  line-height: 1.02;
-  letter-spacing: -0.035em;
+  font-family: var(--font-h1--family, inherit);
+  font-style: var(--font-h1--style, normal);
+  font-weight: var(--font-h1--weight, 700);
+  font-size: clamp(2.25rem, 4.6vw, 3.4rem);
+  line-height: 1.08;
+  letter-spacing: -0.005em;
   text-wrap: balance;
 }
 
 .rsh-hero__accent {
   display: block;
+  margin-block-start: 0.04em;
   color: var(--hero-accent);
 }
 
@@ -1913,9 +1927,9 @@
 
 .rsh-hero__proof {
   display: grid;
-  gap: 0.5rem;
+  gap: 0.6rem;
   padding: 0;
-  margin: 0.6rem 0 0;
+  margin: 0.9rem 0 0;
   list-style: none;
 }
 
