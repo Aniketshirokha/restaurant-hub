@@ -1,0 +1,31 @@
+{%- doc -%}
+  Rich text that fills in the store's numbers. `$[threshold]` becomes the
+  free-shipping figure and `[quote]` the quote threshold, both from theme
+  settings, so a paragraph about shipping or quotes can never carry a number
+  the rest of the site has moved on from. Otherwise it is the theme's own
+  text block: same widths, same type presets.
+{%- enddoc -%}
+
+{%- liquid
+  assign threshold = settings.rsh_free_shipping_threshold | default: 149
+  assign quote_min = settings.rsh_quote_min | default: 50
+  assign copy = block.settings.text | replace: '[threshold]', threshold | replace: '[quote]', quote_min
+-%}
+
+<div class="rsh-copy rte spacing-style" style="{% render 'spacing-style', settings: block.settings %}" {{ block.shopify_attributes }}>
+  {{ copy }}
+</div>
+
+{% schema %}
+{
+  "name": "Text with store numbers",
+  "tag": null,
+  "settings": [
+    { "type": "richtext", "id": "text", "label": "Text", "info": "Write $[threshold] for the free-shipping figure and [quote] for the quote threshold." },
+    { "type": "header", "content": "Padding" },
+    { "type": "range", "id": "padding-block-start", "label": "Top", "min": 0, "max": 100, "step": 4, "unit": "px", "default": 0 },
+    { "type": "range", "id": "padding-block-end", "label": "Bottom", "min": 0, "max": 100, "step": 4, "unit": "px", "default": 0 }
+  ],
+  "presets": [ { "name": "Text with store numbers" } ]
+}
+{% endschema %}

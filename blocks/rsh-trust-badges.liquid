@@ -1,0 +1,85 @@
+{%- doc -%}
+  The promises a buyer checks before the add-to-cart: four short claims with
+  an icon each, and under them the secure-checkout line with the payment marks
+  the store actually accepts.
+
+  Every claim is one the store already makes elsewhere on the site; the copy
+  is settings, so a promise that changes is changed once here. `$[threshold]`
+  becomes the free-shipping figure from theme settings and `[quote]` the quote
+  threshold, so neither number can drift from the pages that quote them.
+{%- enddoc -%}
+
+{%- liquid
+  assign threshold = settings.rsh_free_shipping_threshold | default: 149
+  assign quote_min = settings.rsh_quote_min | default: 50
+-%}
+
+<div class="rsh-trust spacing-style" style="{% render 'spacing-style', settings: block.settings %}" {{ block.shopify_attributes }}>
+  <ul class="rsh-trust__grid" role="list">
+    {%- for i in (1..4) -%}
+      {%- liquid
+        assign ik = 'icon_' | append: i
+        assign tk = 'title_' | append: i
+        assign xk = 'text_' | append: i
+        assign title = block.settings[tk]
+        assign text = block.settings[xk] | replace: '[threshold]', threshold | replace: '[quote]', quote_min
+      -%}
+      {%- if title != blank -%}
+        <li class="rsh-trust__item">
+          {%- if block.settings[ik] != blank and block.settings[ik] != 'none' -%}
+            <span class="rsh-trust__icon" aria-hidden="true">{% render 'rsh-icon', name: block.settings[ik] %}</span>
+          {%- endif -%}
+          <span class="rsh-trust__body">
+            <span class="rsh-trust__title">{{ title }}</span>
+            {%- if text != blank -%}<span class="rsh-trust__text">{{ text }}</span>{%- endif -%}
+          </span>
+        </li>
+      {%- endif -%}
+    {%- endfor -%}
+  </ul>
+
+  {%- if block.settings.show_secure -%}
+    <div class="rsh-trust__secure">
+      <span class="rsh-trust__secure-label">
+        <span class="rsh-trust__icon rsh-trust__icon--small" aria-hidden="true">{% render 'rsh-icon', name: 'lock' %}</span>
+        {{ block.settings.secure_text | default: 'Secure checkout' }}
+      </span>
+      {%- if shop.enabled_payment_types.size > 0 -%}
+        <ul class="rsh-trust__payments" role="list" aria-label="Accepted payments">
+          {%- for type in shop.enabled_payment_types -%}
+            <li>{{ type | payment_type_svg_tag: class: 'rsh-trust__pay' }}</li>
+          {%- endfor -%}
+        </ul>
+      {%- endif -%}
+    </div>
+  {%- endif -%}
+</div>
+
+{% schema %}
+{
+  "name": "Trust badges",
+  "tag": null,
+  "settings": [
+    { "type": "paragraph", "content": "Four promises. Write $[threshold] for the free-shipping figure and [quote] for the quote threshold, both from theme settings." },
+    { "type": "select", "id": "icon_1", "label": "Icon 1", "options": [ { "value": "truck", "label": "Delivery" }, { "value": "badge", "label": "Badge" }, { "value": "tag", "label": "Price tag" }, { "value": "box", "label": "Case" }, { "value": "clock", "label": "Time" }, { "value": "lock", "label": "Lock" }, { "value": "leaf", "label": "Leaf" }, { "value": "none", "label": "None" } ], "default": "truck" },
+    { "type": "text", "id": "title_1", "label": "Title 1", "default": "Ships nationwide, tracked" },
+    { "type": "text", "id": "text_1", "label": "Text 1", "default": "Tracking on every order. Free shipping over $[threshold]." },
+    { "type": "select", "id": "icon_2", "label": "Icon 2", "options": [ { "value": "truck", "label": "Delivery" }, { "value": "badge", "label": "Badge" }, { "value": "tag", "label": "Price tag" }, { "value": "box", "label": "Case" }, { "value": "clock", "label": "Time" }, { "value": "lock", "label": "Lock" }, { "value": "leaf", "label": "Leaf" }, { "value": "none", "label": "None" } ], "default": "badge" },
+    { "type": "text", "id": "title_2", "label": "Title 2", "default": "Damaged? Replaced or refunded" },
+    { "type": "text", "id": "text_2", "label": "Text 2", "default": "Send a photo. The risk is on us, not you." },
+    { "type": "select", "id": "icon_3", "label": "Icon 3", "options": [ { "value": "truck", "label": "Delivery" }, { "value": "badge", "label": "Badge" }, { "value": "tag", "label": "Price tag" }, { "value": "box", "label": "Case" }, { "value": "clock", "label": "Time" }, { "value": "lock", "label": "Lock" }, { "value": "leaf", "label": "Leaf" }, { "value": "none", "label": "None" } ], "default": "tag" },
+    { "type": "text", "id": "title_3", "label": "Title 3", "default": "No minimum, no membership" },
+    { "type": "text", "id": "text_3", "label": "Text 3", "default": "Order one case. Volume discounts apply on their own as the cart grows." },
+    { "type": "select", "id": "icon_4", "label": "Icon 4", "options": [ { "value": "truck", "label": "Delivery" }, { "value": "badge", "label": "Badge" }, { "value": "tag", "label": "Price tag" }, { "value": "box", "label": "Case" }, { "value": "clock", "label": "Time" }, { "value": "lock", "label": "Lock" }, { "value": "leaf", "label": "Leaf" }, { "value": "none", "label": "None" } ], "default": "box" },
+    { "type": "text", "id": "title_4", "label": "Title 4", "default": "Same grade, bought direct" },
+    { "type": "text", "id": "text_4", "label": "Text 4", "default": "The product the established brands carry, without the middlemen." },
+    { "type": "header", "content": "Checkout line" },
+    { "type": "checkbox", "id": "show_secure", "label": "Show secure checkout and payment marks", "default": true },
+    { "type": "text", "id": "secure_text", "label": "Text", "default": "Secure checkout" },
+    { "type": "header", "content": "Padding" },
+    { "type": "range", "id": "padding-block-start", "label": "Top", "min": 0, "max": 100, "step": 4, "unit": "px", "default": 8 },
+    { "type": "range", "id": "padding-block-end", "label": "Bottom", "min": 0, "max": 100, "step": 4, "unit": "px", "default": 8 }
+  ],
+  "presets": [ { "name": "Trust badges" } ]
+}
+{% endschema %}
