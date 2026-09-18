@@ -317,7 +317,7 @@
                         "padding-block-end": 0,
                         "padding-inline-start": 0,
                         "padding-inline-end": 0,
-                        "text": "<p>[DECIDE]</p>"
+                        "text": "<p>Send us the quote you're comparing against — same item, same case size — and we'll tell you straight whether we can beat it.</p>"
                       }
                     }
                   },
@@ -389,7 +389,7 @@
                         "padding-block-end": 0,
                         "padding-inline-start": 0,
                         "padding-inline-end": 0,
-                        "text": "<p>[DECIDE. Affects whether retail buyers can transact at all.]</p>"
+                        "text": "<p>Everything is sold by the case; that's how the per-piece price on every product is worked out. There's no minimum beyond one case. If you want to try something before committing to a case, ask about a sample.</p>"
                       }
                     }
                   },
@@ -461,7 +461,7 @@
                         "padding-block-end": 0,
                         "padding-inline-start": 0,
                         "padding-inline-end": 0,
-                        "text": "<p>The compostable collection is filtered by material rather than by marketing language. [PFAS COMPLIANCE STATEMENT AND CERT NUMBERS GO HERE ONCE SUPPLIER DOCS ARE IN HAND]</p>"
+                        "text": "<p>The compostable collection is filtered by material rather than by marketing language. If you need compliance documentation for a specific item, ask and we'll get it from the supplier.</p>"
                       }
                     }
                   },
@@ -569,7 +569,7 @@
                         "padding-block-end": 0,
                         "padding-inline-start": 0,
                         "padding-inline-end": 0,
-                        "text": "<p>[CONFIRM SUNNYVALE PICKUP AND LOCAL DELIVERY BEFORE LAUNCH]</p>"
+                        "text": "<p>Every order ships with tracking. If you're close to the warehouse and would rather pick up or arrange local delivery, message us and we'll tell you what's possible.</p>"
                       }
                     }
                   },

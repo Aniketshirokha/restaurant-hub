@@ -3046,13 +3046,10 @@
   border-radius: var(--rsh-radius-lg);
 }
 
-/* None of the library files are uploaded yet, so until the photograph lands
-   the story takes the whole width rather than sitting beside a hole. */
-.rsh-founders__media:empty {
-  display: none;
-}
-
-.rsh-founders:has(.rsh-founders__media:empty) {
+/* With nothing beside it (no photo uploaded, no logo chosen) the story takes
+   the whole width rather than sitting beside a hole. The figure is not
+   written at all in that case, so this keys on its absence. */
+.rsh-founders:not(:has(.rsh-founders__media)) {
   grid-template-columns: minmax(0, 1fr);
 }
 
@@ -3061,6 +3058,32 @@
   display: block;
   width: 100%;
   height: auto;
+}
+
+/* The logo is a cut-out, so it gets a panel to sit in: a soft wash, the
+   brand green breathing in from one corner, the mark centred at a width
+   that reads as a crest rather than a header repeat. */
+.rsh-founders__media--logo {
+  border: 1px solid var(--rsh-hairline);
+}
+
+.rsh-founders__logo {
+  display: grid;
+  place-items: center;
+  aspect-ratio: 4 / 3;
+  padding: clamp(1.5rem, 4vw, 3rem);
+  background:
+    radial-gradient(90% 80% at 100% 0%, var(--rsh-accent-wash) 0%, transparent 60%),
+    var(--rsh-wash);
+}
+
+/* Two classes deep: `.rsh-founders__media img` above is class + element and
+   would otherwise stretch the mark to the panel's full width. */
+.rsh-founders__logo .rsh-founders__logo-img {
+  display: block;
+  width: min(60%, 320px);
+  height: auto;
+  filter: drop-shadow(0 12px 24px rgb(0 0 0 / 0.08));
 }
 
 @media screen and (max-width: 989px) {

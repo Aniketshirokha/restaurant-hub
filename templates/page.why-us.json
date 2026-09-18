@@ -14,9 +14,9 @@
       "settings": {
         "tone": "ink",
         "eyebrow": "Why Restaurant Supply Hub",
-        "heading": "Two people, 17 years of sourcing, one simple idea",
+        "heading": "One founder, 17 years of sourcing, one simple idea",
         "heading_level": "h1",
-        "text": "<p>Restaurants shouldn't overpay for the basics. Restaurant Supply Hub was built by two people who spent their careers on the supply side and got tired of watching independent operators pay three markups for a container that costs pennies to make.</p>",
+        "text": "<p>Restaurants shouldn't overpay for the basics. Restaurant Supply Hub was built by someone who spent 17 years on the supply side and got tired of watching independent operators pay three markups for a container that costs pennies to make.</p>",
         "button_label": "Shop all supplies",
         "button_link": "shopify://collections/shop-all",
         "padding-block-start": 80,
@@ -31,15 +31,15 @@
           "settings": {
             "source": "custom",
             "value": "17",
-            "label": "Years of combined sourcing"
+            "label": "Years of sourcing"
           }
         },
         "f2": {
           "type": "figure",
           "settings": {
             "source": "custom",
-            "value": "2",
-            "label": "Founders on the factory floor"
+            "value": "0",
+            "label": "Middlemen between the factory and your kitchen"
           }
         },
         "f3": {
@@ -57,14 +57,15 @@
         "f3"
       ],
       "settings": {
-        "eyebrow": "The founders",
+        "eyebrow": "The founder",
         "heading": "We've spent 17 years learning what this stuff should actually cost",
-        "body": "<p>[FOUNDER 1] and [FOUNDER 2] didn't come to restaurant supply from the outside. They came up in it. Between them they've spent 17 years sourcing food packaging, disposables and kitchen essentials — walking factory floors, testing product that looked fine until you put hot food in it, and building relationships with the makers who actually deliver.</p><p>That history is not a line on an about page. <strong>It's the entire reason this business can do what it does.</strong> Once you've spent that long learning which factory makes a deli container that survives a delivery bag and which one cuts the wall too thin, you stop guessing. You know what good product costs before three layers of distributors mark it up. And you can buy it direct.</p><p>Here's how restaurant supply usually works: a container gets made, sold to a national distributor, marked up, sold to a regional one, marked up again, then sold to your local rep, who marks it up once more. By the time you pay, the price has little to do with what the container cost to make. Restaurant Supply Hub was built to cut that chain short.</p><p>If you're a small operator who's been treated like a rounding error by the big distributors, <strong>you're exactly who this was built for.</strong></p>",
+        "body": "<p>Our founder didn't come to restaurant supply from the outside. He came up in it: 17 years sourcing food packaging, disposables and kitchen essentials — walking factory floors, testing product that looked fine until you put hot food in it, and building relationships with the makers who actually deliver.</p><p>That history is not a line on an about page. <strong>It's the entire reason this business can do what it does.</strong> Once you've spent that long learning which factory makes a deli container that survives a delivery bag and which one cuts the wall too thin, you stop guessing. You know what good product costs before three layers of distributors mark it up. And you can buy it direct.</p><p>Here's how restaurant supply usually works: a container gets made, sold to a national distributor, marked up, sold to a regional one, marked up again, then sold to your local rep, who marks it up once more. By the time you pay, the price has little to do with what the container cost to make. Restaurant Supply Hub was built to cut that chain short.</p><p>If you're a small operator who's been treated like a rounding error by the big distributors, <strong>you're exactly who this was built for.</strong></p>",
         "image_key": "sourcing-factory-floor",
         "section_width": "page-width",
         "background_color": "",
         "padding-block-start": 72,
-        "padding-block-end": 72
+        "padding-block-end": 72,
+        "media": "logo"
       }
     },
     "chain": {
