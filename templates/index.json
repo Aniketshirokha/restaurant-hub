@@ -959,6 +959,81 @@
         "padding-block-start": 0,
         "padding-block-end": 0
       }
+    },
+    "rsh_faq": {
+      "type": "rsh-faq",
+      "blocks": {
+        "q1": {
+          "type": "qa",
+          "settings": {
+            "question": "Do I need an account or membership to buy?",
+            "answer": "<p>No. Prices are on the page and you can check out as a guest. An account just makes reordering faster.</p>"
+          }
+        },
+        "q2": {
+          "type": "qa",
+          "settings": {
+            "question": "Is there a minimum order?",
+            "answer": "<p>No minimum to get started. Order a single case if that's what you need. Volume discounts kick in automatically as you add more.</p><p><a href=\"/pages/deals\">See volume pricing →</a></p>"
+          }
+        },
+        "q3": {
+          "type": "qa",
+          "settings": {
+            "question": "Why are your prices lower than other suppliers?",
+            "answer": "<p>We buy direct from the factories instead of through layers of distributors, and we keep overhead thin. Same grade, shorter chain.</p><p><a href=\"/pages/why-us\">The full breakdown →</a></p>"
+          }
+        },
+        "q4": {
+          "type": "qa",
+          "settings": {
+            "question": "Is the quality actually the same as the big brands?",
+            "answer": "<p>Yes. Same grades, same kind of factories. Our food packaging is rated 0°F to 180°F, leak-resistant, microwave and freezer safe.</p>"
+          }
+        },
+        "q5": {
+          "type": "qa",
+          "settings": {
+            "question": "How fast will I get my order?",
+            "answer": "<p>In-stock orders ship fast and arrive nationwide, with tracking on every order.</p>"
+          }
+        },
+        "q6": {
+          "type": "qa",
+          "settings": {
+            "question": "What if my order arrives damaged?",
+            "answer": "<p>Send us a photo through the contact form and we'll replace or refund it. The risk is on us, so you can buy with confidence.</p>"
+          }
+        },
+        "q7": {
+          "type": "qa",
+          "settings": {
+            "question": "Can I get custom-printed packaging?",
+            "answer": "<p>Not yet at launch. Drop us a note and we'll tell you the moment it's available.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "q1",
+        "q2",
+        "q3",
+        "q4",
+        "q5",
+        "q6",
+        "q7"
+      ],
+      "settings": {
+        "eyebrow": "Questions",
+        "heading": "Straight answers, before you order",
+        "body": "<p>The things people ask before a first order. If yours isn't here, the contact form reaches someone who can answer it, usually the same day.</p>",
+        "link_label": "Ask a question",
+        "link_url": "/pages/contact#rsh-contact-form",
+        "open_first": true,
+        "section_width": "page-width",
+        "background_color": "",
+        "padding-block-start": 64,
+        "padding-block-end": 64
+      }
     }
   },
   "order": [
@@ -974,6 +1049,7 @@
     "rsh_story",
     "product_list_9xDfTQ",
     "rsh_wall",
+    "rsh_faq",
     "rsh_ladder",
     "178924735036195891"
   ]

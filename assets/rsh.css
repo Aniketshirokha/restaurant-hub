@@ -4354,3 +4354,345 @@
   .rsh-ladder__off { grid-area: off; }
   .rsh-ladder__price { grid-area: price; text-align: start; min-inline-size: 0; }
 }
+
+/* ------------------------------------------------------------------ *
+ * Footer
+ *
+ * Ink, like the bands, so the page ends on the same ground it punctuated.
+ * Three rows: the sign-up, the brand beside the columns, the small print.
+ * ------------------------------------------------------------------ */
+
+.shopify-section .section-background.rsh-footer__bg {
+  background-color: #0c1310;
+  background-image: radial-gradient(90% 60% at 0% 0%, rgb(26 127 75 / 0.14) 0%, transparent 60%);
+}
+
+.rsh-footer {
+  color: #fcfcfb;
+}
+
+.rsh-footer a {
+  color: inherit;
+  text-decoration: none;
+}
+
+/* ---- sign-up row ---- */
+
+.rsh-footer__signup {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 1.25rem 3rem;
+  align-items: center;
+  padding-block-end: 2.5rem;
+  margin-block-end: 3rem;
+  border-block-end: 1px solid rgb(255 255 255 / 0.12);
+}
+
+@media screen and (min-width: 990px) {
+  .rsh-footer__signup {
+    grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);
+  }
+}
+
+.rsh-footer__signup-heading {
+  margin: 0;
+  font-family: var(--font-h1--family, inherit);
+  font-weight: var(--font-h1--weight, 400);
+  font-size: clamp(1.375rem, 2.2vw, 1.875rem);
+  line-height: 1.1;
+  text-wrap: balance;
+}
+
+.rsh-footer__signup-text {
+  margin: 0.5rem 0 0;
+  max-width: 44ch;
+  color: rgb(252 252 251 / 0.7);
+}
+
+/* Both are grid items, whose automatic minimum is their content's width; the
+   input's intrinsic width would otherwise push the row past a phone's edge. */
+.rsh-footer__form {
+  display: grid;
+  gap: 0.5rem;
+  min-width: 0;
+}
+
+.rsh-footer__field {
+  display: flex;
+  min-width: 0;
+  padding: 0.35rem;
+  background: rgb(255 255 255 / 0.06);
+  border: 1px solid rgb(255 255 255 / 0.16);
+  border-radius: 999px;
+  transition: border-color 150ms ease, background-color 150ms ease;
+}
+
+.rsh-footer__field:focus-within {
+  border-color: #47c67b;
+  background: rgb(255 255 255 / 0.08);
+}
+
+.rsh-footer__field input {
+  flex: 1 1 0;
+  width: 100%;
+  min-width: 0;
+  padding: 0.7rem 1rem;
+  font: inherit;
+  color: #fcfcfb;
+  background: transparent;
+  border: 0;
+  outline: none;
+}
+
+.rsh-footer__field input::placeholder {
+  color: rgb(252 252 251 / 0.5);
+}
+
+.rsh-footer__submit {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.7rem 1.25rem;
+  font-family: var(--font-accent--family, inherit);
+  font-weight: var(--font-accent--weight, 600);
+  font-size: 0.9375rem;
+  color: #08120d;
+  background: #47c67b;
+  border: 0;
+  border-radius: 999px;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: background-color 180ms ease;
+}
+
+.rsh-footer__submit:hover {
+  background: #62d18e;
+}
+
+.rsh-footer__form-status {
+  margin: 0;
+  font-size: 0.9375rem;
+  color: #47c67b;
+}
+
+.rsh-footer__form-status--error {
+  color: #ff8a80;
+}
+
+/* ---- brand and columns ---- */
+
+.rsh-footer__main {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 2.5rem 3rem;
+}
+
+@media screen and (min-width: 750px) {
+  .rsh-footer__main {
+    grid-template-columns: minmax(0, 1.3fr) minmax(0, 2fr);
+  }
+}
+
+@media screen and (min-width: 990px) {
+  .rsh-footer__main {
+    grid-template-columns: minmax(0, 1.4fr) minmax(0, 2.2fr);
+    gap: 2.5rem clamp(3rem, 6vw, 6rem);
+  }
+}
+
+.rsh-footer__logo {
+  display: inline-block;
+}
+
+.rsh-footer__logo-img {
+  display: block;
+  width: auto;
+  height: 56px;
+  /* A full-colour mark on ink: a soft white plate keeps it legible whatever
+     its own colours are. */
+  padding: 0.5rem 0.75rem;
+  background: #fcfcfb;
+  border-radius: var(--rsh-radius);
+}
+
+.rsh-footer__wordmark {
+  font-family: var(--font-h1--family, inherit);
+  font-weight: var(--font-h1--weight, 400);
+  font-size: 1.5rem;
+}
+
+.rsh-footer__tagline {
+  margin: 1.1rem 0 0;
+  max-width: 34ch;
+  line-height: 1.55;
+  color: rgb(252 252 251 / 0.72);
+}
+
+.rsh-footer__contact {
+  display: grid;
+  gap: 0.35rem;
+  margin: 1.25rem 0 0;
+  padding: 0;
+  list-style: none;
+  font-size: 0.9375rem;
+  color: rgb(252 252 251 / 0.8);
+}
+
+.rsh-footer__contact a:hover {
+  color: #47c67b;
+}
+
+.rsh-footer__social {
+  display: flex;
+  gap: 0.5rem;
+  margin: 1.25rem 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.rsh-footer__social a {
+  display: inline-grid;
+  place-items: center;
+  inline-size: 2.4rem;
+  block-size: 2.4rem;
+  border: 1px solid rgb(255 255 255 / 0.16);
+  border-radius: 50%;
+  transition: border-color 150ms ease, color 150ms ease, background-color 150ms ease;
+}
+
+.rsh-footer__social svg {
+  inline-size: 18px;
+  block-size: 18px;
+}
+
+.rsh-footer__social a:hover {
+  color: #47c67b;
+  border-color: rgb(71 198 123 / 0.6);
+  background: rgb(71 198 123 / 0.08);
+}
+
+.rsh-footer__columns {
+  display: grid;
+  /* 8.5rem seats two columns on a phone rather than one long stack. */
+  grid-template-columns: repeat(auto-fit, minmax(8.5rem, 1fr));
+  gap: 2rem 1.5rem;
+}
+
+.rsh-footer__col-title {
+  margin: 0 0 0.9rem;
+  font-family: var(--font-accent--family, inherit);
+  font-weight: var(--font-accent--weight, 600);
+  font-size: 0.78125rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: #47c67b;
+}
+
+.rsh-footer__links {
+  display: grid;
+  gap: 0.55rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.rsh-footer__links a {
+  display: inline-block;
+  font-size: 0.9375rem;
+  line-height: 1.4;
+  color: rgb(252 252 251 / 0.8);
+  transition: color 150ms ease, transform 150ms ease;
+}
+
+.rsh-footer__links a:hover,
+.rsh-footer__links a[aria-current='page'] {
+  color: #fcfcfb;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .rsh-footer__links a:hover {
+    transform: translateX(2px);
+  }
+}
+
+/* ---- small print ---- */
+
+.rsh-footer__foot {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem 2rem;
+  margin-block-start: 3rem;
+  padding-block-start: 1.5rem;
+  border-block-start: 1px solid rgb(255 255 255 / 0.12);
+  font-size: 0.8125rem;
+  color: rgb(252 252 251 / 0.55);
+}
+
+.rsh-footer__foot-left,
+.rsh-footer__foot-right {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.75rem 1.5rem;
+}
+
+.rsh-footer__copy {
+  margin: 0;
+}
+
+.rsh-footer__policies {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem 1.25rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.rsh-footer__policies a:hover,
+.rsh-footer__top:hover {
+  color: #fcfcfb;
+}
+
+.rsh-footer__payment {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.rsh-footer__pay {
+  display: block;
+  inline-size: 38px;
+  block-size: 24px;
+  border-radius: 3px;
+  opacity: 0.9;
+}
+
+/* On a narrow phone the button drops under the field, full width. */
+@media screen and (max-width: 479px) {
+  .rsh-footer__field {
+    flex-wrap: wrap;
+    border-radius: 1.25rem;
+  }
+
+  .rsh-footer__submit {
+    flex: 1 1 100%;
+    justify-content: center;
+  }
+}
+
+.rsh-footer__top {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  font-family: var(--font-accent--family, inherit);
+  font-weight: var(--font-accent--weight, 600);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  font-size: 0.75rem;
+}
