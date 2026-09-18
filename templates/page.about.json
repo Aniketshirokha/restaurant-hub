@@ -203,50 +203,6 @@
                 "text": "<p>A container gets made. It sells to a national distributor, who marks it up. Then to a regional distributor, who marks it up. Then to your local rep, who marks it up again. By the time you pay, the price has very little to do with what the thing cost to make.</p><p>We buy direct from the factory and sell direct to you. Same grade the established brands carry. The savings come out of the supply chain, not out of the product.</p>"
               }
             },
-            "about_6": {
-              "type": "text",
-              "settings": {
-                "width": "100%",
-                "max_width": "normal",
-                "alignment": "left",
-                "type_preset": "h2",
-                "font": "var(--font-body--family)",
-                "font_size": "1rem",
-                "line_height": "normal",
-                "letter_spacing": "normal",
-                "case": "none",
-                "background": false,
-                "background_color": "#00000026",
-                "corner_radius": 0,
-                "padding-block-start": 0,
-                "padding-block-end": 0,
-                "padding-inline-start": 0,
-                "padding-inline-end": 0,
-                "text": "<h2>What that means on an invoice</h2>"
-              }
-            },
-            "about_7": {
-              "type": "text",
-              "settings": {
-                "width": "100%",
-                "max_width": "normal",
-                "alignment": "left",
-                "type_preset": "rte",
-                "font": "var(--font-body--family)",
-                "font_size": "1rem",
-                "line_height": "normal",
-                "letter_spacing": "normal",
-                "case": "none",
-                "background": false,
-                "background_color": "#00000026",
-                "corner_radius": 0,
-                "padding-block-start": 0,
-                "padding-block-end": 0,
-                "padding-inline-start": 0,
-                "padding-inline-end": 0,
-                "text": "<p>[ONE SPECIFIC, CHECKABLE DETAIL GOES HERE. A product line you got right. A customer you have kept for a decade. A container run that went wrong and how you fixed it. A real number on a real item. This paragraph is the difference between a story a buyer believes and one they skim past. An industry buyer will spot an invented specific instantly.]</p>"
-              }
-            },
             "about_8": {
               "type": "text",
               "settings": {
@@ -331,8 +287,6 @@
             "about_3",
             "about_4",
             "about_5",
-            "about_6",
-            "about_7",
             "about_8",
             "about_9",
             "about_10",

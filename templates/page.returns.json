@@ -134,7 +134,7 @@
                 "padding-block-end": 0,
                 "padding-inline-start": 0,
                 "padding-inline-end": 0,
-                "text": "<p>Photograph it before you throw anything away, including the outer carton, and email contact@restaurantsupplyhub.com within [X] days. We replace damaged product. You do not need to ship it back.</p>"
+                "text": "<p>Photograph it before you throw anything away, including the outer carton, and email contact@restaurantsupplyhub.com as soon as it arrives. We replace damaged product. You do not need to ship it back.</p>"
               }
             },
             "ret_3": {
@@ -178,7 +178,7 @@
                 "padding-block-end": 0,
                 "padding-inline-start": 0,
                 "padding-inline-end": 0,
-                "text": "<p>Unopened cases in resalable condition can come back within [X] days. [RESTOCKING FEE: YES/NO AND HOW MUCH] Return shipping is on you unless the error was ours.</p>"
+                "text": "<p>Unopened cases in resalable condition can come back. Message us first: we'll confirm the return window and whether any restocking charge applies before you ship anything. Return shipping is on you unless the error was ours.</p>"
               }
             },
             "ret_5": {
