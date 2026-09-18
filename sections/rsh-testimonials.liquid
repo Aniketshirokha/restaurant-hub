@@ -1,21 +1,35 @@
 {%- doc -%}
   Illustrative customer quotes for a pre-launch storefront.
 
-  There is deliberately no star rating, no average and no "verified order" badge
-  in this section. An average implies a population of ratings, and a verified
-  badge is a specific factual claim that an order exists under that name. Both
-  are checkable, both are reportable under the FTC rule on testimonials, and
-  neither is worth the risk while the quotes are illustrative.
+  One quote at a time, with the speakers along the bottom as the way through
+  them. Every quote is in the markup; the script hides the inactive ones. With
+  the script blocked the section degrades to the stacked list it used to be,
+  which reads perfectly well, so nothing here depends on JavaScript running.
+
+  There is deliberately no star rating, no average, no avatar, no photograph and
+  no "verified order" badge. An average implies a population of ratings, a
+  verified badge is a specific factual claim that an order exists under that
+  name, and a face implies a person who can be looked up. All three are checkable
+  and reportable under the FTC rule on testimonials, and none is worth the risk
+  while the quotes are illustrative. The weight here comes from the typography
+  instead, which is the part that is free to be as loud as it likes.
 
   Once real reviews are collected, replace this section with the review app's
   widget rather than adding badges here. Keeping these quotes out of the review
   app is what stops them being counted into a genuine average later.
 {%- enddoc -%}
 
+<script
+  src="{{ 'rsh-testimonials.js' | asset_url }}"
+  type="module"
+  fetchpriority="low"
+></script>
+
 {% liquid
   if section.settings.background_color != blank
     render 'contrast-override', background_color: section.settings.background_color, section_id: section.id
   endif
+  assign interval = section.settings.interval | times: 1000
 %}
 
 <div
@@ -34,35 +48,101 @@
     {% render 'gap-style', value: section.settings.gap %}
   "
 >
-  {%- if section.settings.heading != blank -%}
-    <div class="rsh-block">
-      <h2 class="rsh-heading h2">{{ section.settings.heading }}</h2>
+  {%- if section.settings.heading != blank or section.settings.eyebrow != blank -%}
+    <div class="rsh-block rsh-voices__intro">
+      {%- if section.settings.eyebrow != blank -%}
+        <p class="rsh-eyebrow">{{ section.settings.eyebrow }}</p>
+      {%- endif -%}
+      {%- if section.settings.heading != blank -%}
+        <h2 class="rsh-heading h2">{{ section.settings.heading }}</h2>
+      {%- endif -%}
       {%- if section.settings.body != blank -%}
         <div class="rsh-lede rte">{{ section.settings.body }}</div>
       {%- endif -%}
     </div>
   {%- endif -%}
 
-  <div class="rsh-quotes">
-    {%- for block in section.blocks -%}
-      <figure class="rsh-quote" {{ block.shopify_attributes }}>
-        {%- if block.settings.headline != blank -%}
-          <h3 class="rsh-quote__headline">{{ block.settings.headline }}</h3>
-        {%- endif -%}
+  <rsh-testimonials
+    class="rsh-voices"
+    data-autoplay="{{ section.settings.autoplay }}"
+    data-interval="{{ interval }}"
+    data-label="{{ section.settings.heading | default: 'Customer quotes' | escape }}"
+  >
+    <div class="rsh-voices__stage">
+      <button
+        class="rsh-voices__arrow rsh-voices__arrow--prev"
+        type="button"
+        data-quote-prev
+        hidden
+      >
+        <span class="svg-wrapper" aria-hidden="true">
+          {{- 'icon-chevron-left.svg' | inline_asset_content -}}
+        </span>
+        <span class="rsh-visually-hidden">Previous quote</span>
+      </button>
 
-        <blockquote class="rsh-quote__body">{{ block.settings.quote }}</blockquote>
+      <div class="rsh-voices__viewport" data-quote-viewport>
+        {%- for block in section.blocks -%}
+          <figure
+            class="rsh-voices__panel"
+            id="{{ section.id }}-quote-{{ forloop.index }}"
+            data-quote-panel
+            {{ block.shopify_attributes }}
+          >
+            <span class="rsh-voices__mark" aria-hidden="true">&ldquo;</span>
 
-        {%- if block.settings.name != blank -%}
-          <figcaption class="rsh-quote__attribution">
-            {{ block.settings.name }}
-            {%- if block.settings.role != blank -%}
-              <span class="rsh-quote__role">{{ block.settings.role }}</span>
+            {%- if block.settings.headline != blank -%}
+              <p class="rsh-voices__headline">{{ block.settings.headline }}</p>
             {%- endif -%}
-          </figcaption>
-        {%- endif -%}
-      </figure>
-    {%- endfor -%}
-  </div>
+
+            <blockquote class="rsh-voices__quote">{{ block.settings.quote }}</blockquote>
+
+            {%- if block.settings.name != blank -%}
+              <figcaption class="rsh-voices__by">
+                <span class="rsh-voices__name">{{ block.settings.name }}</span>
+                {%- if block.settings.role != blank -%}
+                  <span class="rsh-voices__role">{{ block.settings.role }}</span>
+                {%- endif -%}
+              </figcaption>
+            {%- endif -%}
+          </figure>
+        {%- endfor -%}
+      </div>
+
+      <button
+        class="rsh-voices__arrow rsh-voices__arrow--next"
+        type="button"
+        data-quote-next
+        hidden
+      >
+        <span class="svg-wrapper" aria-hidden="true">
+          {{- 'icon-chevron-right.svg' | inline_asset_content -}}
+        </span>
+        <span class="rsh-visually-hidden">Next quote</span>
+      </button>
+    </div>
+
+    {%- comment -%}
+      Hidden until the script enhances the section, because without it these
+      buttons control nothing.
+    {%- endcomment -%}
+    <div class="rsh-voices__tabs" data-quote-tabs hidden>
+      {%- for block in section.blocks -%}
+        <button
+          class="rsh-voices__tab"
+          type="button"
+          id="{{ section.id }}-speaker-{{ forloop.index }}"
+          data-quote-tab
+        >
+          <span class="rsh-voices__tab-name">{{ block.settings.name }}</span>
+          {%- if block.settings.role != blank -%}
+            <span class="rsh-voices__tab-role">{{ block.settings.role }}</span>
+          {%- endif -%}
+          <span class="rsh-voices__tab-progress" data-quote-progress aria-hidden="true"></span>
+        </button>
+      {%- endfor -%}
+    </div>
+  </rsh-testimonials>
 </div>
 
 {% schema %}
@@ -80,7 +160,8 @@
         {
           "type": "text",
           "id": "headline",
-          "label": "Headline"
+          "label": "Headline",
+          "info": "The one line worth reading if they read nothing else."
         },
         {
           "type": "richtext",
@@ -103,7 +184,13 @@
   "settings": [
     {
       "type": "paragraph",
-      "content": "No rating, average or verified badge is shown here on purpose. Swap this section for your review app once you have real reviews, rather than adding those claims to placeholder quotes."
+      "content": "No rating, average, avatar, photo or verified badge is shown here on purpose. Swap this section for your review app once you have real reviews, rather than adding those claims to placeholder quotes."
+    },
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Eyebrow",
+      "default": "In their words"
     },
     {
       "type": "text",
@@ -115,6 +202,27 @@
       "type": "richtext",
       "id": "body",
       "label": "Body"
+    },
+    {
+      "type": "header",
+      "content": "Motion"
+    },
+    {
+      "type": "checkbox",
+      "id": "autoplay",
+      "label": "Move through the quotes on its own",
+      "default": true,
+      "info": "Stops as soon as someone hovers, focuses or swipes, and never runs for a visitor who asked for reduced motion."
+    },
+    {
+      "type": "range",
+      "id": "interval",
+      "label": "Seconds on each",
+      "min": 3,
+      "max": 12,
+      "step": 1,
+      "unit": "s",
+      "default": 7
     },
     {
       "type": "header",
@@ -138,7 +246,7 @@
       "max": 100,
       "step": 1,
       "unit": "px",
-      "default": 24
+      "default": 32
     },
     {
       "type": "color",
@@ -158,7 +266,7 @@
       "max": 200,
       "step": 4,
       "unit": "px",
-      "default": 48
+      "default": 64
     },
     {
       "type": "range",
@@ -168,7 +276,7 @@
       "max": 200,
       "step": 4,
       "unit": "px",
-      "default": 48
+      "default": 64
     }
   ],
   "presets": [

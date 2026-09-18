@@ -723,10 +723,13 @@
         "heading": "What operators said after switching",
         "body": "",
         "section_width": "page-width",
-        "gap": 24,
+        "gap": 32,
         "background_color": "",
-        "padding-block-start": 48,
-        "padding-block-end": 48
+        "padding-block-start": 64,
+        "padding-block-end": 64,
+        "eyebrow": "In their words",
+        "autoplay": true,
+        "interval": 7
       }
     },
     "rsh_reorder": {

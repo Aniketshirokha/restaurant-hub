@@ -650,49 +650,279 @@
 
 /* ------------------------------------------------------------- Testimonials */
 
-.rsh-quotes {
+.rsh-voices {
   display: grid;
   gap: var(--gap-md, 20px);
   width: 100%;
-  grid-template-columns: repeat(auto-fit, minmax(min(18rem, 100%), 1fr));
+  /*
+   * A pull quote set the full width of a 1500px section reads as a mostly empty
+   * box. Held to a column it reads as a quote.
+   */
+  max-width: 64rem;
 }
 
-.rsh-quote {
+.rsh-voices__intro {
+  margin-block-end: var(--gap-sm, 12px);
+}
+
+.rsh-voices__stage {
   display: grid;
-  gap: 0.6rem;
-  align-content: start;
-  padding: var(--padding-md, 20px);
-  background: var(--rsh-wash);
-  border-radius: var(--rsh-radius-lg);
+  grid-template-columns: minmax(0, 1fr);
+  align-items: center;
+  gap: var(--gap-sm, 12px);
 }
 
-.rsh-quote__headline {
-  margin: 0;
-  font-size: var(--font-size--md, 1rem);
-  font-weight: 600;
-  line-height: 1.35;
+/*
+ * Without the script every quote is here, stacked. The script is what collapses
+ * them to one, so a blocked script leaves a readable list rather than a single
+ * quote with no way to reach the others.
+ */
+
+.rsh-voices__viewport {
+  display: grid;
+  gap: var(--gap-md, 20px);
+  min-width: 0;
 }
 
-.rsh-quote__body {
-  margin: 0;
-  font-size: var(--font-size--sm, 0.9375rem);
-  line-height: 1.55;
-}
-
-.rsh-quote__body p {
-  margin: 0;
-}
-
-.rsh-quote__attribution {
+.rsh-voices[data-enhanced] .rsh-voices__viewport {
   display: block;
-  font-size: var(--font-size--sm, 0.875rem);
-  color: var(--rsh-muted);
-  font-style: normal;
 }
 
-.rsh-quote__role::before {
-  content: '·';
-  margin-inline: 0.35rem;
+/*
+ * `hidden` has to win here. Every one of these sets a `display`, and an author
+ * `display` beats the user agent rule for the hidden attribute, so without this
+ * the script would hide a panel and the panel would stay on screen.
+ */
+
+.rsh-voices__panel[hidden],
+.rsh-voices__tabs[hidden],
+.rsh-voices__arrow[hidden] {
+  display: none;
+}
+
+.rsh-voices__panel {
+  position: relative;
+  display: grid;
+  gap: var(--gap-sm, 12px);
+  margin: 0;
+  padding: clamp(24px, 4vw, 48px);
+  overflow: hidden;
+  /*
+   * The card sits on the page colour and is lifted off it rather than tinted
+   * into it, so it reads as a card in whatever colour scheme it lands in.
+   */
+  background: var(--color-background, #fff);
+  border: 1px solid var(--rsh-hairline);
+  border-radius: var(--rsh-radius-lg);
+  box-shadow: 0 1px 2px rgb(var(--color-foreground-rgb) / 0.04),
+    0 12px 28px -12px rgb(var(--color-foreground-rgb) / 0.16);
+}
+
+.rsh-voices__panel::before {
+  content: '';
+  position: absolute;
+  inset-block-start: 0;
+  inset-inline: 0;
+  block-size: 3px;
+  background: var(--rsh-accent);
+}
+
+/*
+ * The quotes carry no stars, no score and no face, so the weight has to come
+ * from the typography. This is the loud part.
+ */
+
+.rsh-voices__mark {
+  height: 0.38em;
+  margin-block-end: -0.1em;
+  font-family: Georgia, 'Times New Roman', serif;
+  font-size: clamp(3rem, 6vw, 4.5rem);
+  line-height: 0.7;
+  color: var(--rsh-accent);
+  opacity: 0.25;
+  user-select: none;
+}
+
+.rsh-voices__headline {
+  margin: 0;
+  font-size: clamp(1.375rem, 2.8vw, 2.125rem);
+  font-weight: 650;
+  line-height: 1.2;
+  letter-spacing: -0.015em;
+  text-wrap: balance;
+}
+
+.rsh-voices__quote {
+  max-width: 58ch;
+  margin: 0;
+  font-size: clamp(1.0625rem, 1.5vw, 1.3125rem);
+  line-height: 1.6;
+  color: rgb(var(--color-foreground-rgb) / 0.82);
+}
+
+.rsh-voices__quote p {
+  margin: 0;
+}
+
+.rsh-voices__quote p + p {
+  margin-block-start: 0.7em;
+}
+
+.rsh-voices__by {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem 0.75rem;
+  align-items: center;
+  margin-block-start: 0.4rem;
+  padding-block-start: var(--gap-sm, 12px);
+  border-block-start: 1px solid var(--rsh-hairline);
+}
+
+.rsh-voices__name {
+  font-weight: 600;
+}
+
+/*
+ * The business type, not a badge. It says what kind of kitchen is talking, which
+ * is checkable in the sense that it claims nothing.
+ */
+
+.rsh-voices__role {
+  padding: 0.25em 0.75em;
+  font-size: var(--font-size--sm, 0.8125rem);
+  font-weight: 550;
+  color: var(--rsh-accent);
+  background: var(--rsh-accent-wash);
+  border-radius: 999px;
+}
+
+/* ---- Controls ---- */
+
+.rsh-voices__arrow {
+  display: none;
+  place-items: center;
+  inline-size: 44px;
+  block-size: 44px;
+  padding: 0;
+  color: inherit;
+  cursor: pointer;
+  background: transparent;
+  border: 1px solid var(--rsh-hairline-strong);
+  border-radius: 50%;
+  transition: background-color 150ms ease, border-color 150ms ease;
+}
+
+.rsh-voices__arrow:hover {
+  background: var(--rsh-wash-strong);
+  border-color: var(--rsh-accent);
+}
+
+.rsh-voices__arrow svg {
+  inline-size: 18px;
+  block-size: 18px;
+}
+
+.rsh-voices__tabs {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(13rem, 100%), 1fr));
+  gap: 8px;
+}
+
+.rsh-voices__tab {
+  position: relative;
+  display: grid;
+  gap: 2px;
+  padding: 12px 16px;
+  overflow: hidden;
+  font: inherit;
+  color: inherit;
+  text-align: start;
+  cursor: pointer;
+  background: transparent;
+  border: 1px solid var(--rsh-hairline);
+  border-radius: var(--rsh-radius);
+  transition: background-color 150ms ease, border-color 150ms ease;
+}
+
+.rsh-voices__tab:hover {
+  border-color: var(--rsh-hairline-strong);
+  background: var(--rsh-wash);
+}
+
+.rsh-voices__tab.is-active {
+  background: var(--rsh-accent-wash);
+  border-color: var(--rsh-accent);
+}
+
+.rsh-voices__tab-name {
+  font-size: var(--font-size--sm, 0.9375rem);
+  font-weight: 600;
+}
+
+.rsh-voices__tab-role {
+  font-size: var(--font-size--sm, 0.8125rem);
+  color: var(--rsh-muted);
+}
+
+.rsh-voices__tab-progress {
+  position: absolute;
+  inset-block-end: 0;
+  inset-inline-start: 0;
+  inline-size: 100%;
+  block-size: 2px;
+  background: var(--rsh-accent);
+  transform: scaleX(0);
+  transform-origin: left center;
+}
+
+@keyframes rsh-voices-progress {
+  from {
+    transform: scaleX(0);
+  }
+
+  to {
+    transform: scaleX(1);
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .rsh-voices[data-enhanced] .rsh-voices__panel.is-active {
+    animation: rsh-voices-in 420ms cubic-bezier(0.2, 0.7, 0.3, 1) both;
+  }
+}
+
+@keyframes rsh-voices-in {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/*
+ * The arrows only appear once there is room for them outside the quote. Below
+ * this the swipe and the speaker buttons do the same job without stealing width
+ * from the words.
+ */
+
+@media (min-width: 47rem) {
+  .rsh-voices__stage {
+    grid-template-columns: auto minmax(0, 1fr) auto;
+    gap: var(--gap-md, 20px);
+  }
+
+  .rsh-voices__arrow {
+    display: grid;
+  }
+
+  .rsh-voices__panel {
+    min-height: 17rem;
+    align-content: center;
+  }
 }
 
 /* ------------------------------------------------------------- Quick order */
