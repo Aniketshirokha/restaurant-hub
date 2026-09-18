@@ -126,12 +126,38 @@ def _check_schema_names(path, schema, problems):
         check(block.get('name'), f'block "{block.get("type")}"')
 
 
+# Two setting types accept only a fixed set of defaults (shopify.dev, Input
+# settings): a url default is /collections or /collections/all, a link_list
+# default is main-menu or footer. Anything else rejects the file, silently
+# through the GitHub sync.
+ALLOWED_DEFAULTS = {
+    'url': {'/collections', '/collections/all'},
+    'link_list': {'main-menu', 'footer'},
+}
+
+
+def _check_schema_defaults(path, schema, problems):
+    groups = [('schema', schema.get('settings', []) or [])]
+    for block in schema.get('blocks', []) or []:
+        groups.append((f'block "{block.get("type")}"', block.get('settings', []) or []))
+    for where, settings in groups:
+        for setting in settings:
+            allowed = ALLOWED_DEFAULTS.get(setting.get('type'))
+            if allowed and 'default' in setting and setting['default'] not in allowed:
+                problems.append(
+                    f'{path}: {where} setting "{setting.get("id")}" ({setting["type"]}) defaults to '
+                    f'{setting["default"]!r}; Shopify only accepts {sorted(allowed)}. Drop the default '
+                    f'and set the value in the template instead'
+                )
+
+
 def check_schema_names():
     problems = []
     for path in sorted(_glob.glob('sections/*.liquid') + _glob.glob('blocks/*.liquid')):
         schema = _schema_of(path)
         if schema is not None:
             _check_schema_names(path, schema, problems)
+            _check_schema_defaults(path, schema, problems)
     return problems
 
 
