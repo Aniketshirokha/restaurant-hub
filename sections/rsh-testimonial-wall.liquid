@@ -1,26 +1,28 @@
 {%- doc -%}
-  Illustrative customer quotes for a pre-launch storefront.
+  Testimonials as a wall of cards, each one opening into a dialog.
 
-  One quote at a time, with the speakers along the bottom as the way through
-  them. Every quote is in the markup; the script hides the inactive ones. With
-  the script blocked the section degrades to the stacked list it used to be,
-  which reads perfectly well, so nothing here depends on JavaScript running.
+  The grid is the point: a buyer can see at a glance that several different kinds
+  of kitchen are talking, and read the one that sounds like their own business
+  rather than waiting for a carousel to come round to it. The card shows the
+  headline and the opening of the quote; the dialog holds the whole thing, with
+  the other quotes a click away inside it.
 
   There is deliberately no star rating, no average, no avatar, no photograph and
   no "verified order" badge. An average implies a population of ratings, a
   verified badge is a specific factual claim that an order exists under that
   name, and a face implies a person who can be looked up. All three are checkable
   and reportable under the FTC rule on testimonials, and none is worth the risk
-  while the quotes are illustrative. The weight here comes from the typography
-  instead, which is the part that is free to be as loud as it likes.
+  while these quotes are illustrative. Replace this section with the review app's
+  widget once there are real reviews, rather than adding badges to placeholders.
 
-  Once real reviews are collected, replace this section with the review app's
-  widget rather than adding badges here. Keeping these quotes out of the review
-  app is what stops them being counted into a genuine average later.
+  Nothing here needs JavaScript. Without it every card shows its quote in full,
+  the buttons that would open a dialog are hidden because they would do nothing,
+  and the section is a readable wall of quotes. The script is what shortens the
+  cards and turns them into openers.
 {%- enddoc -%}
 
 <script
-  src="{{ 'rsh-testimonials.js' | asset_url }}"
+  src="{{ 'rsh-testimonial-wall.js' | asset_url }}"
   type="module"
   fetchpriority="low"
 ></script>
@@ -29,7 +31,6 @@
   if section.settings.background_color != blank
     render 'contrast-override', background_color: section.settings.background_color, section_id: section.id
   endif
-  assign interval = section.settings.interval | times: 1000
 %}
 
 <div
@@ -49,7 +50,7 @@
   "
 >
   {%- if section.settings.heading != blank or section.settings.eyebrow != blank -%}
-    <div class="rsh-block rsh-voices__intro">
+    <div class="rsh-block rsh-wall__intro">
       {%- if section.settings.eyebrow != blank -%}
         <p class="rsh-eyebrow">{{ section.settings.eyebrow }}</p>
       {%- endif -%}
@@ -62,100 +63,103 @@
     </div>
   {%- endif -%}
 
-  <rsh-testimonials
-    class="rsh-voices"
-    data-autoplay="{{ section.settings.autoplay }}"
-    data-interval="{{ interval }}"
-    data-label="{{ section.settings.heading | default: 'Customer quotes' | escape }}"
+  <rsh-testimonial-wall
+    class="rsh-wall"
+    data-reveal="{{ section.settings.reveal }}"
+    data-columns="{{ section.settings.columns }}"
   >
-    <div class="rsh-voices__stage">
-      <button
-        class="rsh-voices__arrow rsh-voices__arrow--prev"
-        type="button"
-        data-quote-prev
-        hidden
-      >
-        <span class="svg-wrapper" aria-hidden="true">
-          {{- 'icon-chevron-left.svg' | inline_asset_content -}}
-        </span>
-        <span class="rsh-visually-hidden">Previous quote</span>
-      </button>
-
-      <div class="rsh-voices__viewport" data-quote-viewport>
-        {%- for block in section.blocks -%}
-          <figure
-            class="rsh-voices__panel"
-            id="{{ section.id }}-quote-{{ forloop.index }}"
-            data-quote-panel
-            {{ block.shopify_attributes }}
+    <ul class="rsh-wall__grid" role="list">
+      {%- for block in section.blocks -%}
+        <li class="rsh-wall__item" {{ block.shopify_attributes }}>
+          <article
+            class="rsh-wall__card"
+            data-card
+            data-index="{{ forloop.index0 }}"
+            style="--rsh-wall-delay: {{ forloop.index0 | times: 70 }}ms"
           >
-            <span class="rsh-voices__mark" aria-hidden="true">&ldquo;</span>
+            <span class="rsh-wall__mark" aria-hidden="true">&ldquo;</span>
 
             {%- if block.settings.headline != blank -%}
-              <p class="rsh-voices__headline">{{ block.settings.headline }}</p>
+              <h3 class="rsh-wall__headline" data-headline>{{ block.settings.headline }}</h3>
             {%- endif -%}
 
-            <blockquote class="rsh-voices__quote">{{ block.settings.quote }}</blockquote>
+            <div class="rsh-wall__quote rte" data-quote>{{ block.settings.quote }}</div>
 
-            {%- if block.settings.name != blank -%}
-              <figcaption class="rsh-voices__by">
-                <span class="rsh-voices__name">{{ block.settings.name }}</span>
-                {%- if block.settings.role != blank -%}
-                  <span class="rsh-voices__role">{{ block.settings.role }}</span>
-                {%- endif -%}
-              </figcaption>
-            {%- endif -%}
-          </figure>
-        {%- endfor -%}
-      </div>
+            <footer class="rsh-wall__by">
+              {%- if block.settings.name != blank -%}
+                <span class="rsh-wall__name" data-name>{{ block.settings.name }}</span>
+              {%- endif -%}
+              {%- if block.settings.role != blank -%}
+                <span class="rsh-wall__role" data-role>{{ block.settings.role }}</span>
+              {%- endif -%}
+            </footer>
 
-      <button
-        class="rsh-voices__arrow rsh-voices__arrow--next"
-        type="button"
-        data-quote-next
-        hidden
-      >
-        <span class="svg-wrapper" aria-hidden="true">
-          {{- 'icon-chevron-right.svg' | inline_asset_content -}}
-        </span>
-        <span class="rsh-visually-hidden">Next quote</span>
-      </button>
-    </div>
-
-    {%- comment -%}
-      Hidden until the script enhances the section, because without it these
-      buttons control nothing.
-    {%- endcomment -%}
-    <div class="rsh-voices__tabs" data-quote-tabs hidden>
-      {%- for block in section.blocks -%}
-        <button
-          class="rsh-voices__tab"
-          type="button"
-          id="{{ section.id }}-speaker-{{ forloop.index }}"
-          data-quote-tab
-        >
-          <span class="rsh-voices__tab-name">{{ block.settings.name }}</span>
-          {%- if block.settings.role != blank -%}
-            <span class="rsh-voices__tab-role">{{ block.settings.role }}</span>
-          {%- endif -%}
-          <span class="rsh-voices__tab-progress" data-quote-progress aria-hidden="true"></span>
-        </button>
+            {%- comment -%}
+              Hidden until the script enhances the card. Without it this button
+              would open nothing, and the quote it offers to show is already
+              there in full.
+            {%- endcomment -%}
+            <button class="rsh-wall__open" type="button" data-open hidden>
+              <span aria-hidden="true">{{ section.settings.open_label }}</span>
+              <span class="rsh-visually-hidden">
+                {{ section.settings.open_label }} from {{ block.settings.name | default: 'this operator' }}
+              </span>
+            </button>
+          </article>
+        </li>
       {%- endfor -%}
-    </div>
-  </rsh-testimonials>
+    </ul>
+
+    <dialog class="rsh-wall__dialog" data-dialog aria-labelledby="{{ section.id }}-dialog-headline">
+      <div class="rsh-wall__sheet">
+        <button class="rsh-wall__close" type="button" data-close>
+          <span class="svg-wrapper" aria-hidden="true">
+            {{- 'icon-close.svg' | inline_asset_content -}}
+          </span>
+          <span class="rsh-visually-hidden">Close</span>
+        </button>
+
+        <span class="rsh-wall__mark rsh-wall__mark--lg" aria-hidden="true">&ldquo;</span>
+
+        <p class="rsh-wall__sheet-headline" id="{{ section.id }}-dialog-headline" data-d-headline></p>
+        <div class="rsh-wall__sheet-quote rte" data-d-quote></div>
+
+        <footer class="rsh-wall__sheet-by">
+          <span class="rsh-wall__name" data-d-name></span>
+          <span class="rsh-wall__role" data-d-role></span>
+        </footer>
+
+        <nav class="rsh-wall__sheet-nav" aria-label="Move between quotes">
+          <button class="rsh-wall__nav-btn" type="button" data-prev>
+            <span class="svg-wrapper" aria-hidden="true">
+              {{- 'icon-chevron-left.svg' | inline_asset_content -}}
+            </span>
+            <span class="rsh-visually-hidden">Previous quote</span>
+          </button>
+          <span class="rsh-wall__counter" data-counter aria-live="polite"></span>
+          <button class="rsh-wall__nav-btn" type="button" data-next>
+            <span class="svg-wrapper" aria-hidden="true">
+              {{- 'icon-chevron-right.svg' | inline_asset_content -}}
+            </span>
+            <span class="rsh-visually-hidden">Next quote</span>
+          </button>
+        </nav>
+      </div>
+    </dialog>
+  </rsh-testimonial-wall>
 </div>
 
 {% schema %}
 {
-  "name": "Customer quotes",
+  "name": "Testimonials",
   "disabled_on": {
     "groups": ["header", "footer"]
   },
-  "max_blocks": 6,
+  "max_blocks": 9,
   "blocks": [
     {
       "type": "quote",
-      "name": "Quote",
+      "name": "Testimonial",
       "settings": [
         {
           "type": "text",
@@ -201,32 +205,35 @@
     {
       "type": "richtext",
       "id": "body",
-      "label": "Body"
+      "label": "Body",
+      "default": "<p>Six kinds of kitchen, one catalogue. Open any of them to read the whole thing.</p>"
     },
     {
-      "type": "header",
-      "content": "Motion"
-    },
-    {
-      "type": "checkbox",
-      "id": "autoplay",
-      "label": "Move through the quotes on its own",
-      "default": true,
-      "info": "Stops as soon as someone hovers, focuses or swipes, and never runs for a visitor who asked for reduced motion."
-    },
-    {
-      "type": "range",
-      "id": "interval",
-      "label": "Seconds on each",
-      "min": 3,
-      "max": 12,
-      "step": 1,
-      "unit": "s",
-      "default": 7
+      "type": "text",
+      "id": "open_label",
+      "label": "Open button label",
+      "default": "Read the full quote"
     },
     {
       "type": "header",
       "content": "Layout"
+    },
+    {
+      "type": "select",
+      "id": "columns",
+      "label": "Columns on desktop",
+      "options": [
+        { "value": "2", "label": "Two" },
+        { "value": "3", "label": "Three" }
+      ],
+      "default": "3"
+    },
+    {
+      "type": "checkbox",
+      "id": "reveal",
+      "label": "Fade the cards in as they scroll into view",
+      "default": true,
+      "info": "Never runs for a visitor who asked for reduced motion."
     },
     {
       "type": "select",
@@ -281,7 +288,7 @@
   ],
   "presets": [
     {
-      "name": "Customer quotes",
+      "name": "Testimonials",
       "blocks": [
         {
           "type": "quote",

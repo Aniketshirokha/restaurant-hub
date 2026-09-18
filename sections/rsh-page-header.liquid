@@ -1,0 +1,131 @@
+{%- doc -%}
+  The header band that sits under a content page's title.
+
+  Which picture appears is decided by the page handle, so there is nothing to
+  pick in the theme editor and nothing to go stale when a page is renamed. A page
+  with no row in the library gets no band, which is the right answer for the
+  three that the guide keeps bare: the wholesale application and the quote
+  request are forms and belong on one screen, and the Shopify policy pages are
+  never decorated.
+
+  Two placements deliberately do not use this section:
+
+    /pages/samples      `samples-three-case` sits inline beside the request form
+    /pages/quick-order  a band in front of a task is decoration, guide 3.7
+
+  The 21:9 file is rendered at 3:1 and cropped from the centre, so the empty
+  third stays centred. Guide section 4.
+{%- enddoc -%}
+
+{% liquid
+  assign key = section.settings.image_key | strip
+
+  if key != blank
+    # An explicit filename, for the bands that are not chosen by a page handle:
+    # the 404 template, and quick order if it is ever brought back.
+  elsif request.page_type == 'blog'
+    assign key = 'page-field-notes'
+  else
+    assign banded = 'wholesale,about,shipping,returns,faq,rewards,referral,contact,quick-order' | split: ','
+    if banded contains page.handle
+      assign key = 'page-' | append: page.handle
+    endif
+  endif
+
+  if section.settings.background_color != blank
+    render 'contrast-override', background_color: section.settings.background_color, section_id: section.id
+  endif
+%}
+
+{%- if key != blank -%}
+  <div
+    class="section-background{% if section.settings.background_color != blank %} color-custom-{{ section.id }}{% endif %}"
+  ></div>
+
+  <div
+    class="
+      section
+      section--{{ section.settings.section_width }}
+      {% if section.settings.background_color != blank %}color-custom-{{ section.id }}{% endif %}
+      spacing-style
+    "
+    style="{% render 'spacing-style', settings: section.settings %}"
+  >
+    <div class="rsh-band">
+      {%- render 'rsh-image',
+        key: key,
+        sizes: '100vw',
+        loading: 'eager',
+        fetchpriority: 'high',
+        class: 'rsh-band__img'
+      -%}
+    </div>
+  </div>
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "Page header band",
+  "settings": [
+    {
+      "type": "paragraph",
+      "content": "The band is chosen by the page handle. There is nothing to pick. A page with no picture in the library shows nothing here."
+    },
+    {
+      "type": "text",
+      "id": "image_key",
+      "label": "Picture override",
+      "info": "A filename from the library without the .webp, e.g. 404-empty-shelf. Leave empty to choose by page handle."
+    },
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+    {
+      "type": "select",
+      "id": "section_width",
+      "label": "Width",
+      "options": [
+        { "value": "page-width", "label": "Page" },
+        { "value": "full-width", "label": "Full" }
+      ],
+      "default": "page-width"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background",
+      "placeholder": "Default"
+    },
+    {
+      "type": "header",
+      "content": "Padding"
+    },
+    {
+      "type": "range",
+      "id": "padding-block-start",
+      "label": "Top",
+      "min": 0,
+      "max": 200,
+      "step": 4,
+      "unit": "px",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "padding-block-end",
+      "label": "Bottom",
+      "min": 0,
+      "max": 200,
+      "step": 4,
+      "unit": "px",
+      "default": 32
+    }
+  ],
+  "presets": [
+    {
+      "name": "Page header band"
+    }
+  ]
+}
+{% endschema %}

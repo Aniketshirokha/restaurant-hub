@@ -43,6 +43,28 @@
         alt: image.alt
     }}
   </div>
+{%- else -%}
+  {%- comment -%}
+    A post with no image of its own falls back to `blog-default.webp` rather than
+    opening on a bare headline. Guide 2.4.
+  {%- endcomment -%}
+  <div
+    class="blog-post-featured-image blog-post-featured-image--{{ block.id }} blog-post-featured-image--height-{{ block_settings.height }} spacing-style size-style"
+    style="
+      --ratio: 16 / 9;
+      {% render 'size-style', settings: block_settings %}
+      {% render 'spacing-style', settings: block_settings %}
+    "
+    {{ block.shopify_attributes }}
+  >
+    {%- render 'rsh-image',
+      key: 'blog-default',
+      sizes: '(min-width: 750px) 100vw, 100vw',
+      loading: 'eager',
+      fetchpriority: 'high',
+      class: 'blog-post-featured-image__image'
+    -%}
+  </div>
 {%- endif -%}
 
 {% stylesheet %}

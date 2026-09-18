@@ -600,7 +600,8 @@
 }
 
 .rsh-card__media {
-  aspect-ratio: 3 / 2;
+  /* 4:3, the shape the persona files are drawn at, so nothing is cropped. */
+  aspect-ratio: 4 / 3;
   overflow: hidden;
   background: var(--rsh-wash-strong);
 }
@@ -649,49 +650,279 @@
 
 /* ------------------------------------------------------------- Testimonials */
 
-.rsh-quotes {
+.rsh-voices {
   display: grid;
   gap: var(--gap-md, 20px);
   width: 100%;
-  grid-template-columns: repeat(auto-fit, minmax(min(18rem, 100%), 1fr));
+  /*
+   * A pull quote set the full width of a 1500px section reads as a mostly empty
+   * box. Held to a column it reads as a quote.
+   */
+  max-width: 64rem;
 }
 
-.rsh-quote {
+.rsh-voices__intro {
+  margin-block-end: var(--gap-sm, 12px);
+}
+
+.rsh-voices__stage {
   display: grid;
-  gap: 0.6rem;
-  align-content: start;
-  padding: var(--padding-md, 20px);
-  background: var(--rsh-wash);
-  border-radius: var(--rsh-radius-lg);
+  grid-template-columns: minmax(0, 1fr);
+  align-items: center;
+  gap: var(--gap-sm, 12px);
 }
 
-.rsh-quote__headline {
-  margin: 0;
-  font-size: var(--font-size--md, 1rem);
-  font-weight: 600;
-  line-height: 1.35;
+/*
+ * Without the script every quote is here, stacked. The script is what collapses
+ * them to one, so a blocked script leaves a readable list rather than a single
+ * quote with no way to reach the others.
+ */
+
+.rsh-voices__viewport {
+  display: grid;
+  gap: var(--gap-md, 20px);
+  min-width: 0;
 }
 
-.rsh-quote__body {
-  margin: 0;
-  font-size: var(--font-size--sm, 0.9375rem);
-  line-height: 1.55;
-}
-
-.rsh-quote__body p {
-  margin: 0;
-}
-
-.rsh-quote__attribution {
+.rsh-voices[data-enhanced] .rsh-voices__viewport {
   display: block;
-  font-size: var(--font-size--sm, 0.875rem);
-  color: var(--rsh-muted);
-  font-style: normal;
 }
 
-.rsh-quote__role::before {
-  content: '·';
-  margin-inline: 0.35rem;
+/*
+ * `hidden` has to win here. Every one of these sets a `display`, and an author
+ * `display` beats the user agent rule for the hidden attribute, so without this
+ * the script would hide a panel and the panel would stay on screen.
+ */
+
+.rsh-voices__panel[hidden],
+.rsh-voices__tabs[hidden],
+.rsh-voices__arrow[hidden] {
+  display: none;
+}
+
+.rsh-voices__panel {
+  position: relative;
+  display: grid;
+  gap: var(--gap-sm, 12px);
+  margin: 0;
+  padding: clamp(24px, 4vw, 48px);
+  overflow: hidden;
+  /*
+   * The card sits on the page colour and is lifted off it rather than tinted
+   * into it, so it reads as a card in whatever colour scheme it lands in.
+   */
+  background: var(--color-background, #fff);
+  border: 1px solid var(--rsh-hairline);
+  border-radius: var(--rsh-radius-lg);
+  box-shadow: 0 1px 2px rgb(var(--color-foreground-rgb) / 0.04),
+    0 12px 28px -12px rgb(var(--color-foreground-rgb) / 0.16);
+}
+
+.rsh-voices__panel::before {
+  content: '';
+  position: absolute;
+  inset-block-start: 0;
+  inset-inline: 0;
+  block-size: 3px;
+  background: var(--rsh-accent);
+}
+
+/*
+ * The quotes carry no stars, no score and no face, so the weight has to come
+ * from the typography. This is the loud part.
+ */
+
+.rsh-voices__mark {
+  height: 0.38em;
+  margin-block-end: -0.1em;
+  font-family: Georgia, 'Times New Roman', serif;
+  font-size: clamp(3rem, 6vw, 4.5rem);
+  line-height: 0.7;
+  color: var(--rsh-accent);
+  opacity: 0.25;
+  user-select: none;
+}
+
+.rsh-voices__headline {
+  margin: 0;
+  font-size: clamp(1.375rem, 2.8vw, 2.125rem);
+  font-weight: 650;
+  line-height: 1.2;
+  letter-spacing: -0.015em;
+  text-wrap: balance;
+}
+
+.rsh-voices__quote {
+  max-width: 58ch;
+  margin: 0;
+  font-size: clamp(1.0625rem, 1.5vw, 1.3125rem);
+  line-height: 1.6;
+  color: rgb(var(--color-foreground-rgb) / 0.82);
+}
+
+.rsh-voices__quote p {
+  margin: 0;
+}
+
+.rsh-voices__quote p + p {
+  margin-block-start: 0.7em;
+}
+
+.rsh-voices__by {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem 0.75rem;
+  align-items: center;
+  margin-block-start: 0.4rem;
+  padding-block-start: var(--gap-sm, 12px);
+  border-block-start: 1px solid var(--rsh-hairline);
+}
+
+.rsh-voices__name {
+  font-weight: 600;
+}
+
+/*
+ * The business type, not a badge. It says what kind of kitchen is talking, which
+ * is checkable in the sense that it claims nothing.
+ */
+
+.rsh-voices__role {
+  padding: 0.25em 0.75em;
+  font-size: var(--font-size--sm, 0.8125rem);
+  font-weight: 550;
+  color: var(--rsh-accent);
+  background: var(--rsh-accent-wash);
+  border-radius: 999px;
+}
+
+/* ---- Controls ---- */
+
+.rsh-voices__arrow {
+  display: none;
+  place-items: center;
+  inline-size: 44px;
+  block-size: 44px;
+  padding: 0;
+  color: inherit;
+  cursor: pointer;
+  background: transparent;
+  border: 1px solid var(--rsh-hairline-strong);
+  border-radius: 50%;
+  transition: background-color 150ms ease, border-color 150ms ease;
+}
+
+.rsh-voices__arrow:hover {
+  background: var(--rsh-wash-strong);
+  border-color: var(--rsh-accent);
+}
+
+.rsh-voices__arrow svg {
+  inline-size: 18px;
+  block-size: 18px;
+}
+
+.rsh-voices__tabs {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(13rem, 100%), 1fr));
+  gap: 8px;
+}
+
+.rsh-voices__tab {
+  position: relative;
+  display: grid;
+  gap: 2px;
+  padding: 12px 16px;
+  overflow: hidden;
+  font: inherit;
+  color: inherit;
+  text-align: start;
+  cursor: pointer;
+  background: transparent;
+  border: 1px solid var(--rsh-hairline);
+  border-radius: var(--rsh-radius);
+  transition: background-color 150ms ease, border-color 150ms ease;
+}
+
+.rsh-voices__tab:hover {
+  border-color: var(--rsh-hairline-strong);
+  background: var(--rsh-wash);
+}
+
+.rsh-voices__tab.is-active {
+  background: var(--rsh-accent-wash);
+  border-color: var(--rsh-accent);
+}
+
+.rsh-voices__tab-name {
+  font-size: var(--font-size--sm, 0.9375rem);
+  font-weight: 600;
+}
+
+.rsh-voices__tab-role {
+  font-size: var(--font-size--sm, 0.8125rem);
+  color: var(--rsh-muted);
+}
+
+.rsh-voices__tab-progress {
+  position: absolute;
+  inset-block-end: 0;
+  inset-inline-start: 0;
+  inline-size: 100%;
+  block-size: 2px;
+  background: var(--rsh-accent);
+  transform: scaleX(0);
+  transform-origin: left center;
+}
+
+@keyframes rsh-voices-progress {
+  from {
+    transform: scaleX(0);
+  }
+
+  to {
+    transform: scaleX(1);
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .rsh-voices[data-enhanced] .rsh-voices__panel.is-active {
+    animation: rsh-voices-in 420ms cubic-bezier(0.2, 0.7, 0.3, 1) both;
+  }
+}
+
+@keyframes rsh-voices-in {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/*
+ * The arrows only appear once there is room for them outside the quote. Below
+ * this the swipe and the speaker buttons do the same job without stealing width
+ * from the words.
+ */
+
+@media (min-width: 47rem) {
+  .rsh-voices__stage {
+    grid-template-columns: auto minmax(0, 1fr) auto;
+    gap: var(--gap-md, 20px);
+  }
+
+  .rsh-voices__arrow {
+    display: grid;
+  }
+
+  .rsh-voices__panel {
+    min-height: 17rem;
+    align-content: center;
+  }
 }
 
 /* ------------------------------------------------------------- Quick order */
@@ -939,4 +1170,841 @@
   color: var(--color-error, #b3261e);
   background: color-mix(in srgb, var(--color-error, #b3261e) 10%, transparent);
   border-radius: var(--rsh-radius);
+}
+
+/* ------------------------------------------------------- Library images */
+
+/*
+ * Everything drawn by `rsh-image` carries its own width and height attributes,
+ * so the browser reserves the right box before the file arrives. These rules
+ * only let it scale; they must never set a height that fights those attributes,
+ * or the layout shift they exist to prevent comes back.
+ */
+
+.rsh-img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+/* ------------------------------------------------------- Collection banner */
+
+.rsh-banner {
+  width: 100%;
+}
+
+.rsh-banner__img {
+  border-radius: var(--rsh-radius-lg);
+}
+
+.rsh-banner__title {
+  margin: 0;
+  text-wrap: balance;
+}
+
+.rsh-banner__title--above {
+  margin-block-end: var(--gap-sm, 12px);
+}
+
+/*
+ * The parent banners carry an empty left third and the title goes in it. Below
+ * 750px a 3:1 band is too short to hold type, so the title stacks above the
+ * picture instead, for the same reason the hero swaps to its own mobile file.
+ */
+
+.rsh-banner--overlay {
+  display: block;
+}
+
+.rsh-banner--overlay .rsh-banner__caption {
+  margin-block-start: var(--gap-sm, 12px);
+}
+
+@media (min-width: 47rem) {
+  .rsh-banner--overlay {
+    display: grid;
+  }
+
+  .rsh-banner--overlay > * {
+    grid-area: 1 / 1;
+  }
+
+  .rsh-banner--overlay .rsh-banner__caption {
+    display: flex;
+    align-items: center;
+    margin-block-start: 0;
+    padding-inline: clamp(16px, 4vw, 48px);
+  }
+
+  .rsh-banner--overlay .rsh-banner__title {
+    /*
+     * The left third, and no wider. A longer collection name wraps inside it
+     * rather than running across the cases.
+     */
+    max-width: 33.333%;
+    text-align: start;
+  }
+}
+
+/*
+ * Off by default. Guide 3.1: reach for this only if contrast is genuinely short
+ * on a real screen, and keep it behind the text block rather than across the
+ * whole picture.
+ */
+
+@media (min-width: 47rem) {
+  .rsh-banner--overlay.rsh-banner--scrim .rsh-banner__caption {
+    background: linear-gradient(
+      to right,
+      rgb(0 0 0 / 0.42) 0%,
+      rgb(0 0 0 / 0.24) 40%,
+      rgb(0 0 0 / 0) 66%
+    );
+    border-radius: var(--rsh-radius-lg);
+  }
+
+  .rsh-banner--overlay.rsh-banner--scrim .rsh-banner__title {
+    color: #fff;
+  }
+}
+
+/*
+ * The 60 to 100 words that orient a buyer who landed from Google. Banner, then
+ * words, then products.
+ */
+
+.rsh-banner__intro {
+  max-width: 68ch;
+  margin-block-start: var(--gap-md, 20px);
+}
+
+/* ------------------------------------------------------- Page header band */
+
+.rsh-band {
+  width: 100%;
+}
+
+.rsh-band__img {
+  border-radius: var(--rsh-radius-lg);
+}
+
+/* ------------------------------------------------------- Explainer photo */
+
+.rsh-explainer__photo {
+  margin: 0;
+  margin-block-start: var(--gap-md, 20px);
+}
+
+.rsh-explainer__photo .rsh-img {
+  border-radius: var(--rsh-radius-lg);
+}
+
+/*
+ * The category tiles run wider than the persona cards: the parent banners are
+ * 21:9 files and 16:9 is as tight as they crop before the cases start going.
+ */
+
+.rsh-card__media--wide {
+  aspect-ratio: 16 / 9;
+}
+
+/* ------------------------------------------------------- Samples CTA */
+
+.rsh-samples {
+  display: grid;
+  gap: var(--gap-lg, 28px);
+  align-items: center;
+  grid-template-columns: 1fr;
+}
+
+.rsh-samples__media {
+  margin: 0;
+  max-width: 300px;
+}
+
+.rsh-samples__media .rsh-img {
+  border-radius: var(--rsh-radius-lg);
+}
+
+.rsh-samples__body {
+  display: grid;
+  gap: var(--gap-sm, 12px);
+}
+
+@media (min-width: 47rem) {
+  .rsh-samples {
+    grid-template-columns: auto minmax(0, 1fr);
+  }
+
+  .rsh-samples--media-right .rsh-samples__media {
+    order: 1;
+  }
+}
+
+/* ------------------------------------------------------- Testimonial wall */
+
+.rsh-wall {
+  display: block;
+  width: 100%;
+}
+
+.rsh-wall__intro {
+  margin-block-end: var(--gap-md, 20px);
+}
+
+.rsh-wall__grid {
+  display: grid;
+  gap: var(--gap-md, 20px);
+  padding: 0;
+  margin: 0;
+  list-style: none;
+  grid-template-columns: 1fr;
+}
+
+.rsh-wall__item {
+  display: flex;
+}
+
+.rsh-wall__card {
+  position: relative;
+  display: grid;
+  gap: var(--gap-sm, 12px);
+  align-content: start;
+  width: 100%;
+  padding: clamp(20px, 3vw, 32px);
+  background: var(--color-background, #fff);
+  border: 1px solid var(--rsh-hairline);
+  border-radius: var(--rsh-radius-lg);
+  transition: transform 220ms cubic-bezier(0.2, 0.7, 0.3, 1), box-shadow 220ms ease,
+    border-color 220ms ease;
+}
+
+.rsh-wall__card::before {
+  content: '';
+  position: absolute;
+  inset-block-start: 0;
+  inset-inline: 0;
+  block-size: 3px;
+  background: var(--rsh-accent);
+  border-start-start-radius: var(--rsh-radius-lg);
+  border-start-end-radius: var(--rsh-radius-lg);
+  opacity: 0;
+  transition: opacity 220ms ease;
+}
+
+.rsh-wall[data-enhanced] .rsh-wall__card {
+  cursor: pointer;
+}
+
+.rsh-wall[data-enhanced] .rsh-wall__card:hover,
+.rsh-wall__card:focus-visible {
+  border-color: var(--rsh-hairline-strong);
+  box-shadow: 0 1px 2px rgb(var(--color-foreground-rgb) / 0.04),
+    0 16px 32px -16px rgb(var(--color-foreground-rgb) / 0.22);
+}
+
+.rsh-wall[data-enhanced] .rsh-wall__card:hover::before,
+.rsh-wall__card:focus-visible::before {
+  opacity: 1;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .rsh-wall[data-enhanced] .rsh-wall__card:hover {
+    transform: translateY(-3px);
+  }
+}
+
+.rsh-wall__mark {
+  height: 0.34em;
+  margin-block-end: -0.08em;
+  font-family: Georgia, 'Times New Roman', serif;
+  font-size: 3.25rem;
+  line-height: 0.7;
+  color: var(--rsh-accent);
+  opacity: 0.25;
+  user-select: none;
+}
+
+.rsh-wall__headline {
+  margin: 0;
+  font-size: clamp(1.0625rem, 1.5vw, 1.25rem);
+  font-weight: 650;
+  line-height: 1.3;
+  text-wrap: balance;
+}
+
+.rsh-wall__quote {
+  margin: 0;
+  font-size: var(--font-size--sm, 0.9375rem);
+  line-height: 1.6;
+  color: rgb(var(--color-foreground-rgb) / 0.8);
+}
+
+.rsh-wall__quote p {
+  margin: 0;
+}
+
+/*
+ * Only once the script can open the whole thing. Clamping a quote nobody can
+ * expand would just be hiding it.
+ */
+
+.rsh-wall[data-enhanced] .rsh-wall__quote {
+  display: -webkit-box;
+  -webkit-line-clamp: 4;
+  line-clamp: 4;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.rsh-wall__by {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem 0.65rem;
+  align-items: center;
+  margin-block-start: 0.2rem;
+  padding-block-start: var(--gap-sm, 12px);
+  border-block-start: 1px solid var(--rsh-hairline);
+}
+
+.rsh-wall__name {
+  font-size: var(--font-size--sm, 0.9375rem);
+  font-weight: 600;
+}
+
+.rsh-wall__role {
+  padding: 0.22em 0.7em;
+  font-size: var(--font-size--sm, 0.8125rem);
+  font-weight: 550;
+  color: var(--rsh-accent);
+  background: var(--rsh-accent-wash);
+  border-radius: 999px;
+}
+
+.rsh-wall__open {
+  justify-self: start;
+  padding: 0;
+  font: inherit;
+  font-size: var(--font-size--sm, 0.875rem);
+  font-weight: 600;
+  color: var(--rsh-accent);
+  text-align: start;
+  cursor: pointer;
+  background: none;
+  border: 0;
+}
+
+.rsh-wall__open::after {
+  content: ' \2192';
+}
+
+/* ---- The dialog ---- */
+
+.rsh-wall__dialog {
+  width: min(42rem, calc(100vw - 32px));
+  max-height: min(80vh, 44rem);
+  padding: 0;
+  color: inherit;
+  background: var(--color-background, #fff);
+  border: 1px solid var(--rsh-hairline);
+  border-radius: var(--rsh-radius-lg);
+  box-shadow: 0 32px 64px -24px rgb(var(--color-foreground-rgb) / 0.4);
+}
+
+.rsh-wall__dialog::backdrop {
+  background: rgb(0 0 0 / 0.55);
+  backdrop-filter: blur(3px);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .rsh-wall__dialog[open] {
+    animation: rsh-wall-in 260ms cubic-bezier(0.2, 0.7, 0.3, 1);
+  }
+}
+
+@keyframes rsh-wall-in {
+  from {
+    opacity: 0;
+    transform: translateY(12px) scale(0.98);
+  }
+
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.rsh-wall__sheet {
+  position: relative;
+  display: grid;
+  gap: var(--gap-sm, 12px);
+  padding: clamp(28px, 4vw, 44px);
+}
+
+.rsh-wall__close {
+  position: absolute;
+  inset-block-start: 12px;
+  inset-inline-end: 12px;
+  display: grid;
+  place-items: center;
+  inline-size: 36px;
+  block-size: 36px;
+  padding: 0;
+  color: inherit;
+  cursor: pointer;
+  background: transparent;
+  border: 0;
+  border-radius: 50%;
+}
+
+.rsh-wall__close:hover {
+  background: var(--rsh-wash-strong);
+}
+
+.rsh-wall__close svg {
+  inline-size: 16px;
+  block-size: 16px;
+}
+
+.rsh-wall__mark--lg {
+  height: 0.4em;
+  font-size: clamp(3.5rem, 7vw, 5rem);
+}
+
+.rsh-wall__sheet-headline {
+  margin: 0;
+  font-size: clamp(1.375rem, 2.6vw, 1.875rem);
+  font-weight: 650;
+  line-height: 1.22;
+  letter-spacing: -0.015em;
+  text-wrap: balance;
+}
+
+.rsh-wall__sheet-quote {
+  font-size: clamp(1rem, 1.3vw, 1.125rem);
+  line-height: 1.65;
+  color: rgb(var(--color-foreground-rgb) / 0.82);
+}
+
+.rsh-wall__sheet-quote p {
+  margin: 0;
+}
+
+.rsh-wall__sheet-quote p + p {
+  margin-block-start: 0.7em;
+}
+
+.rsh-wall__sheet-by {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem 0.75rem;
+  align-items: center;
+  padding-block-start: var(--gap-sm, 12px);
+  border-block-start: 1px solid var(--rsh-hairline);
+}
+
+.rsh-wall__sheet-nav {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  justify-content: flex-end;
+  margin-block-start: 0.2rem;
+}
+
+.rsh-wall__nav-btn {
+  display: grid;
+  place-items: center;
+  inline-size: 38px;
+  block-size: 38px;
+  padding: 0;
+  color: inherit;
+  cursor: pointer;
+  background: transparent;
+  border: 1px solid var(--rsh-hairline-strong);
+  border-radius: 50%;
+  transition: background-color 150ms ease, border-color 150ms ease;
+}
+
+.rsh-wall__nav-btn:hover {
+  background: var(--rsh-wash-strong);
+  border-color: var(--rsh-accent);
+}
+
+.rsh-wall__nav-btn svg {
+  inline-size: 16px;
+  block-size: 16px;
+}
+
+.rsh-wall__counter {
+  font-size: var(--font-size--sm, 0.875rem);
+  color: var(--rsh-muted);
+  font-variant-numeric: tabular-nums;
+}
+
+/* ---- Reveal ---- */
+
+.rsh-wall[data-reveal='armed'] .rsh-wall__card {
+  opacity: 0;
+  transform: translateY(14px);
+}
+
+.rsh-wall[data-reveal='armed'] .rsh-wall__card.is-in {
+  opacity: 1;
+  transform: none;
+  transition: opacity 500ms ease var(--rsh-wall-delay, 0ms),
+    transform 500ms cubic-bezier(0.2, 0.7, 0.3, 1) var(--rsh-wall-delay, 0ms);
+}
+
+@media (min-width: 47rem) {
+  .rsh-wall__grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (min-width: 64rem) {
+  .rsh-wall[data-columns='3'] .rsh-wall__grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+/* ------------------------------------------------------- Hero */
+
+/*
+ * The hero sets its own palette rather than inheriting the page's. It is a
+ * deliberate dark band, so deriving it from --color-foreground would make it
+ * light type on a light ground the moment the scheme changed. Override these
+ * four if the brand moves.
+ */
+
+.rsh-hero {
+  --hero-ink: #0c1310;
+  --hero-ink-2: #17231d;
+  --hero-paper: #fcfcfb;
+  --hero-accent: #38b06a;
+
+  position: relative;
+  display: flex;
+  align-items: center;
+  min-height: var(--rsh-hero-min, 80vh);
+  overflow: hidden;
+  color: var(--hero-paper);
+  background:
+    radial-gradient(120% 90% at 8% 0%, rgb(56 176 106 / 0.16) 0%, transparent 55%),
+    radial-gradient(90% 80% at 100% 100%, rgb(56 176 106 / 0.1) 0%, transparent 60%),
+    linear-gradient(160deg, var(--hero-ink-2) 0%, var(--hero-ink) 62%);
+}
+
+/* A dock floor, suggested rather than photographed. */
+.rsh-hero__grain {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.5;
+  background-image:
+    repeating-linear-gradient(90deg, rgb(255 255 255 / 0.035) 0 1px, transparent 1px 88px),
+    repeating-linear-gradient(0deg, rgb(255 255 255 / 0.025) 0 1px, transparent 1px 88px);
+  mask-image: linear-gradient(to bottom, #000 0%, transparent 78%);
+  -webkit-mask-image: linear-gradient(to bottom, #000 0%, transparent 78%);
+}
+
+.rsh-hero__bg {
+  position: absolute;
+  inset: 0;
+}
+
+.rsh-hero__bg .rsh-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0.38;
+}
+
+.rsh-hero__inner {
+  position: relative;
+  display: grid;
+  gap: clamp(32px, 5vw, 64px);
+  align-items: center;
+  width: 100%;
+  padding-block: clamp(56px, 9vw, 104px);
+  grid-template-columns: minmax(0, 1fr);
+}
+
+.rsh-hero__copy {
+  display: grid;
+  gap: var(--gap-md, 20px);
+  max-width: 34rem;
+}
+
+.rsh-hero__eyebrow {
+  display: flex;
+  gap: 0.6rem;
+  align-items: center;
+  margin: 0;
+  font-size: var(--font-size--sm, 0.8125rem);
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: rgb(255 255 255 / 0.72);
+}
+
+.rsh-hero__pip {
+  inline-size: 8px;
+  block-size: 8px;
+  background: var(--hero-accent);
+  border-radius: 50%;
+  box-shadow: 0 0 0 0 rgb(56 176 106 / 0.55);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .rsh-hero__pip {
+    animation: rsh-hero-pip 2.4s ease-out infinite;
+  }
+}
+
+@keyframes rsh-hero-pip {
+  60%,
+  100% {
+    box-shadow: 0 0 0 11px rgb(56 176 106 / 0);
+  }
+}
+
+.rsh-hero__heading {
+  margin: 0;
+  font-size: clamp(2.5rem, 6vw, 4.25rem);
+  font-weight: 800;
+  line-height: 1.02;
+  letter-spacing: -0.035em;
+  text-wrap: balance;
+}
+
+.rsh-hero__accent {
+  display: block;
+  color: var(--hero-accent);
+}
+
+.rsh-hero__lede {
+  max-width: 44ch;
+  font-size: clamp(1rem, 1.3vw, 1.125rem);
+  line-height: 1.6;
+  color: rgb(255 255 255 / 0.76);
+}
+
+.rsh-hero__lede p {
+  margin: 0;
+}
+
+.rsh-hero__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-block-start: 0.4rem;
+}
+
+.rsh-hero__cta {
+  display: inline-flex;
+  gap: 0.55rem;
+  align-items: center;
+  padding: 0.95rem 1.6rem;
+  font-size: var(--font-size--md, 1rem);
+  font-weight: 650;
+  text-decoration: none;
+  border-radius: 999px;
+  transition: background-color 180ms ease, border-color 180ms ease, transform 180ms ease;
+}
+
+.rsh-hero__cta--primary {
+  color: #08120d;
+  background: var(--hero-accent);
+  border: 1px solid var(--hero-accent);
+}
+
+.rsh-hero__cta--primary:hover {
+  background: #47c67b;
+  border-color: #47c67b;
+}
+
+.rsh-hero__cta--ghost {
+  color: var(--hero-paper);
+  background: rgb(255 255 255 / 0.04);
+  border: 1px solid rgb(255 255 255 / 0.28);
+}
+
+.rsh-hero__cta--ghost:hover {
+  background: rgb(255 255 255 / 0.1);
+  border-color: rgb(255 255 255 / 0.5);
+}
+
+.rsh-hero__cta-arrow {
+  transition: transform 180ms ease;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .rsh-hero__cta:hover .rsh-hero__cta-arrow {
+    transform: translateX(3px);
+  }
+}
+
+.rsh-hero__proof {
+  display: grid;
+  gap: 0.5rem;
+  padding: 0;
+  margin: 0.6rem 0 0;
+  list-style: none;
+}
+
+.rsh-hero__proof-item {
+  display: flex;
+  gap: 0.6rem;
+  align-items: center;
+  font-size: var(--font-size--sm, 0.9375rem);
+  color: rgb(255 255 255 / 0.72);
+}
+
+.rsh-hero__tick {
+  display: inline-flex;
+  color: var(--hero-accent);
+}
+
+.rsh-hero__tick svg {
+  inline-size: 16px;
+  block-size: 16px;
+}
+
+/* ---- The price panel ---- */
+
+.rsh-hero__panel {
+  display: grid;
+  gap: 0.7rem;
+  padding: clamp(24px, 3vw, 34px);
+  color: #14201a;
+  background: var(--hero-paper);
+  border-radius: 20px;
+  box-shadow: 0 30px 60px -28px rgb(0 0 0 / 0.65);
+}
+
+.rsh-hero__panel-label {
+  margin: 0;
+  font-size: var(--font-size--sm, 0.75rem);
+  font-weight: 650;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: #1b7a3d;
+}
+
+.rsh-hero__panel-product {
+  margin: 0;
+  font-size: var(--font-size--sm, 0.9375rem);
+  font-weight: 600;
+}
+
+.rsh-hero__figure {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  align-items: baseline;
+  margin: 0.2rem 0 0;
+}
+
+.rsh-hero__figure-value {
+  font-size: clamp(2.75rem, 5vw, 3.75rem);
+  font-weight: 800;
+  line-height: 1;
+  letter-spacing: -0.03em;
+  font-variant-numeric: tabular-nums;
+}
+
+.rsh-hero__figure-unit {
+  font-size: var(--font-size--md, 1rem);
+  font-weight: 600;
+  color: rgb(20 32 26 / 0.62);
+}
+
+.rsh-hero__figure-sub {
+  margin: 0;
+  font-size: var(--font-size--sm, 0.875rem);
+  color: rgb(20 32 26 / 0.62);
+  font-variant-numeric: tabular-nums;
+}
+
+.rsh-hero__dot {
+  margin-inline: 0.35rem;
+}
+
+.rsh-hero__slider {
+  display: grid;
+  gap: 0.5rem;
+  margin-block-start: 0.5rem;
+}
+
+.rsh-hero__slider-top {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  font-size: var(--font-size--sm, 0.875rem);
+  font-weight: 600;
+}
+
+.rsh-hero__slider-out {
+  font-size: var(--font-size--md, 1rem);
+  font-variant-numeric: tabular-nums;
+  color: #1b7a3d;
+}
+
+.rsh-hero__slider input[type='range'] {
+  width: 100%;
+  height: 6px;
+  margin: 0;
+  appearance: none;
+  border: 0;
+  outline-offset: 4px;
+  background: rgb(20 32 26 / 0.12);
+  border-radius: 999px;
+  cursor: pointer;
+}
+
+.rsh-hero__slider input[type='range']::-webkit-slider-thumb {
+  width: 24px;
+  height: 24px;
+  appearance: none;
+  background: #1b7a3d;
+  border: 3px solid #fff;
+  border-radius: 50%;
+  box-shadow: 0 2px 6px rgb(0 0 0 / 0.28);
+}
+
+.rsh-hero__slider input[type='range']::-moz-range-thumb {
+  width: 20px;
+  height: 20px;
+  background: #1b7a3d;
+  border: 3px solid #fff;
+  border-radius: 50%;
+}
+
+.rsh-hero__saving {
+  padding: 0.6rem 0.85rem;
+  margin: 0.2rem 0 0;
+  font-size: var(--font-size--sm, 0.875rem);
+  font-weight: 600;
+  color: #146c36;
+  background: rgb(27 122 61 / 0.1);
+  border-radius: 10px;
+}
+
+.rsh-hero__saving[hidden] {
+  display: none;
+}
+
+@media (min-width: 60rem) {
+  .rsh-hero__inner {
+    grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr);
+  }
+
+  .rsh-hero__copy {
+    max-width: 38rem;
+  }
+
+  .rsh-hero__panel {
+    justify-self: end;
+    width: min(30rem, 100%);
+  }
 }

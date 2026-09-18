@@ -141,10 +141,24 @@
         "padding-block-start": 0,
         "padding-block-end": 56
       }
+    },
+    "samples_cta": {
+      "type": "rsh-samples-cta",
+      "settings": {
+        "show_image": true,
+        "heading": "",
+        "body": "",
+        "button_label": "",
+        "media_position": "left",
+        "section_width": "page-width",
+        "padding-block-start": 0,
+        "padding-block-end": 16
+      }
     }
   },
   "order": [
     "intro",
+    "samples_cta",
     "form"
   ]
 }

@@ -24,42 +24,54 @@
           "type": "card",
           "settings": {
             "title": "Cloud kitchens",
-            "text": "Packaging that survives the drive and still looks right at the door"
+            "text": "Packaging that survives the drive and still looks right at the door",
+            "persona": "persona-cloud-kitchen",
+            "collection": "cloud-kitchens"
           }
         },
         "biz_1": {
           "type": "card",
           "settings": {
             "title": "Caterers",
-            "text": "Buy in bursts, stock for the season, keep the sizes consistent"
+            "text": "Buy in bursts, stock for the season, keep the sizes consistent",
+            "persona": "persona-caterer",
+            "collection": "caterers"
           }
         },
         "biz_2": {
           "type": "card",
           "settings": {
             "title": "Food trucks",
-            "text": "Small storage, tight margins, no room for the wrong order"
+            "text": "Small storage, tight margins, no room for the wrong order",
+            "persona": "persona-food-truck",
+            "collection": "food-trucks"
           }
         },
         "biz_3": {
           "type": "card",
           "settings": {
             "title": "Cafés and coffee shops",
-            "text": "Hot cups, cold cups and lids without the per-cup markup"
+            "text": "Hot cups, cold cups and lids without the per-cup markup",
+            "persona": "persona-cafe",
+            "collection": "cafes-coffee-shops"
           }
         },
         "biz_4": {
           "type": "card",
           "settings": {
             "title": "Delis and supermarkets",
-            "text": "Grab-and-go packaging that sells the food inside it"
+            "text": "Grab-and-go packaging that sells the food inside it",
+            "persona": "persona-deli",
+            "collection": "delis-supermarkets"
           }
         },
         "biz_5": {
           "type": "card",
           "settings": {
             "title": "Full-service restaurants",
-            "text": "One supplier for the whole back of house"
+            "text": "One supplier for the whole back of house",
+            "persona": "persona-full-service",
+            "collection": "full-service-restaurants"
           }
         }
       },

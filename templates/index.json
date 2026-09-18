@@ -9,117 +9,6 @@
  */
 {
   "sections": {
-    "hero_CaaryD": {
-      "type": "hero",
-      "blocks": {
-        "text_NM4gVN": {
-          "type": "text",
-          "settings": {
-            "text": "<h2>Signature Selection</h2>",
-            "width": "fit-content",
-            "max_width": "narrow",
-            "alignment": "left",
-            "type_preset": "h1",
-            "font": "var(--font-body--family)",
-            "font_size": "1rem",
-            "line_height": "normal",
-            "letter_spacing": "normal",
-            "case": "none",
-            "wrap": "pretty",
-            "text_color": "#f8f8f8",
-            "background": false,
-            "background_color": "#00000026",
-            "corner_radius": 0,
-            "padding-block-start": 0,
-            "padding-block-end": 0,
-            "padding-inline-start": 0,
-            "padding-inline-end": 0
-          },
-          "blocks": {}
-        },
-        "text_3by8mX": {
-          "type": "text",
-          "settings": {
-            "text": "<p>Made with care and unconditionally loved by our customers.</p>",
-            "width": "fit-content",
-            "max_width": "narrow",
-            "alignment": "left",
-            "type_preset": "rte",
-            "font": "var(--font-body--family)",
-            "font_size": "1rem",
-            "line_height": "normal",
-            "letter_spacing": "normal",
-            "case": "none",
-            "wrap": "pretty",
-            "text_color": "#ffffff",
-            "background": false,
-            "background_color": "#00000026",
-            "corner_radius": 0,
-            "padding-block-start": 0,
-            "padding-block-end": 32,
-            "padding-inline-start": 0,
-            "padding-inline-end": 0
-          },
-          "blocks": {}
-        },
-        "button_xHjDVG": {
-          "type": "button",
-          "name": "t:names.button",
-          "settings": {
-            "label": "Shop now",
-            "link": "shopify://collections/all",
-            "open_in_new_tab": false,
-            "style_class": "button-unstyled",
-            "custom_button_background": "{{ settings.color_palette.foreground }}",
-            "custom_button_text": "{{ settings.color_palette.background }}",
-            "custom_button_border": "{{ settings.color_palette.background }}",
-            "link_text_color": "{{ settings.color_palette.color3 }}",
-            "width": "fit-content",
-            "custom_width": 100,
-            "width_mobile": "fit-content",
-            "custom_width_mobile": 100
-          },
-          "blocks": {}
-        }
-      },
-      "block_order": [
-        "text_NM4gVN",
-        "text_3by8mX",
-        "button_xHjDVG"
-      ],
-      "name": "t:names.hero",
-      "settings": {
-        "media_type_1": "image",
-        "image_1": "shopify://shop_images/hf_20260913_175755_aeebfa48-1242-479f-beab-893893bdcad0.png",
-        "media_type_2": "image",
-        "stack_media_on_mobile": false,
-        "custom_mobile_media": false,
-        "media_type_1_mobile": "image",
-        "media_type_2_mobile": "image",
-        "link": "",
-        "open_in_new_tab": false,
-        "content_direction": "column",
-        "vertical_on_mobile": true,
-        "horizontal_alignment": "flex-start",
-        "vertical_alignment": "center",
-        "align_baseline": false,
-        "horizontal_alignment_flex_direction_column": "center",
-        "vertical_alignment_flex_direction_column": "center",
-        "gap": 16,
-        "section_width": "page-width",
-        "section_height": "large",
-        "section_height_custom": 50,
-        "background_color": "",
-        "toggle_overlay": true,
-        "overlay_color": "#00000099",
-        "overlay_style": "gradient",
-        "gradient_direction": "to top",
-        "blurred_reflection": false,
-        "reflection_opacity": 75,
-        "padding-block-start": 40,
-        "padding-block-end": 40
-      }
-    },
     "1789247568162abdfb": {
       "type": "_blocks",
       "blocks": {
@@ -127,7 +16,7 @@
           "type": "ai_gen_block_8c45e4d",
           "name": "Trust bar",
           "settings": {
-            "background": "#ffffff",
+            "background": "#FCFCFB",
             "icon_color": "#1b7a3d",
             "text_color": "#1a1a1a",
             "divider_color": "#dce2ea",
@@ -427,7 +316,7 @@
       "settings": {
         "eyebrow": "Per-piece pricing",
         "heading": "The number that actually matters",
-        "body": "<p>A case of 24 oz microwavable bowls at $32.99 is 22 cents a bowl. The same case at $36.50 is 24 cents. Two cents does not sound like much until you are packing 900 orders a week, at which point it is about $940 a year on one item.</p><p>We put the per-piece price on every product page, next to the case price, at every quantity break. Check it against your last invoice.</p>",
+        "body": "<p>A case price tells you what you spend. The per-piece price tells you what it costs to put one order out the door, and that is the number worth comparing between suppliers.</p><p>We show both on every product page, at every quantity break. Check it against your last invoice.</p>",
         "button_label": "Shop containers",
         "button_link": "",
         "example_product": "1-lb-white-red-food-tray-apsic-cy-wrft10",
@@ -478,7 +367,7 @@
             "custom_width_mobile": 100,
             "height": "fit",
             "custom_height": 100,
-            "background_media": "none",
+            "background_media": "image",
             "background_color": "",
             "video_position": "cover",
             "background_image_position": "cover",
@@ -490,7 +379,8 @@
             "padding-block-start": 0,
             "padding-block-end": 0,
             "padding-inline-start": 0,
-            "padding-inline-end": 0
+            "padding-inline-end": 0,
+            "background_image": "shopify://shop_images/start-here-mixed-cases.webp"
           },
           "blocks": {
             "product_list_text_6Lq9iy": {
@@ -661,55 +551,61 @@
         "biz_0": {
           "type": "card",
           "settings": {
-            "collection": "",
+            "collection": "cloud-kitchens",
             "title": "Cloud kitchens",
             "text": "Packaging that survives the drive and still looks right at the door",
-            "link": ""
+            "link": "",
+            "persona": "persona-cloud-kitchen"
           }
         },
         "biz_1": {
           "type": "card",
           "settings": {
-            "collection": "",
+            "collection": "caterers",
             "title": "Caterers",
             "text": "Buy in bursts, stock for the season, keep the sizes consistent",
-            "link": ""
+            "link": "",
+            "persona": "persona-caterer"
           }
         },
         "biz_2": {
           "type": "card",
           "settings": {
-            "collection": "",
+            "collection": "food-trucks",
             "title": "Food trucks",
             "text": "Small storage, tight margins, no room for the wrong order",
-            "link": ""
+            "link": "",
+            "persona": "persona-food-truck"
           }
         },
         "biz_3": {
           "type": "card",
           "settings": {
-            "collection": "",
+            "collection": "cafes-coffee-shops",
             "title": "Cafés and coffee shops",
             "text": "Hot cups, cold cups and lids without the per-cup markup",
-            "link": ""
+            "link": "",
+            "persona": "persona-cafe"
           }
         },
         "biz_4": {
           "type": "card",
           "settings": {
-            "collection": "",
+            "collection": "delis-supermarkets",
             "title": "Delis and supermarkets",
             "text": "Grab-and-go packaging that sells the food inside it",
-            "link": ""
+            "link": "",
+            "persona": "persona-deli"
           }
         },
         "biz_5": {
           "type": "card",
           "settings": {
-            "collection": "",
+            "collection": "full-service-restaurants",
             "title": "Full-service restaurants",
             "text": "One supplier for the whole back of house",
-            "link": ""
+            "link": "",
+            "persona": "persona-full-service"
           }
         }
       },
@@ -726,52 +622,6 @@
         "heading": "Built around how you actually order",
         "body": "<p>Six curated lists, each one pulled from the same catalog and sorted by what that kind of kitchen goes through fastest.</p>",
         "show_images": true,
-        "section_width": "page-width",
-        "gap": 24,
-        "background_color": "",
-        "padding-block-start": 48,
-        "padding-block-end": 48
-      }
-    },
-    "rsh_quotes": {
-      "type": "rsh-testimonials",
-      "blocks": {
-        "quote_0": {
-          "type": "quote",
-          "settings": {
-            "headline": "Same containers, almost 20% less per case",
-            "quote": "<p>Switched our deli containers over about four months ago. Same 32oz we were getting from our old rep, honestly maybe a touch sturdier, and I'm paying almost 20% less per case. Delivery's been on time every single order.</p>",
-            "name": "Marcus D.",
-            "role": "Deli and prepared foods"
-          }
-        },
-        "quote_1": {
-          "type": "quote",
-          "settings": {
-            "headline": "Holds heat, doesn't leak on the drive",
-            "quote": "<p>We run three ghost kitchen brands out of one space so packaging is basically our storefront. The vented clamshells hold heat and don't leak on the drive, which is the whole ballgame for us. Prices let us actually make margin on delivery.</p>",
-            "name": "Priya K.",
-            "role": "Cloud kitchen"
-          }
-        },
-        "quote_2": {
-          "type": "quote",
-          "settings": {
-            "headline": "Best per-piece glove price I've found",
-            "quote": "<p>Gloves are solid, nitrile doesn't rip like the cheap vinyl we used to buy, and the per-piece price is the best I've found. One box came a day late once. They sorted it out fast.</p>",
-            "name": "Tony R.",
-            "role": "Food truck"
-          }
-        }
-      },
-      "block_order": [
-        "quote_0",
-        "quote_1",
-        "quote_2"
-      ],
-      "settings": {
-        "heading": "What operators said after switching",
-        "body": "",
         "section_width": "page-width",
         "gap": 24,
         "background_color": "",
@@ -1147,10 +997,84 @@
         "padding-block-start": 0,
         "padding-block-end": 0
       }
+    },
+    "rsh_hero": {
+      "type": "rsh-hero",
+      "settings": {
+        "eyebrow": "Wholesale restaurant supply",
+        "heading": "The number that matters is",
+        "heading_accent": "per piece.",
+        "body": "<p>Containers, cups, gloves, liners and paper by the case — with the per-piece price on every product and the volume ladder in plain sight. Check it against your last invoice.</p>",
+        "primary_label": "Shop all",
+        "primary_link": "shopify://collections/shop-all",
+        "secondary_label": "Why us",
+        "secondary_link": "shopify://pages/about",
+        "proof_1": "In stock, ships nationwide",
+        "proof_2": "No membership, no minimum",
+        "proof_3": "Volume pricing counted across your whole cart",
+        "show_calculator": true,
+        "panel_label": "Try it on a real case",
+        "example_title": "24 oz microwavable bowl with lid",
+        "example_price": "32.99",
+        "example_pieces": 150,
+        "example_noun": "bowl",
+        "image_key": "",
+        "min_height": 80,
+        "section_width": "page-width"
+      }
+    },
+    "rsh_wall": {
+      "type": "rsh-testimonial-wall",
+      "blocks": {
+        "quote_0": {
+          "type": "quote",
+          "settings": {
+            "headline": "Same containers, almost 20% less per case",
+            "quote": "<p>Switched our deli containers over about four months ago. Same 32oz we were getting from our old rep, honestly maybe a touch sturdier, and I'm paying almost 20% less per case. Delivery's been on time every single order.</p>",
+            "name": "Marcus D.",
+            "role": "Deli and prepared foods"
+          }
+        },
+        "quote_1": {
+          "type": "quote",
+          "settings": {
+            "headline": "Holds heat, doesn't leak on the drive",
+            "quote": "<p>We run three ghost kitchen brands out of one space so packaging is basically our storefront. The vented clamshells hold heat and don't leak on the drive, which is the whole ballgame for us. Prices let us actually make margin on delivery.</p>",
+            "name": "Priya K.",
+            "role": "Cloud kitchen"
+          }
+        },
+        "quote_2": {
+          "type": "quote",
+          "settings": {
+            "headline": "Best per-piece glove price I've found",
+            "quote": "<p>Gloves are solid, nitrile doesn't rip like the cheap vinyl we used to buy, and the per-piece price is the best I've found. One box came a day late once. They sorted it out fast.</p>",
+            "name": "Tony R.",
+            "role": "Food truck"
+          }
+        }
+      },
+      "block_order": [
+        "quote_0",
+        "quote_1",
+        "quote_2"
+      ],
+      "settings": {
+        "eyebrow": "In their words",
+        "heading": "What operators said after switching",
+        "body": "<p>Three kinds of kitchen, one catalogue. Open any of them to read the whole thing.</p>",
+        "open_label": "Read the full quote",
+        "columns": "3",
+        "reveal": true,
+        "section_width": "page-width",
+        "gap": 32,
+        "padding-block-start": 64,
+        "padding-block-end": 64
+      }
     }
   },
   "order": [
-    "hero_CaaryD",
+    "rsh_hero",
     "1789247568162abdfb",
     "collection_list_xpBxCm",
     "collection_ibCeQy",
@@ -1158,7 +1082,7 @@
     "rsh_volume",
     "product_list_9xDfTQ",
     "rsh_business",
-    "rsh_quotes",
+    "rsh_wall",
     "rsh_reorder",
     "rsh_closing",
     "178924735036195891"

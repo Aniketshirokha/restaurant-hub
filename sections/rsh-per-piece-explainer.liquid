@@ -7,6 +7,10 @@
     assign variant = product.selected_or_first_available_variant
     assign case_price = variant.price
     assign pieces = product.metafields[namespace].pieces_per_case.value | plus: 0
+    if pieces == 0
+      assign pieces = section.settings.example_pieces | plus: 0
+    endif
+    assign product_noun = product.metafields[namespace].piece_noun.value
     assign product_title = product.title
     assign product_url = product.url
     assign product_image = product.featured_image
@@ -21,7 +25,7 @@
     assign product_image = section.settings.image
   endif
 
-  assign noun = section.settings.example_noun | default: 'piece'
+  assign noun = product_noun | default: section.settings.example_noun | default: settings.rsh_piece_noun | default: 'piece'
 %}
 
 <section class="rsh-editorial-pricing" id="rsh-editorial-{{ section.id }}">
@@ -99,19 +103,27 @@
             <strong>{{ case_price | money }}</strong>
           </div>
 
+          {% if pieces > 0 %}
           <div class="rsh-editorial-price rsh-editorial-price-highlight">
             <span>Price per {{ noun }}</span>
 
-            {% if pieces > 0 %}
-              <strong>
-                {{ case_price | times: 1000 | divided_by: pieces | money }}
-              </strong>
-            {% else %}
-              <strong>—</strong>
-            {% endif %}
+            <strong>
+              {%- render 'rsh-per-piece', cents: case_price, pieces: pieces -%}
+            </strong>
           </div>
+          {% endif %}
 
         </div>
+
+        {% if pieces == 0 and request.design_mode %}
+          <p class="rsh-editorial-calculation">
+            <span>Per-piece price hidden</span>
+            <span>
+              Set this product's <code>pieces_per_case</code> metafield, or type a
+              fallback under Worked example, and the price per {{ noun }} appears here.
+            </span>
+          </p>
+        {% endif %}
 
         {% if pieces > 0 %}
           <div class="rsh-editorial-calculation">
