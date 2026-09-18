@@ -789,27 +789,27 @@
         "q01": {
           "type": "quote",
           "settings": {
-            "quote": "",
-            "name": "",
-            "role": "",
+            "quote": "<p>Switched our deli containers over about four months ago. Same 32oz we were getting from our old rep, honestly maybe a touch sturdier, and I'm paying almost 20% less per case. Delivery's been on time every single order.</p>",
+            "name": "Marcus D.",
+            "role": "Deli and prepared foods",
             "place": ""
           }
         },
         "q02": {
           "type": "quote",
           "settings": {
-            "quote": "",
-            "name": "",
-            "role": "",
+            "quote": "<p>We run three ghost kitchen brands out of one space so packaging is basically our storefront. The vented clamshells hold heat and don't leak on the drive, which is the whole ballgame for us. Prices let us actually make margin on delivery.</p>",
+            "name": "Priya K.",
+            "role": "Cloud kitchen",
             "place": ""
           }
         },
         "q03": {
           "type": "quote",
           "settings": {
-            "quote": "",
-            "name": "",
-            "role": "",
+            "quote": "<p>Gloves are solid, nitrile doesn't rip like the cheap vinyl we used to buy, and the per-piece price is the best I've found. One box came a day late once. They sorted it out fast.</p>",
+            "name": "Tony R.",
+            "role": "Food truck",
             "place": ""
           }
         },
@@ -992,7 +992,7 @@
       "settings": {
         "eyebrow": "From the kitchens we supply",
         "heading": "In their words",
-        "body": "<p>Buyers on the products they order from us. Every quote links to the product it is about.</p>",
+        "body": "<p>Three kinds of kitchen, one catalogue.</p>",
         "visible": 3,
         "more_label": "View more",
         "allow_fewer": true,
