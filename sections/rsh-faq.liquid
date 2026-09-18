@@ -20,16 +20,35 @@
   class="section section--{{ section.settings.section_width }}{% if section.settings.background_color != blank %} color-custom-{{ section.id }}{% endif %} spacing-style"
   style="{% render 'spacing-style', settings: section.settings %}"
 >
-  <div class="rsh-faq">
-    {%- if section.settings.eyebrow != blank or section.settings.heading != blank -%}
-      <div class="rsh-faq__head">
+  {%- liquid
+    assign has_aside = false
+    if section.settings.eyebrow != blank or section.settings.heading != blank or section.settings.body != blank or section.settings.link_label != blank
+      assign has_aside = true
+    endif
+  -%}
+  <div class="rsh-faq{% if has_aside %} rsh-faq--split{% endif %}">
+    {%- if has_aside -%}
+      {%- comment -%}
+        First in the markup so a screen reader and a phone meet the heading
+        before the questions; the grid moves it to the right on desktop.
+      {%- endcomment -%}
+      <aside class="rsh-faq__aside">
         {%- if section.settings.eyebrow != blank -%}
           <p class="rsh-eyebrow">{{ section.settings.eyebrow }}</p>
         {%- endif -%}
         {%- if section.settings.heading != blank -%}
           <h2 class="rsh-heading h2">{{ section.settings.heading }}</h2>
         {%- endif -%}
-      </div>
+        {%- if section.settings.body != blank -%}
+          <div class="rsh-faq__body rte">{{ section.settings.body }}</div>
+        {%- endif -%}
+        {%- if section.settings.link_label != blank -%}
+          <a class="rsh-faq__link" href="{{ section.settings.link_url | default: '#' }}">
+            {{ section.settings.link_label }}
+            <span aria-hidden="true">&rarr;</span>
+          </a>
+        {%- endif -%}
+      </aside>
     {%- endif -%}
 
     <div class="rsh-faq__list">
@@ -54,8 +73,15 @@
   "tag": "section",
   "max_blocks": 16,
   "settings": [
+    {
+      "type": "paragraph",
+      "content": "With any of the text below filled in, the questions sit on the left and the text beside them on the right, and stays in view as the list scrolls. Leave it all empty for the list on its own."
+    },
     { "type": "text", "id": "eyebrow", "label": "Eyebrow" },
     { "type": "text", "id": "heading", "label": "Heading" },
+    { "type": "richtext", "id": "body", "label": "Text" },
+    { "type": "text", "id": "link_label", "label": "Link" },
+    { "type": "url", "id": "link_url", "label": "Link goes to", "info": "#rsh-contact-form jumps to the contact form on the same page." },
     { "type": "checkbox", "id": "open_first", "label": "Open the first question", "default": true },
     { "type": "header", "content": "Layout" },
     {

@@ -242,13 +242,16 @@
         "q7"
       ],
       "settings": {
-        "eyebrow": "",
-        "heading": "",
+        "eyebrow": "Questions",
+        "heading": "Straight answers, before you order",
         "open_first": true,
         "section_width": "page-width",
         "background_color": "",
         "padding-block-start": 32,
-        "padding-block-end": 64
+        "padding-block-end": 64,
+        "body": "<p>The things people ask before a first order. If yours isn't here, the form above reaches someone who can answer it, usually the same day.</p>",
+        "link_label": "Ask a question",
+        "link_url": "#rsh-contact-form"
       }
     },
     "closing": {

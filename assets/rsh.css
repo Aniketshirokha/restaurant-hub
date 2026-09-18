@@ -3424,12 +3424,77 @@
 
 /* ---- questions ---- */
 
+/* On its own the list keeps a reading width. With text beside it the section
+   takes the page: questions on the left, the text on the right, pinned while
+   the list scrolls past it. The text comes first in the markup, so on a
+   phone it reads as the introduction it is. */
 .rsh-faq {
   max-width: 48rem;
 }
 
-.rsh-faq__head {
-  margin-block-end: 1.5rem;
+.rsh-faq--split {
+  display: grid;
+  max-width: none;
+  grid-template-columns: minmax(0, 1fr);
+  grid-template-areas:
+    'aside'
+    'list';
+  gap: 1.75rem clamp(2rem, 5vw, 5rem);
+  align-items: start;
+}
+
+.rsh-faq__aside {
+  grid-area: aside;
+}
+
+.rsh-faq__list {
+  grid-area: list;
+}
+
+.rsh-faq__aside .rsh-heading {
+  margin-block-start: 0.6rem;
+}
+
+.rsh-faq__body {
+  max-width: 40ch;
+  margin-block-start: 1rem;
+  line-height: 1.6;
+  color: var(--rsh-muted);
+}
+
+.rsh-faq__body p {
+  margin: 0;
+}
+
+.rsh-faq__body p + p {
+  margin-block-start: 0.6em;
+}
+
+.rsh-faq__link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  margin-block-start: 1.25rem;
+  font-family: var(--font-accent--family, inherit);
+  font-weight: var(--font-accent--weight, 600);
+  color: var(--rsh-accent);
+  text-decoration: none;
+}
+
+.rsh-faq__link:hover {
+  text-decoration: underline;
+}
+
+@media screen and (min-width: 990px) {
+  .rsh-faq--split {
+    grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr);
+    grid-template-areas: 'list aside';
+  }
+
+  .rsh-faq__aside {
+    position: sticky;
+    top: calc(var(--header-height, 0px) + 1.5rem);
+  }
 }
 
 .rsh-faq__list {
