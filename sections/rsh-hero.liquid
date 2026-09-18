@@ -79,13 +79,29 @@
   if section.settings.show_calculator and base_cents > 0 and pieces > 0
     assign show_panel = true
   endif
+
+  assign ratio_d = section.settings.ratio_desktop | default: '21/9' | split: '/'
+  assign ratio_m = section.settings.ratio_mobile | default: '4/5' | split: '/'
+  assign shape_d = 42857
+  assign shape_m = 125000
+  assign d_w = ratio_d[0] | plus: 0
+  assign d_h = ratio_d[1] | plus: 0
+  if d_w > 0 and d_h > 0
+    assign shape_d = d_h | times: 100000 | divided_by: d_w
+  endif
+  assign m_w = ratio_m[0] | plus: 0
+  assign m_h = ratio_m[1] | plus: 0
+  if m_w > 0 and m_h > 0
+    assign shape_m = m_h | times: 100000 | divided_by: m_w
+  endif
 %}
 
 <section
-  class="rsh-hero{% if has_image %} rsh-hero--has-image{% endif %}"
+  class="rsh-hero{% if has_image %} rsh-hero--has-image{% endif %}{% unless section.settings.show_proof_mobile %} rsh-hero--proof-desktop-only{% endunless %}"
   data-layout="{% if show_panel %}split{% else %}text{% endif %}"
   style="
-    --rsh-hero-min: {{ section.settings.min_height }}vh;
+    --rsh-hero-shape: {{ shape_d }};
+    --rsh-hero-shape-mobile: {{ shape_m }};
     --rsh-hero-scrim: {{ section.settings.overlay_opacity | divided_by: 100.0 }};
   "
 >
@@ -416,14 +432,36 @@
       "default": 64
     },
     {
-      "type": "range",
-      "id": "min_height",
-      "label": "Minimum height",
-      "min": 50,
-      "max": 100,
-      "step": 5,
-      "unit": "vh",
-      "default": 60
+      "type": "checkbox",
+      "id": "show_proof_mobile",
+      "label": "Keep the three lines on mobile",
+      "info": "Off by default: the trust bar directly below repeats them, and they are what a portrait hero cannot fit.",
+      "default": false
+    },
+    {
+      "type": "select",
+      "id": "ratio_desktop",
+      "label": "Shape on desktop",
+      "info": "The section takes this shape, so a background cropped to it is shown whole. Taller copy still wins over the shape rather than being cut off.",
+      "options": [
+        { "value": "21/9", "label": "21:9 \u2014 cinematic" },
+        { "value": "3/1", "label": "3:1 \u2014 letterbox" },
+        { "value": "16/9", "label": "16:9 \u2014 widescreen" },
+        { "value": "2/1", "label": "2:1" }
+      ],
+      "default": "21/9"
+    },
+    {
+      "type": "select",
+      "id": "ratio_mobile",
+      "label": "Shape on mobile",
+      "options": [
+        { "value": "4/5", "label": "4:5 \u2014 portrait" },
+        { "value": "3/4", "label": "3:4" },
+        { "value": "1/1", "label": "1:1 \u2014 square" },
+        { "value": "9/16", "label": "9:16 \u2014 tall" }
+      ],
+      "default": "4/5"
     },
     {
       "type": "select",

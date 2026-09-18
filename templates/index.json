@@ -35,8 +35,10 @@
         "image_key": "",
         "padding-block-start": 56,
         "padding-block-end": 64,
-        "min_height": 60,
-        "section_width": "page-width"
+        "section_width": "page-width",
+        "ratio_desktop": "21/9",
+        "ratio_mobile": "4/5",
+        "show_proof_mobile": false
       }
     },
     "rsh_proof": {
