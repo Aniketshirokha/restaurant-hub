@@ -1742,6 +1742,14 @@
   inset: 0;
 }
 
+/* `<picture>` is inline by default, and the image's 100% height would then
+   resolve against nothing and fall back to the file's own height. */
+.rsh-hero__picture {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
 .rsh-hero__bg .rsh-img,
 .rsh-hero__img {
   width: 100%;

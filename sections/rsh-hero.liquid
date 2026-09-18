@@ -71,9 +71,14 @@
   assign why_link = section.settings.secondary_link | default: '/pages/about'
 
   assign has_image = false
-  if section.settings.image != blank or section.settings.image_key != blank
+  if section.settings.image != blank or section.settings.image_mobile != blank or section.settings.image_key != blank
     assign has_image = true
   endif
+
+  # Whichever picture is set draws everywhere the other is missing, so one
+  # upload never leaves half the screens blank.
+  assign desktop_image = section.settings.image | default: section.settings.image_mobile
+  assign mobile_image = section.settings.image_mobile
 
   assign show_panel = false
   if section.settings.show_calculator and base_cents > 0 and pieces > 0
@@ -105,19 +110,39 @@
     --rsh-hero-scrim: {{ section.settings.overlay_opacity | divided_by: 100.0 }};
   "
 >
-  {%- if section.settings.image != blank -%}
+  {%- if desktop_image != blank -%}
     <div class="rsh-hero__bg" aria-hidden="true">
-      {{
-        section.settings.image
-        | image_url: width: 3000
-        | image_tag:
-          widths: '750, 1100, 1500, 2000, 3000',
-          sizes: '100vw',
-          loading: 'eager',
-          fetchpriority: 'high',
-          class: 'rsh-hero__img',
-          alt: ''
-      }}
+      {%- comment -%}
+        Art direction, not a swap: the browser reads the `<source>` before it
+        downloads anything, so a phone fetches the portrait crop only and never
+        the wide one. The breakpoint is the one the shape and the scrim switch
+        at, so the crop, the box it fills and the darkening all change together.
+      {%- endcomment -%}
+      <picture class="rsh-hero__picture">
+        {%- if mobile_image != blank and mobile_image != desktop_image -%}
+          <source
+            media="(max-width: 47rem)"
+            sizes="100vw"
+            srcset="
+              {{ mobile_image | image_url: width: 750 }} 750w,
+              {{ mobile_image | image_url: width: 1000 }} 1000w,
+              {{ mobile_image | image_url: width: 1300 }} 1300w,
+              {{ mobile_image | image_url: width: 1600 }} 1600w
+            "
+          >
+        {%- endif -%}
+        {{
+          desktop_image
+          | image_url: width: 3000
+          | image_tag:
+            widths: '750, 1100, 1500, 2000, 3000',
+            sizes: '100vw',
+            loading: 'eager',
+            fetchpriority: 'high',
+            class: 'rsh-hero__img',
+            alt: ''
+        }}
+      </picture>
     </div>
   {%- elsif section.settings.image_key != blank -%}
     <div class="rsh-hero__bg" aria-hidden="true">
@@ -387,7 +412,14 @@
     {
       "type": "image_picker",
       "id": "image",
-      "label": "Background image"
+      "label": "Background image, desktop",
+      "info": "Crop it to the desktop shape below, 21:9 by default, and it is shown whole."
+    },
+    {
+      "type": "image_picker",
+      "id": "image_mobile",
+      "label": "Background image, mobile",
+      "info": "Crop it to the mobile shape, 4:5 by default. Phones download this one only. Leave it empty and the desktop picture is used, cropped to its centre."
     },
     {
       "type": "range",
