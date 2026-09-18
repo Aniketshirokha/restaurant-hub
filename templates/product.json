@@ -418,27 +418,12 @@
               ]
             },
             "rsh_kicker": {
-              "type": "text",
+              "type": "rsh-kicker",
               "settings": {
-                "text": "<p>{{ closest.product.type }}</p>",
-                "width": "100%",
-                "max_width": "normal",
-                "alignment": "left",
-                "type_preset": "h6",
-                "font": "var(--font-accent--family)",
-                "font_size": "0.75rem",
-                "line_height": "normal",
-                "letter_spacing": "loose",
-                "case": "uppercase",
-                "wrap": "pretty",
-                "text_color": "",
-                "background": false,
-                "background_color": "#00000026",
-                "corner_radius": 0,
+                "source": "type",
+                "custom_text": "",
                 "padding-block-start": 0,
-                "padding-block-end": 0,
-                "padding-inline-start": 0,
-                "padding-inline-end": 0
+                "padding-block-end": 0
               }
             },
             "rsh_trust": {

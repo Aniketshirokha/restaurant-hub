@@ -48,6 +48,20 @@
   color: var(--rsh-muted);
 }
 
+/* The product kicker: the type line above the title, set in the accent face
+   so its 600 weight is a real cut rather than a synthetic bold. */
+.rsh-kicker {
+  font-family: var(--font-accent--family, inherit);
+  font-style: var(--font-accent--style, normal);
+  font-weight: var(--font-accent--weight, 600);
+  font-size: 0.75rem;
+  letter-spacing: 0.12em;
+}
+
+.rsh-kicker--empty {
+  opacity: 0.6;
+}
+
 .rsh-heading {
   margin: 0;
   text-wrap: balance;

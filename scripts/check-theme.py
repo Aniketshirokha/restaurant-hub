@@ -148,14 +148,53 @@ def _walk_blocks(where, blocks, problems):
         _walk_blocks(f'{where} > {bid}', block.get('blocks'), problems)
 
 
+# Dynamic sources ("{{ closest.product.title }}" and the like) are validated
+# against an allowlist Shopify does not publish. A template that uses one
+# outside it is rejected whole, and the GitHub sync says nothing: that is how
+# templates/product.json sat unchanged through four pushes over
+# `closest.product.type`. Every source the theme's own schemas use has been
+# accepted by Shopify, so those are safe; anything else has to be proven first
+# (an upsert to an unpublished theme returns the real error) and then added here.
+_DYNAMIC = re.compile(r'{{\s*(closest\.[a-z_]+(?:\.[a-z_]+)*)\s*}}')
+PROVEN_DYNAMIC_SOURCES = {
+    'closest.product',
+    'closest.product.title',
+    'closest.product.description',
+    'closest.page.title',  # templates/page.contact.json synced with these two
+    'closest.page.content',
+}
+
+
+def _known_dynamic_sources():
+    known = set(PROVEN_DYNAMIC_SOURCES)
+    for path in _glob.glob('sections/*.liquid') + _glob.glob('blocks/*.liquid'):
+        if path.split('/')[-1].startswith('rsh-'):
+            continue  # ours are not evidence of anything
+        schema = _schema_of(path)
+        if schema is not None:
+            known.update(_DYNAMIC.findall(json.dumps(schema)))
+    return known
+
+
+def _check_dynamic_sources(path, raw, known, problems):
+    for src in sorted(set(_DYNAMIC.findall(raw))):
+        if src not in known:
+            problems.append(
+                f"{path}: dynamic source '{src}' is not one Shopify has accepted for this theme; "
+                f"it rejects the whole template over it without a word. Prove it against an "
+                f"unpublished theme first, then add it to PROVEN_DYNAMIC_SOURCES"
+            )
+
 def check_templates_against_schemas():
     problems = []
+    known_sources = _known_dynamic_sources()
     for path in sorted(_glob.glob('templates/*.json') + _glob.glob('sections/*.json')):
         raw = re.sub(r'/\*.*?\*/', '', open(path).read(), flags=re.S)
         try:
             data = json.loads(raw)
         except json.JSONDecodeError:
             continue  # reported by the JSON check already
+        _check_dynamic_sources(path, raw, known_sources, problems)
         for sid, section in data.get('sections', {}).items():
             stype = section.get('type', '')
             schema = _schema_of(f'sections/{stype}.liquid')
@@ -167,8 +206,10 @@ def check_templates_against_schemas():
 
 
 
-for _line in check_templates_against_schemas():
-    problems.append('template value: ' + _line)
+_template_problems = check_templates_against_schemas()
+for _line in _template_problems:
+    print(_line)
+problems.extend(_template_problems)
 
 print(f'\n{len(problems)} problem(s)')
 sys.exit(1 if problems else 0)

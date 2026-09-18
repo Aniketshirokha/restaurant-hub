@@ -1,0 +1,76 @@
+{%- doc -%}
+  The line above the product title: what kind of thing this is.
+
+  Shopify's dynamic sources do not cover the product type, so the theme's text
+  block cannot show it; a template that asks for `closest.product.type` is
+  rejected whole and silently. This block reads it in Liquid instead. The
+  default source is the product type; vendor, the first collection and fixed
+  text are the other choices, and a blank source renders nothing rather than
+  an empty line.
+{%- enddoc -%}
+
+{%- liquid
+  assign product_resource = closest.product
+  assign source = block.settings.source | default: 'type'
+
+  case source
+    when 'vendor'
+      assign label = product_resource.vendor
+    when 'collection'
+      assign label = product_resource.collections.first.title
+    when 'custom'
+      assign label = block.settings.custom_text
+    else
+      assign label = product_resource.type
+  endcase
+-%}
+
+{%- if label != blank -%}
+  <p
+    class="rsh-eyebrow rsh-kicker spacing-style"
+    style="{% render 'spacing-style', settings: block.settings %}"
+    {{ block.shopify_attributes }}
+  >
+    {{- label | escape -}}
+  </p>
+{%- elsif request.design_mode -%}
+  <p class="rsh-eyebrow rsh-kicker rsh-kicker--empty" {{ block.shopify_attributes }}>
+    {%- case source -%}
+      {%- when 'vendor' -%}Vendor is blank on this product
+      {%- when 'collection' -%}This product is in no collection
+      {%- when 'custom' -%}Fixed text is empty
+      {%- else -%}Product type is blank on this product
+    {%- endcase -%}
+  </p>
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "Product kicker",
+  "tag": null,
+  "settings": [
+    {
+      "type": "select",
+      "id": "source",
+      "label": "Show",
+      "options": [
+        { "value": "type", "label": "Product type" },
+        { "value": "vendor", "label": "Vendor" },
+        { "value": "collection", "label": "First collection" },
+        { "value": "custom", "label": "Fixed text" }
+      ],
+      "default": "type"
+    },
+    {
+      "type": "text",
+      "id": "custom_text",
+      "label": "Fixed text",
+      "visible_if": "{{ block.settings.source == 'custom' }}"
+    },
+    { "type": "header", "content": "Padding" },
+    { "type": "range", "id": "padding-block-start", "label": "Top", "min": 0, "max": 100, "step": 4, "unit": "px", "default": 0 },
+    { "type": "range", "id": "padding-block-end", "label": "Bottom", "min": 0, "max": 100, "step": 4, "unit": "px", "default": 0 }
+  ],
+  "presets": [ { "name": "Product kicker" } ]
+}
+{% endschema %}
