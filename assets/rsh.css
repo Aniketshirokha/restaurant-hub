@@ -2651,8 +2651,9 @@
 
 .rsh-proof__dot {
   appearance: none;
-  /* Padding rather than size: the dot stays small, the hit target does not. */
-  padding: 0.4rem;
+  /* Padding rather than size: the dot stays small, the hit target does not.
+     0.55rem takes a 7px dot to a 24px target, the minimum a thumb needs. */
+  padding: 0.55rem;
   margin: 0;
   border: 0;
   background: none;
@@ -3474,6 +3475,7 @@
   display: inline-flex;
   align-items: center;
   gap: 0.4rem;
+  min-block-size: 24px;
   margin-block-start: 1.25rem;
   font-family: var(--font-accent--family, inherit);
   font-weight: var(--font-accent--weight, 600);
@@ -4598,6 +4600,7 @@
 
 .rsh-footer__links a {
   display: inline-block;
+  padding-block: 0.15rem;
   font-size: 0.9375rem;
   line-height: 1.4;
   color: rgb(252 252 251 / 0.8);
@@ -4646,6 +4649,8 @@
   display: flex;
   flex-wrap: wrap;
   gap: 0.35rem 1.25rem;
+  min-block-size: 24px;
+  align-items: center;
   margin: 0;
   padding: 0;
   list-style: none;
@@ -4690,6 +4695,7 @@
   display: inline-flex;
   align-items: center;
   gap: 0.35rem;
+  min-block-size: 24px;
   font-family: var(--font-accent--family, inherit);
   font-weight: var(--font-accent--weight, 600);
   letter-spacing: 0.06em;
