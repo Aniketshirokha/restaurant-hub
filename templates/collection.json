@@ -11,8 +11,9 @@
   "sections": {
     "banner": {
       "type": "rsh-collection-banner",
+      "disabled": true,
       "settings": {
-        "show_description": true,
+        "show_description": false,
         "title_scrim": false,
         "section_width": "page-width",
         "background_color": "",
