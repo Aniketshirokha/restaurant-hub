@@ -1,0 +1,202 @@
+{%- doc -%}
+  The volume ladder on an ink ground, as rows rather than a bar chart: one row
+  per tier, the range of cases, the discount, and a track that fills toward
+  the deepest rate, with the price of one example case worked out at every
+  step so the saving is a number and not a percentage.
+
+  The tiers come from `rsh-tier-list`, the same source the product page, the
+  Deals page and the mid-page volume section read, so this can never promise
+  a discount the cart will not apply. `$[threshold]` in a check becomes the
+  free-shipping figure from theme settings.
+{%- enddoc -%}
+
+{%- if section.settings.reveal -%}
+  <script src="{{ 'rsh-reveal.js' | asset_url }}" type="module"></script>
+{%- endif -%}
+
+{%- liquid
+  capture tier_list
+    render 'rsh-tier-list'
+  endcapture
+  assign tiers = tier_list | strip | split: ','
+  assign quote_min = settings.rsh_quote_min | default: 50 | plus: 0
+  assign threshold = settings.rsh_free_shipping_threshold | default: 149
+
+  assign deepest = 0
+  for tier in tiers
+    assign parts = tier | split: ':'
+    assign discount = parts[1] | plus: 0
+    if discount > deepest
+      assign deepest = discount
+    endif
+  endfor
+
+  assign price_parts = section.settings.example_price | default: '32.99' | split: '.'
+  assign whole = price_parts[0] | plus: 0
+  assign fraction = price_parts[1] | default: '0' | append: '00' | slice: 0, 2 | plus: 0
+  assign base_cents = whole | times: 100 | plus: fraction
+-%}
+
+<div class="section-background rsh-ladder__bg"></div>
+<div
+  class="section section--{{ section.settings.section_width }} spacing-style"
+  style="{% render 'spacing-style', settings: section.settings %}"
+>
+  <div class="rsh-ladder"{% if section.settings.reveal %} data-rsh-reveal{% endif %}>
+    <div class="rsh-ladder__copy">
+      {%- if section.settings.eyebrow != blank -%}
+        <p class="rsh-eyebrow rsh-ladder__eyebrow" data-rsh-reveal-item>{{ section.settings.eyebrow }}</p>
+      {%- endif -%}
+      {%- if section.settings.heading != blank -%}
+        <h2 class="rsh-ladder__heading" data-rsh-reveal-item>
+          {{ section.settings.heading }}
+          {%- if section.settings.heading_accent != blank -%}
+            <span class="rsh-ladder__accent">{{ section.settings.heading_accent }}</span>
+          {%- endif -%}
+        </h2>
+      {%- endif -%}
+      {%- if section.settings.lede != blank -%}
+        <div class="rsh-ladder__lede rte" data-rsh-reveal-item>{{ section.settings.lede }}</div>
+      {%- endif -%}
+
+      {%- if section.blocks.size > 0 -%}
+        <ul class="rsh-ladder__checks" role="list" data-rsh-reveal-item>
+          {%- for block in section.blocks -%}
+            {%- assign check = block.settings.text | replace: '[threshold]', threshold -%}
+            {%- if check != blank -%}
+              <li class="rsh-ladder__check" {{ block.shopify_attributes }}>
+                <span class="rsh-ladder__tick" aria-hidden="true">{% render 'rsh-icon', name: 'badge' %}</span>
+                {{ check }}
+              </li>
+            {%- endif -%}
+          {%- endfor -%}
+        </ul>
+      {%- endif -%}
+
+      {%- if section.settings.primary_label != blank or section.settings.secondary_label != blank -%}
+        <div class="rsh-ladder__actions" data-rsh-reveal-item>
+          {%- if section.settings.primary_label != blank -%}
+            <a class="rsh-ladder__button rsh-ladder__button--primary" href="{{ section.settings.primary_link | default: '/pages/deals' }}">
+              {{ section.settings.primary_label }} <span aria-hidden="true">&rarr;</span>
+            </a>
+          {%- endif -%}
+          {%- if section.settings.secondary_label != blank -%}
+            <a class="rsh-ladder__button rsh-ladder__button--ghost" href="{{ section.settings.secondary_link | default: routes.all_products_collection_url }}">
+              {{ section.settings.secondary_label }}
+            </a>
+          {%- endif -%}
+        </div>
+      {%- endif -%}
+    </div>
+
+    <div class="rsh-ladder__card" data-rsh-reveal-item>
+      <p class="rsh-ladder__card-title">{{ section.settings.card_title | default: 'How your price drops' }}</p>
+      {%- if section.settings.example_title != blank -%}
+        <p class="rsh-ladder__card-sub">
+          {{ section.settings.example_title }} &middot; {{ base_cents | money }} a case at the standard price
+        </p>
+      {%- endif -%}
+
+      <ol class="rsh-ladder__rows" role="list">
+        {%- for tier in tiers -%}
+          {%- liquid
+            assign parts = tier | split: ':'
+            assign tier_min = parts[0] | plus: 0
+            assign tier_discount = parts[1] | plus: 0
+            assign next_tier = tiers[forloop.index]
+            if next_tier != blank
+              assign next_parts = next_tier | split: ':'
+              assign tier_max = next_parts[0] | minus: 1
+            else
+              assign tier_max = 0
+            endif
+            assign fill = 0
+            if deepest > 0
+              assign fill = tier_discount | times: 100 | divided_by: deepest
+            endif
+            assign keep = 100 | minus: tier_discount
+            assign tier_cents = base_cents | times: keep | divided_by: 100
+            assign is_best = false
+            if tier_discount == deepest and deepest > 0
+              assign is_best = true
+            endif
+          -%}
+          <li class="rsh-ladder__row{% if is_best %} is-best{% endif %}" data-rsh-reveal-item style="--rsh-fill: {{ fill }}%;">
+            <span class="rsh-ladder__range">
+              {%- if tier_max == 0 -%}
+                {{ tier_min }}+
+              {%- elsif tier_min == tier_max -%}
+                {{ tier_min }}
+              {%- else -%}
+                {{ tier_min }}&ndash;{{ tier_max }}
+              {%- endif -%}
+              <small>cases</small>
+            </span>
+            <span class="rsh-ladder__track" aria-hidden="true"><span class="rsh-ladder__fill"></span></span>
+            <span class="rsh-ladder__off">
+              {%- if tier_discount > 0 -%}{{ tier_discount }}% off{%- else -%}Standard{%- endif -%}
+            </span>
+            {%- if base_cents > 0 -%}
+              <span class="rsh-ladder__price">{{ tier_cents | money }}<small>/case</small></span>
+            {%- endif -%}
+            {%- if is_best -%}<span class="rsh-ladder__flag">Best rate</span>{%- endif -%}
+          </li>
+        {%- endfor -%}
+      </ol>
+
+      {%- if section.settings.note != blank -%}
+        <p class="rsh-ladder__note" data-rsh-reveal-item>{{ section.settings.note | replace: '[quote]', quote_min }}</p>
+      {%- endif -%}
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Volume ladder",
+  "tag": "section",
+  "max_blocks": 6,
+  "settings": [
+    { "type": "paragraph", "content": "The tiers are read from Theme settings under Case and per-piece pricing. This section, the product page and the Deals page can never disagree." },
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Volume discounts" },
+    { "type": "text", "id": "heading", "label": "Heading", "default": "The more you stock," },
+    { "type": "text", "id": "heading_accent", "label": "Heading, highlighted part", "default": "the less you pay" },
+    { "type": "richtext", "id": "lede", "label": "Text", "default": "<p>Discounts apply automatically the moment your cart hits the next tier. No code, no rep to call — the price just drops.</p>" },
+    { "type": "text", "id": "primary_label", "label": "Button", "default": "See volume pricing" },
+    { "type": "url", "id": "primary_link", "label": "Button link" },
+    { "type": "text", "id": "secondary_label", "label": "Second button", "default": "Shop all supplies" },
+    { "type": "url", "id": "secondary_link", "label": "Second button link" },
+    { "type": "header", "content": "The ladder" },
+    { "type": "text", "id": "card_title", "label": "Card title", "default": "How your price drops" },
+    { "type": "text", "id": "example_title", "label": "Example case", "default": "24 oz microwavable bowls, 150 a case" },
+    { "type": "text", "id": "example_price", "label": "Its standard price", "default": "32.99", "info": "Whole dollars and cents, like 32.99. The price at every tier is worked out from it." },
+    { "type": "text", "id": "note", "label": "Note under the ladder", "default": "Counted across everything in the cart, not per product. Past [quote] cases, ask for a quote.", "info": "[quote] becomes the quote threshold from theme settings." },
+    { "type": "checkbox", "id": "reveal", "label": "Fade in as it arrives", "default": true },
+    { "type": "header", "content": "Layout" },
+    {
+      "type": "select",
+      "id": "section_width",
+      "label": "Width",
+      "options": [ { "value": "page-width", "label": "Page" }, { "value": "full-width", "label": "Full" } ],
+      "default": "page-width"
+    },
+    { "type": "header", "content": "Padding" },
+    { "type": "range", "id": "padding-block-start", "label": "Top", "min": 0, "max": 200, "step": 4, "unit": "px", "default": 80 },
+    { "type": "range", "id": "padding-block-end", "label": "Bottom", "min": 0, "max": 200, "step": 4, "unit": "px", "default": 80 }
+  ],
+  "blocks": [
+    { "type": "check", "name": "Check", "settings": [ { "type": "text", "id": "text", "label": "Text", "info": "Write $[threshold] for the free shipping figure." } ] }
+  ],
+  "presets": [
+    {
+      "name": "Volume ladder",
+      "blocks": [
+        { "type": "check", "settings": { "text": "No code, ever — it just applies" } },
+        { "type": "check", "settings": { "text": "Counted across your whole cart, not per product" } },
+        { "type": "check", "settings": { "text": "Free shipping over $[threshold]" } },
+        { "type": "check", "settings": { "text": "No membership, no minimums" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

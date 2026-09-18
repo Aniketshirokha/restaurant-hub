@@ -3584,3 +3584,773 @@
   font-weight: 600;
   font-family: var(--font-accent--family, inherit);
 }
+
+/* ------------------------------------------------------------------ *
+ * Reveal
+ *
+ * Items inside an armed container start a little low and transparent and
+ * arrive in order, 70ms apart. Only an armed container hides anything, so
+ * with no script, or under reduced motion, everything is simply there.
+ * ------------------------------------------------------------------ */
+
+[data-rsh-reveal='armed'] [data-rsh-reveal-item] {
+  opacity: 0;
+  transform: translateY(14px);
+  transition:
+    opacity 0.6s ease,
+    transform 0.7s cubic-bezier(0.2, 0.7, 0.2, 1);
+  transition-delay: calc(var(--rsh-reveal-i, 0) * 70ms);
+}
+
+[data-rsh-reveal='armed'].is-in [data-rsh-reveal-item],
+[data-rsh-reveal='done'] [data-rsh-reveal-item] {
+  opacity: 1;
+  transform: none;
+}
+
+/* ---- numbered cards: head row, ink tone, icons, hover ---- */
+
+.rsh-props__head {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 0.75rem 3rem;
+  align-items: end;
+  max-width: none;
+  margin-block-end: 2rem;
+}
+
+@media screen and (min-width: 990px) {
+  .rsh-props__head {
+    grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr);
+  }
+
+  .rsh-props__lede {
+    justify-self: end;
+    text-align: end;
+    max-width: 34ch;
+  }
+}
+
+.rsh-props__eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+
+/* The short rule before the eyebrow, from the reference, kept because it
+   earns its place: it ties the eyebrow to the heading's left edge. */
+.rsh-props__eyebrow::before,
+.rsh-rail__eyebrow::before,
+.rsh-ladder__eyebrow::before {
+  content: '';
+  inline-size: 1.5rem;
+  block-size: 2px;
+  background: currentColor;
+  opacity: 0.7;
+}
+
+.rsh-props__heading {
+  margin: 0.6rem 0 0;
+  font-family: var(--font-h1--family, inherit);
+  font-style: var(--font-h1--style, normal);
+  font-weight: var(--font-h1--weight, 400);
+  font-size: clamp(1.75rem, 3.2vw, 2.75rem);
+  line-height: 1.06;
+  letter-spacing: -0.005em;
+  text-wrap: balance;
+}
+
+.rsh-props__lede {
+  margin: 0;
+  font-size: 1.0625rem;
+  line-height: 1.5;
+  color: var(--rsh-muted);
+}
+
+.rsh-props__card {
+  grid-template-rows: auto auto 1fr;
+  transition: border-color 220ms ease, transform 220ms cubic-bezier(0.2, 0.7, 0.2, 1), background-color 220ms ease, box-shadow 220ms ease;
+}
+
+.rsh-props__icon {
+  display: inline-flex;
+  color: var(--rsh-accent);
+  transition: transform 220ms cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+
+.rsh-props__icon .rsh-icon {
+  inline-size: 26px;
+  block-size: 26px;
+}
+
+/* Icon on the left, number on the right, on one line. */
+.rsh-props__icon + .rsh-props__num {
+  position: absolute;
+  inset-inline-end: 1.5rem;
+  inset-block-start: 1.5rem;
+  font-size: 1.25rem;
+  opacity: 0.55;
+  transition: opacity 220ms ease, color 220ms ease;
+}
+
+.rsh-props__card:hover .rsh-props__icon {
+  transform: translateY(-2px) scale(1.06);
+}
+
+.rsh-props__card:hover .rsh-props__icon + .rsh-props__num {
+  opacity: 1;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .rsh-props__card:hover {
+    transform: translateY(-4px);
+  }
+}
+
+/* Ink: the ground is painted on the theme's section-background div, as the
+   statement band is, because the section itself is forced transparent. */
+.shopify-section .section-background.rsh-props__bg--ink {
+  background-color: #0c1310;
+  background-image:
+    radial-gradient(120% 90% at 100% 0%, rgb(26 127 75 / 0.22) 0%, transparent 55%),
+    radial-gradient(90% 70% at 0% 100%, rgb(26 127 75 / 0.1) 0%, transparent 60%);
+}
+
+.rsh-props--ink {
+  color: #fcfcfb;
+}
+
+.rsh-props--ink .rsh-props__eyebrow {
+  color: #47c67b;
+}
+
+.rsh-props--ink .rsh-props__lede {
+  color: rgb(252 252 251 / 0.72);
+}
+
+.rsh-props--ink .rsh-props__card {
+  background: rgb(255 255 255 / 0.04);
+  border-color: rgb(255 255 255 / 0.12);
+  box-shadow: inset 0 1px 0 rgb(255 255 255 / 0.05);
+}
+
+.rsh-props--ink .rsh-props__card:hover {
+  background: rgb(255 255 255 / 0.07);
+  border-color: rgb(71 198 123 / 0.55);
+  box-shadow:
+    inset 0 1px 0 rgb(255 255 255 / 0.08),
+    0 24px 48px -28px rgb(0 0 0 / 0.8);
+}
+
+.rsh-props--ink .rsh-props__icon,
+.rsh-props--ink .rsh-props__num {
+  color: #47c67b;
+}
+
+.rsh-props--ink .rsh-props__title {
+  color: #fcfcfb;
+}
+
+.rsh-props--ink .rsh-props__text {
+  color: rgb(252 252 251 / 0.72);
+}
+
+/* ---- founders: button and ink panel ---- */
+
+.rsh-founders__actions {
+  margin-block-start: 2rem;
+}
+
+.rsh-founders__button {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.95rem 1.75rem;
+  font-family: var(--font-accent--family, inherit);
+  font-weight: var(--font-accent--weight, 600);
+  font-size: 0.9375rem;
+  color: #fcfcfb;
+  background: var(--rsh-accent);
+  border-radius: 999px;
+  text-decoration: none;
+  transition: background-color 180ms ease;
+}
+
+.rsh-founders__button:hover {
+  background: #156a3e;
+}
+
+.rsh-founders__arrow {
+  transition: transform 180ms ease;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .rsh-founders__button:hover .rsh-founders__arrow {
+    transform: translateX(3px);
+  }
+}
+
+.rsh-founders__media--ink {
+  border-color: rgb(255 255 255 / 0.1);
+}
+
+.rsh-founders__media--ink .rsh-founders__logo {
+  background:
+    radial-gradient(70% 60% at 50% 40%, rgb(26 127 75 / 0.3) 0%, transparent 70%),
+    linear-gradient(160deg, #17231d 0%, #0c1310 65%);
+}
+
+.rsh-founders__media--ink .rsh-founders__logo-img {
+  filter: drop-shadow(0 18px 32px rgb(0 0 0 / 0.55));
+}
+
+/* ---- shop by business rail ---- */
+
+.rsh-rail {
+  --rsh-rail-card: clamp(220px, 24vw, 320px);
+  --rsh-rail-gap: 1rem;
+  display: grid;
+  gap: 2rem;
+}
+
+.rsh-rail__head {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 0.75rem 3rem;
+  align-items: end;
+  padding-inline: var(--page-margin);
+}
+
+@media screen and (min-width: 990px) {
+  .rsh-rail__head {
+    grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr);
+  }
+
+  .rsh-rail__lede {
+    justify-self: end;
+    text-align: end;
+    max-width: 34ch;
+  }
+}
+
+.rsh-rail__eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  color: var(--rsh-accent);
+}
+
+.rsh-rail__heading {
+  margin: 0.6rem 0 0;
+  font-family: var(--font-h1--family, inherit);
+  font-style: var(--font-h1--style, normal);
+  font-weight: var(--font-h1--weight, 400);
+  font-size: clamp(1.75rem, 3.2vw, 2.75rem);
+  line-height: 1.06;
+  letter-spacing: -0.005em;
+  text-wrap: balance;
+}
+
+.rsh-rail__lede {
+  margin: 0;
+  font-size: 1.0625rem;
+  line-height: 1.5;
+  color: var(--rsh-muted);
+}
+
+/* The viewport is the full width; the fade at each edge hides the seam
+   and tells the eye there is more. */
+.rsh-rail__viewport {
+  overflow: hidden;
+  mask-image: linear-gradient(to right, transparent, #000 6%, #000 94%, transparent);
+  -webkit-mask-image: linear-gradient(to right, transparent, #000 6%, #000 94%, transparent);
+}
+
+.rsh-rail__track {
+  display: flex;
+  width: max-content;
+  gap: var(--rsh-rail-gap);
+  padding-inline: var(--rsh-rail-gap);
+  animation: rsh-rail-drift var(--rsh-rail-seconds, 48s) linear infinite;
+}
+
+.rsh-rail__viewport:hover .rsh-rail__track,
+.rsh-rail__viewport:focus-within .rsh-rail__track {
+  animation-play-state: paused;
+}
+
+@keyframes rsh-rail-drift {
+  from { transform: translateX(0); }
+  to { transform: translateX(calc(-50% - var(--rsh-rail-gap) / 2)); }
+}
+
+.rsh-rail__list {
+  display: flex;
+  flex: 0 0 auto;
+  gap: var(--rsh-rail-gap);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.rsh-rail__item {
+  flex: 0 0 auto;
+  width: var(--rsh-rail-card);
+}
+
+.rsh-rail__card {
+  position: relative;
+  display: block;
+  aspect-ratio: 4 / 5;
+  overflow: hidden;
+  border-radius: var(--rsh-radius-lg);
+  background: #17231d;
+  color: #fcfcfb;
+  text-decoration: none;
+  isolation: isolate;
+  transition: transform 260ms cubic-bezier(0.2, 0.7, 0.2, 1), box-shadow 260ms ease;
+}
+
+.rsh-rail__media,
+.rsh-rail__media img,
+.rsh-rail__media .rsh-img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.rsh-rail__media img,
+.rsh-rail__media .rsh-img {
+  transition: transform 700ms cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+
+/* No picture yet: a drawn panel, the green breathing in from a corner, so the
+   card is still a card. */
+.rsh-rail__card--drawn .rsh-rail__media {
+  background:
+    radial-gradient(90% 70% at 100% 0%, rgb(26 127 75 / 0.45) 0%, transparent 60%),
+    repeating-linear-gradient(135deg, rgb(255 255 255 / 0.035) 0 2px, transparent 2px 18px),
+    linear-gradient(160deg, #1d2d24 0%, #0c1310 70%);
+}
+
+.rsh-rail__scrim {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgb(6 12 9 / 0.92) 0%, rgb(6 12 9 / 0.45) 45%, rgb(6 12 9 / 0.1) 75%, rgb(6 12 9 / 0.25) 100%);
+  transition: opacity 260ms ease;
+}
+
+.rsh-rail__num {
+  position: absolute;
+  inset-block-start: 1rem;
+  inset-inline-start: 1.1rem;
+  font-family: var(--font-h1--family, inherit);
+  font-weight: var(--font-h1--weight, 400);
+  font-size: 0.9375rem;
+  letter-spacing: 0.08em;
+  color: #47c67b;
+}
+
+.rsh-rail__body {
+  position: absolute;
+  inset-inline: 1.1rem;
+  inset-block-end: 1.1rem;
+  display: grid;
+  gap: 0.35rem;
+}
+
+.rsh-rail__title {
+  font-family: var(--font-h1--family, inherit);
+  font-weight: var(--font-h1--weight, 400);
+  font-size: clamp(1.125rem, 1.5vw, 1.4rem);
+  line-height: 1.1;
+  text-wrap: balance;
+}
+
+.rsh-rail__hook {
+  font-size: 0.875rem;
+  line-height: 1.4;
+  color: rgb(252 252 251 / 0.78);
+  /* Held back until the card is hovered, which keeps the rail calm. */
+  max-block-size: 0;
+  opacity: 0;
+  overflow: hidden;
+  transition: max-block-size 320ms cubic-bezier(0.2, 0.7, 0.2, 1), opacity 260ms ease;
+}
+
+.rsh-rail__cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  margin-block-start: 0.2rem;
+  font-family: var(--font-accent--family, inherit);
+  font-weight: var(--font-accent--weight, 600);
+  font-size: 0.78125rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: #47c67b;
+}
+
+.rsh-rail__arrow {
+  transition: transform 220ms ease;
+}
+
+.rsh-rail__card:hover,
+.rsh-rail__card:focus-visible {
+  box-shadow: 0 28px 48px -28px rgb(0 0 0 / 0.7);
+  outline: none;
+}
+
+.rsh-rail__card:focus-visible {
+  box-shadow: 0 0 0 3px var(--rsh-accent);
+}
+
+.rsh-rail__card:hover .rsh-rail__media img,
+.rsh-rail__card:hover .rsh-rail__media .rsh-img {
+  transform: scale(1.05);
+}
+
+.rsh-rail__card:hover .rsh-rail__hook,
+.rsh-rail__card:focus-visible .rsh-rail__hook {
+  max-block-size: 4.5rem;
+  opacity: 1;
+}
+
+.rsh-rail__card:hover .rsh-rail__arrow {
+  transform: translateX(3px);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .rsh-rail__card:hover {
+    transform: translateY(-4px);
+  }
+}
+
+/* A phone has no hover, so the hook is always there. */
+@media (hover: none) {
+  .rsh-rail__hook {
+    max-block-size: 4.5rem;
+    opacity: 1;
+  }
+}
+
+/* Still: a row that scrolls by hand, the second copy gone, the fade gone. */
+@media (prefers-reduced-motion: reduce) {
+  .rsh-rail__viewport {
+    overflow-x: auto;
+    mask-image: none;
+    -webkit-mask-image: none;
+    scroll-snap-type: x mandatory;
+    scrollbar-width: thin;
+    padding-block-end: 0.5rem;
+  }
+
+  .rsh-rail__track {
+    animation: none;
+  }
+
+  .rsh-rail__list:nth-child(2) {
+    display: none;
+  }
+
+  .rsh-rail__item {
+    scroll-snap-align: start;
+  }
+}
+
+/* ---- volume ladder ---- */
+
+.shopify-section .section-background.rsh-ladder__bg {
+  background-color: #0c1310;
+  background-image:
+    radial-gradient(110% 80% at 100% 100%, rgb(26 127 75 / 0.22) 0%, transparent 55%),
+    radial-gradient(70% 60% at 0% 0%, rgb(26 127 75 / 0.1) 0%, transparent 60%);
+}
+
+.rsh-ladder {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 2.5rem clamp(2rem, 5vw, 5rem);
+  align-items: center;
+  color: #fcfcfb;
+}
+
+@media screen and (min-width: 990px) {
+  .rsh-ladder {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr);
+  }
+}
+
+.rsh-ladder__eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  color: #47c67b;
+}
+
+.rsh-ladder__heading {
+  margin: 0.75rem 0 0;
+  font-family: var(--font-h1--family, inherit);
+  font-style: var(--font-h1--style, normal);
+  font-weight: var(--font-h1--weight, 400);
+  font-size: clamp(2rem, 3.6vw, 3rem);
+  line-height: 1.04;
+  letter-spacing: -0.005em;
+  text-wrap: balance;
+}
+
+.rsh-ladder__accent {
+  display: block;
+  color: #47c67b;
+}
+
+.rsh-ladder__lede {
+  margin-block-start: 1rem;
+  max-width: 46ch;
+  font-size: 1.0625rem;
+  line-height: 1.6;
+  color: rgb(252 252 251 / 0.78);
+}
+
+.rsh-ladder__lede p {
+  margin: 0;
+}
+
+.rsh-ladder__checks {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr));
+  gap: 0.75rem 2rem;
+  margin: 1.5rem 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.rsh-ladder__check {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.6rem;
+  font-family: var(--font-accent--family, inherit);
+  font-weight: var(--font-accent--weight, 600);
+  font-size: 0.9375rem;
+  line-height: 1.4;
+}
+
+.rsh-ladder__tick {
+  display: inline-flex;
+  flex: 0 0 auto;
+  color: #47c67b;
+}
+
+.rsh-ladder__tick .rsh-icon {
+  inline-size: 20px;
+  block-size: 20px;
+}
+
+.rsh-ladder__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin-block-start: 2rem;
+}
+
+.rsh-ladder__button {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.95rem 1.75rem;
+  font-family: var(--font-accent--family, inherit);
+  font-weight: var(--font-accent--weight, 600);
+  font-size: 0.9375rem;
+  text-decoration: none;
+  border-radius: 999px;
+  transition: background-color 180ms ease, border-color 180ms ease;
+}
+
+.rsh-ladder__button--primary {
+  color: #08120d;
+  background: #47c67b;
+}
+
+.rsh-ladder__button--primary:hover {
+  background: #62d18e;
+}
+
+.rsh-ladder__button--ghost {
+  color: #fcfcfb;
+  border: 1px solid rgb(255 255 255 / 0.32);
+}
+
+.rsh-ladder__button--ghost:hover {
+  border-color: rgb(255 255 255 / 0.6);
+  background: rgb(255 255 255 / 0.06);
+}
+
+.rsh-ladder__card {
+  padding: clamp(1.25rem, 2.5vw, 2rem);
+  background: rgb(255 255 255 / 0.04);
+  border: 1px solid rgb(255 255 255 / 0.12);
+  border-radius: var(--rsh-radius-lg);
+  box-shadow: inset 0 1px 0 rgb(255 255 255 / 0.05);
+}
+
+.rsh-ladder__card-title {
+  margin: 0;
+  font-family: var(--font-accent--family, inherit);
+  font-weight: var(--font-accent--weight, 600);
+  font-size: 0.78125rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: rgb(252 252 251 / 0.6);
+}
+
+.rsh-ladder__card-sub {
+  margin: 0.4rem 0 0;
+  font-size: 0.875rem;
+  color: rgb(252 252 251 / 0.55);
+}
+
+.rsh-ladder__rows {
+  display: grid;
+  gap: 0.6rem;
+  margin: 1.25rem 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.rsh-ladder__row {
+  position: relative;
+  display: grid;
+  grid-template-columns: 5.5rem minmax(0, 1fr) auto auto;
+  align-items: center;
+  gap: 0.9rem;
+  padding: 0.7rem 0.9rem;
+  border-radius: var(--rsh-radius);
+  transition: background-color 200ms ease;
+}
+
+.rsh-ladder__row:hover {
+  background: rgb(255 255 255 / 0.04);
+}
+
+.rsh-ladder__row.is-best {
+  background: rgb(71 198 123 / 0.08);
+  box-shadow: inset 0 0 0 1px rgb(71 198 123 / 0.35);
+}
+
+.rsh-ladder__range {
+  font-family: var(--font-h1--family, inherit);
+  font-weight: var(--font-h1--weight, 400);
+  font-size: 1.125rem;
+  line-height: 1;
+  font-variant-numeric: tabular-nums;
+}
+
+.rsh-ladder__range small {
+  display: block;
+  margin-block-start: 0.25rem;
+  font-family: var(--font-accent--family, inherit);
+  font-weight: var(--font-accent--weight, 600);
+  font-size: 0.6875rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: rgb(252 252 251 / 0.5);
+}
+
+.rsh-ladder__track {
+  display: block;
+  block-size: 8px;
+  overflow: hidden;
+  border-radius: 999px;
+  background: rgb(255 255 255 / 0.1);
+}
+
+.rsh-ladder__fill {
+  display: block;
+  block-size: 100%;
+  inline-size: var(--rsh-fill, 0%);
+  min-inline-size: 6px;
+  border-radius: inherit;
+  background: linear-gradient(90deg, #1a7f4b, #47c67b);
+  transform-origin: left center;
+  transition: transform 900ms cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+
+/* The fills grow in with the rows; the row's own delay staggers them. */
+[data-rsh-reveal='armed'] .rsh-ladder__fill {
+  transform: scaleX(0);
+}
+
+[data-rsh-reveal='armed'].is-in .rsh-ladder__fill,
+[data-rsh-reveal='done'] .rsh-ladder__fill {
+  transform: none;
+  transition-delay: calc(var(--rsh-reveal-i, 0) * 70ms + 200ms);
+}
+
+.rsh-ladder__off {
+  font-family: var(--font-accent--family, inherit);
+  font-weight: var(--font-accent--weight, 600);
+  font-size: 0.875rem;
+  color: #47c67b;
+  white-space: nowrap;
+}
+
+.rsh-ladder__row:first-child .rsh-ladder__off {
+  color: rgb(252 252 251 / 0.55);
+}
+
+.rsh-ladder__price {
+  min-inline-size: 5.5rem;
+  text-align: end;
+  font-family: var(--font-h1--family, inherit);
+  font-weight: var(--font-h1--weight, 400);
+  font-size: 1rem;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+.rsh-ladder__price small {
+  font-family: var(--font-body--family, inherit);
+  font-size: 0.75rem;
+  color: rgb(252 252 251 / 0.5);
+}
+
+.rsh-ladder__flag {
+  position: absolute;
+  inset-block-start: -0.55rem;
+  inset-inline-end: 0.9rem;
+  padding: 0.15rem 0.55rem;
+  font-family: var(--font-accent--family, inherit);
+  font-weight: var(--font-accent--weight, 600);
+  font-size: 0.6875rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: #08120d;
+  background: #47c67b;
+  border-radius: 999px;
+}
+
+.rsh-ladder__note {
+  margin: 1.25rem 0 0;
+  padding-block-start: 1rem;
+  border-block-start: 1px solid rgb(255 255 255 / 0.1);
+  font-size: 0.875rem;
+  line-height: 1.5;
+  color: rgb(252 252 251 / 0.6);
+}
+
+@media screen and (max-width: 599px) {
+  .rsh-ladder__row {
+    grid-template-columns: 4.5rem minmax(0, 1fr) auto;
+    grid-template-areas:
+      'range track off'
+      'range price price';
+    row-gap: 0.25rem;
+  }
+
+  .rsh-ladder__range { grid-area: range; }
+  .rsh-ladder__track { grid-area: track; }
+  .rsh-ladder__off { grid-area: off; }
+  .rsh-ladder__price { grid-area: price; text-align: start; min-inline-size: 0; }
+}

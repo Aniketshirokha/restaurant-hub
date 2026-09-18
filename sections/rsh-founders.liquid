@@ -54,6 +54,15 @@
           {%- endfor -%}
         </ul>
       {%- endif -%}
+
+      {%- if section.settings.button_label != blank -%}
+        <div class="rsh-founders__actions">
+          <a class="rsh-founders__button" href="{{ section.settings.button_link | default: '/pages/why-us' }}">
+            {{ section.settings.button_label }}
+            <span class="rsh-founders__arrow" aria-hidden="true">&rarr;</span>
+          </a>
+        </div>
+      {%- endif -%}
     </div>
 
     {%- liquid
@@ -74,7 +83,7 @@
       assign media = media | strip
     -%}
     {%- if media != blank -%}
-      <figure class="rsh-founders__media{% if section.settings.media == 'logo' %} rsh-founders__media--logo{% endif %}">{{ media }}</figure>
+      <figure class="rsh-founders__media{% if section.settings.media == 'logo' %} rsh-founders__media--logo{% endif %}{% if section.settings.media == 'logo' and section.settings.panel_tone == 'ink' %} rsh-founders__media--ink{% endif %}">{{ media }}</figure>
     {%- endif -%}
   </div>
 </div>
@@ -88,6 +97,8 @@
     { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "The founders" },
     { "type": "text", "id": "heading", "label": "Heading", "default": "We've spent 17 years learning what this stuff should actually cost" },
     { "type": "richtext", "id": "body", "label": "Story" },
+    { "type": "text", "id": "button_label", "label": "Button" },
+    { "type": "url", "id": "button_link", "label": "Button link" },
     { "type": "header", "content": "Beside the story" },
     {
       "type": "select",
@@ -99,6 +110,14 @@
       ],
       "default": "photo",
       "info": "The logo is the one set under Theme settings, Logo."
+    },
+    {
+      "type": "select",
+      "id": "panel_tone",
+      "label": "Logo panel",
+      "options": [ { "value": "paper", "label": "Paper" }, { "value": "ink", "label": "Ink" } ],
+      "default": "paper",
+      "info": "Ink suits a logo drawn for a dark ground; a full-colour mark with dark lettering reads better on paper."
     },
     { "type": "image_picker", "id": "image", "label": "Photograph" },
     { "type": "text", "id": "image_key", "label": "Or a library file", "default": "sourcing-factory-floor", "info": "Used when no image is chosen above." },

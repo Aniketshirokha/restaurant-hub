@@ -1,0 +1,152 @@
+{%- doc -%}
+  Shop by business, as a rail that never stops: six kinds of kitchen as tall
+  cards, drifting left, each a link to the set curated for it.
+
+  The motion is the trust bar's: the list is written twice, the track slides
+  by exactly one copy and starts over, so the seam never shows. No script
+  moves anything. It pauses under a pointer or keyboard focus, so a card can
+  be read and chosen, and under reduced motion it stands still as a row that
+  scrolls by hand with snapping, the second copy dropped.
+
+  A card's picture is the library file for that kind of kitchen, falling back
+  to the collection's own image, falling back to a drawn panel with the number
+  on it, so a card is never a blank.
+{%- enddoc -%}
+
+{%- if section.settings.reveal -%}
+  <script src="{{ 'rsh-reveal.js' | asset_url }}" type="module"></script>
+{%- endif -%}
+
+{%- liquid
+  assign count = section.blocks.size
+  assign seconds = section.settings.seconds | default: 48
+  if section.settings.background_color != blank
+    render 'contrast-override', background_color: section.settings.background_color, section_id: section.id
+  endif
+-%}
+
+<div class="section-background{% if section.settings.background_color != blank %} color-custom-{{ section.id }}{% endif %}"></div>
+<div
+  class="section section--full-width{% if section.settings.background_color != blank %} color-custom-{{ section.id }}{% endif %} spacing-style"
+  style="{% render 'spacing-style', settings: section.settings %}"
+>
+  <div class="rsh-rail"{% if section.settings.reveal %} data-rsh-reveal{% endif %} style="--rsh-rail-seconds: {{ seconds }}s; --rsh-rail-count: {{ count }};">
+    <div class="rsh-rail__head">
+      <div data-rsh-reveal-item>
+        {%- if section.settings.eyebrow != blank -%}
+          <p class="rsh-eyebrow rsh-rail__eyebrow">{{ section.settings.eyebrow }}</p>
+        {%- endif -%}
+        {%- if section.settings.heading != blank -%}
+          <h2 class="rsh-rail__heading">{{ section.settings.heading }}</h2>
+        {%- endif -%}
+      </div>
+      {%- if section.settings.lede != blank -%}
+        <p class="rsh-rail__lede" data-rsh-reveal-item>{{ section.settings.lede }}</p>
+      {%- endif -%}
+    </div>
+
+    {%- if count > 0 -%}
+      <div class="rsh-rail__viewport" data-rsh-reveal-item>
+        <div class="rsh-rail__track">
+          {%- for copy in (1..2) -%}
+            <ul class="rsh-rail__list" role="list"{% if copy == 2 %} aria-hidden="true" inert{% endif %}>
+              {%- for block in section.blocks -%}
+                {%- liquid
+                  assign col = block.settings.collection
+                  assign title = block.settings.title | default: col.title
+                  assign href = block.settings.link | default: col.url | default: routes.all_products_collection_url
+                  assign number = forloop.index | prepend: '0' | slice: -2, 2
+                  capture picture
+                    if block.settings.image != blank
+                      echo block.settings.image | image_url: width: 1000 | image_tag: widths: '400, 600, 800, 1000', sizes: '(min-width: 750px) 320px, 70vw', loading: 'lazy', class: 'rsh-rail__img', alt: ''
+                    elsif block.settings.persona != blank
+                      render 'rsh-image', key: block.settings.persona, fallback_image: col.image, sizes: '(min-width: 750px) 320px, 70vw', ratio: '4:5', alt: ''
+                    elsif col.image != blank
+                      echo col.image | image_url: width: 1000 | image_tag: widths: '400, 600, 800, 1000', sizes: '(min-width: 750px) 320px, 70vw', loading: 'lazy', class: 'rsh-rail__img', alt: ''
+                    endif
+                  endcapture
+                  assign picture = picture | strip
+                -%}
+                <li class="rsh-rail__item" {% if copy == 1 %}{{ block.shopify_attributes }}{% endif %}>
+                  <a class="rsh-rail__card{% if picture == blank %} rsh-rail__card--drawn{% endif %}" href="{{ href }}"{% if copy == 2 %} tabindex="-1"{% endif %}>
+                    <span class="rsh-rail__media" aria-hidden="true">
+                      {%- if picture != blank -%}{{ picture }}{%- endif -%}
+                    </span>
+                    <span class="rsh-rail__scrim" aria-hidden="true"></span>
+                    <span class="rsh-rail__num" aria-hidden="true">{{ number }}</span>
+                    <span class="rsh-rail__body">
+                      <span class="rsh-rail__title">{{ title }}</span>
+                      {%- if block.settings.text != blank -%}
+                        <span class="rsh-rail__hook">{{ block.settings.text }}</span>
+                      {%- endif -%}
+                      <span class="rsh-rail__cta">{{ section.settings.card_label | default: 'Shop the set' }} <span class="rsh-rail__arrow">&rarr;</span></span>
+                    </span>
+                  </a>
+                </li>
+              {%- endfor -%}
+            </ul>
+          {%- endfor -%}
+        </div>
+      </div>
+    {%- endif -%}
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Shop by business rail",
+  "tag": "section",
+  "max_blocks": 8,
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Shop by business" },
+    { "type": "text", "id": "heading", "label": "Heading", "default": "Built for how you actually operate" },
+    { "type": "text", "id": "lede", "label": "Line beside the heading", "default": "Curated, ready-to-buy sets for every kind of operation." },
+    { "type": "text", "id": "card_label", "label": "Card link text", "default": "Shop the set" },
+    { "type": "range", "id": "seconds", "label": "Seconds per loop", "min": 20, "max": 120, "step": 4, "unit": "s", "default": 48, "info": "Lower is faster. It pauses under the pointer and stands still for visitors who ask for reduced motion." },
+    { "type": "checkbox", "id": "reveal", "label": "Fade in as it arrives", "default": true },
+    { "type": "header", "content": "Layout" },
+    { "type": "color", "id": "background_color", "label": "Background", "placeholder": "Default" },
+    { "type": "header", "content": "Padding" },
+    { "type": "range", "id": "padding-block-start", "label": "Top", "min": 0, "max": 200, "step": 4, "unit": "px", "default": 64 },
+    { "type": "range", "id": "padding-block-end", "label": "Bottom", "min": 0, "max": 200, "step": 4, "unit": "px", "default": 64 }
+  ],
+  "blocks": [
+    {
+      "type": "card",
+      "name": "Kind of kitchen",
+      "settings": [
+        { "type": "collection", "id": "collection", "label": "Collection" },
+        { "type": "text", "id": "title", "label": "Title", "info": "Leave empty to use the collection's title." },
+        { "type": "text", "id": "text", "label": "One line" },
+        {
+          "type": "select",
+          "id": "persona",
+          "label": "Library picture",
+          "options": [
+            { "value": "", "label": "None, use the collection image" },
+            { "value": "persona-cloud-kitchen", "label": "Cloud kitchen" }, { "value": "persona-caterer", "label": "Caterer" },
+            { "value": "persona-food-truck", "label": "Food truck" }, { "value": "persona-cafe", "label": "Café" },
+            { "value": "persona-deli", "label": "Deli" }, { "value": "persona-full-service", "label": "Full-service restaurant" }
+          ],
+          "default": ""
+        },
+        { "type": "image_picker", "id": "image", "label": "Or this picture" },
+        { "type": "url", "id": "link", "label": "Link", "info": "Leave empty to link to the collection." }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Shop by business rail",
+      "blocks": [
+        { "type": "card", "settings": { "title": "Cloud kitchens", "persona": "persona-cloud-kitchen", "text": "Packaging that survives the drive and still looks right at the door" } },
+        { "type": "card", "settings": { "title": "Caterers", "persona": "persona-caterer", "text": "Buy in bursts, stock for the season, keep the sizes consistent" } },
+        { "type": "card", "settings": { "title": "Food trucks", "persona": "persona-food-truck", "text": "Small storage, tight margins, no room for the wrong order" } },
+        { "type": "card", "settings": { "title": "Cafés and coffee shops", "persona": "persona-cafe", "text": "Hot cups, cold cups and lids without the per-cup markup" } },
+        { "type": "card", "settings": { "title": "Delis and supermarkets", "persona": "persona-deli", "text": "Grab-and-go packaging that sells the food inside it" } },
+        { "type": "card", "settings": { "title": "Full-service restaurants", "persona": "persona-full-service", "text": "One supplier for the whole back of house" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

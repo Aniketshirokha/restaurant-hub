@@ -1058,6 +1058,239 @@
         "padding-block-start": 0,
         "padding-block-end": 0
       }
+    },
+    "rsh_business_rail": {
+      "type": "rsh-business-rail",
+      "blocks": {
+        "k1": {
+          "type": "card",
+          "settings": {
+            "collection": "cloud-kitchens",
+            "title": "Cloud kitchens",
+            "persona": "persona-cloud-kitchen",
+            "text": "Packaging that survives the drive and still looks right at the door"
+          }
+        },
+        "k2": {
+          "type": "card",
+          "settings": {
+            "collection": "caterers",
+            "title": "Caterers",
+            "persona": "persona-caterer",
+            "text": "Buy in bursts, stock for the season, keep the sizes consistent"
+          }
+        },
+        "k3": {
+          "type": "card",
+          "settings": {
+            "collection": "food-trucks",
+            "title": "Food trucks",
+            "persona": "persona-food-truck",
+            "text": "Small storage, tight margins, no room for the wrong order"
+          }
+        },
+        "k4": {
+          "type": "card",
+          "settings": {
+            "collection": "cafes-coffee-shops",
+            "title": "Cafés and coffee shops",
+            "persona": "persona-cafe",
+            "text": "Hot cups, cold cups and lids without the per-cup markup"
+          }
+        },
+        "k5": {
+          "type": "card",
+          "settings": {
+            "collection": "delis-supermarkets",
+            "title": "Delis and supermarkets",
+            "persona": "persona-deli",
+            "text": "Grab-and-go packaging that sells the food inside it"
+          }
+        },
+        "k6": {
+          "type": "card",
+          "settings": {
+            "collection": "full-service-restaurants",
+            "title": "Full-service restaurants",
+            "persona": "persona-full-service",
+            "text": "One supplier for the whole back of house"
+          }
+        }
+      },
+      "block_order": [
+        "k1",
+        "k2",
+        "k3",
+        "k4",
+        "k5",
+        "k6"
+      ],
+      "settings": {
+        "eyebrow": "Shop by business",
+        "heading": "Built for how you actually operate",
+        "lede": "Curated, ready-to-buy sets for every kind of operation.",
+        "card_label": "Shop the set",
+        "seconds": 48,
+        "reveal": true,
+        "background_color": "",
+        "padding-block-start": 64,
+        "padding-block-end": 64
+      }
+    },
+    "rsh_why": {
+      "type": "rsh-numbered-props",
+      "blocks": {
+        "c1": {
+          "type": "card",
+          "settings": {
+            "icon": "tag",
+            "title": "Lower price, same grade",
+            "text": "The exact product the established brands carry. We paid less, so you pay less."
+          }
+        },
+        "c2": {
+          "type": "card",
+          "settings": {
+            "icon": "badge",
+            "title": "Quality that holds up",
+            "text": "Leak-resistant, microwave and freezer safe, tested against real kitchen use."
+          }
+        },
+        "c3": {
+          "type": "card",
+          "settings": {
+            "icon": "grid",
+            "title": "The whole list, one cart",
+            "text": "Containers, gloves, foil, cleaning, paper. One supplier, one delivery."
+          }
+        },
+        "c4": {
+          "type": "card",
+          "settings": {
+            "icon": "truck",
+            "title": "Stock you can depend on",
+            "text": "Core range in stock, shipped nationwide. You never run out mid-service."
+          }
+        }
+      },
+      "block_order": [
+        "c1",
+        "c2",
+        "c3",
+        "c4"
+      ],
+      "settings": {
+        "eyebrow": "Why Restaurant Supply Hub",
+        "heading": "Why we beat the alternatives",
+        "lede": "",
+        "tone": "ink",
+        "reveal": true,
+        "section_width": "page-width",
+        "background_color": "",
+        "padding-block-start": 80,
+        "padding-block-end": 80
+      }
+    },
+    "rsh_story": {
+      "type": "rsh-founders",
+      "blocks": {
+        "f1": {
+          "type": "figure",
+          "settings": {
+            "source": "custom",
+            "value": "17",
+            "label": "Years of combined sourcing"
+          }
+        },
+        "f2": {
+          "type": "figure",
+          "settings": {
+            "source": "custom",
+            "value": "2",
+            "label": "Founders on the factory floor"
+          }
+        },
+        "f3": {
+          "type": "figure",
+          "settings": {
+            "source": "product_count",
+            "value": "",
+            "label": "Restaurant-grade products"
+          }
+        }
+      },
+      "block_order": [
+        "f1",
+        "f2",
+        "f3"
+      ],
+      "settings": {
+        "eyebrow": "Our story",
+        "heading": "17 years of knowing exactly who makes the good stuff",
+        "body": "<p>Restaurant Supply Hub was built by two people — <strong>Mr. Jeevan and Mr. Hemant</strong> — who spent their careers on the supply side of this business: walking factory floors, testing product that looked fine until you put hot food in it, and learning what a container should actually cost before three layers of middlemen mark it up.</p>",
+        "button_label": "Our story",
+        "button_link": "shopify://pages/why-us",
+        "media": "logo",
+        "panel_tone": "paper",
+        "image_key": "sourcing-factory-floor",
+        "section_width": "page-width",
+        "background_color": "",
+        "padding-block-start": 80,
+        "padding-block-end": 80
+      }
+    },
+    "rsh_ladder": {
+      "type": "rsh-volume-ladder",
+      "blocks": {
+        "v1": {
+          "type": "check",
+          "settings": {
+            "text": "No code, ever — it just applies"
+          }
+        },
+        "v2": {
+          "type": "check",
+          "settings": {
+            "text": "Counted across your whole cart, not per product"
+          }
+        },
+        "v3": {
+          "type": "check",
+          "settings": {
+            "text": "Free shipping over $[threshold]"
+          }
+        },
+        "v4": {
+          "type": "check",
+          "settings": {
+            "text": "No membership, no minimums"
+          }
+        }
+      },
+      "block_order": [
+        "v1",
+        "v2",
+        "v3",
+        "v4"
+      ],
+      "settings": {
+        "eyebrow": "Volume discounts",
+        "heading": "The more you stock,",
+        "heading_accent": "the less you pay",
+        "lede": "<p>Discounts apply automatically the moment your cart hits the next tier. No code, no rep to call — the price just drops.</p>",
+        "primary_label": "See volume pricing",
+        "primary_link": "shopify://pages/deals",
+        "secondary_label": "Shop all supplies",
+        "secondary_link": "shopify://collections/shop-all",
+        "card_title": "How your price drops",
+        "example_title": "24 oz microwavable bowls, 150 a case",
+        "example_price": "32.99",
+        "note": "Counted across everything in the cart, not per product. Past [quote] cases, ask for a quote.",
+        "reveal": true,
+        "section_width": "page-width",
+        "padding-block-start": 88,
+        "padding-block-end": 88
+      }
     }
   },
   "order": [
@@ -1066,11 +1299,15 @@
     "1789247568162abdfb",
     "collection_list_xpBxCm",
     "collection_ibCeQy",
+    "rsh_business_rail",
     "rsh_per_piece",
     "rsh_volume",
+    "rsh_why",
+    "rsh_story",
     "product_list_9xDfTQ",
     "rsh_wall",
     "rsh_reorder",
+    "rsh_ladder",
     "rsh_closing",
     "178924735036195891"
   ]
