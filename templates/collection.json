@@ -6,8 +6,20 @@
  * or related systems. Please exercise caution as any changes
  * made to this file may be overwritten.
  * ------------------------------------------------------------
- */{
+ */
+{
   "sections": {
+    "banner": {
+      "type": "rsh-collection-banner",
+      "settings": {
+        "show_description": true,
+        "title_scrim": false,
+        "section_width": "page-width",
+        "background_color": "",
+        "padding-block-start": 24,
+        "padding-block-end": 24
+      }
+    },
     "main": {
       "type": "main-collection",
       "blocks": {
@@ -23,6 +35,8 @@
             "show_filter_label": false,
             "enable_sorting": true,
             "enable_grid_density": true,
+            "background_color": "",
+            "text_color": "",
             "padding-block-start": 8,
             "padding-block-end": 8,
             "padding-inline-start": 0,
@@ -41,6 +55,7 @@
             "border": "none",
             "border_width": 1,
             "border_opacity": 100,
+            "border_color": "",
             "border_radius": 10,
             "padding-block-start": 0,
             "padding-block-end": 0,
@@ -55,6 +70,7 @@
                 "border": "none",
                 "border_width": 1,
                 "border_opacity": 100,
+                "border_color": "",
                 "border_radius": 0,
                 "padding-block-start": 0,
                 "padding-block-end": 0,
@@ -81,16 +97,19 @@
                 "height": "fit",
                 "custom_height": 100,
                 "background_media": "none",
+                "background_color": "",
                 "video_position": "cover",
                 "background_image_position": "cover",
-                "border": "none",
-                "border_width": 1,
-                "border_opacity": 100,
-                "border_radius": 0,
                 "toggle_overlay": false,
                 "overlay_color": "#00000026",
                 "overlay_style": "solid",
                 "gradient_direction": "to top",
+                "border": "none",
+                "border_width": 1,
+                "border_opacity": 100,
+                "border_color": "",
+                "border_radius": 0,
+                "link": "",
                 "open_in_new_tab": false,
                 "padding-block-start": 24,
                 "padding-block-end": 24,
@@ -112,6 +131,7 @@
                     "letter_spacing": "normal",
                     "case": "none",
                     "wrap": "pretty",
+                    "text_color": "",
                     "background": false,
                     "background_color": "#00000026",
                     "corner_radius": 0,
@@ -136,6 +156,7 @@
                     "line_height": "normal",
                     "letter_spacing": "normal",
                     "case": "none",
+                    "text_color": "",
                     "padding-block-start": 0,
                     "padding-block-end": 0,
                     "padding-inline-start": 0,
@@ -176,6 +197,7 @@
         "product_card_size": "medium",
         "mobile_product_card_size": "small",
         "enable_infinite_scroll": false,
+        "products_per_page": 24,
         "product_grid_width": "centered",
         "full_width_on_mobile": false,
         "columns_gap_horizontal": 16,
@@ -185,16 +207,6 @@
         "background_color": "{{ settings.color_palette.background }}",
         "padding-block-start": 32,
         "padding-block-end": 32
-      }
-    },
-    "banner": {
-      "type": "rsh-collection-banner",
-      "settings": {
-        "show_description": true,
-        "title_scrim": false,
-        "section_width": "page-width",
-        "padding-block-start": 24,
-        "padding-block-end": 24
       }
     }
   },
