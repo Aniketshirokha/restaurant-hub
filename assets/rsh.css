@@ -3004,7 +3004,9 @@
 
 .rsh-founders__figures {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(9rem, 1fr));
+  /* 8rem lets two figures share a row on a 390px phone instead of stacking
+     three tall rows; from tablet up all three sit together as before. */
+  grid-template-columns: repeat(auto-fit, minmax(8rem, 1fr));
   gap: 1rem 1.5rem;
   margin: 2rem 0 0;
   padding: 1.5rem 0 0;
