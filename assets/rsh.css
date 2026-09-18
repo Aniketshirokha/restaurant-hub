@@ -147,24 +147,34 @@
   container-type: inline-size;
 }
 
+/*
+ * This table is the offer, so it is set at reading size rather than the small
+ * size a supporting table would take.
+ */
+
 .rsh-tier__table {
   width: 100%;
   border-collapse: collapse;
   font-variant-numeric: tabular-nums;
-  font-size: var(--font-size--sm, 0.875rem);
+  font-size: 0.9375rem;
   text-align: start;
 }
 
 .rsh-tier__table th,
 .rsh-tier__table td {
-  padding: 0.55rem 0.5rem;
+  padding: 0.85rem 0.6rem;
   text-align: start;
   border-block-end: 1px solid var(--rsh-hairline);
 }
 
+/* A quiet stripe so the eye tracks across a row without a ruler. */
+.rsh-tier__table tbody tr:nth-child(odd) {
+  background: var(--rsh-wash);
+}
+
 .rsh-tier__table thead th {
-  padding-block: 0.35rem;
-  font-size: var(--font-size--2xs, 0.75rem);
+  padding-block: 0.5rem;
+  font-size: 0.75rem;
   font-weight: 600;
   letter-spacing: 0.04em;
   text-transform: uppercase;
@@ -207,13 +217,13 @@
 
 .rsh-tier__badge {
   display: inline-block;
-  padding: 0.1rem 0.45rem;
-  font-size: var(--font-size--2xs, 0.75rem);
-  font-weight: 600;
+  padding: 0.22rem 0.6rem;
+  font-size: 0.8125rem;
+  font-weight: 650;
   white-space: nowrap;
   color: var(--rsh-accent);
   background: var(--rsh-accent-wash);
-  border-radius: calc(var(--rsh-radius) / 1.5);
+  border-radius: 999px;
 }
 
 /*

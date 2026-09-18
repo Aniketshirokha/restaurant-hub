@@ -342,7 +342,8 @@
         "section_width": "page-width",
         "background_color": "",
         "padding-block-start": 48,
-        "padding-block-end": 48
+        "padding-block-end": 48,
+        "show_photo": false
       }
     },
     "product_list_9xDfTQ": {

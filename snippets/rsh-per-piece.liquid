@@ -53,7 +53,10 @@
     assign pad_from_end = 0 | minus: places
     assign fraction_padded = fraction | prepend: '0000' | slice: pad_from_end, places
 
-    assign symbol = currency_symbol | default: cart.currency.symbol | default: '$'
+    # Take the symbol the shop actually prints, so this line and the case price
+    # beside it do not disagree about what the currency looks like.
+    assign format_symbol = shop.money_format | split: '{{' | first | strip_html | strip
+    assign symbol = currency_symbol | default: format_symbol | default: cart.currency.symbol | default: '$'
 
     echo symbol
     echo whole
