@@ -1,0 +1,225 @@
+{%- doc -%}
+  The deals page headline: the volume ladder, as cards rather than the table the
+  product page uses.
+
+  A deals page usually lists whatever happens to be marked down this week. This
+  store's actual offer is structural and permanent, so it leads with that: the
+  discount every order earns by size, counted across the whole cart rather than
+  per item, which is the part competitors do not do.
+
+  The ladder comes from `rsh-tier-list`, the same source the product page and the
+  home page read, so a change in theme settings moves every one of them together
+  and this page can never advertise a discount the cart will not apply.
+{%- enddoc -%}
+
+{% liquid
+  capture tier_list
+    render 'rsh-tier-list'
+  endcapture
+  assign tiers = tier_list | strip | split: ','
+  assign quote_min = settings.rsh_quote_min | default: 50 | plus: 0
+
+  assign deepest = 0
+  for tier in tiers
+    assign parts = tier | split: ':'
+    assign discount = parts[1] | plus: 0
+    if discount > deepest
+      assign deepest = discount
+    endif
+  endfor
+
+  if section.settings.background_color != blank
+    render 'contrast-override', background_color: section.settings.background_color, section_id: section.id
+  endif
+%}
+
+<div
+  class="section-background{% if section.settings.background_color != blank %} color-custom-{{ section.id }}{% endif %}"
+></div>
+
+<div
+  class="
+    section
+    section--{{ section.settings.section_width }}
+    {% if section.settings.background_color != blank %}color-custom-{{ section.id }}{% endif %}
+    spacing-style gap-style
+  "
+  style="
+    {% render 'spacing-style', settings: section.settings %}
+    {% render 'gap-style', value: section.settings.gap %}
+  "
+>
+  <div class="rsh-deals__head">
+    {%- if section.settings.eyebrow != blank -%}
+      <p class="rsh-eyebrow">{{ section.settings.eyebrow }}</p>
+    {%- endif -%}
+    {%- if section.settings.heading != blank -%}
+      <h2 class="rsh-deals__heading">{{ section.settings.heading }}</h2>
+    {%- endif -%}
+    {%- if section.settings.body != blank -%}
+      <div class="rsh-deals__lede rte">{{ section.settings.body }}</div>
+    {%- endif -%}
+  </div>
+
+  <ol class="rsh-deals__ladder" role="list">
+    {%- for tier in tiers -%}
+      {%- liquid
+        assign parts = tier | split: ':'
+        assign tier_min = parts[0] | plus: 0
+        assign tier_discount = parts[1] | plus: 0
+
+        assign next_index = forloop.index
+        assign next_tier = tiers[next_index]
+        if next_tier != blank
+          assign next_parts = next_tier | split: ':'
+          assign tier_max = next_parts[0] | minus: 1
+        else
+          assign tier_max = quote_min | minus: 1
+        endif
+
+        assign is_best = false
+        if tier_discount == deepest and tier_discount > 0
+          assign is_best = true
+        endif
+      -%}
+      <li class="rsh-deals__step{% if is_best %} is-best{% endif %}">
+        {%- if is_best -%}
+          <span class="rsh-deals__flag">Best rate</span>
+        {%- endif -%}
+
+        <p class="rsh-deals__off">
+          {%- if tier_discount > 0 -%}
+            {{ tier_discount }}<span class="rsh-deals__pct">% off</span>
+          {%- else -%}
+            <span class="rsh-deals__base">Standard</span>
+          {%- endif -%}
+        </p>
+
+        <p class="rsh-deals__range">
+          {%- if tier_min == tier_max -%}
+            {{ tier_min }} case
+          {%- else -%}
+            {{ tier_min }}&ndash;{{ tier_max }} cases
+          {%- endif -%}
+        </p>
+      </li>
+    {%- endfor -%}
+
+    <li class="rsh-deals__step rsh-deals__step--quote">
+      <p class="rsh-deals__off"><span class="rsh-deals__base">Talk to us</span></p>
+      <p class="rsh-deals__range">{{ quote_min }}+ cases</p>
+      {%- if section.settings.quote_link != blank -%}
+        <a class="rsh-deals__quote-link" href="{{ section.settings.quote_link }}">
+          Request a quote
+        </a>
+      {%- endif -%}
+    </li>
+  </ol>
+
+  {%- if section.settings.note != blank -%}
+    <p class="rsh-deals__note">
+      <span class="rsh-deals__note-mark svg-wrapper" aria-hidden="true">
+        {{- 'icon-checkmark.svg' | inline_asset_content -}}
+      </span>
+      {{ section.settings.note }}
+    </p>
+  {%- endif -%}
+</div>
+
+{% schema %}
+{
+  "name": "Deal ladder",
+  "settings": [
+    {
+      "type": "paragraph",
+      "content": "The tiers are read from Theme settings under Case and per-piece pricing, so this page, the product page and the home page can never disagree."
+    },
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Eyebrow",
+      "default": "Volume pricing"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "The deal is the size of your order"
+    },
+    {
+      "type": "richtext",
+      "id": "body",
+      "label": "Body",
+      "default": "<p>No codes, no membership and nothing to claim. The discount applies the moment your cart reaches the next tier, and it counts every case in the cart rather than cases of one product.</p>"
+    },
+    {
+      "type": "text",
+      "id": "note",
+      "label": "Note under the ladder",
+      "default": "Four cases of containers, three of gloves and five of liners is twelve cases, and all of it gets the twelve-case price."
+    },
+    {
+      "type": "url",
+      "id": "quote_link",
+      "label": "Quote link"
+    },
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+    {
+      "type": "select",
+      "id": "section_width",
+      "label": "Width",
+      "options": [
+        { "value": "page-width", "label": "Page" },
+        { "value": "full-width", "label": "Full" }
+      ],
+      "default": "page-width"
+    },
+    {
+      "type": "range",
+      "id": "gap",
+      "label": "Gap",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "default": 32
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background",
+      "placeholder": "Default"
+    },
+    {
+      "type": "header",
+      "content": "Padding"
+    },
+    {
+      "type": "range",
+      "id": "padding-block-start",
+      "label": "Top",
+      "min": 0,
+      "max": 200,
+      "step": 4,
+      "unit": "px",
+      "default": 64
+    },
+    {
+      "type": "range",
+      "id": "padding-block-end",
+      "label": "Bottom",
+      "min": 0,
+      "max": 200,
+      "step": 4,
+      "unit": "px",
+      "default": 64
+    }
+  ],
+  "presets": [
+    { "name": "Deal ladder" }
+  ]
+}
+{% endschema %}
