@@ -2357,3 +2357,30 @@
   font-weight: 600;
   color: var(--rsh-accent);
 }
+
+/*
+ * Submenu links in the body face, group headings left in the heading one.
+ *
+ * The header's link font is set to "heading", which is Archivo Black. That is a
+ * black display face, so it made every level of the menu read as bold: the
+ * group titles and the links under them looked the same weight. Only the titles
+ * should carry it.
+ *
+ * The theme drives both levels from the same `--menu-child-*` / `--menu-parent-*`
+ * variables, and those are written inline, so the properties are overridden here
+ * rather than the variables. Specificity is raised deliberately: the mega menu
+ * rule sits behind `.mega-menu__grid`, and the drawer rule repeats its class,
+ * because the theme's own rules are a single class each.
+ */
+
+.mega-menu__grid .mega-menu__link:not(.mega-menu__link--parent),
+.menu-drawer__menu-item--child.menu-drawer__menu-item--child {
+  font-family: var(--font-body--family, inherit);
+  font-style: var(--font-body--style, normal);
+  font-weight: var(--font-body--weight, 400);
+}
+
+/* The headings keep the display face and get a little more room under them. */
+.mega-menu__grid .mega-menu__link--parent {
+  margin-block-end: 0.25rem;
+}
