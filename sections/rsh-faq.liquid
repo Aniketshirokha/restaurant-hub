@@ -67,12 +67,39 @@
   </div>
 </div>
 
+{%- if section.settings.schema -%}
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+        {%- assign first = true -%}
+        {%- for block in section.blocks -%}
+          {%- if block.settings.question != blank and block.settings.answer != blank -%}
+            {%- unless first %},{% endunless -%}
+            {%- assign first = false -%}
+            {
+              "@type": "Question",
+              "name": {{ block.settings.question | strip_html | strip | json }},
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": {{ block.settings.answer | strip_html | strip | json }}
+              }
+            }
+          {%- endif -%}
+        {%- endfor -%}
+      ]
+    }
+  </script>
+{%- endif -%}
+
 {% schema %}
 {
   "name": "Questions",
   "tag": "section",
   "max_blocks": 16,
   "settings": [
+    { "type": "checkbox", "id": "schema", "label": "Mark up as FAQ for search engines", "default": true },
     {
       "type": "paragraph",
       "content": "With any of the text below filled in, the questions sit on the left and the text beside them on the right, and stays in view as the list scrolls. Leave it all empty for the list on its own."

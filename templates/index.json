@@ -12,10 +12,10 @@
     "rsh_hero": {
       "type": "rsh-hero",
       "settings": {
-        "eyebrow": "Wholesale restaurant supply",
-        "heading": "The number that matters is",
-        "heading_accent": "per piece.",
-        "body": "<p>Containers, cups, gloves, liners and paper by the case — with the per-piece price on every product and the volume ladder in plain sight. Check it against your last invoice.</p>",
+        "eyebrow": "Bought direct, sold by the case",
+        "heading": "Wholesale restaurant supplies,",
+        "heading_accent": "priced by the piece.",
+        "body": "<p>Take-out containers, cups and lids, nitrile gloves, foil pans, bags and paper goods by the case, with the per-piece price on every product and the volume ladder in plain sight. Check it against your last invoice.</p>",
         "primary_label": "Shop all",
         "primary_link": "shopify://collections/shop-all",
         "secondary_label": "Why us",
@@ -336,50 +336,50 @@
         "collection_Wmt7mN": {
           "type": "collection",
           "settings": {
-            "collection": "aluminum-pans-foil-lids",
+            "collection": "take-out-containers",
             "custom_image": "shopify://shop_images/hf_20260917_131703_a2f5970e-5f50-474c-865f-7c4fdcade36d.png",
-            "custom_title": "Collection title",
-            "short_description": "Reliable products for everyday operations."
+            "custom_title": "Take-out containers",
+            "short_description": "Clamshells, hinged boxes and fold-to-go cartons that survive the drive."
           }
         },
         "collection_qb3xxw": {
           "type": "collection",
           "settings": {
-            "collection": "bath-tissue",
-            "custom_title": "Collection title",
-            "short_description": "Reliable products for everyday operations."
+            "collection": "microwaveable-containers",
+            "custom_title": "Microwavable containers",
+            "short_description": "Reheat-safe bases and clear lids, 8 to 58 oz, for delivery and meal prep."
           }
         },
         "collection_CeUiAN": {
           "type": "collection",
           "settings": {
-            "collection": "cafes-coffee-shops",
-            "custom_title": "Collection title",
-            "short_description": "Reliable products for everyday operations."
+            "collection": "deli-soup-containers",
+            "custom_title": "Deli and soup containers",
+            "short_description": "8 to 32 oz rounds with lids that seal soups, sauces and prep."
           }
         },
         "collection_GBRyAG": {
           "type": "collection",
           "settings": {
-            "collection": "cleaning-chemicals",
-            "custom_title": "Collection title",
-            "short_description": "Reliable products for everyday operations."
+            "collection": "disposable-gloves",
+            "custom_title": "Disposable gloves",
+            "short_description": "Powder-free nitrile by the case, priced per glove."
           }
         },
         "collection_NQhizx": {
           "type": "collection",
           "settings": {
-            "collection": "cold-cups-lids",
-            "custom_title": "Collection title",
-            "short_description": "Reliable products for everyday operations."
+            "collection": "hot-cups-lids",
+            "custom_title": "Hot cups and lids",
+            "short_description": "Paper hot cups from 4 to 24 oz with lids that fit."
           }
         },
         "collection_paewD3": {
           "type": "collection",
           "settings": {
-            "collection": "disposable-gloves",
-            "custom_title": "Collection title",
-            "short_description": "Reliable products for everyday operations."
+            "collection": "carry-out-bags",
+            "custom_title": "Carry-out bags",
+            "short_description": "Kraft, twisted-handle and T-shirt bags for takeout counters."
           }
         }
       },
@@ -393,9 +393,9 @@
       ],
       "name": "Animated collections",
       "settings": {
-        "eyebrow": "Explore our range",
-        "heading": "Everything your kitchen needs.",
-        "description": "Explore dependable restaurant supplies, thoughtfully organized for every kind of kitchen.",
+        "eyebrow": "Shop by category",
+        "heading": "Everything the back of house goes through",
+        "description": "Take-out containers, cups and lids, gloves, foil, bags and paper, sold by the case with the per-piece price on every product.",
         "background_color": "#f4f3ef",
         "text_color": "#1b211d",
         "accent_color": "#6b7567",
@@ -615,7 +615,7 @@
       "settings": {
         "eyebrow": "Our story",
         "heading": "17 years of knowing exactly who makes the good stuff",
-        "body": "<p>Restaurant Supply Hub was built by two people — <strong>Mr. Jeevan and Mr. Hemant</strong> — who spent their careers on the supply side of this business: walking factory floors, testing product that looked fine until you put hot food in it, and learning what a container should actually cost before three layers of middlemen mark it up.</p>",
+        "body": "<p>Restaurant Supply Hub was built by two people, <strong>Mr. Jeevan and Mr. Hemant</strong>, who spent their careers on the supply side of this business: walking factory floors, testing product that looked fine until you put hot food in it, and learning what a container should actually cost before three layers of middlemen mark it up.</p>",
         "button_label": "Our story",
         "button_link": "shopify://pages/why-us",
         "media": "logo",
@@ -882,7 +882,7 @@
         "v1": {
           "type": "check",
           "settings": {
-            "text": "No code, ever — it just applies"
+            "text": "No code, ever. It just applies"
           }
         },
         "v2": {
@@ -914,7 +914,7 @@
         "eyebrow": "Volume discounts",
         "heading": "The more you stock,",
         "heading_accent": "the less you pay",
-        "lede": "<p>Discounts apply automatically the moment your cart hits the next tier. No code, no rep to call — the price just drops.</p>",
+        "lede": "<p>Discounts apply automatically the moment your cart hits the next tier. No code and no rep to call. The price just drops.</p>",
         "primary_label": "See volume pricing",
         "primary_link": "shopify://pages/deals",
         "secondary_label": "Shop all supplies",
@@ -974,21 +974,21 @@
           "type": "qa",
           "settings": {
             "question": "Is there a minimum order?",
-            "answer": "<p>No minimum to get started. Order a single case if that's what you need. Volume discounts kick in automatically as you add more.</p><p><a href=\"/pages/deals\">See volume pricing →</a></p>"
+            "answer": "<p>No minimum to get started. Order a single case if that's what you need. Volume discounts kick in automatically as you add more.</p><p><a href=\"/pages/deals\">See volume pricing</a></p>"
           }
         },
         "q3": {
           "type": "qa",
           "settings": {
             "question": "Why are your prices lower than other suppliers?",
-            "answer": "<p>We buy direct from the factories instead of through layers of distributors, and we keep overhead thin. Same grade, shorter chain.</p><p><a href=\"/pages/why-us\">The full breakdown →</a></p>"
+            "answer": "<p>We buy direct from the factories instead of through layers of distributors, and we keep overhead thin. Same grade, shorter chain.</p><p><a href=\"/pages/why-us\">The full breakdown</a></p>"
           }
         },
         "q4": {
           "type": "qa",
           "settings": {
             "question": "Is the quality actually the same as the big brands?",
-            "answer": "<p>Yes. Same grades, same kind of factories. Our food packaging is rated 0°F to 180°F, leak-resistant, microwave and freezer safe.</p>"
+            "answer": "<p>Yes. Same grades, from the same kind of factories. Each product page says whether the item is microwave and freezer safe, so you are not guessing from the material.</p>"
           }
         },
         "q5": {

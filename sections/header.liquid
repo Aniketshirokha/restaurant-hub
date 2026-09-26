@@ -311,15 +311,72 @@
   {% endif %}
 {% endcapture %}
 
+{%- liquid
+  assign brand = settings.rsh_brand_name | default: shop.name
+  assign org_email = settings.rsh_org_email | default: shop.email
+  assign same_as = ''
+  if settings.rsh_social_facebook != blank
+    assign same_as = same_as | append: settings.rsh_social_facebook | append: '|'
+  endif
+  if settings.rsh_social_instagram != blank
+    assign same_as = same_as | append: settings.rsh_social_instagram | append: '|'
+  endif
+  if settings.rsh_social_linkedin != blank
+    assign same_as = same_as | append: settings.rsh_social_linkedin | append: '|'
+  endif
+  if settings.rsh_social_tiktok != blank
+    assign same_as = same_as | append: settings.rsh_social_tiktok | append: '|'
+  endif
+  if settings.rsh_social_x != blank
+    assign same_as = same_as | append: settings.rsh_social_x | append: '|'
+  endif
+  if settings.rsh_social_youtube != blank
+    assign same_as = same_as | append: settings.rsh_social_youtube | append: '|'
+  endif
+  assign same_as_list = same_as | split: '|'
+-%}
 <script type="application/ld+json">
   {
-    "@context": "http://schema.org",
+    "@context": "https://schema.org",
     "@type": "Organization",
-    "name": {{ shop.name | json }},
+    "name": {{ brand | json }},
+    "url": {{ request.origin | json }},
     {% if settings.logo %}
       "logo": {{ settings.logo | image_url: width: 500 | prepend: "https:" | json }},
     {% endif %}
-    "url": {{ request.origin | append: page.url | json }}
+    {% if org_email != blank %}
+      "email": {{ org_email | json }},
+    {% endif %}
+    {% if settings.rsh_org_phone != blank %}
+      "telephone": {{ settings.rsh_org_phone | json }},
+    {% endif %}
+    {% if same_as_list.size > 0 %}
+      "sameAs": {{ same_as_list | json }},
+    {% endif %}
+    "address": {
+      "@type": "PostalAddress",
+      {% if settings.rsh_org_locality != blank %}
+        "addressLocality": {{ settings.rsh_org_locality | json }},
+      {% endif %}
+      "addressRegion": {{ settings.rsh_org_region | default: 'CA' | json }},
+      "addressCountry": "US"
+    }
+  }
+</script>
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "name": {{ brand | json }},
+    "url": {{ request.origin | json }},
+    "potentialAction": {
+      "@type": "SearchAction",
+      "target": {
+        "@type": "EntryPoint",
+        "urlTemplate": {{ request.origin | append: '/search?q={search_term_string}' | json }}
+      },
+      "query-input": "required name=search_term_string"
+    }
   }
 </script>
 

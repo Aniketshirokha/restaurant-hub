@@ -377,7 +377,7 @@
                     "row_bulk_copy": {
                       "type": "rsh-copy",
                       "settings": {
-                        "text": "<p>Volume discounts apply on their own as your cart grows, counted across everything in it rather than per product. The ladder above shows every step.</p><p>Past [quote] cases, or for a recurring order, ask for a quote and we'll fit pricing to the volume.</p><p><a href=\"/pages/contact\">Ask for a quote →</a></p>",
+                        "text": "<p>Volume discounts apply on their own as your cart grows, counted across everything in it rather than per product. The ladder above shows every step.</p><p>Past [quote] cases, or for a recurring order, ask for a quote and we'll fit pricing to the volume.</p><p><a href=\"/pages/contact\">Ask for a quote</a></p>",
                         "padding-block-start": 0,
                         "padding-block-end": 0
                       }
@@ -399,7 +399,7 @@
                     "row_help_copy": {
                       "type": "rsh-copy",
                       "settings": {
-                        "text": "<p>17 years of sourcing usually means we know off the top of our head. Tell us the menu item and how it travels, and we'll say which container, lid and size.</p><p><a href=\"/pages/contact#rsh-contact-form\">Ask a question →</a></p>",
+                        "text": "<p>17 years of sourcing usually means we know off the top of our head. Tell us the menu item and how it travels, and we'll say which container, lid and size.</p><p><a href=\"/pages/contact#rsh-contact-form\">Ask a question</a></p>",
                         "padding-block-start": 0,
                         "padding-block-end": 0
                       }
@@ -519,7 +519,7 @@
               "type": "_product-list-text",
               "name": "t:names.collection_title",
               "settings": {
-                "text": "<p>Shop The Full Collection</p>",
+                "text": "<p>More from the catalogue</p>",
                 "width": "100%",
                 "max_width": "normal",
                 "alignment": "center",

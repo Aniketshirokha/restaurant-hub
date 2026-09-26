@@ -2118,6 +2118,96 @@
     ]
   },
   {
+    "name": "Store identity & search",
+    "settings": [
+      {
+        "type": "paragraph",
+        "content": "What search engines and share cards show. The shop name under Settings > General still names Shopify's own emails and checkout, so set both."
+      },
+      {
+        "type": "text",
+        "id": "rsh_brand_name",
+        "label": "Brand name",
+        "default": "Restaurant Supply Hub"
+      },
+      {
+        "type": "text",
+        "id": "rsh_home_title",
+        "label": "Home page title",
+        "default": "Wholesale Restaurant Supplies & Disposables by the Case",
+        "info": "Up to about 60 characters shows in full in search results."
+      },
+      {
+        "type": "textarea",
+        "id": "rsh_home_description",
+        "label": "Home page description",
+        "default": "Take-out containers, cups and lids, nitrile gloves, foil pans, bags and paper goods at wholesale prices, sold by the case with the per-piece cost shown. No minimum, no membership, ships nationwide.",
+        "info": "Up to about 155 characters shows in full in search results."
+      },
+      {
+        "type": "header",
+        "content": "Business details for search engines"
+      },
+      {
+        "type": "text",
+        "id": "rsh_org_email",
+        "label": "Public email",
+        "info": "Blank uses the store's sender email."
+      },
+      {
+        "type": "text",
+        "id": "rsh_org_phone",
+        "label": "Public phone"
+      },
+      {
+        "type": "text",
+        "id": "rsh_org_locality",
+        "label": "City"
+      },
+      {
+        "type": "text",
+        "id": "rsh_org_region",
+        "label": "State",
+        "default": "CA"
+      },
+      {
+        "type": "header",
+        "content": "Social profiles",
+        "info": "Also used by the footer when its own links are blank."
+      },
+      {
+        "type": "url",
+        "id": "rsh_social_facebook",
+        "label": "Facebook"
+      },
+      {
+        "type": "url",
+        "id": "rsh_social_instagram",
+        "label": "Instagram"
+      },
+      {
+        "type": "url",
+        "id": "rsh_social_linkedin",
+        "label": "LinkedIn"
+      },
+      {
+        "type": "url",
+        "id": "rsh_social_tiktok",
+        "label": "TikTok"
+      },
+      {
+        "type": "url",
+        "id": "rsh_social_x",
+        "label": "X"
+      },
+      {
+        "type": "url",
+        "id": "rsh_social_youtube",
+        "label": "YouTube"
+      }
+    ]
+  },
+  {
     "name": "Case & per-piece pricing",
     "settings": [
       {

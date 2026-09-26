@@ -30,7 +30,7 @@
           "type": "card",
           "settings": {
             "title": "Shipping & delivery",
-            "text": "Fast, nationwide, free over $[threshold]. Tracking on every order — no surprise fuel surcharge."
+            "text": "Fast, nationwide, free over $[threshold]. Tracking on every order and no surprise fuel surcharge."
           }
         },
         "c2": {
@@ -193,21 +193,21 @@
           "type": "qa",
           "settings": {
             "question": "Is there a minimum order?",
-            "answer": "<p>No minimum to get started. Order a single case if that's what you need. Volume discounts kick in automatically as you add more.</p><p><a href=\"/pages/deals\">See volume pricing →</a></p>"
+            "answer": "<p>No minimum to get started. Order a single case if that's what you need. Volume discounts kick in automatically as you add more.</p><p><a href=\"/pages/deals\">See volume pricing</a></p>"
           }
         },
         "q3": {
           "type": "qa",
           "settings": {
             "question": "Why are your prices lower than other suppliers?",
-            "answer": "<p>We buy direct from the factories instead of through layers of distributors, and we keep overhead thin. Same grade, shorter chain.</p><p><a href=\"/pages/why-us\">The full breakdown →</a></p>"
+            "answer": "<p>We buy direct from the factories instead of through layers of distributors, and we keep overhead thin. Same grade, shorter chain.</p><p><a href=\"/pages/why-us\">The full breakdown</a></p>"
           }
         },
         "q4": {
           "type": "qa",
           "settings": {
             "question": "Is the quality actually the same as the big brands?",
-            "answer": "<p>Yes. Same grades, same kind of factories. Our food packaging is rated 0°F to 180°F, leak-resistant, microwave and freezer safe.</p>"
+            "answer": "<p>Yes. Same grades, from the same kind of factories. Each product page says whether the item is microwave and freezer safe, so you are not guessing from the material.</p>"
           }
         },
         "q5": {

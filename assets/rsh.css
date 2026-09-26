@@ -43,8 +43,8 @@
   margin: 0;
   font-size: var(--font-size--xs, 0.8125rem);
   font-weight: 600;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
+  letter-spacing: 0.01em;
+  text-transform: none;
   color: var(--rsh-muted);
 }
 
@@ -55,7 +55,7 @@
   font-style: var(--font-accent--style, normal);
   font-weight: var(--font-accent--weight, 600);
   font-size: 0.75rem;
-  letter-spacing: 0.12em;
+  letter-spacing: 0.01em;
 }
 
 .rsh-kicker--empty {
@@ -191,7 +191,7 @@
   font-size: 0.75rem;
   font-weight: 600;
   letter-spacing: 0.04em;
-  text-transform: uppercase;
+  text-transform: none;
   color: var(--rsh-muted);
   border-block-end-color: var(--rsh-hairline-strong);
 }
@@ -415,7 +415,7 @@
   font-size: var(--font-size--2xs, 0.75rem);
   font-weight: 600;
   letter-spacing: 0.05em;
-  text-transform: uppercase;
+  text-transform: none;
   color: var(--rsh-muted);
 }
 
@@ -1920,8 +1920,8 @@
   font-style: var(--font-accent--style, normal);
   font-weight: var(--font-accent--weight, 600);
   font-size: 0.78125rem;
-  letter-spacing: 0.16em;
-  text-transform: uppercase;
+  letter-spacing: 0.01em;
+  text-transform: none;
   color: var(--hero-eyebrow);
 }
 
@@ -2052,7 +2052,7 @@
   font-size: var(--font-size--sm, 0.75rem);
   font-weight: 650;
   letter-spacing: 0.1em;
-  text-transform: uppercase;
+  text-transform: none;
   color: #1b7a3d;
 }
 
@@ -2200,7 +2200,7 @@
 
   .rsh-hero__eyebrow {
     font-size: 0.75rem;
-    letter-spacing: 0.14em;
+    letter-spacing: 0.01em;
   }
 
   .rsh-hero__eyebrow + .rsh-hero__heading {
@@ -2357,8 +2357,8 @@
   padding: 0.2rem 0.7rem;
   font-size: 0.6875rem;
   font-weight: 700;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
+  letter-spacing: 0.01em;
+  text-transform: none;
   color: #fff;
   white-space: nowrap;
   background: var(--rsh-accent);
@@ -2621,8 +2621,8 @@
   font-style: var(--font-accent--style, normal);
   font-weight: var(--font-accent--weight, 600);
   font-size: var(--font-size--xs, 0.8125rem);
-  letter-spacing: 0.07em;
-  text-transform: uppercase;
+  letter-spacing: 0.01em;
+  text-transform: none;
   color: var(--rsh-muted);
 }
 
@@ -2739,8 +2739,8 @@
   font-weight: var(--font-accent--weight, 600);
   font-size: var(--font-size--xs, 0.8125rem);
   line-height: 1.2;
-  letter-spacing: 0.07em;
-  text-transform: uppercase;
+  letter-spacing: 0.01em;
+  text-transform: none;
   color: var(--rsh-muted);
   text-wrap: balance;
 }
@@ -2872,8 +2872,8 @@
   font-family: var(--font-accent--family, inherit);
   font-weight: var(--font-accent--weight, 600);
   font-size: 0.78125rem;
-  letter-spacing: 0.16em;
-  text-transform: uppercase;
+  letter-spacing: 0.01em;
+  text-transform: none;
   color: var(--rsh-band-eyebrow);
 }
 
@@ -3047,8 +3047,8 @@
   font-family: var(--font-accent--family, inherit);
   font-weight: var(--font-accent--weight, 600);
   font-size: 0.78125rem;
-  letter-spacing: 0.07em;
-  text-transform: uppercase;
+  letter-spacing: 0.01em;
+  text-transform: none;
   color: var(--rsh-muted);
   max-inline-size: 16ch;
 }
@@ -3135,8 +3135,8 @@
   font-family: var(--font-accent--family, inherit);
   font-weight: var(--font-accent--weight, 600);
   font-size: 0.78125rem;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
+  letter-spacing: 0.01em;
+  text-transform: none;
   color: var(--rsh-muted);
 }
 
@@ -3192,7 +3192,7 @@
   font-weight: var(--font-accent--weight, 600);
   font-size: 0.75rem;
   letter-spacing: 0.04em;
-  text-transform: uppercase;
+  text-transform: none;
   color: #b3261e;
   white-space: nowrap;
 }
@@ -3965,7 +3965,7 @@
   font-family: var(--font-h1--family, inherit);
   font-weight: var(--font-h1--weight, 400);
   font-size: 0.9375rem;
-  letter-spacing: 0.08em;
+  letter-spacing: 0.01em;
   color: #47c67b;
 }
 
@@ -4005,7 +4005,7 @@
   font-weight: var(--font-accent--weight, 600);
   font-size: 0.78125rem;
   letter-spacing: 0.1em;
-  text-transform: uppercase;
+  text-transform: none;
   color: #47c67b;
 }
 
@@ -4216,8 +4216,8 @@
   font-family: var(--font-accent--family, inherit);
   font-weight: var(--font-accent--weight, 600);
   font-size: 0.78125rem;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
+  letter-spacing: 0.01em;
+  text-transform: none;
   color: rgb(252 252 251 / 0.6);
 }
 
@@ -4269,8 +4269,8 @@
   font-family: var(--font-accent--family, inherit);
   font-weight: var(--font-accent--weight, 600);
   font-size: 0.6875rem;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
+  letter-spacing: 0.01em;
+  text-transform: none;
   color: rgb(252 252 251 / 0.5);
 }
 
@@ -4341,7 +4341,7 @@
   font-weight: var(--font-accent--weight, 600);
   font-size: 0.6875rem;
   letter-spacing: 0.1em;
-  text-transform: uppercase;
+  text-transform: none;
   color: #08120d;
   background: #47c67b;
   border-radius: 999px;
@@ -4599,8 +4599,8 @@
   font-family: var(--font-accent--family, inherit);
   font-weight: var(--font-accent--weight, 600);
   font-size: 0.78125rem;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
+  letter-spacing: 0.01em;
+  text-transform: none;
   color: #47c67b;
 }
 
@@ -4712,8 +4712,8 @@
   min-block-size: 24px;
   font-family: var(--font-accent--family, inherit);
   font-weight: var(--font-accent--weight, 600);
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
+  letter-spacing: 0.01em;
+  text-transform: none;
   font-size: 0.75rem;
 }
 
@@ -4797,8 +4797,8 @@
   font-family: var(--font-accent--family, inherit);
   font-weight: var(--font-accent--weight, 600);
   font-size: 0.78125rem;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
+  letter-spacing: 0.01em;
+  text-transform: none;
   color: var(--rsh-muted);
 }
 
@@ -5054,9 +5054,9 @@
 
 .rsh-tgrid__product-kicker {
   font-size: 0.6875rem;
-  letter-spacing: 0.08em;
+  letter-spacing: 0.01em;
   color: var(--rsh-muted);
-  text-transform: uppercase;
+  text-transform: none;
 }
 
 .rsh-tgrid__product-title {
@@ -5274,8 +5274,8 @@ a.rsh-tgrid__pill {
   font-family: var(--font-accent--family, inherit);
   font-weight: var(--font-accent--weight, 600);
   font-size: 0.75rem;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
+  letter-spacing: 0.01em;
+  text-transform: none;
 }
 
 .rsh-tgrid__hint {
