@@ -21,7 +21,7 @@
             "menu": "main-menu",
             "parent": "SHOP",
             "extra_label": "Shop all supplies",
-            "extra_url": "shopify://collections/shop-all"
+            "extra_url": "shopify://collections/all"
           }
         },
         "business": {
@@ -44,18 +44,37 @@
             "url_2": "shopify://pages/deals",
             "label_3": "Contact",
             "url_3": "shopify://pages/contact",
-            "label_4": "",
-            "url_4": "",
-            "label_5": "",
-            "url_5": "",
-            "label_6": "",
-            "url_6": ""
+            "label_4": "FAQ",
+            "url_4": "shopify://pages/faq",
+            "label_5": "Shipping and delivery",
+            "url_5": "shopify://pages/shipping",
+            "label_6": "Returns and damages",
+            "url_6": "shopify://pages/returns"
+          }
+        },
+        "ordering": {
+          "type": "links",
+          "settings": {
+            "heading": "Ordering",
+            "label_1": "Wholesale pricing",
+            "url_1": "shopify://pages/wholesale",
+            "label_2": "Request a quote",
+            "url_2": "shopify://pages/request-a-quote",
+            "label_3": "Request a sample case",
+            "url_3": "shopify://pages/samples",
+            "label_4": "Quick order",
+            "url_4": "shopify://pages/quick-order",
+            "label_5": "Wholesale account",
+            "url_5": "shopify://pages/wholesale-application",
+            "label_6": "About us",
+            "url_6": "shopify://pages/about-us"
           }
         }
       },
       "block_order": [
         "shop",
         "business",
+        "ordering",
         "company"
       ],
       "settings": {

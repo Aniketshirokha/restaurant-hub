@@ -2356,13 +2356,9 @@
         "content": "Free shipping"
       },
       {
-        "type": "range",
+        "type": "number",
         "id": "rsh_free_shipping_threshold",
-        "label": "Free shipping over",
-        "min": 0,
-        "max": 500,
-        "step": 5,
-        "unit": "$",
+        "label": "Free shipping over ($)",
         "default": 149,
         "info": "Set to 0 to hide the cart progress bar. Must match your Shopify shipping rate."
       }

@@ -144,6 +144,18 @@ def _check_schema_defaults(path, schema, problems):
         groups.append((f'block "{block.get("type")}"', block.get('settings', []) or []))
     for where, settings in groups:
         for setting in settings:
+            if setting.get('type') == 'range' and 'default' in setting:
+                lo, hi, step, default = setting.get('min', 0), setting.get('max', 100), setting.get('step', 1), setting['default']
+                off = not isinstance(default, (int, float)) or default < lo or default > hi or (
+                    step and abs(((default - lo) / step) - round((default - lo) / step)) > 1e-9)
+                if off:
+                    problems.append(
+                        f'{path}: {where} range "{setting.get("id")}" defaults to {default!r}, which is not a step of '
+                        f'{step} between {lo} and {hi}; Shopify rejects the file (config/settings_schema.json sat '
+                        f'unsynced for six weeks over a default of 149 on a step of 5)'
+                    )
+                if step and (hi - lo) / step > 101:
+                    problems.append(f'{path}: {where} range "{setting.get("id")}" has more than 101 steps')
             allowed = ALLOWED_DEFAULTS.get(setting.get('type'))
             if allowed and 'default' in setting and setting['default'] not in allowed:
                 problems.append(
@@ -160,6 +172,17 @@ def check_schema_names():
         if schema is not None:
             _check_schema_names(path, schema, problems)
             _check_schema_defaults(path, schema, problems)
+    # config/settings_schema.json is a list of groups, each with settings;
+    # the same default rules apply, and the file sat unsynced for six weeks
+    # over one of them.
+    try:
+        groups = json.load(open('config/settings_schema.json'))
+    except (OSError, json.JSONDecodeError):
+        groups = []
+    for group in groups:
+        if not isinstance(group, dict) or not group.get('settings'):
+            continue
+        _check_schema_defaults(f'config/settings_schema.json [{group.get("name")}]', {'settings': group['settings']}, problems)
     return problems
 
 
