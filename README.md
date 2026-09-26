@@ -39,7 +39,7 @@ ladder is visible without asking, on any plan. So the pricing pieces are ours.
 | **Volume pricing table** | Home, Wholesale |
 | **Shop by business** | Home, Shop by business |
 | **Customer quotes** | Home, Reviews |
-| **Testimonial grid** | Product (20 empty slots; asks buyers for a quote until real ones go in) |
+| **Testimonial grid** | Product (three showing, "View more" for the rest; the home page's three illustrative quotes hold the first slots until real ones replace them) |
 | **Quick order pad** | Quick order |
 | **Wholesale application** | Wholesale application, Quote, Samples |
 | **Free shipping progress** | Cart |
@@ -133,8 +133,14 @@ revisiting.
 
 ### 4. Pages and templates
 
-Create each page under **Content → Pages** and assign the matching template. The
-copy is already in the templates, so the page body can stay empty.
+The pages exist in the store with the matching template assigned, and each one
+has its search title and description set under the page's **Search engine
+listing** (the `global.title_tag` and `global.description_tag` metafields,
+which Shopify feeds into `page_title` and `page_description` for the head).
+The section copy lives in the templates. Only `page.contact` renders the page
+body, so the contact page's body stays blank; the other pages carry a one- or
+two-sentence summary in the body, which the admin list and the storefront's
+own search results show.
 
 | Page handle | Template |
 |---|---|
@@ -143,14 +149,19 @@ copy is already in the templates, so the page body can stay empty.
 | `request-a-quote` | `page.request-a-quote` |
 | `quick-order` | `page.quick-order` |
 | `shop-by-business` | `page.shop-by-business` |
-| `about` | `page.about` |
+| `about-us` | `page.about` |
+| `why-us` | `page.why-us` |
+| `contact` | `page.contact` |
+| `deals` | `page.deals` |
 | `shipping` | `page.shipping` |
 | `returns` | `page.returns` |
 | `faq` | `page.faq` |
-| `rewards` | `page.rewards` |
-| `referral` | `page.referral` |
 | `samples` | `page.samples` |
-| `reviews` | `page.reviews` |
+
+Three templates ship without a page on purpose. `page.rewards` and
+`page.referral` describe a programme that needs a rewards app before the copy
+is true, and `page.reviews` is built around a review app's widget. Create
+those pages when the app is installed, not before.
 
 ### 5. Collections
 
@@ -162,6 +173,10 @@ Service, Disposable Gloves, Paper Products and Janitorial & Cleaning, plus
 Then point the Shop by business cards at those collections in the theme editor.
 A card with a collection picked takes its title, image and link from the
 collection, so renaming the collection cannot leave the card stale.
+
+Every collection carries a written description and its own search title and
+description, editable under the collection's **Search engine listing**.
+`content/collections.json` is the snapshot of that copy, keyed by handle.
 
 ### 6. Navigation
 
@@ -207,6 +222,46 @@ section, so the set can go up in any order.
 left a choice, and the short list of alt text that needs checking against the real
 pictures.
 
+### 10. Search engine setup
+
+Everything a search engine reads is set, and the theme reads it from one place.
+
+**Theme settings → Store identity & search** holds the brand name, the home
+page's search title and description, the business contact details and the
+social profile links. The brand name is what the `<title>` suffix and
+`og:site_name` use, so the shop name in **Settings → General** (still "My
+Store") only reaches checkout and email until it is renamed. The phone number,
+city and social links are blank until filled in here; they feed the
+Organization markup in the page head, and the footer falls back to the same
+social links when its own are empty.
+
+`snippets/meta-tags.liquid` builds the title and description for every page
+type: the home settings above on the index, and Shopify's own search title and
+description for products, collections and pages everywhere else, with the
+brand suffix added only when the title does not already carry it. The header
+section emits Organization and WebSite (site search) JSON-LD on every page,
+and the FAQ section emits FAQPage JSON-LD from its own questions, with a
+checkbox to turn that off.
+
+The copy itself lives in Shopify admin, not in the theme:
+
+| Where | What is written |
+|---|---|
+| Every product (309) | Title, description, search title, search description, alt text on every image |
+| Every collection (39) | Description, search title, search description |
+| Every page (13) | Search title, search description, summary body |
+
+`content/products.json` and `content/collections.json` are a snapshot of that
+copy as written, keyed by handle, so it can be diffed, restored or re-imported
+if a bulk edit goes wrong. The admin is the source of truth: edit there and
+refresh the snapshot, not the other way round.
+
+Product titles follow one pattern: what it is, the size, the material, then
+the supplier's model code in parentheses where that code is how buyers
+reorder. Search titles keep the product name and add "Wholesale" or the case
+count; search descriptions stay under 158 characters and say what the item is
+for, that it is sold by the case, and that the per-piece price is shown.
+
 ---
 
 ## Deliberately not built
@@ -225,12 +280,14 @@ average.
 
 **No invented testimonials.** The product page ends in a grid built for
 twenty real quotes, three showing and a "View more" for the rest, each linked to
-the product the buyer meant. Its twenty slots are empty and it renders nothing
-until a real quote goes in: writing testimonials and publishing them as buyers'
-words is what the FTC's rule on consumer reviews and testimonials bans
-(16 CFR 465), and the three illustrative quotes on the home page should be
-swapped for real ones, or removed, before the password comes off. Ask the buyer,
-keep their words as said, pick the product they bought.
+the product the buyer meant. Its first three slots carry the same three
+illustrative quotes as the home page, placed there at the owner's request; the
+other seventeen are empty and render nothing until a real quote goes in.
+Writing testimonials and publishing them as buyers' words is what the FTC's
+rule on consumer reviews and testimonials bans (16 CFR 465), so the three
+illustrative quotes, on the home page and in the grid, should be swapped for
+real ones, or removed, before the password comes off. Ask the buyer, keep their
+words as said, pick the product they bought.
 
 **No invented customer numbers.** "17 years sourcing this category" is true and
 checkable. "Trusted by 400 kitchens" is a claim that would have to be defended.
@@ -255,7 +312,7 @@ spots an invented specific immediately.
 7. Whether cases are broken for single-unit buyers.
 8. PFAS compliance documentation for the compostable line.
 9. Resale certificate and tax exemption process.
-10. Product photography for SKUs with no image.
+10. Product photography for the 58 products that have no image.
 
 Items 1 and 2 unblock pricing. Items 3, 4 and 5 fill every remaining bracket in
 the page copy in one pass.
@@ -272,3 +329,19 @@ shopify theme push --theme "Restaurant Supply Hub"
 
 Push to an unpublished theme first and check the product page against a product
 that actually has `pieces_per_case` set.
+
+Before every push, run the repo's own check:
+
+```bash
+python3 scripts/check-theme.py
+```
+
+Shopify's GitHub sync rejects a file silently when it fails the theme
+validator, and it does not resend an unchanged file it once rejected, so a bad
+file stays stale on the live theme with no error shown anywhere. The script
+encodes every rule that has caught this theme so far: dynamic sources that
+must be proven, schema names over 25 characters, `url` and `link_list`
+defaults Shopify refuses, range defaults off the step, and template settings
+that do not match their schema. When the sync still looks stuck,
+`themeFilesUpsert` against an unpublished copy of the theme returns the
+validator's real message.
